@@ -1,0 +1,343 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "story_circles": {
+      "type": "story-bubbles",
+      "blocks": {
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "title": "Explore Collection",
+            "link": ""
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "title": "Dresses",
+            "link": ""
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "title": "Co-ord sets",
+            "link": ""
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "title": "Tops",
+            "link": ""
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "title": "Maxi",
+            "link": ""
+          }
+        },
+        "story_6": {
+          "type": "story",
+          "settings": {
+            "title": "Party Wear",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5",
+        "story_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 12,
+        "padding_bottom": 24
+      }
+    },
+    "slideshow_banner": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image_overlay_opacity": 20,
+            "heading": "SUMMER BLOOMS ARE NEAR",
+            "heading_size": "h0",
+            "subheading": "Light fabrics. Fresh prints. New arrivals",
+            "button_label": "Explore Collection →",
+            "link": "shopify:\/\/collections\/all",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-right",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "image_overlay_opacity": 20,
+            "heading": "THE PREMIUM COLLECTION",
+            "heading_size": "h0",
+            "subheading": "Curated designs for every occasion",
+            "button_label": "Shop Now",
+            "link": "shopify:\/\/collections\/all",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": false
+      }
+    },
+    "new_arrivals": {
+      "type": "new-arrivals-premium",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "Fresh Picks",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "view_all_text": "View All",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "premium_collections": {
+      "type": "premium-collections",
+      "blocks": {
+        "col_1": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Summer Dresses",
+            "label": "New Season"
+          }
+        },
+        "col_2": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Co-ord Sets",
+            "label": "Trending"
+          }
+        },
+        "col_3": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Party Wear",
+            "label": "Exclusive"
+          }
+        }
+      },
+      "block_order": [
+        "col_1",
+        "col_2",
+        "col_3"
+      ],
+      "settings": {
+        "title": "Our Premium Collection",
+        "subtitle": "Curated For You",
+        "section_bg_color": "#f8f5f0",
+        "accent_color": "#a88b6a",
+        "heading_color": "#2c2c2c",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "shop_by_reels": {
+      "type": "shop-by-reels",
+      "blocks": {
+        "reel_1": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product_name": "Mermaid Scarf Dress",
+            "product_price": "3200"
+          }
+        },
+        "reel_2": {
+          "type": "reel",
+          "settings": {
+            "view_count": "4K",
+            "product_name": "Heartstring Emerald Dress",
+            "product_price": "2400"
+          }
+        },
+        "reel_3": {
+          "type": "reel",
+          "settings": {
+            "view_count": "4K",
+            "product_name": "Noir Sequin Top",
+            "product_price": "1300"
+          }
+        },
+        "reel_4": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product_name": "Lovisa Lace Up Dress",
+            "product_price": "2499"
+          }
+        },
+        "reel_5": {
+          "type": "reel",
+          "settings": {
+            "view_count": "8K",
+            "product_name": "Champagne Siren 3pcs Set",
+            "product_price": "2200"
+          }
+        },
+        "reel_6": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product_name": "Red Temptation Mini",
+            "product_price": "2499"
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6"
+      ],
+      "settings": {
+        "title": "Shop by Video",
+        "subtitle": "Watch & Shop",
+        "section_bg_color": "#f8f5f0",
+        "accent_color": "#a88b6a",
+        "heading_color": "#2c2c2c",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "price_drop_sales": {
+      "type": "new-arrivals-premium",
+      "settings": {
+        "title": "Price Drop & Sales",
+        "subtitle": "Limited Time Deals",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "view_all_text": "View All Deals",
+        "badge_mode": "sale_only",
+        "section_bg_color": "#ffffff",
+        "accent_color": "#c0392b",
+        "heading_color": "#2c2c2c",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "bestsellers_carousel": {
+      "type": "bestsellers-carousel",
+      "settings": {
+        "title": "Best Sellers",
+        "subtitle": "Top Picks",
+        "products_to_show": 8,
+        "auto_scroll_speed": 4,
+        "show_view_all": true,
+        "view_all_text": "View All Best Sellers",
+        "section_bg_color": "#ffffff",
+        "accent_color": "#a88b6a",
+        "heading_color": "#2c2c2c",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "testimonials": {
+      "type": "testimonials-premium",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Kanwal",
+            "show_verified": true,
+            "review_text": "This is such a pretty dress. Such soft material slipped like butter on me. I was initially worried..."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Pawani",
+            "show_verified": false,
+            "review_text": "I love this dresss 😩🥺🥺❤️❤️\n❤️ Thankyou so so much 🥰"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Arti Belekar",
+            "show_verified": false,
+            "review_text": "✨"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "title": "Our Customers Love Us",
+        "section_bg_color": "#f8f5f0",
+        "heading_color": "#2c2c2c",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq": {
+      "type": "faq-premium",
+      "settings": {
+        "title": "FAQs",
+        "section_bg_color": "#ffffff",
+        "heading_color": "#2c2c2c",
+        "accent_color": "#a88b6a",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "story_circles",
+    "slideshow_banner",
+    "new_arrivals",
+    "shop_by_reels",
+    "premium_collections",
+    "price_drop_sales",
+    "bestsellers_carousel",
+    "testimonials",
+    "faq"
+  ]
+}

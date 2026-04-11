@@ -1,0 +1,631 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ============================
+     Premium New Arrivals — V2
+     3D Cards, Shadows, Depth
+     ============================ */
+
+  /* Section Background */
+  .na-premium-bg {
+    background: linear-gradient(180deg,
+      rgba(var(--color-background), 1) 0%,
+      {{ section.settings.section_bg_color | default: '#f8f5f0' }} 8%,
+      {{ section.settings.section_bg_color | default: '#f8f5f0' }} 92%,
+      rgba(var(--color-background), 1) 100%
+    );
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle decorative elements */
+  .na-premium-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .na-premium-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Wide Container — fills more screen space */
+  .na-wide-container {
+    max-width: 160rem;
+    margin: 0 auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .na-wide-container {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  /* Section Header */
+  .na-section-header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .na-section-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    margin: 1.6rem auto 0;
+  }
+
+  .na-section-title {
+    font-size: 2.4rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-family: var(--font-heading-family);
+    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    margin: 0 0 0.5rem;
+  }
+
+  .na-section-subtitle {
+    font-size: 1.2rem;
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Product Grid */
+  .na-product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .na-product-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.4rem;
+    }
+    .na-section-title {
+      font-size: 3.4rem;
+    }
+  }
+
+  /* ===== 3D Product Card ===== */
+  .na-product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow:
+      0 2px 8px rgba(0,0,0,0.06),
+      0 8px 24px rgba(0,0,0,0.04);
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  .na-product-card:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow:
+      0 12px 28px rgba(0,0,0,0.12),
+      0 24px 48px rgba(0,0,0,0.06),
+      0 0 0 1px rgba(0,0,0,0.02);
+  }
+
+  /* Image Container */
+  .na-card-image-wrapper {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f0eb 0%, #ede7df 100%);
+  }
+
+  .na-card-image-wrapper img,
+  .na-card-image-wrapper svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+  }
+
+  /* Make Shopify placeholder SVGs fill the card properly */
+  .na-card-image-wrapper .placeholder-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+    background: linear-gradient(135deg, #f5f0eb 0%, #ede7df 100%);
+    object-fit: contain;
+  }
+
+  .na-product-card:hover .na-card-image-wrapper img,
+  .na-product-card:hover .na-card-image-wrapper svg {
+    transform: scale(1.1);
+  }
+
+  /* Second Image (hover reveal) */
+  .na-card-image-wrapper .na-card-img-hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .na-product-card:hover .na-card-img-hover {
+    opacity: 1;
+  }
+
+  .na-product-card:hover .na-card-img-primary {
+    opacity: 0;
+  }
+
+  /* ===== Glassmorphism Badges ===== */
+  .na-badge {
+    position: absolute;
+    top: 12px;
+    z-index: 4;
+    padding: 5px 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    line-height: 1.4;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .na-badge--sale {
+    left: 12px;
+    background: rgba(229, 57, 53, 0.88);
+    color: #fff;
+  }
+
+  .na-badge--new {
+    left: 12px;
+    background: rgba(40, 40, 40, 0.82);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Quick Add Button — slide up from bottom */
+  .na-quick-add {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .na-product-card:hover .na-quick-add {
+    transform: translateY(0);
+  }
+
+  /* Wishlist Heart — frosted glass */
+  .na-wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.7) rotate(-15deg);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .na-product-card:hover .na-wishlist {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .na-wishlist svg {
+    width: 16px;
+    height: 16px;
+    stroke: #333;
+    fill: none;
+    stroke-width: 1.8;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+  }
+
+  .na-wishlist:hover svg {
+    fill: #e53935;
+    stroke: #e53935;
+  }
+
+  /* ===== Product Info ===== */
+  .na-card-info {
+    padding: 1.4rem 1.2rem 1.6rem;
+    background: #fff;
+  }
+
+  .na-card-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.02em;
+    color: #2c2c2c;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+  }
+
+  .na-card-price-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .na-card-price {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .na-card-compare-price {
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .na-card-discount {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e53935;
+    background: rgba(229, 57, 53, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== View All Button ===== */
+  .na-view-all-wrapper {
+    text-align: center;
+    margin-top: 4.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .na-view-all-btn {
+    display: inline-block;
+    padding: 16px 56px;
+    border: 2px solid {{ section.settings.accent_color | default: '#a88b6a' }};
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .na-view-all-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.accent_color | default: '#a88b6a' }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: -1;
+  }
+
+  .na-view-all-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .na-view-all-btn:hover {
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(168, 139, 106, 0.25);
+  }
+
+{%- endstyle -%}
+
+{%- liquid
+  assign dummy_products = "Floral Summer Maxi Dress,Leopard Print Co-ord Set,Elegant Black Bodycon Dress,Cherry Blossom Wrap Top,Pastel Blue Skater Dress,Premium Velvet Evening Gown,Boho Tiered Ruffle Skirt,Classic White Linen Blouse" | split: ","
+  assign dummy_prices = "2499,3199,1899,1599,2799,4999,2199,1299" | split: ","
+  assign dummy_compare = "4999,5499,3799,2999,4599,8999,3999,2499" | split: ","
+  assign dummy_discounts = "50,42,50,47,39,44,45,48" | split: ","
+  assign placeholders = "product-1,product-2,product-3,product-4,product-5,product-6,product-1,product-2" | split: ","
+  assign badge_mode = section.settings.badge_mode | default: 'mixed'
+  if badge_mode == 'sale_only'
+    assign dummy_badges = "sale,sale,sale,sale,sale,sale,sale,sale" | split: ","
+  elsif badge_mode == 'new_only'
+    assign dummy_badges = "new,new,new,new,new,new,new,new" | split: ","
+  else
+    assign dummy_badges = "sale,new,sale,new,new,sale,new,sale" | split: ","
+  endif
+-%}
+
+<div class="na-premium-bg">
+  <div class="na-wide-container section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="na-section-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="na-section-subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="na-section-title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.collection != blank and section.settings.collection.all_products_count > 0 -%}
+      {%- comment -%} Dynamic mode: render real products from a collection {%- endcomment -%}
+      <div class="na-product-grid">
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
+            <div class="na-card-image-wrapper">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="na-badge na-badge--sale">Sale</span>
+              {%- endif -%}
+              <button class="na-wishlist" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              {%- if product.featured_media -%}
+                <img
+                  class="na-card-img-primary"
+                  src="{{ product.featured_media | image_url: width: 600 }}"
+                  alt="{{ product.featured_media.alt | escape }}"
+                  loading="lazy"
+                  width="600"
+                  height="800"
+                >
+                {%- if product.media[1] -%}
+                  <img
+                    class="na-card-img-hover"
+                    src="{{ product.media[1] | image_url: width: 600 }}"
+                    alt="{{ product.media[1].alt | escape }}"
+                    loading="lazy"
+                    width="600"
+                    height="800"
+                  >
+                {%- endif -%}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'na-card-img-primary' }}
+              {%- endif -%}
+              <div class="na-quick-add">Quick Add</div>
+            </div>
+            <div class="na-card-info">
+              <h3 class="na-card-title">{{ product.title }}</h3>
+              <div class="na-card-price-row">
+                <span class="na-card-price">{{ product.price | money }}</span>
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="na-card-compare-price">{{ product.compare_at_price | money }}</span>
+                  {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+                  <span class="na-card-discount">-{{ savings }}%</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- comment -%} Dummy / Placeholder mode: show beautiful placeholder cards {%- endcomment -%}
+      <div class="na-product-grid">
+        {%- for i in (1..8) -%}
+          {%- assign idx = forloop.index0 -%}
+          <div class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
+            <div class="na-card-image-wrapper">
+              {%- if dummy_badges[idx] == 'sale' -%}
+                <span class="na-badge na-badge--sale">Sale</span>
+              {%- endif -%}
+              {%- if dummy_badges[idx] == 'new' -%}
+                <span class="na-badge na-badge--new">New</span>
+              {%- endif -%}
+              <button class="na-wishlist" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+              {{ placeholders[idx] | placeholder_svg_tag: 'na-card-img-primary' }}
+              <div class="na-quick-add">Quick Add</div>
+            </div>
+            <div class="na-card-info">
+              <h3 class="na-card-title">{{ dummy_products[idx] }}</h3>
+              <div class="na-card-price-row">
+                <span class="na-card-price">₹{{ dummy_prices[idx] }}</span>
+                {%- if dummy_badges[idx] == 'sale' -%}
+                  <span class="na-card-compare-price">₹{{ dummy_compare[idx] }}</span>
+                  <span class="na-card-discount">-{{ dummy_discounts[idx] }}%</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_view_all -%}
+      <div class="na-view-all-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="na-view-all-btn">
+          {{ section.settings.view_all_text | default: 'View All' | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "New Arrivals Premium",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "New Arrivals",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Fresh Picks",
+      "label": "Subtitle"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Leave empty to show placeholder products"
+    },
+    {
+      "type": "select",
+      "id": "badge_mode",
+      "label": "Placeholder badge type",
+      "default": "mixed",
+      "options": [
+        { "value": "mixed", "label": "Sale + New (mixed)" },
+        { "value": "sale_only", "label": "Sale only" },
+        { "value": "new_only", "label": "New only" }
+      ],
+      "info": "Controls badges shown on placeholder cards"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View All' button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View All",
+      "label": "View All button text"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All button link"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background color",
+      "default": "#f8f5f0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (underline, button)",
+      "default": "#a88b6a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading & text color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Arrivals Premium"
+    }
+  ]
+}
+{% endschema %}

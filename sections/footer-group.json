@@ -1,0 +1,69 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "logo_width": 150,
+            "description": "Elevating everyday elegance with curated collections designed for the modern woman.",
+            "show_social": true
+          }
+        },
+        "shop_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "help_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Service",
+            "menu": "footer"
+          }
+        },
+        "legal_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "About Us",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "shop_links",
+        "help_links",
+        "legal_links"
+      ],
+      "settings": {
+        "bg_color": "#111111",
+        "text_color": "#ffffff",
+        "heading_color": "#ffffff",
+        "accent_color": "#a88b6a",
+        "show_newsletter": true,
+        "newsletter_title": "Join The Aura",
+        "newsletter_subtitle": "Subscribe to receive updates, access to exclusive deals, and more.",
+        "show_payment_icons": true,
+        "padding_top": 80
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

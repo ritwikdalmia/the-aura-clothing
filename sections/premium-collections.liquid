@@ -1,0 +1,473 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ============================
+     Premium Collection Cards
+     ============================ */
+
+  .pc-section-bg {
+    background: {{ section.settings.section_bg_color | default: '#f8f5f0' }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pc-wide-container {
+    max-width: 160rem;
+    margin: 0 auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pc-wide-container {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  /* Section Header */
+  .pc-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .pc-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    margin: 1.4rem auto 0;
+  }
+
+  .pc-subtitle {
+    font-size: 1.2rem;
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .pc-title {
+    font-size: 2.4rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-family: var(--font-heading-family);
+    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pc-title {
+      font-size: 3.4rem;
+    }
+  }
+
+  /* ===== Collection Grid ===== */
+  .pc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .pc-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.4rem;
+    }
+  }
+
+  /* ===== Collection Card ===== */
+  .pc-card {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow:
+      0 4px 16px rgba(0,0,0,0.08),
+      0 12px 32px rgba(0,0,0,0.05);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s ease;
+  }
+
+  .pc-card:hover {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow:
+      0 16px 40px rgba(0,0,0,0.15),
+      0 32px 56px rgba(0,0,0,0.08);
+  }
+
+  /* Card Image */
+  .pc-card-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .pc-card:hover .pc-card-image {
+    transform: scale(1.08);
+  }
+
+  /* Placeholder when no image */
+  .pc-card-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .pc-card-placeholder svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.2;
+  }
+
+  /* Dark gradient overlay */
+  .pc-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.7) 0%,
+      rgba(0,0,0,0.2) 40%,
+      rgba(0,0,0,0.05) 70%,
+      transparent 100%
+    );
+    z-index: 1;
+    transition: background 0.4s ease;
+  }
+
+  .pc-card:hover .pc-card-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.8) 0%,
+      rgba(0,0,0,0.3) 45%,
+      rgba(0,0,0,0.1) 70%,
+      transparent 100%
+    );
+  }
+
+  /* Card Content */
+  .pc-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .pc-card-label {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .pc-card-title {
+    font-size: 2.2rem;
+    font-weight: 400;
+    font-family: var(--font-heading-family);
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  @media screen and (min-width: 750px) {
+    .pc-card-title {
+      font-size: 2.6rem;
+    }
+  }
+
+  /* Explore Button */
+  .pc-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  .pc-card:hover .pc-card-btn {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .pc-card-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: #fff;
+    stroke-width: 2;
+    fill: none;
+    transition: transform 0.3s ease;
+  }
+
+  .pc-card:hover .pc-card-btn svg {
+    transform: translateX(4px);
+  }
+
+  .pc-card-btn:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  /* Item count badge */
+  .pc-card-count {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 3;
+    padding: 6px 14px;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+{%- endstyle -%}
+
+<div class="pc-section-bg">
+  <div class="pc-wide-container section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="pc-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="pc-subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="pc-title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="pc-grid">
+      {%- for block in section.blocks -%}
+        {%- assign col = block.settings.collection -%}
+        <a
+          href="{{ col.url | default: block.settings.link | default: '#' }}"
+          class="pc-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          style="animation-delay: {{ forloop.index | times: 120 }}ms;"
+          {{ block.shopify_attributes }}
+        >
+          {%- comment -%} Image {%- endcomment -%}
+          {%- if block.settings.image != blank -%}
+            <img
+              class="pc-card-image"
+              src="{{ block.settings.image | image_url: width: 800 }}"
+              alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+              loading="lazy"
+              width="800"
+              height="1067"
+            >
+          {%- elsif col != blank and col.featured_image -%}
+            <img
+              class="pc-card-image"
+              src="{{ col.featured_image | image_url: width: 800 }}"
+              alt="{{ col.title | escape }}"
+              loading="lazy"
+              width="800"
+              height="1067"
+            >
+          {%- else -%}
+            <div class="pc-card-placeholder" style="background: linear-gradient(160deg, hsl({{ forloop.index | times: 40 | plus: 20 }}, 30%, 86%), hsl({{ forloop.index | times: 40 | plus: 40 }}, 25%, 78%));">
+              <svg viewBox="0 0 120 140" fill="none">
+                <path d="M60 12 C60 12 44 15 40 25 L34 46 L20 40 L25 55 L38 52 L33 95 L23 132 L50 132 L55 105 L60 118 L65 105 L70 132 L97 132 L87 95 L82 52 L95 55 L100 40 L86 46 L80 25 C76 15 60 12 60 12Z" stroke="#b8977a" stroke-width="1.5" fill="none"/>
+                <path d="M49 25 Q60 32 71 25" stroke="#b8977a" stroke-width="1" fill="none"/>
+                <circle cx="60" cy="8" r="4" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+              </svg>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Overlay {%- endcomment -%}
+          <div class="pc-card-overlay"></div>
+
+          {%- comment -%} Product count badge {%- endcomment -%}
+          {%- if col != blank and col.all_products_count > 0 -%}
+            <div class="pc-card-count">{{ col.all_products_count }} items</div>
+          {%- endif -%}
+
+          {%- comment -%} Content {%- endcomment -%}
+          <div class="pc-card-content">
+            {%- if block.settings.label != blank -%}
+              <p class="pc-card-label">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
+            <h3 class="pc-card-title">{{ block.settings.title | default: col.title | default: 'Collection' | escape }}</h3>
+            <span class="pc-card-btn">
+              Explore
+              <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Premium Collections",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Our Premium Collection",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Curated For You",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background color",
+      "default": "#f8f5f0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#a88b6a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Collection Name"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label (small text above title)",
+          "default": "Exclusive"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Links to this collection and uses its image if no custom image is set"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image",
+          "info": "Overrides the collection image. Recommended: 800x1067px (3:4)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link",
+          "info": "Overrides collection link if set"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Collections",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": { "title": "Summer Dresses", "label": "New Season" }
+        },
+        {
+          "type": "collection_card",
+          "settings": { "title": "Co-ord Sets", "label": "Trending" }
+        },
+        {
+          "type": "collection_card",
+          "settings": { "title": "Party Wear", "label": "Exclusive" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

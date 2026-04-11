@@ -1,0 +1,799 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ============================
+     Shop by Reels / Video
+     ============================ */
+
+  .reels-section-bg {
+    background: {{ section.settings.section_bg_color | default: '#ffffff' }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reels-section-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(168,139,106,0.04) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .reels-section-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -15%;
+    width: 50%;
+    height: 160%;
+    background: radial-gradient(ellipse, rgba(168,139,106,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .reels-wide-container {
+    max-width: 160rem;
+    margin: 0 auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reels-wide-container {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  /* Section Header */
+  .reels-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .reels-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    margin: 1.4rem auto 0;
+  }
+
+  .reels-subtitle {
+    font-size: 1.2rem;
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .reels-title {
+    font-size: 2.4rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-family: var(--font-heading-family);
+    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reels-title {
+      font-size: 3.4rem;
+    }
+  }
+
+  /* ===== Carousel & Grid Container ===== */
+  .reels-carousel-wrapper {
+    position: relative;
+  }
+
+  .reels-carousel {
+    display: flex;
+    gap: 1.4rem;
+    padding: 1.5rem 1rem 2rem;
+    margin: -1.5rem 0 -2rem;
+  }
+
+  /* Layout: Carousel */
+  .layout--carousel .reels-carousel {
+    overflow-x: auto;
+    overflow-y: visible;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .layout--carousel .reels-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Layout: Grid */
+  .layout--grid .reels-carousel {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reels-carousel {
+      gap: 1.8rem;
+      padding: 1.5rem 0.5rem 2rem;
+      margin: -1.5rem -0.5rem -2rem;
+    }
+  }
+
+  /* Scroll Arrows */
+  .reels-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .reels-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+
+  .reels-arrow--prev { left: -18px; }
+  .reels-arrow--next { right: -18px; }
+
+  .reels-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: #333;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reels-arrow { display: flex; }
+  }
+
+  /* ===== Reel Card ===== */
+  .reel-card {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.03),
+      0 4px 8px rgba(0,0,0,0.04),
+      0 8px 20px rgba(0,0,0,0.04);
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  .reel-card:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow:
+      0 6px 16px rgba(0,0,0,0.08),
+      0 16px 32px rgba(0,0,0,0.06);
+  }
+
+  @media screen and (min-width: 750px) {
+    .reel-card {
+      flex: 0 0 260px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .reel-card {
+      flex: 0 0 280px;
+    }
+  }
+
+  /* Cover Image */
+  .reel-cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    transition: opacity 0.4s ease;
+  }
+
+  .reel-card.is-playing .reel-cover {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Video */
+  .reel-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* Placeholder (when no video) */
+  .reel-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    z-index: 1;
+  }
+
+  .reel-placeholder .reel-placeholder-dress {
+    width: 100px;
+    height: 140px;
+    opacity: 0.35;
+  }
+
+  .reel-placeholder .reel-placeholder-text {
+    font-size: 1.1rem;
+    color: rgba(0,0,0,0.25);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Play Icon Overlay */
+  .reel-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    width: 52px;
+    height: 52px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .reel-card:hover .reel-play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .reel-card.is-playing .reel-play-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .reel-play-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    margin-left: 3px;
+  }
+
+  /* View Count Badge */
+  .reel-views {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 20px;
+    color: #2c2c2c;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .reel-views svg {
+    width: 14px;
+    height: 14px;
+    fill: {{ section.settings.accent_color | default: '#a88b6a' }};
+  }
+
+  /* ===== Product Info Bar (Glass Pill) ===== */
+  .reel-product-bar {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    text-decoration: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .reel-card:hover .reel-product-bar {
+    background: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .reel-product-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(0,0,0,0.06);
+    flex-shrink: 0;
+    background: #f8f5f0;
+  }
+
+  .reel-product-thumb-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+    flex-shrink: 0;
+    background: #f8f5f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reel-product-thumb-placeholder svg {
+    width: 20px;
+    height: 20px;
+    fill: rgba(0,0,0,0.2);
+  }
+
+  .reel-product-info {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .reel-product-name {
+    color: #2c2c2c;
+    font-size: 1.15rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .reel-product-price {
+    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* No dark gradient overhead needed now */
+  .reel-gradient-overlay {
+    display: none;
+  }
+
+{%- endstyle -%}
+
+{%- liquid
+  assign dummy_names = "Mermaid Scarf Dress,Heartstring Emerald Dress,Noir Sequin Top,Lovisa Lace Up Dress,Champagne Siren 3pcs Set,Red Temptation Mini" | split: ","
+  assign dummy_prices = "3200,2400,1300,2499,2200,2499" | split: ","
+  assign dummy_views = "7K,4K,4K,7K,8K,7K" | split: ","
+-%}
+
+<div class="reels-section-bg">
+  <div class="reels-wide-container section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="reels-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.subtitle != blank -%}
+          <p class="reels-subtitle">{{ section.settings.subtitle | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="reels-title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="reels-carousel-wrapper layout--{{ section.settings.layout | default: 'carousel' }}">
+      {%- comment -%} Scroll Arrows {%- endcomment -%}
+      {%- if section.settings.layout != 'grid' -%}
+        <button class="reels-arrow reels-arrow--prev" aria-label="Previous" data-carousel-prev>
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="reels-arrow reels-arrow--next" aria-label="Next" data-carousel-next>
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      {%- endif -%}
+
+      <div class="reels-carousel" data-reels-carousel>
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="reel-card" {{ block.shopify_attributes }} data-reel-card>
+              {%- comment -%} View Count {%- endcomment -%}
+              {%- if block.settings.view_count != blank -%}
+                <div class="reel-views">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  {{ block.settings.view_count }}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Cover Image {%- endcomment -%}
+              {%- if block.settings.cover_image != blank -%}
+                <img
+                  class="reel-cover"
+                  src="{{ block.settings.cover_image | image_url: width: 480 }}"
+                  alt="{{ block.settings.cover_image.alt | default: 'Reel cover' | escape }}"
+                  loading="lazy"
+                  width="240"
+                  height="427"
+                >
+              {%- else -%}
+                <div class="reel-cover" style="background: linear-gradient(160deg, #f5e6d8, #e8d5c4, #dfc8b5);"></div>
+              {%- endif -%}
+
+              {%- comment -%} Video {%- endcomment -%}
+              {%- if block.settings.video != blank -%}
+                <video
+                  class="reel-video"
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  poster="{%- if block.settings.cover_image != blank -%}{{ block.settings.cover_image | image_url: width: 480 }}{%- endif -%}"
+                >
+                  {%- for source in block.settings.video.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                </video>
+              {%- else -%}
+                <div class="reel-placeholder">
+                  <svg class="reel-placeholder-dress" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 8 C50 8 38 10 35 18 L30 35 L18 30 L22 42 L32 40 L28 75 L20 130 L42 130 L46 85 L50 95 L54 85 L58 130 L80 130 L72 75 L68 40 L78 42 L82 30 L70 35 L65 18 C62 10 50 8 50 8Z" stroke="#b8977a" stroke-width="1.8" fill="none"/>
+                    <path d="M42 18 Q50 24 58 18" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+                    <circle cx="50" cy="5" r="3" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+                  </svg>
+                  <span class="reel-placeholder-text">Upload Video</span>
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Play Icon {%- endcomment -%}
+              <div class="reel-play-icon">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+
+              {%- comment -%} Gradient overlay {%- endcomment -%}
+              <div class="reel-gradient-overlay"></div>
+
+              {%- comment -%} Product Info Bar {%- endcomment -%}
+              {%- if block.settings.product != blank -%}
+                <a href="{{ block.settings.product.url }}" class="reel-product-bar">
+                  {%- if block.settings.product.featured_media -%}
+                    <img
+                      class="reel-product-thumb"
+                      src="{{ block.settings.product.featured_media | image_url: width: 80 }}"
+                      alt="{{ block.settings.product.title | escape }}"
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    <div class="reel-product-thumb-placeholder">
+                      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                    </div>
+                  {%- endif -%}
+                  <div class="reel-product-info">
+                    <p class="reel-product-name">{{ block.settings.product.title }}</p>
+                    <p class="reel-product-price">{{ block.settings.product.price | money }}</p>
+                  </div>
+                </a>
+              {%- elsif block.settings.product_name != blank -%}
+                <a href="{{ block.settings.product_link | default: '#' }}" class="reel-product-bar">
+                  <div class="reel-product-thumb-placeholder">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                  </div>
+                  <div class="reel-product-info">
+                    <p class="reel-product-name">{{ block.settings.product_name }}</p>
+                    <p class="reel-product-price">₹{{ block.settings.product_price }}</p>
+                  </div>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Dummy / Placeholder Reels {%- endcomment -%}
+          {%- for i in (1..6) -%}
+            {%- assign idx = forloop.index0 -%}
+            <div class="reel-card" data-reel-card>
+              <div class="reel-views">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                {{ dummy_views[idx] }}
+              </div>
+              <div class="reel-cover" style="background: linear-gradient(160deg, hsl({{ forloop.index | times: 30 | plus: 15 }}, 35%, 88%), hsl({{ forloop.index | times: 30 | plus: 25 }}, 30%, 82%), hsl({{ forloop.index | times: 30 | plus: 5 }}, 25%, 78%));"></div>
+              <div class="reel-placeholder">
+                <svg class="reel-placeholder-dress" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 8 C50 8 38 10 35 18 L30 35 L18 30 L22 42 L32 40 L28 75 L20 130 L42 130 L46 85 L50 95 L54 85 L58 130 L80 130 L72 75 L68 40 L78 42 L82 30 L70 35 L65 18 C62 10 50 8 50 8Z" stroke="#b8977a" stroke-width="1.8" fill="none"/>
+                  <path d="M42 18 Q50 24 58 18" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+                  <circle cx="50" cy="5" r="3" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+                </svg>
+                <span class="reel-placeholder-text">Upload Video</span>
+              </div>
+              <div class="reel-play-icon">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <div class="reel-gradient-overlay"></div>
+              <a href="#" class="reel-product-bar">
+                <div class="reel-product-thumb-placeholder">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                </div>
+                <div class="reel-product-info">
+                  <p class="reel-product-name">{{ dummy_names[idx] }}</p>
+                  <p class="reel-product-price">₹{{ dummy_prices[idx] }}</p>
+                </div>
+              </a>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Hover to play video
+    document.querySelectorAll('[data-reel-card]').forEach(function (card) {
+      var video = card.querySelector('.reel-video');
+      if (!video) return;
+
+      card.addEventListener('mouseenter', function () {
+        card.classList.add('is-playing');
+        video.play().catch(function () {});
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.classList.remove('is-playing');
+        video.pause();
+        video.currentTime = 0;
+      });
+
+      // Mobile: tap to toggle
+      card.addEventListener('touchstart', function (e) {
+        if (card.classList.contains('is-playing')) {
+          card.classList.remove('is-playing');
+          video.pause();
+        } else {
+          // Pause all others first
+          document.querySelectorAll('[data-reel-card].is-playing').forEach(function (other) {
+            other.classList.remove('is-playing');
+            var otherVideo = other.querySelector('.reel-video');
+            if (otherVideo) otherVideo.pause();
+          });
+          card.classList.add('is-playing');
+          video.play().catch(function () {});
+        }
+      }, { passive: true });
+    });
+
+    // Carousel arrows
+    document.querySelectorAll('.reels-carousel-wrapper').forEach(function (wrapper) {
+      var carousel = wrapper.querySelector('[data-reels-carousel]');
+      var prevBtn = wrapper.querySelector('[data-carousel-prev]');
+      var nextBtn = wrapper.querySelector('[data-carousel-next]');
+      var scrollAmount = 260;
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Shop by Reels",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Shop by Video",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Watch & Shop",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#a88b6a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Display",
+      "options": [
+        { "value": "carousel", "label": "Horizontal Carousel" },
+        { "value": "grid", "label": "Multi-row Grid" }
+      ],
+      "default": "carousel"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Reel",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Upload a vertical MP4 video (9:16 ratio recommended)"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image / Thumbnail",
+          "info": "Shows before video plays. Recommended: 480x854px"
+        },
+        {
+          "type": "text",
+          "id": "view_count",
+          "label": "View count",
+          "default": "7K",
+          "info": "e.g. 4K, 12K, 1.2M"
+        },
+        {
+          "type": "header",
+          "content": "Product Link"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Auto-fills name, price & thumbnail. Leave empty to use manual fields below."
+        },
+        {
+          "type": "header",
+          "content": "Manual product info (if no product selected)"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "product_price",
+          "label": "Product price",
+          "default": "2499"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Product link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Reels",
+      "blocks": [
+        { "type": "reel" },
+        { "type": "reel" },
+        { "type": "reel" },
+        { "type": "reel" },
+        { "type": "reel" },
+        { "type": "reel" }
+      ]
+    }
+  ]
+}
+{% endschema %}
