@@ -490,14 +490,15 @@
                   </tbody>
                 </table>
               </div>
+            {%- endif -%}
+            <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+            <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
+              {{ 'accessibility.loading' | t }}
+            </p>
           </div>
-          <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
-          <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
-            {{ 'accessibility.loading' | t }}
-          </p>
-        </div>
-        <div id="CartDrawer-CartErrors" role="alert"></div>
-        
+          <div id="CartDrawer-CartErrors" role="alert"></div>
+        </form>
+
         {% comment %} --- THE AURA PREMIUM: UPSELL SECTION --- {% endcomment %}
         {%- if settings.cart_drawer_collection != blank and cart != empty -%}
           <div class="na-cart-upsells" style="padding: 1.5rem; border-top: 1px solid #eee;">
