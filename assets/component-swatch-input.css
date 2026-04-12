@@ -1,34 +1,47 @@
-/* Premium Swatch Input Refinement */
+/* swatch-input lives in its own file for reusability of the swatch in other areas than the product form context */
 .swatch-input__input + .swatch-input__label {
   --swatch-input--border-radius: 50%;
   display: inline-block;
   max-width: 100%;
   border-radius: var(--swatch-input--border-radius);
   cursor: pointer;
-  outline: none; /* Remove standard outline */
-  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease;
-  padding: 2px;
-  border: 1px solid transparent;
+  outline-offset: 0.2rem;
+  outline-color: transparent;
+  outline-style: solid;
+  transition-property: outline-color, outline-width, box-shadow;
+  transition-duration: var(--duration-short);
+  transition-timing-function: ease;
+  forced-color-adjust: none;
 }
 
-/* Active state - Premium Ring */
+.swatch-input__input + .swatch-input__label.swatch-input__label--square {
+  --swatch-input--border-radius: 0.2rem;
+}
+
+/* Active state */
+.swatch-input__input:active + .swatch-input__label,
 .swatch-input__input:checked + .swatch-input__label {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2c2c2c;
-  transform: scale(1.1);
-  border-color: rgba(255,255,255,0.8);
+  outline: 0.1rem solid rgb(var(--color-foreground));
 }
 
 /* Hover state */
-.swatch-input__input + .swatch-input__label:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0,0,0,0.15);
+.swatch-input__input + .swatch-input__label:hover,
+.swatch-input__input:hover + .swatch-input__label {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.4);
 }
 
 /* Focus visible */
 .swatch-input__input:focus-visible + .swatch-input__label {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #a88b6a;
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  box-shadow: 0 0 0 0.2rem rgb(var(--color-background)), 0 0 0.1rem 0.5rem rgba(var(--color-foreground), 0.25);
 }
 
+/* Active and focused */
+.swatch-input__input:active:focus-visible + .swatch-input__label,
+.swatch-input__input:checked:focus-visible + .swatch-input__label {
+  outline: 0.1rem solid rgb(var(--color-foreground));
+  box-shadow: 0 0 0 0.2rem rgb(var(--color-background)), 0 0 0.1rem 0.4rem rgba(var(--color-foreground), 0.25);
+}
 
 /* Visually disabled */
 .swatch-input__input.visually-disabled:not(:active):not(:checked) + .swatch-input__label {

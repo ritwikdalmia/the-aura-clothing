@@ -21,28 +21,22 @@
       </button>
 
       <a href="{{ card_product.url }}" class="na-card-image-link">
-        {%- if card_product.featured_media -%}
-          <img
-            class="na-card-img-primary"
-            src="{{ card_product.featured_media | image_url: width: 600 }}"
-            alt="{{ card_product.featured_media.alt | escape }}"
-            loading="{% if lazy_load == false %}eager{% else %}lazy{% endif %}"
-            width="{{ card_product.featured_media.width }}"
-            height="{{ card_product.featured_media.height }}"
-          >
-          {%- if card_product.media[1] and show_secondary_image -%}
-            <img
-              class="na-card-img-hover"
-              src="{{ card_product.media[1] | image_url: width: 600 }}"
-              alt="{{ card_product.media[1].alt | escape }}"
-              loading="lazy"
-              width="{{ card_product.media[1].width }}"
-              height="{{ card_product.media[1].height }}"
-            >
+        <div class="na-collection-slideshow">
+          {%- if card_product.media.size > 0 -%}
+            {%- for media in card_product.media limit: 3 -%}
+              <img
+                src="{{ media | image_url: width: 600 }}"
+                alt="{{ media.alt | escape }}"
+                loading="lazy"
+                width="600"
+                height="{{ 600 | divided_by: media.aspect_ratio | ceil }}"
+                style="animation-delay: {{ forloop.index0 | times: 3 }}s"
+              >
+            {%- endfor -%}
+          {%- else -%}
+             {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg na-card-img-primary' }}
           {%- endif -%}
-        {%- else -%}
-          {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg na-card-img-primary' }}
-        {%- endif -%}
+        </div>
       </a>
       
       <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ card_product.url }}')">Quick Add</div>

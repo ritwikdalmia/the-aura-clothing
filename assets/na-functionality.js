@@ -1,144 +1,73 @@
-/**
- * The Aura - Custom Functionality
- * Wishlist & Quick Add Logic
- */
 
-// Wishlist Logic
-function getWishlist() {
-    return JSON.parse(localStorage.getItem('aura_wishlist') || '[]');
-}
+/* ============================================================================
+   The Aura Premium Functionality (na-functionality.js)
+   ========================================================================== */
 
-function saveWishlist(wishlist) {
-    localStorage.setItem('aura_wishlist', JSON.stringify(wishlist));
-    document.dispatchEvent(new CustomEvent('aura:wishlist:updated', { detail: { wishlist } }));
-}
-
-function toggleWishlist(button, productId) {
-    let wishlist = getWishlist();
-    const index = wishlist.indexOf(productId);
-    
-    if (index > -1) {
-        wishlist.splice(index, 1);
-        button.classList.remove('active');
-    } else {
-        wishlist.push(productId);
-        button.classList.add('active');
-    }
-    
-    saveWishlist(wishlist);
-}
-
-// Update UI on load
-document.addEventListener('DOMContentLoaded', () => {
-    const wishlist = getWishlist();
-    document.querySelectorAll('.na-wishlist').forEach(button => {
-        // Extract ID from onclick or data attribute
-        const onclickAttr = button.getAttribute('onclick');
-        const match = onclickAttr.match(/'([^']+)'/);
-        if (match && wishlist.includes(match[1])) {
-            button.classList.add('active');
-        }
-    });
-});
-
-// Quick Add Logic
+// 1. Open Quick Add Modal
 async function openQuickAdd(productUrl) {
-    document.body.classList.add('loading-quick-add');
+    const modal = document.getElementById('naQuickAddModal');
+    const content = modal.querySelector('.na-modal-content-inner');
+    
+    // Show modal & loading state
+    modal.style.display = 'flex';
+    content.innerHTML = '<div style="padding: 5rem; text-align: center;">Loading Boutique Experience...</div>';
     
     try {
-        // Fetch the dedicated quick-add section
         const response = await fetch(`${productUrl}?section_id=product-quick-add`);
-        if (!response.ok) throw new Error('Failed to load product');
-        
         const html = await response.text();
-        // Section rendering API returns JSON with an 'html' property or raw HTML depending on the request headers
-        // Here we expect the HTML content directly if we didn't specify section-rendering
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        // Extract the content from the section wrapper
-        const content = doc.getElementById('shopify-section-product-quick-add') || doc.body;
+        content.innerHTML = html;
         
-        showModal(content.innerHTML);
-        initQvVariants(); // Initialize variant selection logic
-    } catch (error) {
-        console.error('Quick Add Error:', error);
-    } finally {
-        document.body.classList.remove('loading-quick-add');
+        // Initialize variant logic
+        initQuickAddVariants(content);
+    } catch (e) {
+        content.innerHTML = '<div style="padding: 5rem; text-align: center;">Error loading products. Please try again.</div>';
     }
 }
 
-function showModal(content) {
-    let modal = document.getElementById('na-quick-add-modal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'na-quick-add-modal';
-        modal.innerHTML = `
-            <div class="na-modal-overlay"></div>
-            <div class="na-modal-content">
-                <button class="na-modal-close" aria-label="Close modal">&times;</button>
-                <div class="na-modal-body"></div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        
-        modal.querySelector('.na-modal-overlay').addEventListener('click', () => modal.classList.remove('active'));
-        modal.querySelector('.na-modal-close').addEventListener('click', () => modal.classList.remove('active'));
-    }
-    
-    modal.querySelector('.na-modal-body').innerHTML = content;
-    modal.classList.add('active');
-}
-
-// Variant Selection & Modal Helpers
-function initQvVariants() {
-    const modal = document.getElementById('na-quick-add-modal');
-    if (!modal) return;
-
-    const optionPills = modal.querySelectorAll('.na-qv-option');
-    optionPills.forEach(pill => {
-        pill.addEventListener('click', function() {
+// 2. Variant Swapping Logic
+function initQuickAddVariants(container) {
+    const options = container.querySelectorAll('.na-qv-option');
+    options.forEach(opt => {
+        opt.addEventListener('click', function() {
             const wrapper = this.closest('.na-qv-option-wrapper');
-            wrapper.querySelectorAll('.na-qv-option').forEach(p => p.classList.remove('active'));
+            wrapper.querySelectorAll('.na-qv-option').forEach(o => o.classList.remove('active'));
             this.classList.add('active');
-            updateQvVariant();
+            
+            updateProductVariant(container);
         });
     });
 }
 
-function updateQvVariant() {
-    const modal = document.getElementById('na-quick-add-modal');
-    const selectedOptions = Array.from(modal.querySelectorAll('.na-qv-option.active')).map(p => p.dataset.value);
+function updateProductVariant(container) {
+    const selectedOptions = Array.from(container.querySelectorAll('.na-qv-option.active')).map(o => o.dataset.value);
+    const variants = window.qvVariants;
     
-    // Find matching variant
-    const variant = window.qvVariants.find(v => {
-        return v.options.every((opt, idx) => opt === selectedOptions[idx]);
+    const matchedVariant = variants.find(v => {
+        return v.options.every((opt, index) => opt === selectedOptions[index]);
     });
-
-    if (variant) {
-        // Update Price
-        const priceContainer = modal.querySelector('.na-qv-price');
-        if (priceContainer) priceContainer.innerText = formatMoney(variant.price);
+    
+    if (matchedVariant) {
+        // Update price
+        container.querySelector('.na-qv-price').innerText = formatMoney(matchedVariant.price);
         
-        // Update Image if available
-        if (variant.featured_image) {
-            const img = modal.querySelector('.na-quick-view-media img');
-            if (img) img.src = variant.featured_image.src;
-        }
-
-        // Update Button Variant ID
-        const addBtn = modal.querySelector('.na-qv-add-btn');
-        const buyBtn = modal.querySelector('.na-qv-buy-btn');
-        if (addBtn) addBtn.dataset.variantId = variant.id;
-        if (buyBtn) buyBtn.dataset.variantId = variant.id;
-
-        // Update Availability
-        if (addBtn) {
-            addBtn.disabled = !variant.available;
-            addBtn.innerText = variant.available ? 'Add to cart' : 'Sold out';
+        // Update Add to Cart Button
+        const addBtn = container.querySelector('.na-qv-add-btn');
+        addBtn.dataset.variantId = matchedVariant.id;
+        addBtn.disabled = !matchedVariant.available;
+        addBtn.innerText = matchedVariant.available ? 'Add to cart' : 'Sold Out';
+        
+        // Update Buy Now
+        container.querySelector('.na-qv-buy-btn').dataset.variantId = matchedVariant.id;
+        
+        // Update Image if variant has featured media
+        if (matchedVariant.featured_media) {
+           const img = container.querySelector('#naQvImage-product-quick-add');
+           if (img) img.src = matchedVariant.featured_media.preview_image.src;
         }
     }
 }
 
+// 3. Cart Logic
 function updateQvQty(btn, delta) {
     const input = btn.closest('.na-qv-qty-input').querySelector('.na-qv-qty-val');
     let val = parseInt(input.value) + delta;
@@ -148,46 +77,46 @@ function updateQvQty(btn, delta) {
 
 async function addQvToCart(btn) {
     const variantId = btn.dataset.variantId;
-    const qty = btn.closest('.na-quick-view-info').querySelector('.na-qv-qty-val').value;
+    const qty = btn.closest('.na-modal-body').querySelector('.na-qv-qty-val').value;
     
-    btn.classList.add('loading');
     btn.innerText = 'Adding...';
+    btn.disabled = true;
 
     try {
-        const response = await fetch('/cart/add.js', {
+        await fetch(window.Shopify.routes.root + 'cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: [{ id: variantId, quantity: qty }] })
         });
         
-        if (response.ok) {
-            // Close modal and refresh cart drawer
-            document.getElementById('na-quick-add-modal').classList.remove('active');
-            // Dispatch event to refresh cart drawer (Shopify Dawn default)
-            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
-            // Or specifically for Dawn's cart-drawer component:
-            const cartDrawer = document.querySelector('cart-drawer');
-            if (cartDrawer) {
-                const responseJson = await response.json();
-                cartDrawer.renderContents(responseJson);
-            }
+        // Close modal
+        closeNaModal();
+        
+        // Refresh cart drawer
+        if (typeof cartRefresh === 'function') {
+            cartRefresh();
+        } else {
+            // Fallback: search for cart drawer trigger or refresh page
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
         }
-    } catch (error) {
-        console.error('Add to Cart Error:', error);
+    } catch (e) {
+        alert('Could not add to cart. Please try again.');
     } finally {
-        btn.classList.remove('loading');
         btn.innerText = 'Add to cart';
+        btn.disabled = false;
     }
 }
 
-function buyQvNow(btn) {
-    const variantId = btn.dataset.variantId;
-    const qty = btn.closest('.na-quick-view-info').querySelector('.na-qv-qty-val').value;
-    window.location.href = `/cart/${variantId}:${qty}`;
+// 4. Modal Utilities
+function closeNaModal() {
+    document.getElementById('naQuickAddModal').style.display = 'none';
 }
 
 function formatMoney(cents) {
-    // Simple money formatter for INR (assumes currency is handled by Shopify globally)
-    // You might want to use Shopify's native formatMoney if available
-    return 'Rs. ' + (cents / 100).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+    return '₹' + (cents / 100).toLocaleString('en-IN');
 }
+
+// Global listeners
+document.addEventListener('click', (e) => {
+    if (e.target.id === 'naQuickAddModal') closeNaModal();
+});

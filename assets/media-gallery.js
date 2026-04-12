@@ -19,49 +19,6 @@ if (!customElements.get('media-gallery')) {
             .addEventListener('click', this.setActiveMedia.bind(this, mediaToSwitch.dataset.target, false));
         });
         if (this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) this.removeListSemantic();
-
-        this.initAutoAdvance();
-      }
-
-      initAutoAdvance() {
-        if (!this.elements.thumbnails) return;
-        this.intervalTime = 3000; // 3 seconds
-        this.startAutoAdvance();
-
-        this.addEventListener('mouseenter', () => this.stopAutoAdvance());
-        this.addEventListener('mouseleave', () => this.startAutoAdvance());
-        this.addEventListener('touchstart', () => this.stopAutoAdvance(), { passive: true });
-        this.addEventListener('touchend', () => this.startAutoAdvance(), { passive: true });
-      }
-
-      startAutoAdvance() {
-        this.stopAutoAdvance();
-        this.autoAdvanceInterval = setInterval(() => {
-          this.advanceNext();
-        }, this.intervalTime);
-      }
-
-      stopAutoAdvance() {
-        if (this.autoAdvanceInterval) {
-          clearInterval(this.autoAdvanceInterval);
-          this.autoAdvanceInterval = null;
-        }
-      }
-
-      advanceNext() {
-        const thumbnails = Array.from(this.elements.thumbnails.querySelectorAll('[data-target]'));
-        if (thumbnails.length <= 1) return;
-
-        const currentThumbnail = this.elements.thumbnails.querySelector('button[aria-current="true"]')?.closest('[data-target]');
-        if (!currentThumbnail) return;
-
-        const currentIndex = thumbnails.indexOf(currentThumbnail);
-        const nextIndex = (currentIndex + 1) % thumbnails.length;
-        const nextThumbnail = thumbnails[nextIndex];
-
-        if (nextThumbnail) {
-          this.setActiveMedia(nextThumbnail.dataset.target, false);
-        }
       }
 
       onSlideChanged(event) {
@@ -97,7 +54,7 @@ if (!customElements.get('media-gallery')) {
         this.preventStickyHeader();
         window.setTimeout(() => {
           if (!this.mql.matches || this.elements.thumbnails) {
-            activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft, behavior: 'smooth' });
+            activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft });
           }
           const activeMediaRect = activeMedia.getBoundingClientRect();
           // Don't scroll if the image is already in view
@@ -122,7 +79,7 @@ if (!customElements.get('media-gallery')) {
         thumbnail.querySelector('button').setAttribute('aria-current', true);
         if (this.elements.thumbnails.isSlideVisible(thumbnail, 10)) return;
 
-        this.elements.thumbnails.slider.scrollTo({ left: thumbnail.offsetLeft, behavior: 'smooth' });
+        this.elements.thumbnails.slider.scrollTo({ left: thumbnail.offsetLeft });
       }
 
       announceLiveRegion(activeItem, position) {

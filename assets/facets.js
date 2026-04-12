@@ -306,63 +306,12 @@ class PriceRange extends HTMLElement {
       element.addEventListener('change', this.onRangeChange.bind(this));
       element.addEventListener('keydown', this.onKeyDown.bind(this));
     });
-
-    this.rangeInputs = this.querySelectorAll('input[type="range"]');
-    this.textInputs = this.querySelectorAll('input[type="number"]');
-    this.track = this.querySelector('.na-slider-track');
-
-    if (this.rangeInputs.length > 0) {
-      this.rangeInputs.forEach(input => {
-        input.addEventListener('input', this.onSliderInput.bind(this));
-      });
-      this.updateTrack();
-    }
-
     this.setMinAndMaxValues();
-  }
-
-  onSliderInput(event) {
-    const minVal = parseInt(this.rangeInputs[0].value);
-    const maxVal = parseInt(this.rangeInputs[1].value);
-
-    if (maxVal - minVal < 0) {
-      if (event.target.classList.contains('min-price-range')) {
-        this.rangeInputs[0].value = maxVal;
-      } else {
-        this.rangeInputs[1].value = minVal;
-      }
-    } else {
-      this.textInputs[0].value = this.rangeInputs[0].value;
-      this.textInputs[1].value = this.rangeInputs[1].value;
-      this.updateTrack();
-    }
-    
-    // Trigger debounced submit
-    this.closest('facet-filters-form').debouncedOnSubmit();
-  }
-
-  updateTrack() {
-    if (!this.track) return;
-    const min = parseInt(this.rangeInputs[0].min);
-    const max = parseInt(this.rangeInputs[0].max);
-    const v1 = parseInt(this.rangeInputs[0].value);
-    const v2 = parseInt(this.rangeInputs[1].value);
-
-    const left = ((v1 - min) / (max - min)) * 100;
-    const right = 100 - (((v2 - min) / (max - min)) * 100);
-
-    this.track.style.left = left + '%';
-    this.track.style.right = right + '%';
   }
 
   onRangeChange(event) {
     this.adjustToValidValues(event.currentTarget);
     this.setMinAndMaxValues();
-    if (this.rangeInputs.length > 0) {
-       this.rangeInputs[0].value = this.textInputs[0].value || 0;
-       this.rangeInputs[1].value = this.textInputs[1].value || this.rangeInputs[1].max;
-       this.updateTrack();
-    }
   }
 
   onKeyDown(event) {
@@ -373,15 +322,13 @@ class PriceRange extends HTMLElement {
   }
 
   setMinAndMaxValues() {
-    const inputs = this.querySelectorAll('input[type="number"]');
+    const inputs = this.querySelectorAll('input');
     const minInput = inputs[0];
     const maxInput = inputs[1];
-    if (maxInput && minInput) {
-        if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
-        if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
-        if (minInput.value === '') maxInput.setAttribute('data-min', 0);
-        if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
-    }
+    if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
+    if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
+    if (minInput.value === '') maxInput.setAttribute('data-min', 0);
+    if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
   }
 
   adjustToValidValues(input) {

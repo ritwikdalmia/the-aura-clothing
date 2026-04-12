@@ -72,14 +72,6 @@
                     </a>
                   </facet-remove>
                 </div>
-                
-                {% comment %} Custom Sale Filter Toggle {% endcomment %}
-                <div class="na-custom-filters">
-                  <div class="facet-checkbox na-sale-toggle">
-                     <input type="checkbox" name="filter.p.m.custom.on_sale" value="1" id="Filter-Sale-Toggle" {% if results.filters[0].param_name contains 'sale' %}checked{% endif %}>
-                     <label for="Filter-Sale-Toggle">Show only Sale items</label>
-                  </div>
-                </div>
                 {%- for filter in results.filters -%}
                   {%- for value in filter.active_values -%}
                     <facet-remove>
@@ -336,25 +328,6 @@
                         {%- endif -%}
                       </div>
                       <price-range class="facets__price">
-                        <div class="na-price-slider-container">
-                          <div class="na-price-range-slider">
-                            <input type="range" 
-                              min="0" 
-                              max="{{ filter.range_max | divided_by: 100 }}" 
-                              value="{{ filter.min_value.value | divided_by: 100 | default: 0 }}" 
-                              class="min-price-range"
-                              aria-label="Minimum Price"
-                            >
-                            <input type="range" 
-                              min="0" 
-                              max="{{ filter.range_max | divided_by: 100 }}" 
-                              value="{{ filter.max_value.value | divided_by: 100 | default: filter.range_max | divided_by: 100 }}" 
-                              class="max-price-range"
-                              aria-label="Maximum Price"
-                            >
-                            <div class="na-slider-track"></div>
-                          </div>
-                        </div>
                         {% render 'price-facet', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
                       </price-range>
                     </div>

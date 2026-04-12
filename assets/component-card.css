@@ -592,320 +592,136 @@
   .grid__item:nth-child(8n) .product-card-wrapper:hover .shape--blob {
     clip-path: polygon(var(--shape--blob-5));
   }
-}
 
 /* ============================================================================
-   Premium 3D Product Card (The Aura Custom)
-   Standardized with Homepage 'New Arrivals Premium' design
+   Boutique Product Card (The Aura Custom)
    ========================================================================== */
 
 .na-product-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: #2c2c2c;
-  border-radius: 12px;
-  background: #ffffff;
+  background: #fff;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 
-    0 2px 8px rgba(0,0,0,0.06), 
-    0 8px 24px rgba(0,0,0,0.04);
-  transition: 
-    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-    box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   height: 100%;
-}
-
-.na-product-card:hover {
-  transform: translateY(-8px) scale(1.015);
-  box-shadow: 
-    0 12px 28px rgba(0,0,0,0.12), 
-    0 24px 48px rgba(0,0,0,0.06), 
-    0 0 0 1px rgba(0,0,0,0.02);
-  z-index: 2;
 }
 
 .na-card-image-wrapper {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 100%;
+  aspect-ratio: 1/1;
   overflow: hidden;
-  background: linear-gradient(135deg, #f5f0eb 0%, #ede7df 100%);
+  background: #f9f9f9;
 }
 
-.na-card-image-wrapper img,
-.na-card-image-wrapper svg.placeholder-svg {
+.na-card-image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.na-product-card:hover .na-card-image-wrapper img,
-.na-product-card:hover .na-card-image-wrapper svg {
-  transform: scale(1.1);
+.na-product-card:hover .na-card-image-wrapper img {
+  transform: scale(1.08);
 }
 
-.na-card-img-hover {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  z-index: 1;
-}
-
-.na-product-card:hover .na-card-img-hover {
-  opacity: 1;
-}
-
-.na-product-card:hover .na-card-img-primary {
-  opacity: 0;
-}
-
-/* Glassmorphism Badges */
 .na-badge {
   position: absolute;
-  top: 12px;
-  z-index: 4;
-  padding: 5px 14px;
-  font-size: 1rem;
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
-  border-radius: 6px;
-  line-height: 1.4;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
-.na-badge--sale {
-  left: 12px;
-  background: rgba(229, 57, 53, 0.88);
+  z-index: 2;
+  background: #a88b6a;
   color: #fff;
 }
 
-.na-badge--new {
-  left: 12px;
-  background: rgba(40, 40, 40, 0.82);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.15);
+.na-wishlist {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Quick Add Button — frosted glass slide up */
+.na-wishlist svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
 .na-quick-add {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 5;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #fff;
+  background: rgba(255,255,255,0.9);
+  padding: 1.2rem;
   text-align: center;
-  padding: 14px;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 600;
   text-transform: uppercase;
-  cursor: pointer;
-  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
   transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
 }
 
 .na-product-card:hover .na-quick-add {
   transform: translateY(0);
 }
 
-/* Wishlist Heart — frosted glass circle */
-.na-wishlist {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 5;
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.4);
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.7) rotate(-15deg);
-  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.na-product-card:hover .na-wishlist {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
-}
-
-.na-wishlist svg {
-  width: 16px;
-  height: 16px;
-  stroke: #333;
-  fill: none;
-  stroke-width: 1.8;
-  transition: fill 0.2s ease, stroke 0.2s ease;
-}
-
-.na-wishlist:hover svg {
-  fill: #e53935;
-  stroke: #e53935;
-}
-
-/* Product Info */
 .na-card-info {
-  padding: 1.6rem 1.4rem 1.8rem;
-  background: #fff;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 .na-card-title {
-  font-size: 1.4rem;
+  margin: 0 0 0.8rem 0;
+  font-size: 1.5rem;
   font-weight: 500;
-  margin: 0 0 0.8rem;
-  letter-spacing: 0.02em;
-  color: #2c2c2c;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.4;
-  transition: color 0.3s ease;
-}
-
-.na-product-card:hover .na-card-title {
-  color: #a88b6a;
+  color: #121212;
 }
 
 .na-card-price-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .na-card-price {
-  font-size: 1.6rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #121212;
 }
 
 .na-card-compare-price {
-  font-size: 1.3rem;
   text-decoration: line-through;
   color: #999;
+  font-size: 1.3rem;
 }
 
 .na-card-discount {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #e53935;
-  background: rgba(229, 57, 53, 0.08);
-  padding: 4px 10px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
+  color: #d73d3d;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
-
-/* Custom Wishlist Active State */
-.na-wishlist.active svg {
-  fill: #e53935;
-  stroke: #e53935;
-}
-
-/* Quick Add Modal Styles */
-#na-quick-add-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-#na-quick-add-modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.na-modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(4px);
-}
-
-.na-modal-content {
-  position: relative;
-  background: #fff;
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-  transform: translateY(20px);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  display: flex;
-  flex-direction: column;
-}
-
-#na-quick-add-modal.active .na-modal-content {
-  transform: translateY(0);
-}
-
-.na-modal-close {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  background: #f5f5f5;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.na-modal-body {
-  padding: 40px;
-  overflow-y: auto;
-}
-
-/* Loading States */
-.loading-quick-add {
-  cursor: wait !important;
-}
-
-.loading-quick-add .na-quick-add {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
 
 /* ============================================================================
    Premium Boutique Collection Card (The Aura Custom)
@@ -934,7 +750,6 @@
   transition: 
     transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
     box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: transform;
 }
 
 .na-collection-card:hover .na-collection-image-wrapper {
@@ -944,93 +759,27 @@
     0 30px 60px rgba(0, 0, 0, 0.08);
 }
 
-.na-collection-image-wrapper img,
-.na-collection-image-wrapper svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.na-collection-card:hover .na-collection-image-wrapper img {
-  transform: scale(1.1);
-}
-
-/* Frosted Overlay on Hover (Optional) */
-.na-collection-image-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.na-collection-card:hover .na-collection-image-wrapper::after {
-  opacity: 1;
-}
-
-/* Info Section Below Image */
 .na-collection-info {
   padding: 1.8rem 0.5rem;
   text-align: center;
-  transition: transform 0.4s ease;
 }
 
 .na-collection-title {
   font-size: 1.6rem;
   font-weight: 600;
   color: #1a1a1a;
-  margin: 0;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  transition: color 0.3s ease;
 }
 
 .na-collection-card:hover .na-collection-title {
-  color: #a88b6a; /* Aura Gold */
+  color: #a88b6a;
 }
 
-.na-collection-title .icon-wrap {
-  width: 1.8rem;
-  height: 1.8rem;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.na-collection-card:hover .na-collection-title .icon-wrap {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Grid Spacing Helper */
-.collection-list.grid {
-  row-gap: 5rem;
-  column-gap: 4rem;
-}
-
-@media screen and (max-width: 749px) {
-  .na-collection-image-wrapper {
-    border-radius: 16px;
-  }
-  .na-collection-title {
-    font-size: 1.4rem;
-  }
-  .collection-list.grid {
-    row-gap: 3.5rem;
-    column-gap: 2rem;
-  }
-}
-
-/* ============================================================================
-   Multi-Image Collection Slideshow (The Aura Custom)
-   ========================================================================== */
-
+/* Slideshow Animation */
 .na-collection-slideshow {
   position: absolute;
   inset: 0;
@@ -1045,10 +794,9 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  animation: naCrossfade 9s infinite; /* 3 images x 3s each */
+  animation: naCrossfade 9s infinite;
 }
 
-/* Image Delays for automatic 3s cycling */
 .na-collection-slideshow img:nth-child(1) { animation-delay: 0s; }
 .na-collection-slideshow img:nth-child(2) { animation-delay: 3s; }
 .na-collection-slideshow img:nth-child(3) { animation-delay: 6s; }
@@ -1059,19 +807,4 @@
   33% { opacity: 1; }
   38% { opacity: 0; transform: scale(1.05); }
   100% { opacity: 0; }
-}
-
-/* Ensure the wrapper handles the absolute child slideshow */
-.na-collection-image-wrapper {
-  background: #fdfaf7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.na-collection-image-wrapper svg.placeholder-svg {
-  width: 60%;
-  height: 60%;
-  opacity: 0.1;
 }

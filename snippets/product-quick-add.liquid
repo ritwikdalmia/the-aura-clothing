@@ -9,6 +9,8 @@
     <img src="{{ product.featured_media | image_url: width: 800 }}" 
          alt="{{ product.title | escape }}"
          id="naQvImage-{{ section.id }}"
+         width="800"
+         height="{{ 800 | divided_by: product.featured_media.aspect_ratio }}"
          loading="lazy">
   </div>
   
@@ -75,6 +77,5 @@
 </div>
 
 <script>
-  // Simple variant data for JS
   window.qvVariants = {{ product.variants | json }};
 </script>
