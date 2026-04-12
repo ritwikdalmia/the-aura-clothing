@@ -50,6 +50,9 @@
   {% endif %}
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
+  {% if product.media.size > 1 %}
+    data-autoslide="3000"
+  {% endif %}
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
@@ -178,8 +181,6 @@
   -%}
   {%- if is_not_limited_to_single_item
     and media_count > 1
-    and section.settings.gallery_layout contains 'thumbnail'
-    or section.settings.mobile_thumbnails == 'show'
   -%}
     <slider-component
       id="GalleryThumbnails-{{ section.id }}"

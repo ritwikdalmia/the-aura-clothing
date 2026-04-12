@@ -16,9 +16,55 @@ if (!customElements.get('media-gallery')) {
         this.elements.thumbnails.querySelectorAll('[data-target]').forEach((mediaToSwitch) => {
           mediaToSwitch
             .querySelector('button')
-            .addEventListener('click', this.setActiveMedia.bind(this, mediaToSwitch.dataset.target, false));
+            .addEventListener('click', (event) => {
+              this.setActiveMedia(mediaToSwitch.dataset.target, false);
+              this.pauseAutoSlide(); // Stop auto-slide on user click
+            });
         });
+
         if (this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) this.removeListSemantic();
+
+        // Auto-slide initialization
+        this.autoSlideInterval = null;
+        this.autoSlideDelay = parseInt(this.dataset.autoslide);
+        if (this.autoSlideDelay) {
+          this.initAutoSlide();
+          this.addEventListener('mouseenter', () => this.pauseAutoSlide());
+          this.addEventListener('mouseleave', () => this.playAutoSlide());
+        }
+      }
+
+      initAutoSlide() {
+        this.playAutoSlide();
+      }
+
+      playAutoSlide() {
+        if (!this.autoSlideDelay || this.autoSlideInterval) return;
+        this.autoSlideInterval = setInterval(() => {
+          this.nextMedia();
+        }, this.autoSlideDelay);
+      }
+
+      pauseAutoSlide() {
+        if (this.autoSlideInterval) {
+          clearInterval(this.autoSlideInterval);
+          this.autoSlideInterval = null;
+        }
+      }
+
+      nextMedia() {
+        const activeMedia = this.elements.viewer.querySelector('.is-active');
+        if (!activeMedia) return;
+
+        let nextMedia = activeMedia.nextElementSibling;
+        if (!nextMedia || !nextMedia.hasAttribute('data-media-id')) {
+          // Loop back to start
+          nextMedia = this.elements.viewer.querySelector('[data-media-id]');
+        }
+
+        if (nextMedia) {
+          this.setActiveMedia(nextMedia.dataset.mediaId, false);
+        }
       }
 
       onSlideChanged(event) {
