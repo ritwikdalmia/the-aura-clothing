@@ -4,6 +4,7 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
+{{ 'cart-premium.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -47,6 +48,32 @@
         </p>
       {%- endif -%}
     </div>
+
+    {%- comment -%} ── Free Shipping Progress Bar ── {%- endcomment -%}
+    {%- if cart != empty -%}
+      {%- assign free_shipping_threshold = 999 -%}
+      {%- assign cart_total = cart.total_price | divided_by: 100 -%}
+      {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
+      {%- if remaining < 0 -%}{%- assign remaining = 0 -%}{%- endif -%}
+      {%- assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
+      {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
+
+      <div class="aura-free-shipping-bar">
+        {%- if remaining > 0 -%}
+          <p class="aura-shipping-text">
+            Shop for <strong>₹{{ remaining }}</strong> more to unlock <strong>Free Shipping</strong>
+          </p>
+        {%- else -%}
+          <p class="aura-shipping-text aura-shipping-reached">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            You've unlocked <strong>Free Shipping!</strong>
+          </p>
+        {%- endif -%}
+        <div class="aura-shipping-track">
+          <div class="aura-shipping-fill" style="width: {{ progress }}%;"></div>
+        </div>
+      </div>
+    {%- endif -%}
 
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
@@ -454,6 +481,28 @@
         {{ 'accessibility.loading' | t }}
       </p>
     </form>
+
+    {%- comment -%} ── Trust Badges ── {%- endcomment -%}
+    {%- if cart != empty -%}
+      <div class="aura-trust-badges">
+        <div class="aura-trust-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Secure Checkout</span>
+        </div>
+        <div class="aura-trust-badge">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Free Shipping</span>
+        </div>
+        <div class="aura-trust-badge">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          <span>Premium Quality</span>
+        </div>
+        <div class="aura-trust-badge">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span>Easy Returns</span>
+        </div>
+      </div>
+    {%- endif -%}
   </div>
 </cart-items>
 

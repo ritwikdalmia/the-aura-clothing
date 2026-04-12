@@ -1492,3 +1492,62 @@ a.product__text {
     border: none;
   }
 }
+
+/* Aura Trust Badges - Brand Consistency */
+.aura-trust-badges {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2.4rem;
+  padding: 2rem 0;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--aura-border);
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.badge-icon {
+  width: 3.8rem;
+  height: 3.8rem;
+  background: var(--aura-bg-warm);
+  border: 1px solid rgba(168, 139, 106, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aura-gold);
+  transition: all 0.3s var(--aura-transition);
+  flex-shrink: 0;
+}
+
+.badge-item:hover .badge-icon {
+  background: #fff;
+  transform: translateY(-2px);
+  border-color: var(--aura-gold);
+  box-shadow: var(--aura-shadow-sm);
+}
+
+.badge-icon svg { width: 2rem; height: 2rem; }
+
+.badge-text { display: flex; flex-direction: column; }
+.badge-title { font-size: 1.1rem; font-weight: 700; color: #000; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+.badge-subtitle { font-size: 0.95rem; color: rgba(0,0,0,0.5); letter-spacing: 0.02em; line-height: 1.2; }
+
+.badge-divider {
+  width: 1px;
+  height: 3rem;
+  background: var(--aura-border);
+}
+
+@media screen and (max-width: 749px) {
+  .aura-trust-badges { 
+    gap: 1.5rem; 
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .badge-divider { display: none; }
+}

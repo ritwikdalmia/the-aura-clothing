@@ -412,3 +412,83 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     margin-left: 0;
   }
 }
+.view-cart-link {
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.view-cart-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+  transition: background 0.3s;
+}
+
+.view-cart-link:hover {
+  color: #000;
+}
+
+.view-cart-link:hover::after {
+  background: #000;
+}
+
+/* ── Trust Badges 🚀 ── */
+.cart-drawer__trust-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--aura-border);
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.badge-icon {
+  width: 3.4rem;
+  height: 3.4rem;
+  background: #fdfbf9;
+  border: 1px solid rgba(168, 139, 106, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aura-gold);
+  transition: all 0.3s var(--aura-transition);
+}
+
+.badge-item:hover .badge-icon {
+  background: var(--aura-bg-warm);
+  transform: translateY(-2px);
+  border-color: var(--aura-gold);
+}
+
+.badge-icon svg { width: 1.8rem; height: 1.8rem; }
+
+.badge-text { display: flex; flex-direction: column; }
+.badge-title { font-size: 1rem; font-weight: 700; color: #000; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+.badge-subtitle { font-size: 0.9rem; color: rgba(0,0,0,0.4); letter-spacing: 0.02em; line-height: 1.2; }
+
+.badge-divider {
+  width: 1px;
+  height: 2.4rem;
+  background: var(--aura-border);
+}
+
+@media screen and (max-width: 749px) {
+  cart-drawer { --drawer-width: 100%; }
+  .cart-drawer__trust-badges { gap: 1.4rem; }
+  .badge-item { gap: 0.6rem; }
+  .badge-icon { width: 2.6rem; height: 2.6rem; }
+}

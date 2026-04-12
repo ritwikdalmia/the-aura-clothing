@@ -478,13 +478,24 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
-                {%- render 'buy-buttons',
-                  block: block,
-                  product: product,
-                  product_form_id: product_form_id,
-                  section_id: section.id,
-                  show_pickup_availability: true
-                -%}
+                  {%- render 'buy-buttons',
+                    block: block,
+                    product: product,
+                    product_form_id: product_form_id,
+                    section_id: section.id,
+                    show_pickup_availability: true
+                  -%}
+
+                  {%- liquid
+                    assign inventory_notice_threshold = 20
+                    assign current_variant = product.selected_or_first_available_variant
+                  -%}
+                  <div class="product-inventory-notice js-inventory-notice" data-threshold="{{ inventory_notice_threshold }}" {% if current_variant.inventory_management != 'shopify' or current_variant.inventory_quantity <= 0 or current_variant.inventory_quantity > inventory_notice_threshold %}style="display:none;"{% endif %}>
+                    <span class="inventory-notice__dot"></span>
+                    <span class="inventory-notice__text">Hurry! Only <span class="js-inventory-count">{{ current_variant.inventory_quantity }}</span> units left in stock!</span>
+                  </div>
+
+                  {% render 'product-trust-badges' %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">

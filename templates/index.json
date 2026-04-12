@@ -16,42 +16,63 @@
           "type": "story",
           "settings": {
             "title": "Explore Collection",
-            "link": ""
+            "link": "shopify://collections"
           }
         },
         "story_2": {
           "type": "story",
           "settings": {
             "title": "Dresses",
-            "link": ""
+            "link": "shopify://collections/dresses"
           }
         },
         "story_3": {
           "type": "story",
           "settings": {
             "title": "Co-ord sets",
-            "link": ""
+            "link": "shopify://collections/co-ord-sets"
           }
         },
         "story_4": {
           "type": "story",
           "settings": {
             "title": "Tops",
-            "link": ""
+            "link": "shopify://collections/tops"
           }
         },
         "story_5": {
           "type": "story",
           "settings": {
             "title": "Maxi",
-            "link": ""
+            "link": "shopify://collections/maxi"
           }
         },
         "story_6": {
           "type": "story",
           "settings": {
             "title": "Party Wear",
-            "link": ""
+            "link": "shopify://collections/party-wear"
+          }
+        },
+        "story_LC7TLC": {
+          "type": "story",
+          "settings": {
+            "title": "New Arrivals",
+            "link": "shopify://collections/new-arrivals"
+          }
+        },
+        "story_kpWkfE": {
+          "type": "story",
+          "settings": {
+            "title": "Best Sellers",
+            "link": "shopify://collections/best-sellers"
+          }
+        },
+        "story_X89r7e": {
+          "type": "story",
+          "settings": {
+            "title": "Sales",
+            "link": "shopify://collections/sales"
           }
         }
       },
@@ -61,7 +82,10 @@
         "story_3",
         "story_4",
         "story_5",
-        "story_6"
+        "story_6",
+        "story_LC7TLC",
+        "story_kpWkfE",
+        "story_X89r7e"
       ],
       "settings": {
         "color_scheme": "scheme-1",
@@ -80,7 +104,7 @@
             "heading_size": "h0",
             "subheading": "Light fabrics. Fresh prints. New arrivals",
             "button_label": "Explore Collection →",
-            "link": "shopify:\/\/collections\/all",
+            "link": "shopify://collections/all",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-right",
@@ -97,7 +121,7 @@
             "heading_size": "h0",
             "subheading": "Curated designs for every occasion",
             "button_label": "Shop Now",
-            "link": "shopify:\/\/collections\/all",
+            "link": "shopify://collections/all",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-center",
@@ -118,7 +142,8 @@
         "auto_rotate": true,
         "change_slides_speed": 5,
         "image_behavior": "none",
-        "show_text_below": false
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
       }
     },
     "new_arrivals": {
@@ -126,12 +151,123 @@
       "settings": {
         "title": "New Arrivals",
         "subtitle": "Fresh Picks",
-        "products_to_show": 8,
+        "collection": "new-arrivals",
+        "badge_mode": "mixed",
+        "products_to_show": 12,
         "show_view_all": true,
         "view_all_text": "View All",
-        "color_scheme": "scheme-1",
+        "view_all_link": "shopify://collections/new-arrivals",
+        "section_bg_color": "#f8f5f0",
+        "accent_color": "#a88b6a",
+        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
+      }
+    },
+    "shop_by_reels": {
+      "type": "shop-by-reels",
+      "blocks": {
+        "reel_yRMrKJ": {
+          "type": "reel",
+          "settings": {
+            "cover_image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
+            "view_count": "3k",
+            "product": "tulip-lace-up-dress",
+            "product_name": "Product Name",
+            "product_price": "2499",
+            "product_link": "shopify://products/tulip-lace-up-dress"
+          }
+        },
+        "reel_f8Nnfn": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product": "",
+            "product_name": "Product Name",
+            "product_price": "2499",
+            "product_link": ""
+          }
+        },
+        "reel_1": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product": "",
+            "product_name": "Mermaid Scarf Dress",
+            "product_price": "3200",
+            "product_link": ""
+          }
+        },
+        "reel_2": {
+          "type": "reel",
+          "settings": {
+            "view_count": "4K",
+            "product": "",
+            "product_name": "Heartstring Emerald Dress",
+            "product_price": "2400",
+            "product_link": ""
+          }
+        },
+        "reel_3": {
+          "type": "reel",
+          "settings": {
+            "view_count": "4K",
+            "product": "",
+            "product_name": "Noir Sequin Top",
+            "product_price": "1300",
+            "product_link": ""
+          }
+        },
+        "reel_4": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product": "",
+            "product_name": "Lovisa Lace Up Dress",
+            "product_price": "2499",
+            "product_link": ""
+          }
+        },
+        "reel_5": {
+          "type": "reel",
+          "settings": {
+            "view_count": "8K",
+            "product": "",
+            "product_name": "Champagne Siren 3pcs Set",
+            "product_price": "2200",
+            "product_link": ""
+          }
+        },
+        "reel_6": {
+          "type": "reel",
+          "settings": {
+            "view_count": "7K",
+            "product": "",
+            "product_name": "Red Temptation Mini",
+            "product_price": "2499",
+            "product_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "reel_yRMrKJ",
+        "reel_f8Nnfn",
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6"
+      ],
+      "settings": {
+        "title": "Shop by Video",
+        "subtitle": "Watch & Shop",
+        "section_bg_color": "#f8f5f0",
+        "accent_color": "#a88b6a",
+        "heading_color": "#2c2c2c",
+        "layout": "carousel",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "premium_collections": {
@@ -141,21 +277,27 @@
           "type": "collection_card",
           "settings": {
             "title": "Summer Dresses",
-            "label": "New Season"
+            "label": "New Season",
+            "collection": "dresses",
+            "link": ""
           }
         },
         "col_2": {
           "type": "collection_card",
           "settings": {
             "title": "Co-ord Sets",
-            "label": "Trending"
+            "label": "Trending",
+            "collection": "co-ord-sets",
+            "link": ""
           }
         },
         "col_3": {
           "type": "collection_card",
           "settings": {
             "title": "Party Wear",
-            "label": "Exclusive"
+            "label": "Exclusive",
+            "collection": "party-wear",
+            "link": ""
           }
         }
       },
@@ -174,85 +316,18 @@
         "padding_bottom": 60
       }
     },
-    "shop_by_reels": {
-      "type": "shop-by-reels",
-      "blocks": {
-        "reel_1": {
-          "type": "reel",
-          "settings": {
-            "view_count": "7K",
-            "product_name": "Mermaid Scarf Dress",
-            "product_price": "3200"
-          }
-        },
-        "reel_2": {
-          "type": "reel",
-          "settings": {
-            "view_count": "4K",
-            "product_name": "Heartstring Emerald Dress",
-            "product_price": "2400"
-          }
-        },
-        "reel_3": {
-          "type": "reel",
-          "settings": {
-            "view_count": "4K",
-            "product_name": "Noir Sequin Top",
-            "product_price": "1300"
-          }
-        },
-        "reel_4": {
-          "type": "reel",
-          "settings": {
-            "view_count": "7K",
-            "product_name": "Lovisa Lace Up Dress",
-            "product_price": "2499"
-          }
-        },
-        "reel_5": {
-          "type": "reel",
-          "settings": {
-            "view_count": "8K",
-            "product_name": "Champagne Siren 3pcs Set",
-            "product_price": "2200"
-          }
-        },
-        "reel_6": {
-          "type": "reel",
-          "settings": {
-            "view_count": "7K",
-            "product_name": "Red Temptation Mini",
-            "product_price": "2499"
-          }
-        }
-      },
-      "block_order": [
-        "reel_1",
-        "reel_2",
-        "reel_3",
-        "reel_4",
-        "reel_5",
-        "reel_6"
-      ],
-      "settings": {
-        "title": "Shop by Video",
-        "subtitle": "Watch & Shop",
-        "section_bg_color": "#f8f5f0",
-        "accent_color": "#a88b6a",
-        "heading_color": "#2c2c2c",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
-    },
     "price_drop_sales": {
       "type": "new-arrivals-premium",
+      "name": "Price drops and sales",
       "settings": {
         "title": "Price Drop & Sales",
         "subtitle": "Limited Time Deals",
-        "products_to_show": 8,
+        "collection": "sales",
+        "badge_mode": "sale_only",
+        "products_to_show": 12,
         "show_view_all": true,
         "view_all_text": "View All Deals",
-        "badge_mode": "sale_only",
+        "view_all_link": "shopify://collections/sales",
         "section_bg_color": "#ffffff",
         "accent_color": "#c0392b",
         "heading_color": "#2c2c2c",
@@ -265,10 +340,12 @@
       "settings": {
         "title": "Best Sellers",
         "subtitle": "Top Picks",
-        "products_to_show": 8,
+        "collection": "best-sellers",
+        "products_to_show": 16,
         "auto_scroll_speed": 4,
         "show_view_all": true,
         "view_all_text": "View All Best Sellers",
+        "view_all_link": "shopify://collections/best-sellers",
         "section_bg_color": "#ffffff",
         "accent_color": "#a88b6a",
         "heading_color": "#2c2c2c",
@@ -320,7 +397,11 @@
     "faq": {
       "type": "faq-premium",
       "settings": {
+        "subtitle": "Support Center",
         "title": "FAQs",
+        "description": "Can't find what you're looking for? Reach out to our customer care team.",
+        "button_text": "Contact Us",
+        "button_link": "",
         "section_bg_color": "#ffffff",
         "heading_color": "#2c2c2c",
         "accent_color": "#a88b6a",

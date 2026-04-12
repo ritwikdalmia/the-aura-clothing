@@ -1,0 +1,497 @@
+/* ============================
+   The Aura – Premium Cart Page
+   ============================ */
+
+/* ── Global page-level refinements ── */
+cart-items {
+  /* Aura Brand Variables moved to :root for global consistency */
+}
+
+/* ── Page Title ── */
+cart-items .title-wrapper-with-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--aura-border);
+}
+
+cart-items .title.title--primary {
+  font-family: var(--font-heading-family);
+  font-size: 2.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 300;
+  position: relative;
+}
+
+cart-items .title.title--primary::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--aura-gold), transparent);
+}
+
+cart-items .underlined-link {
+  color: var(--aura-gold);
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--aura-transition);
+}
+
+cart-items .underlined-link:hover {
+  border-bottom-color: var(--aura-gold);
+}
+
+/* ── Empty Cart ── */
+.cart__warnings {
+  padding: 8rem 0 4rem !important;
+}
+
+.cart__empty-text {
+  font-family: var(--font-heading-family);
+  font-size: 2.4rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.cart__warnings .button {
+  background: var(--aura-gold);
+  color: #fff;
+  border: none;
+  padding: 1.4rem 4rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: background var(--aura-transition), transform var(--aura-transition);
+}
+
+.cart__warnings .button:hover {
+  background: var(--aura-gold-light);
+  transform: translateY(-2px);
+}
+
+/* ── Cart Items Table ── */
+.cart__items {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+.cart-items thead th {
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.45);
+  padding-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .cart-items th {
+    border-bottom: 1px solid var(--aura-border) !important;
+  }
+}
+
+/* ── Individual Cart Item Row ── */
+.cart-item {
+  position: relative;
+  transition: background var(--aura-transition);
+}
+
+@media screen and (min-width: 750px) {
+  .cart-items td {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--aura-border);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .cart-item {
+    background: #fff;
+    border-radius: var(--aura-radius);
+    padding: 1.6rem;
+    margin-bottom: 1.6rem !important;
+    box-shadow: var(--aura-shadow-sm);
+    border: 1px solid var(--aura-border);
+  }
+}
+
+/* ── Product Image ── */
+.cart-item__image-container {
+  border-radius: 10px !important;
+  overflow: hidden;
+  border: 1px solid var(--aura-border) !important;
+  box-shadow: var(--aura-shadow-sm);
+}
+
+.cart-item__image-container::after {
+  border-radius: 10px !important;
+}
+
+.cart-item__image {
+  transition: transform 0.5s ease;
+}
+
+.cart-item:hover .cart-item__image {
+  transform: scale(1.05);
+}
+
+@media screen and (min-width: 750px) {
+  .cart-item__image {
+    max-width: 120px !important;
+  }
+
+  .cart-item__media {
+    width: 13rem !important;
+  }
+}
+
+/* ── Product Name ── */
+.cart-item__name {
+  font-family: var(--font-heading-family);
+  font-size: 1.5rem !important;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+  transition: color var(--aura-transition);
+}
+
+.cart-item__name:hover {
+  color: var(--aura-gold) !important;
+  text-decoration: none !important;
+}
+
+/* ── Product Options ── */
+.product-option {
+  font-size: 1.25rem !important;
+  color: rgba(var(--color-foreground), 0.55);
+  letter-spacing: 0.02em;
+}
+
+.product-option dt {
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* ── Price ── */
+.cart-item__price-wrapper .price {
+  font-family: var(--font-heading-family);
+  font-weight: 500;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+}
+
+.cart-item__old-price {
+  color: rgba(var(--color-foreground), 0.4) !important;
+  font-size: 1.3rem !important;
+}
+
+.cart-item__final-price {
+  color: var(--aura-gold) !important;
+  font-weight: 600 !important;
+}
+
+/* ── Quantity Input ── */
+.quantity.cart-quantity {
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  overflow: hidden;
+  background: var(--aura-bg-warm);
+}
+
+.quantity.cart-quantity .quantity__input {
+  font-family: var(--font-heading-family);
+  font-weight: 500;
+  font-size: 1.4rem;
+  background: transparent;
+  letter-spacing: 0.05em;
+}
+
+.quantity.cart-quantity .quantity__button {
+  transition: background var(--aura-transition);
+}
+
+.quantity.cart-quantity .quantity__button:hover {
+  background: rgba(168, 139, 106, 0.1);
+}
+
+/* ── Remove Button ── */
+cart-remove-button .button {
+  opacity: 0.4;
+  transition: opacity var(--aura-transition), color var(--aura-transition);
+}
+
+cart-remove-button .button:hover {
+  opacity: 1;
+  color: #c0392b !important;
+}
+
+/* ── Discount Badges ── */
+.discounts__discount {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(168, 139, 106, 0.08);
+  border: 1px solid rgba(168, 139, 106, 0.15);
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--aura-gold);
+}
+
+/* ============================================
+   Cart Footer – Premium Styling
+   ============================================ */
+
+#main-cart-footer {
+  background: var(--aura-bg-warm);
+  border-top: 1px solid var(--aura-border);
+}
+
+.cart__footer {
+  padding-top: 3rem;
+}
+
+/* ── Cart Note ── */
+.cart__note .field__input {
+  border-radius: 10px !important;
+  border: 1px solid var(--aura-border);
+  background: #fff;
+  font-size: 1.3rem;
+  padding: 1.2rem 1.6rem;
+  transition: border-color var(--aura-transition), box-shadow var(--aura-transition);
+}
+
+.cart__note .field__input:focus {
+  border-color: var(--aura-gold) !important;
+  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.1) !important;
+}
+
+.cart__note label {
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+/* ── Totals ── */
+.totals {
+  padding: 2rem 0;
+  border-top: 1px solid var(--aura-border);
+  margin-top: 1rem;
+}
+
+.totals__total {
+  font-family: var(--font-heading-family);
+  font-size: 1.3rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.totals__total-value {
+  font-family: var(--font-heading-family);
+  font-size: 2.4rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ── Tax Note ── */
+.tax-note {
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.45);
+  letter-spacing: 0.02em;
+}
+
+/* ── Checkout Button ── */
+.cart__checkout-button {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 1.8rem 4rem !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  max-width: 100% !important;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--aura-transition), box-shadow var(--aura-transition) !important;
+}
+
+.cart__checkout-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transition: left 0.6s ease;
+}
+
+.cart__checkout-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2) !important;
+}
+
+.cart__checkout-button:hover::before {
+  left: 100%;
+}
+
+/* ── Dynamic Checkout Buttons ── */
+.cart__dynamic-checkout-buttons {
+  max-width: 100% !important;
+  margin-top: 1.2rem;
+}
+
+/* ============================================
+   Free Shipping Progress Bar
+   ============================================ */
+.aura-free-shipping-bar {
+  background: linear-gradient(135deg, rgba(168,139,106,0.06) 0%, rgba(168,139,106,0.02) 100%);
+  border: 1px solid rgba(168,139,106,0.12);
+  border-radius: var(--aura-radius);
+  padding: 2rem 2.4rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.aura-shipping-text {
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.65);
+  margin-bottom: 1.2rem;
+}
+
+.aura-shipping-text strong {
+  color: var(--aura-gold);
+  font-weight: 600;
+}
+
+.aura-shipping-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(var(--color-foreground), 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.aura-shipping-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--aura-gold), var(--aura-gold-light));
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.aura-shipping-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--aura-gold);
+  box-shadow: 0 0 8px rgba(168, 139, 106, 0.4);
+}
+
+.aura-shipping-reached {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.aura-shipping-reached svg {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+  fill: #2ecc71;
+}
+
+/* ============================================
+   Trust Badges Row
+   ============================================ */
+.aura-trust-badges {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--aura-border);
+}
+
+.aura-trust-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.aura-trust-badge svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--aura-gold);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.aura-trust-badge span {
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+@media screen and (max-width: 749px) {
+  .aura-trust-badges {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .aura-trust-badge span {
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Subtle fade-in animation ── */
+@keyframes auraFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+cart-items .page-width {
+  animation: auraFadeUp 0.5s ease forwards;
+}
+
+#main-cart-footer .page-width {
+  animation: auraFadeUp 0.5s 0.15s ease forwards;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
