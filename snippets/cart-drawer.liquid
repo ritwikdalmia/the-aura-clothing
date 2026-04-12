@@ -74,6 +74,30 @@
           </span>
         </button>
       </div>
+
+      {%- if cart != empty -%}
+        <div class="cart-drawer__reward-bar">
+          {%- liquid
+            assign threshold = 100000
+            assign current_total = cart.total_price
+            assign remaining = threshold | minus: current_total
+            assign percentage = current_total | times: 100 | divided_by: threshold
+            if percentage > 100
+              assign percentage = 100
+            endif
+          -%}
+          <div class="reward-bar__text">
+            {%- if remaining > 0 -%}
+              Add <strong>{{ remaining | money }}</strong> more for <strong>FREE SHIPPING</strong>
+            {%- else -%}
+              🎉 <strong>Congratulations!</strong> You've unlocked <strong>FREE SHIPPING</strong>
+            {%- endif -%}
+          </div>
+          <div class="reward-bar__status">
+            <div class="reward-bar__fill" style="width: {{ percentage }}%;"></div>
+          </div>
+        </div>
+      {%- endif -%}
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -571,10 +595,59 @@
             {% if cart == empty %}
               disabled
             {% endif %}
+            style="background: linear-gradient(45deg, #000, #333); color: #fff; border: 1px solid var(--luxe-gold);"
           >
             {{ 'sections.cart.checkout' | t }}
           </button>
         </div>
+
+        {%- if cart != empty -%}
+          <div class="cart-drawer__trust">
+            <div class="trust-item">
+              {{- 'icon-padlock.svg' | inline_asset_content -}}
+              <span>Secure Pay</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+              <span>Quality</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Authentic</span>
+            </div>
+          </div>
+
+          {%- if settings.cart_drawer_collection != blank -%}
+            <div class="cart-drawer__upsell">
+              <h3 class="upsell__title">Complete the look</h3>
+              <div class="upsell__grid">
+                {%- for upsell_product in settings.cart_drawer_collection.products limit: 3 -%}
+                  <div class="upsell-item">
+                    <img src="{{ upsell_product.featured_image | image_url: width: 140 }}" 
+                         alt="{{ upsell_product.title }}" 
+                         class="upsell-item__image"
+                         loading="lazy">
+                    <div class="upsell-item__info">
+                      <h4 class="upsell-item__title">{{ upsell_product.title }}</h4>
+                      <div class="upsell-item__price-row">
+                        <span class="upsell-item__price">{{ upsell_product.price | money }}</span>
+                        {%- if upsell_product.compare_at_price > upsell_product.price -%}
+                          <span class="upsell-item__discount">-{{ upsell_product.compare_at_price | minus: upsell_product.price | times: 100 | divided_by: upsell_product.compare_at_price }}%</span>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                    <button type="button" 
+                            class="upsell-item__button"
+                            onclick="event.preventDefault(); openQuickAdd('{{ upsell_product.url }}')"
+                            aria-label="Add {{ upsell_product.title }} to cart">
+                      <span class="svg-wrapper">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
+                    </button>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
       </div>
     </div>
   </div>

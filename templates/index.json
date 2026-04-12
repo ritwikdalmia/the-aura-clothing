@@ -151,12 +151,12 @@
       "settings": {
         "title": "New Arrivals",
         "subtitle": "Fresh Picks",
-        "collection": "new-arrivals",
+        "collection": "",
         "badge_mode": "mixed",
-        "products_to_show": 12,
+        "products_to_show": 8,
         "show_view_all": true,
         "view_all_text": "View All",
-        "view_all_link": "shopify://collections/new-arrivals",
+        "view_all_link": "",
         "section_bg_color": "#f8f5f0",
         "accent_color": "#a88b6a",
         "heading_color": "#2c2c2c",
@@ -167,27 +167,6 @@
     "shop_by_reels": {
       "type": "shop-by-reels",
       "blocks": {
-        "reel_yRMrKJ": {
-          "type": "reel",
-          "settings": {
-            "cover_image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
-            "view_count": "3k",
-            "product": "tulip-lace-up-dress",
-            "product_name": "Product Name",
-            "product_price": "2499",
-            "product_link": "shopify://products/tulip-lace-up-dress"
-          }
-        },
-        "reel_f8Nnfn": {
-          "type": "reel",
-          "settings": {
-            "view_count": "7K",
-            "product": "",
-            "product_name": "Product Name",
-            "product_price": "2499",
-            "product_link": ""
-          }
-        },
         "reel_1": {
           "type": "reel",
           "settings": {
@@ -250,8 +229,6 @@
         }
       },
       "block_order": [
-        "reel_yRMrKJ",
-        "reel_f8Nnfn",
         "reel_1",
         "reel_2",
         "reel_3",
@@ -278,7 +255,7 @@
           "settings": {
             "title": "Summer Dresses",
             "label": "New Season",
-            "collection": "dresses",
+            "collection": "",
             "link": ""
           }
         },
@@ -287,7 +264,7 @@
           "settings": {
             "title": "Co-ord Sets",
             "label": "Trending",
-            "collection": "co-ord-sets",
+            "collection": "",
             "link": ""
           }
         },
@@ -296,7 +273,7 @@
           "settings": {
             "title": "Party Wear",
             "label": "Exclusive",
-            "collection": "party-wear",
+            "collection": "",
             "link": ""
           }
         }
@@ -318,16 +295,15 @@
     },
     "price_drop_sales": {
       "type": "new-arrivals-premium",
-      "name": "Price drops and sales",
       "settings": {
         "title": "Price Drop & Sales",
         "subtitle": "Limited Time Deals",
-        "collection": "sales",
+        "collection": "",
         "badge_mode": "sale_only",
-        "products_to_show": 12,
+        "products_to_show": 8,
         "show_view_all": true,
         "view_all_text": "View All Deals",
-        "view_all_link": "shopify://collections/sales",
+        "view_all_link": "",
         "section_bg_color": "#ffffff",
         "accent_color": "#c0392b",
         "heading_color": "#2c2c2c",
@@ -340,12 +316,12 @@
       "settings": {
         "title": "Best Sellers",
         "subtitle": "Top Picks",
-        "collection": "best-sellers",
-        "products_to_show": 16,
+        "collection": "",
+        "products_to_show": 8,
         "auto_scroll_speed": 4,
         "show_view_all": true,
         "view_all_text": "View All Best Sellers",
-        "view_all_link": "shopify://collections/best-sellers",
+        "view_all_link": "",
         "section_bg_color": "#ffffff",
         "accent_color": "#a88b6a",
         "heading_color": "#2c2c2c",

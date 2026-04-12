@@ -34,6 +34,18 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .grid.product-grid {
+    column-gap: 1.6rem;
+    row-gap: 1.6rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .grid.product-grid {
+      column-gap: 2.4rem;
+      row-gap: 2.4rem;
+    }
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
@@ -100,21 +112,23 @@
     <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-      {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-        <aside
-          aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-          id="main-collection-filters"
-          data-id="{{ section.id }}"
-        >
-          {% render 'facets',
-            results: collection,
-            enable_filtering: section.settings.enable_filtering,
-            enable_sorting: section.settings.enable_sorting,
-            filter_type: section.settings.filter_type,
-            paginate: paginate
-          %}
-        </aside>
+      {%- if section.settings.show_filters_sidebar -%}
+        {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+          <aside
+            aria-labelledby="verticalTitle"
+            class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+            id="main-collection-filters"
+            data-id="{{ section.id }}"
+          >
+            {% render 'facets',
+              results: collection,
+              enable_filtering: section.settings.enable_filtering,
+              enable_sorting: section.settings.enable_sorting,
+              filter_type: section.settings.filter_type,
+              paginate: paginate
+            %}
+          </aside>
+        {%- endif -%}
       {%- endif -%}
 
       <div
@@ -215,8 +229,14 @@
       "min": 1,
       "max": 6,
       "step": 1,
-      "default": 4,
+      "default": 3,
       "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters_sidebar",
+      "default": true,
+      "label": "Show Filter Sidebar"
     },
     {
       "type": "select",

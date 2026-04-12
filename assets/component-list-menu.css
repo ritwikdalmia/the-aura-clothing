@@ -6,7 +6,12 @@
   position: absolute;
   min-width: 100%;
   width: 20rem;
-  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border: 1px solid rgba(var(--color-foreground), 0.05); /* Softer border */
+  border-radius: 12px; /* Premium Round Curve */
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  background: rgb(var(--color-background));
+  margin-top: 5px;
 }
 
 .list-menu--disclosure:focus {

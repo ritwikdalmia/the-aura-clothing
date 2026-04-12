@@ -424,50 +424,7 @@
       {%- comment -%} Dynamic mode: render real products from a collection {%- endcomment -%}
       <div class="na-product-grid">
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
-            <div class="na-card-image-wrapper">
-              {%- if product.compare_at_price > product.price -%}
-                <span class="na-badge na-badge--sale">Sale</span>
-              {%- endif -%}
-              <button class="na-wishlist" aria-label="Add to wishlist">
-                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              </button>
-              {%- if product.featured_media -%}
-                <img
-                  class="na-card-img-primary"
-                  src="{{ product.featured_media | image_url: width: 600 }}"
-                  alt="{{ product.featured_media.alt | escape }}"
-                  loading="lazy"
-                  width="600"
-                  height="800"
-                >
-                {%- if product.media[1] -%}
-                  <img
-                    class="na-card-img-hover"
-                    src="{{ product.media[1] | image_url: width: 600 }}"
-                    alt="{{ product.media[1].alt | escape }}"
-                    loading="lazy"
-                    width="600"
-                    height="800"
-                  >
-                {%- endif -%}
-              {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'na-card-img-primary' }}
-              {%- endif -%}
-              <div class="na-quick-add">Quick Add</div>
-            </div>
-            <div class="na-card-info">
-              <h3 class="na-card-title">{{ product.title }}</h3>
-              <div class="na-card-price-row">
-                <span class="na-card-price">{{ product.price | money }}</span>
-                {%- if product.compare_at_price > product.price -%}
-                  <span class="na-card-compare-price">{{ product.compare_at_price | money }}</span>
-                  {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
-                  <span class="na-card-discount">-{{ savings }}%</span>
-                {%- endif -%}
-              </div>
-            </div>
-          </a>
+          {% render 'card-product', card_product: product %}
         {%- endfor -%}
       </div>
     {%- else -%}

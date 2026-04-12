@@ -31,20 +31,22 @@ function toggleLoadingSpinner(image) {
 
 function moveWithHover(image, event, zoomRatio) {
   // calculate mouse position
-  const ratio = image.height / image.width;
   const container = event.target.getBoundingClientRect();
   const xPosition = event.clientX - container.left;
   const yPosition = event.clientY - container.top;
-  const xPercent = `${xPosition / (image.clientWidth / 100)}%`;
-  const yPercent = `${yPosition / ((image.clientWidth * ratio) / 100)}%`;
+  
+  // Adjusted percentages for a more "localized" lens effect
+  const xPercent = (xPosition / container.width) * 100;
+  const yPercent = (yPosition / container.height) * 100;
 
   // determine what to show in the frame
-  overlay.style.backgroundPosition = `${xPercent} ${yPercent}`;
-  overlay.style.backgroundSize = `${image.width * zoomRatio}px`;
+  overlay.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+  overlay.style.backgroundSize = `${container.width * zoomRatio}px auto`;
 }
 
 function magnify(image, zoomRatio) {
   const overlay = createOverlay(image);
+  overlay.style.transition = 'background-position 0.1s ease-out'; // Added for silky following
   overlay.onclick = () => overlay.remove();
   overlay.onmousemove = (event) => moveWithHover(image, event, zoomRatio);
   overlay.onmouseleave = () => overlay.remove();
@@ -60,4 +62,4 @@ function enableZoomOnHover(zoomRatio) {
   });
 }
 
-enableZoomOnHover(2);
+enableZoomOnHover(2.5); // Slightly higher ratio for better detail focus

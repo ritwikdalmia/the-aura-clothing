@@ -3569,37 +3569,427 @@ details-disclosure > details {
   cursor: default;
 }
 
-/* Progress bar */
-.progress-bar-container {
-  width: 100%;
-  margin: auto;
+/* --- LUXE PREMIUM CART DRAWER & QUICK ADD --- */
+
+:root {
+  --luxe-blur: 12px;
+  --luxe-overlay: rgba(0, 0, 0, 0.25);
+  --luxe-bg: rgba(255, 255, 255, 0.75);
+  --luxe-border: rgba(255, 255, 255, 0.3);
+  --luxe-gold: #a88b6a;
 }
 
-.progress-bar {
-  height: 0.13rem;
-  width: 100%;
+/* Glassmorphism Drawer Overlay */
+.cart-drawer__overlay {
+  background: var(--luxe-overlay) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
-.progress-bar-value {
+.cart-drawer .drawer__inner {
+  background: var(--luxe-bg) !important;
+  backdrop-filter: blur(var(--luxe-blur));
+  -webkit-backdrop-filter: blur(var(--luxe-blur));
+  border-left: 1px solid var(--luxe-border);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+}
+
+/* Reward Progress Bar */
+.cart-drawer__reward-bar {
+  padding: 2rem 2.5rem 1rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.reward-bar__text {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.reward-bar__status {
+  height: 6px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.reward-bar__fill {
+  height: 100%;
+  background: var(--luxe-gold);
+  width: 0%;
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 10px rgba(168, 139, 106, 0.4);
+}
+
+/* Premium Drawer Upsells */
+.cart-drawer__upsell {
+  padding: 2.5rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  background: rgba(168, 139, 106, 0.03);
+}
+
+.upsell__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #222;
+}
+
+.upsell__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.upsell-item {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  background: #fff;
+  padding: 0.8rem;
+  border-radius: var(--aura-radius);
+  transition: var(--aura-transition);
+  border: 1px solid transparent;
+}
+
+.upsell-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-color: var(--luxe-gold);
+}
+
+.upsell-item__image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.upsell-item__info {
+  flex-grow: 1;
+}
+
+.upsell-item__title {
+  font-size: 1.3rem;
+  margin: 0 0 0.3rem;
+  font-weight: 500;
+}
+
+.upsell-item__price-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.upsell-item__price {
+  font-weight: 600;
+  color: var(--luxe-gold);
+}
+
+.upsell-item__discount {
+  font-size: 1.1rem;
+  background: var(--luxe-gold);
+  color: #fff;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+}
+
+.upsell-item__button {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upsell-item__button:hover {
+  background: var(--luxe-gold);
+  color: #fff;
+  border-color: var(--luxe-gold);
+}
+
+/* Trust Badges in Drawer */
+.cart-drawer__trust {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.5rem 0;
+  opacity: 0.7;
+}
+
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trust-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Quick Add Modal Premium Styles */
+#na-quick-add-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(var(--color-foreground));
-  animation: indeterminateAnimation var(--duration-extra-longer) infinite ease-in-out;
-  transform-origin: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.progress-bar .progress-bar-value {
-  display: block;
+#na-quick-add-modal.active {
+  display: flex;
 }
 
-@keyframes indeterminateAnimation {
-  0% {
-    transform: translateX(-20%) scaleX(0);
+.na-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+}
+
+.na-modal-content {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--aura-radius);
+  overflow: hidden;
+  display: flex;
+  animation: modalIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.na-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 2.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.na-modal-close:hover {
+  background: #f5f5f5;
+  transform: rotate(90deg);
+}
+
+.na-modal-body {
+  width: 100%;
+  display: flex;
+}
+
+.na-quick-view-media {
+  width: 50%;
+  background: #f9f9f9;
+}
+
+.na-quick-view-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.na-quick-view-info {
+  width: 50%;
+  padding: 4rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.na-qv-title {
+  font-size: 2.8rem;
+  margin: 0 0 1rem;
+}
+
+.na-qv-price-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.na-qv-price {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--luxe-gold);
+}
+
+.na-qv-compare-price {
+  font-size: 1.8rem;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.na-qv-badge {
+  background: #000;
+  color: #fff;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.na-qv-option-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.na-qv-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.na-qv-option {
+  border: 1px solid #ddd;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: all 0.2s ease;
+}
+
+.na-qv-option:hover {
+  border-color: #000;
+}
+
+.na-qv-option.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.na-qv-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.na-qv-qty-input {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 0.5rem;
+}
+
+.na-qv-qty-btn {
+  background: none;
+  border: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+
+.na-qv-qty-val {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-size: 1.6rem;
+}
+
+.na-qv-add-btn {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 1.5rem;
+  border-radius: var(--aura-radius);
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.na-qv-add-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.na-qv-buy-btn {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 1.5rem;
+  border-radius: var(--aura-radius);
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.na-qv-buy-btn:hover {
+  opacity: 0.9;
+}
+
+.na-qv-urgency {
+  margin-top: 2rem;
+  color: #d9534f;
+  font-weight: 500;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .na-modal-content {
+    flex-direction: column;
+    max-height: 90vh;
   }
-  40% {
-    transform: translateX(30%) scaleX(0.7);
+  .na-quick-view-media, .na-quick-view-info {
+    width: 100%;
   }
-  100% {
-    transform: translateX(100%) scaleX(0);
+  .na-quick-view-media {
+    height: 300px;
+  }
+  .na-quick-view-info {
+    padding: 2.5rem;
   }
 }

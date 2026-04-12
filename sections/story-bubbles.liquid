@@ -15,15 +15,25 @@
   .story-circles-wrapper {
     display: flex;
     overflow-x: auto;
+    overflow-y: visible; /* Prevents box-shadow/hover animations from getting cut vertically */
     scroll-snap-type: x mandatory;
     gap: 20px;
-    padding: 10px 20px;
+    padding: 20px; /* Adding horizontal padding so items don't stick directly to edges */
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
+    /* Soft visual scrollbar instead of completely hidden to help desktop users know they can scroll */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-foreground), 0.1) transparent;
   }
   
   .story-circles-wrapper::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+    height: 6px;
+  }
+  .story-circles-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .story-circles-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--color-foreground), 0.15);
+    border-radius: 10px;
   }
 
   .story-circle-item {
@@ -32,7 +42,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-decoration: none;
     width: 80px;
     transition: transform 0.3s ease;
@@ -40,9 +50,9 @@
 
   @media screen and (min-width: 750px) {
     .story-circles-wrapper {
-      justify-content: center;
+      /* justify-content: center; <-- THIS was causing the items to cut off on both sides when overflowing */
       gap: 40px;
-      padding: 20px 0;
+      padding: 20px 40px;
     }
     .story-circle-item {
       width: 100px;
@@ -99,7 +109,7 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
-    <div class="story-circles-wrapper">
+    <div class="story-circles-wrapper" id="StoryCircles-{{ section.id }}">
       {%- for block in section.blocks -%}
         <a href="{{ block.settings.link | default: '#' }}" class="story-circle-item" {{ block.shopify_attributes }}>
           <div class="story-circle-image-container">
@@ -124,6 +134,38 @@
     </div>
   </div>
 </div>
+
+{%- if section.settings.auto_scroll -%}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('#StoryCircles-{{ section.id }}');
+    if (!wrapper) return;
+    
+    let isHovered = false;
+
+    // Pause scrolling when the user interacts with the circles
+    wrapper.addEventListener('mouseenter', () => isHovered = true);
+    wrapper.addEventListener('mouseleave', () => isHovered = false);
+    wrapper.addEventListener('touchstart', () => isHovered = true, {passive: true});
+    wrapper.addEventListener('touchend', () => isHovered = false, {passive: true});
+
+    setInterval(() => {
+      if (!isHovered) {
+        const itemWidth = wrapper.querySelector('.story-circle-item')?.clientWidth || 100;
+        const gap = parseInt(window.getComputedStyle(wrapper).gap) || 20;
+        const scrollStep = itemWidth + gap;
+
+        // If reached the end, snap back to the beginning smoothly
+        if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 5) {
+          wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          wrapper.scrollBy({ left: scrollStep, behavior: 'smooth' });
+        }
+      }
+    }, {{ section.settings.scroll_interval | times: 1000 }});
+  });
+</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -160,6 +202,26 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Auto Scroll Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_scroll",
+      "label": "Enable Auto Scroll",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "scroll_interval",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Scroll Interval",
+      "default": 2
     }
   ],
   "blocks": [
