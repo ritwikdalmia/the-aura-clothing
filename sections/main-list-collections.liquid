@@ -1,13 +1,10 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
-<div class="page-width section-{{ section.id }}-padding">
-  <div class="collection-list-header" style="text-align: center; margin-bottom: 6rem;">
-    <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}" style="color: #a88b6a; font-size: 4.2rem; letter-spacing: 0.1em; text-transform: uppercase;">
-      {{ section.settings.title }}
-    </h1>
-    <div class="header-line" style="width: 60px; height: 2px; background: #a88b6a; margin: 2rem auto;"></div>
-  </div>
+<div class="page-width">
+  <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    {{ section.settings.title }}
+  </h1>
   {%- liquid
     case section.settings.sort
       when 'products_high', 'products_low'
@@ -20,13 +17,16 @@
       assign collections = collections | reverse
     endif
 
+    assign moduloResult = 28 | modulo: section.settings.columns_desktop
     assign paginate_by = 30
+    if moduloResult == 0
+      assign paginate_by = 28
+    endif
   -%}
   {%- paginate collections by paginate_by -%}
     <ul
-      class="collection-list grid grid--3-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+      class="collection-list grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
       role="list"
-      style="row-gap: 6rem; column-gap: 5rem;"
     >
       {%- for collection in collections -%}
         <li
@@ -38,6 +38,7 @@
         >
           {% render 'card-collection',
             card_collection: collection,
+            media_aspect_ratio: section.settings.image_ratio,
             columns: 3
           %}
         </li>

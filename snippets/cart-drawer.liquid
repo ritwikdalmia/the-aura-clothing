@@ -61,31 +61,6 @@
           {%- endif -%}
         </div>
       {%- endif -%}
-
-      {% comment %} --- THE AURA PREMIUM: PROGRESS BAR --- {% endcomment %}
-      <div class="na-cart-rewards glass-morphism" style="margin: 0 1.5rem 1.5rem; padding: 1.5rem; border-radius: 16px;">
-        {% assign free_shipping_threshold = 100000 %} {% comment %} 1000 INR in cents {% endcomment %}
-        {% assign cart_total = cart.total_price %}
-        {% assign remaining = free_shipping_threshold | minus: cart_total %}
-        
-        <div class="na-reward-header" style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.2rem; font-weight: 600;">
-          <span>
-            {% if remaining > 0 %}
-              Only {{ remaining | money }} away from <strong>FREE SHIPPING</strong>!
-            {% else %}
-              🎉 You've unlocked <strong>FREE SHIPPING</strong>!
-            {% endif %}
-          </span>
-          <span>100%</span>
-        </div>
-        
-        <div class="na-progress-bg" style="background: #eee; height: 8px; border-radius: 10px; overflow: hidden;">
-          {% assign percentage = cart_total | times: 100 | divided_by: free_shipping_threshold %}
-          {% if percentage > 100 %}{% assign percentage = 100 %}{% endif %}
-          <div class="na-progress-fill" style="width: {{ percentage }}%; background: var(--aura-gold-gradient); height: 100%; transition: width 0.6s ease;"></div>
-        </div>
-      </div>
-
       <div class="drawer__header">
         <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
         <button
@@ -498,34 +473,6 @@
           </div>
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
-
-        {% comment %} --- THE AURA PREMIUM: UPSELL SECTION --- {% endcomment %}
-        {%- if settings.cart_drawer_collection != blank and cart != empty -%}
-          <div class="na-cart-upsells" style="padding: 1.5rem; border-top: 1px solid #eee;">
-            <p style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Complete The Look</p>
-            <div class="na-upsell-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-              {%- for product in settings.cart_drawer_collection.products limit: 3 -%}
-                <div class="na-upsell-item" style="text-align: center;">
-                  <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
-                    <div style="aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; margin-bottom: 0.5rem; border: 1px solid #eee;">
-                      <img src="{{ product.featured_image | image_url: width: 200 }}" 
-                           alt="{{ product.title }}" 
-                           style="width: 100%; height: 100%; object-fit: cover;"
-                           width="200"
-                           height="200"
-                           loading="lazy">
-                    </div>
-                    <p style="font-size: 1rem; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ product.title }}</p>
-                    <p style="font-size: 1rem; color: #a88b6a; margin: 0;">{{ product.price | money }}</p>
-                  </a>
-                  <button type="button" 
-                          onclick="openQuickAdd('{{ product.url }}')"
-                          style="background: #000; color: #fff; border: none; width: 24px; height: 24px; border-radius: 50%; margin-top: 0.5rem; cursor: pointer; font-size: 1.2rem;">+</button>
-                </div>
-              {%- endfor -%}
-            </div>
-          </div>
-        {%- endif -%}
       </cart-drawer-items>
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
@@ -615,18 +562,10 @@
         <!-- CTAs -->
 
         <div class="cart__ctas" {{ block.shopify_attributes }}>
-          {% comment %} --- THE AURA PREMIUM: TRUST BADGES --- {% endcomment %}
-          <div class="na-cart-trust" style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; opacity: 0.7;">
-             <div style="text-align: center; font-size: 0.9rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><br>Secure</div>
-             <div style="text-align: center; font-size: 0.9rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg><br>Fast Stay</div>
-             <div style="text-align: center; font-size: 0.9rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15.3l-2.26-2.26a1 1 0 0 0-1.41 0l-3.32 3.32a1 1 0 0 1-1.41 0l-3.32-3.32a1 1 0 0 0-1.41 0L5.3 15.3"></path><path d="M9 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg><br>Premium</div>
-          </div>
-
           <button
             type="submit"
             id="CartDrawer-Checkout"
             class="cart__checkout-button button"
-            style="background: var(--aura-gold-gradient); border: none; font-weight: 700; letter-spacing: 0.1em; border-radius: 50px; height: 5rem;"
             name="checkout"
             form="CartDrawer-Form"
             {% if cart == empty %}
