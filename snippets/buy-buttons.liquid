@@ -83,6 +83,12 @@
             {% endif %}
           >
             <span>
+              {%- if block.settings.button_icon != 'none' -%}
+                <span class="button-icon-wrapper">
+                  {{ 'icon-' | append: block.settings.button_icon | append: '.svg' | inline_asset_content }}
+                </span>
+              {%- endif -%}
+              
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
@@ -94,7 +100,16 @@
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
+            <div class="dynamic-checkout-wrapper">
+              {%- if block.settings.show_icon_on_buy_it_now and block.settings.button_icon != 'none' -%}
+                <span class="buy-it-now-icon-wrapper">
+                  <span class="button-icon-wrapper">
+                    {{ 'icon-' | append: block.settings.button_icon | append: '.svg' | inline_asset_content }}
+                  </span>
+                </span>
+              {%- endif -%}
+              {{ form | payment_button }}
+            </div>
           {%- endif -%}
         </div>
       {%- endform -%}

@@ -132,29 +132,33 @@
               {%- when 'custom_liquid' -%}
                 {{ block.settings.custom_liquid }}
               {%- when 'collapsible_tab' -%}
-                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
-                  <details id="Details-{{ block.id }}-{{ section.id }}">
-                    <summary>
-                      <div class="summary__title">
-                        {% render 'icon-accordion', icon: block.settings.icon %}
-                        <h2 class="h4 accordion__title inline-richtext">
-                          {{ block.settings.heading | default: block.settings.page.title | escape }}
-                        </h2>
+                {%- if block.settings.show_row and block.settings.content != blank or block.settings.page.content != blank -%}
+                  <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
+                    <details id="Details-{{ block.id }}-{{ section.id }}">
+                      <summary>
+                        <div class="summary__title">
+                          {% render 'icon-accordion', icon: block.settings.icon %}
+                          <h2 class="h4 accordion__title inline-richtext">
+                            {{ block.settings.heading | default: block.settings.page.title | escape }}
+                          </h2>
+                        </div>
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </summary>
+                      <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+                        {{ block.settings.content }}
+                        {{ block.settings.page.content }}
                       </div>
-                      {{- 'icon-caret.svg' | inline_asset_content -}}
-                    </summary>
-                    <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-                      {{ block.settings.content }}
-                      {{ block.settings.page.content }}
-                    </div>
-                  </details>
-                </div>
+                    </details>
+                  </div>
+                {%- endif -%}
               {%- when 'specifications' -%}
                 <div class="product__accordion accordion quick-add-hidden aura-specs-accordion" {{ block.shopify_attributes }}>
                   <details id="Details-Specs-{{ section.id }}" open>
                     <summary>
                       <div class="summary__title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-accordion"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span class="svg-wrapper">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-accordion"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </span>
                         <h2 class="h4 accordion__title inline-richtext">{{ block.settings.heading | escape }}</h2>
                       </div>
                       {{- 'icon-caret.svg' | inline_asset_content -}}
@@ -224,14 +228,30 @@
                 {%- endif -%}
               {%- when 'trust_badges' -%}
                 <div class="product-trust-badges aura-trust-badges" {{ block.shopify_attributes }}>
-                  <div class="badge-item">
-                    <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
-                    <div class="badge-text"><span class="badge-title">{{ block.settings.badge_1_title }}</span><span class="badge-subtitle">{{ block.settings.badge_1_sub }}</span></div>
-                  </div>
-                  <div class="badge-item">
-                    <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-                    <div class="badge-text"><span class="badge-title">{{ block.settings.badge_2_title }}</span><span class="badge-subtitle">{{ block.settings.badge_2_sub }}</span></div>
-                  </div>
+                  {%- if block.settings.badge_1_title != blank -%}
+                    <div class="badge-item">
+                      <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
+                      <div class="badge-text"><span class="badge-title">{{ block.settings.badge_1_title }}</span><span class="badge-subtitle">{{ block.settings.badge_1_sub }}</span></div>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.badge_2_title != blank -%}
+                    <div class="badge-item">
+                      <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+                      <div class="badge-text"><span class="badge-title">{{ block.settings.badge_2_title }}</span><span class="badge-subtitle">{{ block.settings.badge_2_sub }}</span></div>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.badge_3_title != blank -%}
+                    <div class="badge-item">
+                      <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
+                      <div class="badge-text"><span class="badge-title">{{ block.settings.badge_3_title }}</span><span class="badge-subtitle">{{ block.settings.badge_3_sub }}</span></div>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.badge_4_title != blank -%}
+                    <div class="badge-item">
+                      <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15.5V10a1 1 0 0 0-.52-.87l-8-4.5a1 1 0 0 0-.96 0l-8 4.5A1 1 0 0 0 3 10v5.5a1 1 0 0 0 .52.87l8 4.5a1 1 0 0 0 .96 0l8-4.5a1 1 0 0 0 .52-.87z"></path><polyline points="3.27 10.15 12 15.1 20.73 10.15"></polyline><line x1="12" y1="21.5" x2="12" y2="15"></line></svg></div>
+                      <div class="badge-text"><span class="badge-title">{{ block.settings.badge_4_title }}</span><span class="badge-subtitle">{{ block.settings.badge_4_sub }}</span></div>
+                    </div>
+                  {%- endif -%}
                 </div>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
@@ -554,6 +574,44 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "cart",
+              "label": "Cart"
+            },
+            {
+              "value": "bag",
+              "label": "Bag"
+            },
+            {
+              "value": "checkmark",
+              "label": "Checkmark"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            }
+          ],
+          "default": "cart",
+          "label": "Button Icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon_on_buy_it_now",
+          "default": true,
+          "label": "Show icon on Buy It Now button"
         }
       ]
     },
@@ -591,6 +649,12 @@
       "type": "collapsible_tab",
       "name": "t:sections.main-product.blocks.collapsible_tab.name",
       "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_row",
+          "default": true,
+          "label": "Show this row"
+        },
         {
           "type": "text",
           "id": "heading",
@@ -1743,6 +1807,34 @@
           "id": "badge_2_sub",
           "label": "Badge 2 Subtitle",
           "default": "100% Protected"
+        },
+        {
+          "type": "header",
+          "content": "Badge 3"
+        },
+        {
+          "type": "text",
+          "id": "badge_3_title",
+          "label": "Badge 3 Title"
+        },
+        {
+          "type": "text",
+          "id": "badge_3_sub",
+          "label": "Badge 3 Subtitle"
+        },
+        {
+          "type": "header",
+          "content": "Badge 4"
+        },
+        {
+          "type": "text",
+          "id": "badge_4_title",
+          "label": "Badge 4 Title"
+        },
+        {
+          "type": "text",
+          "id": "badge_4_sub",
+          "label": "Badge 4 Subtitle"
         }
       ]
     },
