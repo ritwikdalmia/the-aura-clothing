@@ -43,16 +43,24 @@
     </div>
 
     <div class="na-collection-info">
+      <div class="na-collection-meta">
+        {%- if card_collection.all_products_count > 0 -%}
+          <span class="na-collection-count">{{ card_collection.all_products_count }} items</span>
+        {%- endif -%}
+      </div>
       <h3 class="na-collection-title">
         {%- if card_collection.title != blank -%}
           {{- card_collection.title | escape -}}
         {%- else -%}
           {{ 'onboarding.collection_title' | t }}
         {%- endif -%}
+      </h3>
+      <div class="na-collection-action">
+        <span class="view-collection-text">View Collection</span>
         <span class="icon-wrap">
           {{- 'icon-arrow.svg' | inline_asset_content -}}
         </span>
-      </h3>
+      </div>
     </div>
   </a>
 </div>

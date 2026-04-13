@@ -92,8 +92,10 @@ product-info {
 /* Dynamic and Submit Checkout Buttons */
 .product-form__buttons {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .shopify-payment-button__button {
@@ -139,6 +141,70 @@ product-info {
 .shopify-payment-button__button--unbranded:hover,
 .shopify-payment-button__button--unbranded:hover:not([disabled]) {
   background: linear-gradient(135deg, #8d7356 0%, #765e44 100%) !important;
+}
+
+.product-secondary-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.product-secondary-actions .na-wishlist-product,
+.product-secondary-actions .na-compare-product {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  width: 4.4rem;
+  height: 4.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #121212;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.product-secondary-actions .na-wishlist-product:hover,
+.product-secondary-actions .na-compare-product:hover {
+  border-color: #a88b6a;
+  color: #a88b6a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 139, 106, 0.15);
+}
+
+.na-wishlist-product.is-active,
+.na-wishlist-floating.is-active,
+.na-compare-product.is-active,
+.na-compare-floating.is-active {
+  background: #a88b6a !important;
+  border-color: #a88b6a !important;
+  color: #fff !important;
+}
+
+.na-wishlist-product.is-active svg path,
+.na-wishlist-floating.is-active svg path {
+  fill: currentColor !important;
+}
+
+.product-secondary-actions .svg-wrapper {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-secondary-actions__text {
+  font-size: 1.1rem;
+  color: #888;
+  font-family: var(--font-body-family);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
 
 .shopify-payment-button__more-options {
@@ -246,6 +312,8 @@ product-info {
   align-items: center !important;
   justify-content: center !important;
   line-height: 5.2rem !important;
+  outline: none !important;
+  min-width: 0 !important;
 }
 
 .quantity__button {
@@ -258,6 +326,13 @@ product-info {
   display: flex !important;
   align-items: center;
   justify-content: center;
+  outline: none !important;
+}
+
+.quantity__button:after, .quantity__button:before,
+.quantity__input:after, .quantity__input:before {
+  display: none !important;
+  content: none !important;
 }
 
 .quantity__button:before,
@@ -272,7 +347,9 @@ product-info {
 }
 
 .product-form__submit {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  flex: 1 1 auto;
+  min-width: 18rem;
   border-radius: 20px !important;
   min-height: 5.2rem;
   font-weight: 700;
@@ -295,13 +372,9 @@ product-info {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.8rem;
-  height: 1.8rem;
 }
 
 .button-icon-wrapper svg {
-  width: 100%;
-  height: 100%;
   fill: currentColor;
 }
 
@@ -716,6 +789,7 @@ a.product__text {
 .product__media-item {
   border-radius: 20px;
   overflow: hidden;
+  isolation: isolate;
   transition: opacity 0.6s ease-in-out;
 }
 
@@ -797,6 +871,68 @@ a.product__text {
 .product__media-icon .icon {
   width: 1.2rem;
   height: 1.4rem;
+}
+
+/* Gallery Overlays */
+.product__gallery-overlays {
+  position: absolute;
+  top: 3.5rem;
+  right: 3.5rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.na-wishlist-floating, 
+.na-compare-floating {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #121212;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.na-wishlist-floating:hover, 
+.na-compare-floating:hover {
+  background: #fff;
+  transform: scale(1.1);
+  color: #a88b6a;
+}
+
+.na-wishlist-floating svg, 
+.na-compare-floating svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.na-wishlist-product.is-active,
+.na-wishlist-floating.is-active {
+  background: #a88b6a !important;
+  color: #fff !important;
+  border-color: #a88b6a !important;
+}
+
+@media screen and (max-width: 749px) {
+  .product-form__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .product-secondary-actions {
+    justify-content: center;
+    order: 3;
+    margin-top: 1rem;
+  }
 }
 
 .product__media-icon,
@@ -936,8 +1072,8 @@ a.product__text {
 }
 
 .product__media-toggle.focused:after {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0rem 0.5rem rgba(var(--color-foreground), 0.5);
-  border-radius: var(--media-radius);
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .product-media-modal {
@@ -1253,18 +1389,17 @@ a.product__text {
 }
 
 .thumbnail[aria-current='true'] {
-  border: 2px solid rgb(var(--color-foreground));
-  box-shadow: 0 0 0 4px rgba(var(--color-foreground), 0.1);
-  transform: scale(1.05);
+  border: 1.5px solid #A88B6A !important;
+  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.1) !important;
+  transform: scale(1.02) !important;
 }
 
 .thumbnail {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border: 1px solid rgba(0,0,0,0.06);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(var(--color-background), 0.5);
-  backdrop-filter: blur(4px);
+  background: #fff;
   position: relative;
   padding: 4px;
 }
@@ -1456,11 +1591,18 @@ a.product__text {
   cursor: zoom-out;
   z-index: 1;
   margin: 0;
-  border-radius: calc(var(--media-radius) - var(--media-border-width));
+  border-radius: 20px !important;
+  overflow: hidden !important;
 }
 
-.image-magnify-hover {
-  cursor: zoom-in;
+.image-magnify-hover,
+.product__modal-opener,
+.global-media-settings,
+.global-media-settings:after,
+.product-media-container,
+.product__media {
+  border-radius: 20px !important;
+  overflow: hidden !important;
 }
 
 .product__modal-opener--image .product__media-zoom-none,
@@ -1503,25 +1645,13 @@ a.product__text {
 }
 
 .thumbnail[aria-current]:focus-visible {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0rem 0.5rem rgba(var(--color-foreground), 0.5);
+  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.2);
 }
 
 .thumbnail[aria-current]:focus,
 .thumbnail.focused {
   outline: 0;
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0rem 0.5rem rgba(var(--color-foreground), 0.5);
-}
-
-/* outline styling for Windows High Contrast Mode */
-@media (forced-colors: active) {
-  .thumbnail[aria-current]:focus,
-  .thumbnail.focused {
-    outline: transparent solid 1px;
-  }
-}
-.thumbnail[aria-current]:focus:not(:focus-visible) {
-  outline: 0;
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-foreground));
+  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.2);
 }
 
 .thumbnail img {
@@ -2039,6 +2169,9 @@ label:hover .swatch-visual {
   height: auto !important;
   overflow: hidden !important;
   position: relative !important;
+  border-radius: 20px !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
 }
 
 .product__media.media img {
@@ -2048,6 +2181,7 @@ label:hover .swatch-visual {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
+  border-radius: 20px !important;
 }
 
 /* Product Specifications Theme Colors */
@@ -2148,8 +2282,8 @@ label:hover .swatch-visual {
 }
 
 .button-icon-wrapper svg {
-  width: 20px;
-  height: 20px;
+  width: 42px;
+  height: 42px;
 }
 
 /* Buy It Now Icon Refinement */
@@ -2162,7 +2296,7 @@ label:hover .swatch-visual {
   left: 50%;
   transform: translateX(-160%); /* Manual adjustment to center with text */
   top: 50%;
-  margin-top: -10px;
+  margin-top: -21px;
   z-index: 2;
   pointer-events: none;
   display: flex;
@@ -2202,42 +2336,36 @@ label:hover .swatch-visual {
   margin-left: auto;
 }
 
-/* Global Icon Weight & Boldness */
-.button-icon-wrapper svg,
-.aura-trust-badges .badge-icon svg,
-.summary__title svg,
+/* Premium CTA Icon Styling (Restricted to Main Buttons) */
+.product-form__submit .button-icon-wrapper svg,
 .buy-it-now-icon-wrapper svg {
   stroke-width: 2.5px !important;
+  height: 24px !important; /* Unified height for visual balance */
+  width: auto !important;
+  max-width: 24px !important;
 }
 
-/* Buy It Now Icon Positioning Fix */
-.dynamic-checkout-wrapper {
-  position: relative;
+/* Revert other icons to standard weight */
+.aura-trust-badges .badge-icon svg,
+.summary__title svg {
+  stroke-width: 1.5px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.button-icon-wrapper svg path,
+.buy-it-now-icon-wrapper svg path {
+  fill: currentColor !important;
+}
+
+.button-icon-wrapper {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
+  color: #fff !important;
 }
 
-.buy-it-now-icon-wrapper {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-180%); /* Pushed further left to avoid text overlap */
-  top: 50%;
-  margin-top: -10px;
-  z-index: 2;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  color: #fff;
-}
-
-@media screen and (max-width: 749px) {
-  .buy-it-now-icon-wrapper {
-    transform: translateX(-155%);
-  }
-}
-
-/* Side-by-side Buttons for Desktop */
+/* Side-by-side Buttons for Desktop (Equal Width & Height) */
 @media screen and (min-width: 1024px) {
   .product-form__buttons {
     display: flex !important;
@@ -2245,19 +2373,232 @@ label:hover .swatch-visual {
     gap: 1.5rem !important;
     max-width: none !important;
     align-items: stretch !important;
+    margin-top: 2rem !important;
   }
 
   .product-form__submit,
   .dynamic-checkout-wrapper {
-    flex: 1 !important;
+    flex: 1 1 0% !important; /* Start with 0 basis to ensure equal grow */
     margin: 0 !important;
+    width: 0 !important; /* Force flex to control the width */
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  .product-form__buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+  }
+
+  /* Force the Shopify Button inside the wrapper to match height */
+  .shopify-payment-button__button {
+    height: 100% !important;
+    min-height: 52px !important;
+    width: 100% !important; /* Fill the wrapper */
   }
 
   .product-form__buttons .button {
     margin-bottom: 0 !important;
+    height: 100% !important;
+    min-height: 52px !important;
+    width: 100% !important; /* Fill the flex item */
+  }
+}
+
+/* Premium Button Styling & Hover States */
+.product-form__submit,
+.aura-secondary-cta-button,
+.shopify-payment-button__button {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border-radius: 50px !important; /* Premium pill shape */
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+  height: 56px !important; /* Unified height */
+  min-height: 56px !important; /* Force exact parity */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important; /* Fixed 10px gap for icon/text parity */
+}
+
+.product-form__submit:hover,
+.aura-secondary-cta-button:hover,
+.shopify-payment-button__button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+  filter: brightness(1.05);
+}
+
+.product-form__submit:active,
+.aura-secondary-cta-button:active,
+.shopify-payment-button__button:active {
+  transform: translateY(0) scale(0.98) !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+}
+
+/* Secondary CTA Styling */
+.product-secondary-cta-wrapper {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.aura-secondary-cta-button {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: transparent !important;
+  border: 1.5px solid #8d7356 !important;
+  color: #8d7356 !important;
+  padding: 1.2rem 3rem !important;
+}
+
+.aura-secondary-cta-button:hover {
+  background-color: rgba(141, 115, 86, 0.05) !important;
+}
+
+/* Buy It Now Icon Centering (Mathematically matched to ATC) */
+.buy-it-now-icon-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-85px); /* Reduced from -115px to match 10px gap */
+  top: 50%;
+  margin-top: -12px; /* Center with 24px icon */
+  z-index: 100;
+  pointer-events: none;
+  display: flex !important;
+  align-items: center;
+  color: #fff;
+}
+
+@media screen and (max-width: 1023px) {
+  .buy-it-now-icon-wrapper {
+    transform: translateX(-80px); /* Specific alignment for mobile stacked view */
+  }
+}
+
+/* Bold Specifications & Accordions */
+.aura-specs-accordion .accordion__title {
+  font-weight: 700 !important;
+}
+
+.aura-specs-accordion .icon-accordion {
+  stroke-width: 2.5px !important;
+}
+
+.product__spec-label {
+  font-weight: 700 !important;
+}
+
+/* Mobile Price Badge Wrapping (Up to 1024px) */
+@media screen and (max-width: 1023px) {
+  .price--on-sale .price__sale {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
   }
   
-  .buy-it-now-icon-wrapper {
-    transform: translateX(-160%) !important;
+  .price--on-sale .price-item--sale {
+    margin-bottom: 0.2rem !important;
+  }
+  
+  .price__badge-sale, 
+  .price__percentage-discount {
+    margin-left: 0 !important;
+    margin-right: 1rem !important;
+    margin-top: 0.5rem !important;
+  }
+}
+
+/* Trust Badge (Payment Icons) Styling */
+.product__payment-icons {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product__payment-icons-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product__payment-icons-list svg {
+  width: 40px;
+  height: auto;
+  filter: grayscale(1) opacity(0.6);
+  transition: all 0.3s ease;
+}
+
+.product__payment-icons-list svg:hover {
+  filter: grayscale(0) opacity(1);
+  transform: translateY(-2px);
+}
+
+.product__payment-icons-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(0,0,0,0.4);
+  font-weight: 600;
+}
+
+/* Mobile Thumbnail Size Reduction (< 768px) */
+@media screen and (max-width: 767px) {
+  .thumbnail-list__item.slider__slide {
+    width: calc(25% - 0.5rem) !important; /* Shows 4 per row */
+  }
+
+  .thumbnail {
+    padding: 0 !important;
+  }
+}
+
+/* Ensure images fill thumbnails perfectly */
+.thumbnail {
+  background: transparent !important;
+  padding: 0 !important;
+  border: 1px solid rgba(0,0,0,0.04) !important;
+}
+
+.thumbnail img {
+  border-radius: 12px !important;
+  display: block;
+}
+
+/* Clear all ghost borders from main gallery */
+.product__media.media {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Add to Cart Icon centering */
+.product-form__submit span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .product-form__buttons {
+    flex-direction: column !important;
+    gap: 1.2rem !important;
+  }
+  
+  .product-form__submit,
+  .dynamic-checkout-wrapper {
+    width: 100% !important;
   }
 }

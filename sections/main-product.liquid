@@ -152,7 +152,8 @@
                   </div>
                 {%- endif -%}
               {%- when 'specifications' -%}
-                <div class="product__accordion accordion quick-add-hidden aura-specs-accordion" {{ block.shopify_attributes }}>
+                {%- if block.settings.show_row -%}
+                  <div class="product__accordion accordion quick-add-hidden aura-specs-accordion" {{ block.shopify_attributes }}>
                   <details id="Details-Specs-{{ section.id }}" open>
                     <summary>
                       <div class="summary__title">
@@ -211,6 +212,7 @@
                     </div>
                   </details>
                 </div>
+                {%- endif -%}
               {%- when 'countdown_timer' -%}
                 {%- assign offer_end = product.metafields.theme.offer_end_date.value -%}
                 {%- if offer_end != blank -%}
@@ -252,6 +254,17 @@
                       <div class="badge-text"><span class="badge-title">{{ block.settings.badge_4_title }}</span><span class="badge-subtitle">{{ block.settings.badge_4_sub }}</span></div>
                     </div>
                   {%- endif -%}
+                </div>
+              {%- when 'secondary_cta' -%}
+                <div class="product-secondary-cta-wrapper" {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.button_link }}" class="button aura-secondary-cta-button">
+                    {%- if block.settings.button_icon != 'none' -%}
+                      <span class="button-icon-wrapper">
+                        {{ 'icon-' | append: block.settings.button_icon | append: '.svg' | inline_asset_content }}
+                      </span>
+                    {%- endif -%}
+                    {{ block.settings.button_label | escape }}
+                  </a>
                 </div>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
@@ -310,6 +323,19 @@
                 </div>
               {%- when 'buy_buttons' -%}
                 {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+              {%- when 'payment_icons' -%}
+                <div class="product__payment-icons" {{ block.shopify_attributes }}>
+                  {%- if block.settings.title != blank -%}
+                    <span class="product__payment-icons-title">{{ block.settings.title }}</span>
+                  {%- endif -%}
+                  <ul class="product__payment-icons-list" role="list">
+                    {%- for type in shop.enabled_payment_types -%}
+                      <li class="payment-icon">
+                        {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
               {%- when 'share' -%}
                 {% assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin %}
                 {% render 'share-button', block: block, share_link: share_url %}
@@ -577,41 +603,66 @@
         },
         {
           "type": "select",
-          "id": "button_icon",
+          "id": "atc_icon",
           "options": [
-            {
-              "value": "none",
-              "label": "None"
-            },
-            {
-              "value": "cart",
-              "label": "Cart"
-            },
-            {
-              "value": "bag",
-              "label": "Bag"
-            },
-            {
-              "value": "checkmark",
-              "label": "Checkmark"
-            },
-            {
-              "value": "star",
-              "label": "Star"
-            },
-            {
-              "value": "truck",
-              "label": "Truck"
-            }
+            { "value": "none", "label": "None" },
+            { "value": "cart", "label": "Cart" }
           ],
           "default": "cart",
-          "label": "Button Icon"
+          "label": "Add to Cart Icon"
         },
         {
-          "type": "checkbox",
-          "id": "show_icon_on_buy_it_now",
-          "default": true,
-          "label": "Show icon on Buy It Now button"
+          "type": "select",
+          "id": "bin_icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "lightning-bolt", "label": "Lightning Bolt" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "lightning-bolt",
+          "label": "Buy It Now Icon"
+        }
+      ]
+    },
+    {
+      "type": "secondary_cta",
+      "name": "Secondary Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "View Size Guide"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "info", "label": "Info" },
+            { "value": "eye", "label": "Eye" }
+          ],
+          "default": "ruler",
+          "label": "Button Icon"
+        }
+      ]
+    },
+    {
+      "type": "payment_icons",
+      "name": "Payment Icons (Trust)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Heading",
+          "default": "Secure Checkout With"
         }
       ]
     },
@@ -1862,6 +1913,12 @@
       "name": "Product Specifications",
       "limit": 1,
       "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_row",
+          "label": "Show this row",
+          "default": true
+        },
         {
           "type": "text",
           "id": "heading",

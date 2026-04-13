@@ -66,7 +66,30 @@
 .price--on-sale .price__sale {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
+  flex-wrap: wrap; /* Allow wrapping to new line */
+}
+
+.price__badges-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%; /* Force new line on mobile/tablet */
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .price__badges-row {
+    width: auto; /* Allow on same line if space permits */
+    margin-top: 0;
+  }
+}
+
+.price__percentage-discount {
+  color: #d73d3d;
+  font-weight: 700;
+  font-size: 1.4rem;
+  white-space: nowrap;
 }
 
 .price--sold-out .price__badge-sold-out,
@@ -81,25 +104,32 @@
 
 .price--on-sale .price-item--regular {
   text-decoration: line-through;
-  color: #999;
+  color: #8d7356;
   font-size: 1.4rem;
   font-weight: 400;
+  opacity: 0.8;
 }
 
 .price--on-sale .price-item--sale {
   color: #2c2c2c;
   font-weight: 700;
+  margin-right: 1.5rem !important; /* Spacing between prices */
 }
 
 .price__badge-sale {
-  background-color: #e53935;
-  color: #fff;
-  border-radius: 4px;
-  font-weight: 700;
-  padding: 4px 10px;
-  font-size: 1.1rem;
-  letter-spacing: 0;
-  margin-left: 1.2rem;
+  background-color: #d73d3d !important;
+  color: #fff !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  padding: 5px 15px !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  white-space: nowrap !important; /* Fix squashing "SA LE" */
 }
 
 .unit-price {

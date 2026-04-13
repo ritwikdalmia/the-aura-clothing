@@ -303,32 +303,67 @@ class PriceRange extends HTMLElement {
   constructor() {
     super();
     this.querySelectorAll('input').forEach((element) => {
+      element.addEventListener('input', this.onInputUpdate.bind(this));
       element.addEventListener('change', this.onRangeChange.bind(this));
       element.addEventListener('keydown', this.onKeyDown.bind(this));
     });
     this.setMinAndMaxValues();
+    this.updateSliderTrack();
+  }
+
+  onInputUpdate(event) {
+    const input = event.currentTarget;
+    const isRange = input.type === 'range';
+    
+    if (isRange) {
+      const isMin = input.classList.contains('min-range');
+      const otherInput = isMin ? this.querySelector('.max-range') : this.querySelector('.min-range');
+      const textInputs = this.querySelectorAll('input[type="number"]');
+      const targetTextInput = isMin ? textInputs[0] : textInputs[1];
+
+      // Enforce min/max gap
+      if (isMin) {
+        if (parseInt(input.value) >= parseInt(otherInput.value)) {
+          input.value = parseInt(otherInput.value) - 1;
+        }
+      } else {
+        if (parseInt(input.value) <= parseInt(otherInput.value)) {
+          input.value = parseInt(otherInput.value) + 1;
+        }
+      }
+
+      targetTextInput.value = input.value;
+      this.updateSliderTrack();
+    }
   }
 
   onRangeChange(event) {
-    this.adjustToValidValues(event.currentTarget);
+    const input = event.currentTarget;
+    if (input.type === 'number') {
+      this.adjustToValidValues(input);
+      const isMin = input.id.includes('-GTE');
+      const rangeInputs = this.querySelectorAll('input[type="range"]');
+      const targetRangeInput = isMin ? rangeInputs[0] : rangeInputs[1];
+      targetRangeInput.value = input.value;
+    }
     this.setMinAndMaxValues();
+    this.updateSliderTrack();
   }
 
   onKeyDown(event) {
     if (event.metaKey) return;
-
     const pattern = /[0-9]|\.|,|'| |Tab|Backspace|Enter|ArrowUp|ArrowDown|ArrowLeft|ArrowRight|Delete|Escape/;
     if (!event.key.match(pattern)) event.preventDefault();
   }
 
   setMinAndMaxValues() {
-    const inputs = this.querySelectorAll('input');
+    const inputs = this.querySelectorAll('input[type="number"]');
     const minInput = inputs[0];
     const maxInput = inputs[1];
-    if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
-    if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
-    if (minInput.value === '') maxInput.setAttribute('data-min', 0);
-    if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
+    if (maxInput && maxInput.value) minInput.setAttribute('data-max', maxInput.value);
+    if (minInput && minInput.value) maxInput.setAttribute('data-min', minInput.value);
+    if (minInput && minInput.value === '') maxInput.setAttribute('data-min', 0);
+    if (maxInput && minInput && maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
   }
 
   adjustToValidValues(input) {
@@ -338,6 +373,18 @@ class PriceRange extends HTMLElement {
 
     if (value < min) input.value = min;
     if (value > max) input.value = max;
+  }
+
+  updateSliderTrack() {
+    const rangeInputs = this.querySelectorAll('input[type="range"]');
+    const slider = this.querySelector('.price-range-slider');
+    if (!slider || rangeInputs.length < 2) return;
+
+    const min = parseInt(rangeInputs[0].value);
+    const max = parseInt(rangeInputs[1].value);
+    
+    slider.style.setProperty('--range-min', min);
+    slider.style.setProperty('--range-max', max);
   }
 }
 

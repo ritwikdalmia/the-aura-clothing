@@ -83,9 +83,13 @@
             {% endif %}
           >
             <span>
-              {%- if block.settings.button_icon != 'none' -%}
+              {%- if block.settings.atc_icon != 'none' -%}
                 <span class="button-icon-wrapper">
-                  {{ 'icon-' | append: block.settings.button_icon | append: '.svg' | inline_asset_content }}
+                  {%- if block.settings.atc_icon == 'cart' or block.settings.atc_icon == 'bag' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-cart-empty" viewBox="0 0 40 40"><path fill="currentColor" fill-rule="evenodd" d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"></path></svg>
+                  {%- elsif block.settings.atc_icon == 'lightning-bolt' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-accordion icon-lightning-bolt" viewBox="0 0 20 20"><path fill="currentColor" d="M14.68.162a.5.5 0 0 1 .22.582l-2.384 7.468 4.178 1a.5.5 0 0 1 .242.834l-9.373 9.649a.5.5 0 0 1-.824-.533l2.965-7.481-4.47-1.07a.5.5 0 0 1-.245-.831L14.062.247a.5.5 0 0 1 .617-.085M6.311 9.84l4.186 1.002a.5.5 0 0 1 .348.67L8.593 17.2l7.014-7.22-3.847-.921a.5.5 0 0 1-.36-.639l1.886-5.907z"/></svg>
+                  {%- endif -%}
                 </span>
               {%- endif -%}
               
@@ -97,20 +101,82 @@
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
             </span>
-            {%- render 'loading-spinner' -%}
           </button>
+          
+          <div class="product-secondary-actions">
+            {%- liquid
+              assign product_specs = ""
+              for metafield in product.metafields.shopify
+                assign key = metafield | first
+                assign val_obj = metafield | last
+                assign val = val_obj.value
+                
+                assign normalized_key = key | replace: '_', ' ' | replace: '-', ' ' | downcase
+                assign is_option = false
+                for opt in product.options_with_values
+                  assign opt_name_down = opt.name | downcase
+                  if normalized_key contains opt_name_down or opt_name_down contains normalized_key
+                    assign is_option = true
+                  endif
+                endfor
+
+                if val != blank and is_option == false
+                  assign display_val = ''
+                  if val.label != blank
+                    assign display_val = val.label
+                  elsif val.name != blank
+                    assign display_val = val.name
+                  else
+                    assign labels = val | map: 'label' | compact
+                    if labels.size > 0
+                      assign display_val = labels | join: ', '
+                    else
+                      assign names = val | map: 'name' | compact
+                      if names.size > 0
+                        assign display_val = names | join: ', '
+                      else
+                        assign display_val = val | strip_html
+                      endif
+                    endif
+                  endif
+                  
+                  unless display_val contains 'gid://' or key contains 'Internal'
+                    assign product_specs = product_specs | append: key | replace: '_', ' ' | capitalize | append: ": " | append: display_val | append: "|"
+                  endunless
+                endif
+              endfor
+            -%}
+            <button type="button" class="na-wishlist-product" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
+              <span class="svg-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </span>
+            </button>
+            <button type="button" class="na-compare-product" aria-label="Add to compare" data-aura-compare="{{ product.handle }}" data-aura-specs="{{ product_specs | escape }}">
+              <span class="svg-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+              </span>
+            </button>
+            <span class="product-secondary-actions__text">Wishlist & Compare</span>
+          </div>
+
           {%- if show_dynamic_checkout -%}
             <div class="dynamic-checkout-wrapper">
-              {%- if block.settings.show_icon_on_buy_it_now and block.settings.button_icon != 'none' -%}
+              {%- if block.settings.bin_icon != 'none' -%}
                 <span class="buy-it-now-icon-wrapper">
                   <span class="button-icon-wrapper">
-                    {{ 'icon-' | append: block.settings.button_icon | append: '.svg' | inline_asset_content }}
+                    {%- if block.settings.bin_icon == 'lightning-bolt' or block.settings.bin_icon == 'lock' -%}
+                      <svg fill="none" class="icon icon-lock" viewBox="0 0 16 21"><path fill="currentColor" fill-rule="evenodd" d="M5.03 1.79A3.73 3.73 0 0 1 8 .5c1.28 0 2.28.48 2.97 1.29.67.8 1 1.87 1.03 3V7.5h3c.28 0 .5.22.5.5v12a.5.5 0 0 1-.5.5H1a.5.5 0 0 1-.5-.5V8c0-.28.22-.5.5-.5h3V4.8c0-1.1.36-2.15 1.03-3.01M11 6.4v1.09H5V4.82c.03-.99.31-1.82.8-2.4A2.75 2.75 0 0 1 8 1.49c1.01 0 1.73.37 2.2.93.49.58.77 1.41.8 2.4zM1.5 8.49v11h13v-11zm6.51 2.5a1.5 1.5 0 0 0-.7 2.82v2.5a.68.68 0 0 0 1.36 0v-2.47A1.5 1.5 0 0 0 8 11z" clip-rule="evenodd"/></svg>
+                    {%- elsif block.settings.bin_icon == 'cart' or block.settings.bin_icon == 'bag' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-cart-empty" viewBox="0 0 40 40"><path fill="currentColor" fill-rule="evenodd" d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"></path></svg>
+                    {%- endif -%}
                   </span>
                 </span>
               {%- endif -%}
               {{ form | payment_button }}
             </div>
           {%- endif -%}
+
+{%- comment -%} Removed Wishlist/Compare buttons from product page per user request {%- endcomment -%}
         </div>
       {%- endform -%}
     </product-form>

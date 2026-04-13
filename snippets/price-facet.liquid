@@ -1,45 +1,62 @@
-<span class="field-currency">{{ cart.currency.symbol }}</span>
-
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.min_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
-    {%- if filter.min_value.value -%}
-      value="{{ filter.min_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="0"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
+<div class="facets__price-range-slider">
+  <div class="price-range-slider" 
+    data-min="0" 
+    data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+    style="--range-min: {{ filter.min_value.value | default: 0 | money_without_currency | replace: ',', '' | divided_by: 1.0 }}; --range-max: {{ filter.max_value.value | default: filter.range_max | money_without_currency | replace: ',', '' | divided_by: 1.0 }}; --range-max-limit: {{ filter.range_max | money_without_currency | replace: ',', '' | divided_by: 1.0 }};"
   >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
-    {{- 'products.facets.from' | t -}}
-  </label>
-</div>
-
-{%- if filter_type != 'vertical' -%}
-  <span class="field-currency">{{ cart.currency.symbol }}</span>
-{%- endif -%}
-
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.max_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
-    {%- if filter.max_value.value -%}
-      value="{{ filter.max_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="{{ filter.range_max | money_without_currency }}"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
-    {{- 'products.facets.to' | t -}}
-  </label>
+    <div class="slider-track"></div>
+    <input
+      type="range"
+      min="0"
+      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      value="{{ filter.min_value.value | default: 0 | money_without_currency | replace: ',', '' }}"
+      class="min-range"
+      aria-label="Min price"
+    >
+    <input
+      type="range"
+      min="0"
+      max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      value="{{ filter.max_value.value | default: filter.range_max | money_without_currency | replace: ',', '' }}"
+      class="max-range"
+      aria-label="Max price"
+    >
+  </div>
+  
+  <div class="price-range-inputs">
+    <div class="field">
+      <span class="field-currency">{{ cart.currency.symbol }}</span>
+      <input
+        class="field__input"
+        name="{{ filter.min_value.param_name }}"
+        id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+        {%- if filter.min_value.value -%}
+          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+        {%- endif -%}
+        type="number"
+        inputmode="decimal"
+        placeholder="0"
+        data-min="0"
+        data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      >
+      <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">Min</label>
+    </div>
+    <div class="field">
+      <span class="field-currency">{{ cart.currency.symbol }}</span>
+      <input
+        class="field__input"
+        name="{{ filter.max_value.param_name }}"
+        id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+        {%- if filter.max_value.value -%}
+          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+        {%- endif -%}
+        type="number"
+        inputmode="decimal"
+        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        data-min="0"
+        data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      >
+      <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">Max</label>
+    </div>
+  </div>
 </div>

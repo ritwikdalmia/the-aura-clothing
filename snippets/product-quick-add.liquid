@@ -6,37 +6,70 @@
 
 <div class="na-modal-body">
   <div class="na-quick-view-media">
-    <img src="{{ product.featured_media | image_url: width: 800 }}" 
-         alt="{{ product.title | escape }}"
-         id="naQvImage-{{ section.id }}"
-         width="800"
-         height="{{ 800 | divided_by: product.featured_media.aspect_ratio }}"
-         loading="lazy">
+    <div class="na-qv-carousel">
+      {%- for media in product.media -%}
+        <div class="na-qv-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
+           <img src="{{ media | image_url: width: 800 }}" 
+                alt="{{ media.alt | escape }}"
+                width="800"
+                height="{{ 800 | divided_by: media.aspect_ratio }}"
+                loading="lazy">
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
   
   <div class="na-quick-view-info">
     <div class="na-qv-header">
-      <p class="caption-with-letter-spacing light" style="margin-bottom: 0.5rem;">{{ product.vendor }}</p>
+      <p class="caption-with-letter-spacing light" style="margin-bottom: 0.5rem; color: #999;">{{ product.vendor }}</p>
       <h2 class="na-qv-title">{{ product.title }}</h2>
       
       <div class="na-qv-price-row" id="naQvPrice-{{ section.id }}">
-        <span class="na-qv-price">{{ product.selected_or_first_available_variant.price | money }}</span>
         {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
           <span class="na-qv-compare-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-          <span class="na-qv-badge">Sale</span>
+          <span class="na-qv-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {%- else -%}
+          <span class="na-qv-price">{{ product.selected_or_first_available_variant.price | money }}</span>
         {%- endif -%}
       </div>
+      {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+        <div class="na-qv-badge-row">
+          <span class="na-qv-badge">Sale</span>
+          {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price -%}
+          <span class="na-qv-savings">-{{ savings }}%</span>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="na-qv-variants">
       {%- for option in product.options_with_values -%}
+        {%- assign downcase_option = option.name | downcase -%}
+        {%- assign is_color = false -%}
+        {%- if downcase_option contains 'color' or downcase_option contains 'colour' -%}
+          {%- assign is_color = true -%}
+        {%- endif -%}
+
         <div class="na-qv-option-wrapper" data-option-index="{{ forloop.index0 }}">
           <h4 class="na-qv-option-title">{{ option.name }}</h4>
-          <div class="na-qv-options">
+          <div class="na-qv-options {% if is_color %}na-qv-color-options{% endif %}">
             {%- for value in option.values -%}
-              <div class="na-qv-option{% if option.selected_value == value %} active{% endif %}" 
-                   data-value="{{ value | escape }}">
-                {{ value }}
+              <div class="na-qv-option{% if option.selected_value == value %} active{% endif %}{% if is_color %} na-qv-swatch{% endif %}" 
+                   data-value="{{ value | escape }}"
+                   {% if is_color %}title="{{ value | escape }}" data-color-name="{{ value | escape }}"{% endif %}>
+                {%- if is_color -%}
+                  {%- liquid
+                    assign swatch_value = null
+                    if value.swatch.image
+                      assign image_url = value.swatch.image | image_url: width: 50
+                      assign swatch_value = 'url(' | append: image_url | append: ')'
+                    elsif value.swatch.color
+                      assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                    endif
+                  -%}
+                  <span class="na-qv-swatch-inner" style="background: {{ swatch_value | default: value | escape }};"></span>
+                {%- else -%}
+                  {{ value }}
+                {%- endif -%}
               </div>
             {%- endfor -%}
           </div>

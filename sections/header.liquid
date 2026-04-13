@@ -141,7 +141,152 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
+  /* Premium Header Enhancements */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    flex-wrap: nowrap; /* Force one line */
+  }
+
+  .header__heading {
+    flex-shrink: 0;
+  }
+
+  .header__inline-menu {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .header__icons {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Expandable Search Container */
+  .header__search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+
+  .header__search-box {
+    display: flex;
+    align-items: center;
+    background: #f4f4f4;
+    border-radius: 50px;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .header__search-box:hover,
+  .header__search-box:focus-within {
+    width: 250px;
+    padding: 0 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .header__search-box input {
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    width: 0;
+    font-size: 1.3rem;
+    outline: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .header__search-box:hover input,
+  .header__search-box:focus-within input {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .header__search-box .search-icon-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    color: #121212;
+  }
+
+  .header__search-box .search-icon-trigger svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header__search-container {
+      display: none;
+    }
+  }
+
+  /* Badge Styles */
+  .aura-count-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #a88b6a;
+    color: #fff;
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: none; /* Shown by JS */
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1.5px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Icon Button Reset */
+  .header__icon {
+    position: relative;
+    width: 4.4rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Toast Notification */
+  .aura-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #333;
+    color: #fff;
+    padding: 1.2rem 2.4rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .aura-toast.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
 </style>
+
 
 {%- style -%}
   .header {
@@ -168,6 +313,8 @@
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'aura-premium-features.js' | asset_url }}" defer="defer"></script>
+
 
 {%- liquid
   for block in section.blocks
@@ -314,7 +461,26 @@
           </localization-form>
         {%- endif -%}
       </div>
+      <div class="header__search-container small-hide">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="header__search-box">
+          <div class="search-icon-trigger" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <input type="search" name="q" placeholder="Search..." aria-label="Search">
+        </form>
+      </div>
+
       {% render 'header-search', input_id: 'Search-In-Modal' %}
+
+      <button class="header__icon header__icon--wishlist link focus-inset" onclick="openWishlist()" aria-label="Wishlist">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        <div class="aura-count-badge aura-wishlist-count">0</div>
+      </button>
+
+      <button class="header__icon header__icon--compare link focus-inset" onclick="openCompare()" aria-label="Compare">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+        <div class="aura-count-badge aura-compare-count">0</div>
+      </button>
 
       {%- if shop.customer_accounts_enabled -%}
         <a
@@ -371,6 +537,10 @@
     </div>
   </header>
 </{{ header_tag }}>
+
+{% render 'wishlist-drawer' %}
+{% render 'compare-drawer' %}
+
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',

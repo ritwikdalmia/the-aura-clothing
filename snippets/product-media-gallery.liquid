@@ -54,6 +54,24 @@
     data-autoslide="3000"
   {% endif %}
 >
+  {%- liquid
+    assign product_specs = ""
+    for metafield in product.metafields.shopify
+      assign key = metafield[0] | replace: '_', ' ' | capitalize
+      assign value = metafield[1]
+      if value != blank
+        assign product_specs = product_specs | append: key | append: ": " | append: value | append: "|"
+      endif
+    endfor
+  -%}
+  <div class="product__gallery-overlays">
+    <button class="na-wishlist-floating" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="na-compare-floating" aria-label="Add to compare" data-aura-compare="{{ product.handle }}" data-aura-specs="{{ product_specs | escape }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+    </button>
+  </div>
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
     <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">

@@ -76,6 +76,12 @@
             "badge_2_title": "Secure Payment",
             "badge_2_sub": "100% Protected"
           }
+        },
+        "payment_icons": {
+          "type": "payment_icons",
+          "settings": {
+            "title": "Secure Checkout With"
+          }
         }
       },
       "block_order": [
@@ -86,6 +92,7 @@
         "quantity_selector",
         "countdown_timer",
         "buy_buttons",
+        "payment_icons",
         "trust_badges",
         "description",
         "specifications",

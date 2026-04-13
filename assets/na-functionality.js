@@ -4,6 +4,8 @@
    ========================================================================== */
 
 // 1. Open Quick Add Modal
+let qvCarouselInterval;
+
 async function openQuickAdd(productUrl) {
     const modal = document.getElementById('naQuickAddModal');
     const content = modal.querySelector('.na-modal-content-inner');
@@ -19,6 +21,9 @@ async function openQuickAdd(productUrl) {
         
         // Initialize variant logic
         initQuickAddVariants(content);
+        
+        // Start Carousel
+        startQvCarousel(content);
     } catch (e) {
         content.innerHTML = '<div style="padding: 5rem; text-align: center;">Error loading products. Please try again.</div>';
     }
@@ -110,6 +115,37 @@ async function addQvToCart(btn) {
 // 4. Modal Utilities
 function closeNaModal() {
     document.getElementById('naQuickAddModal').style.display = 'none';
+    stopQvCarousel();
+}
+
+async function buyQvNow(btn) {
+    const variantId = btn.dataset.variantId;
+    const qty = btn.closest('.na-modal-body').querySelector('.na-qv-qty-val').value;
+    
+    btn.innerText = 'Processing...';
+    btn.disabled = true;
+
+    try {
+        const formData = {
+            'items': [{
+                'id': variantId,
+                'quantity': qty
+            }]
+        };
+
+        await fetch(window.Shopify.routes.root + 'cart/clear.js', { method: 'POST' });
+        await fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        
+        window.location.href = window.shopUrl + '/checkout';
+    } catch (e) {
+        alert('Checkout failed. Please try again.');
+        btn.innerText = 'Buy it now';
+        btn.disabled = false;
+    }
 }
 
 function formatMoney(cents) {
@@ -120,3 +156,24 @@ function formatMoney(cents) {
 document.addEventListener('click', (e) => {
     if (e.target.id === 'naQuickAddModal') closeNaModal();
 });
+
+// 5. Carousel Logic
+function startQvCarousel(container) {
+    stopQvCarousel();
+    const slides = container.querySelectorAll('.na-qv-slide');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+    qvCarouselInterval = setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+    }, 3000);
+}
+
+function stopQvCarousel() {
+    if (qvCarouselInterval) {
+        clearInterval(qvCarouselInterval);
+        qvCarouselInterval = null;
+    }
+}

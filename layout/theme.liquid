@@ -372,5 +372,18 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- The Aura Premium Quick Add Modal -->
+    <div id="naQuickAddModal" class="na-modal" style="display:none;">
+      <div class="na-modal-content">
+        <button type="button" class="na-modal-close" onclick="closeNaModal()">&times;</button>
+        <div class="na-modal-content-inner">
+          <!-- Dynamically Loaded Content -->
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ 'na-functionality.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'aura-premium-features.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

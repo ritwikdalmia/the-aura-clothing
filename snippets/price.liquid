@@ -29,11 +29,9 @@
   assign money_price = price | money
   assign money_price_min = price_min | money
   assign money_price_max = price_max | money
-  if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-    assign money_price_min = price_min | money_with_currency
-    assign money_price_max = price_max | money_with_currency
-  endif
+  assign money_price = price | money
+  assign money_price_min = price_min | money
+  assign money_price_max = price_max | money
 
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
@@ -67,11 +65,7 @@
               </span>
               <span>
                 <s class="price-item price-item--regular variant-item__old-price">
-                  {% if settings.currency_code_enabled %}
-                    {{ compare_at_price | money_with_currency }}
-                  {% else %}
                     {{ compare_at_price | money }}
-                  {% endif %}
                 </s>
               </span>
             {%- endunless -%}
@@ -95,31 +89,33 @@
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
           <span>
             <s class="price-item price-item--regular">
-              {% if settings.currency_code_enabled %}
-                {{ compare_at_price | money_with_currency }}
-              {% else %}
                 {{ compare_at_price | money }}
-              {% endif %}
             </s>
           </span>
         {%- endunless -%}
-        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
         <span class="price-item price-item--sale price-item--last">
           {{ money_price }}
         </span>
+        <div class="price__badges-row">
+          {%- if compare_at_price > price -%}
+            {%- assign savings = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price -%}
+            <span class="price__percentage-discount">
+              -{{ savings }}%
+            </span>
+          {%- endif -%}
+          {%- if show_badges -%}
+            <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+              {{ 'products.product.on_sale' | t }}
+            </span>
+            <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
+              {{ 'products.product.sold_out' | t }}
+            </span>
+          {%- endif -%}
+        </div>
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
     </div>
-    {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
-      </span>
-
-      <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
-        {{ 'products.product.sold_out' | t }}
-      </span>
-    {%- endif -%}
   </div>
 {% endunless %}

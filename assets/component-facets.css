@@ -543,24 +543,131 @@
 
 .facets__price {
   display: flex;
+  flex-direction: column;
   padding: 2rem;
+  gap: 2rem;
+}
+
+.facets__price-range-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 0.5rem 0;
+}
+
+.price-range-slider {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(var(--color-foreground), 0.1);
+  border-radius: 2px;
+}
+
+.price-range-slider .slider-track {
+  position: absolute;
+  height: 100%;
+  background: {{ section.settings.accent_color | default: '#a88b6a' }}; /* Hardcoded fallback for now, but will use accent if possible */
+  background: rgb(var(--color-foreground));
+  left: calc((var(--range-min) / var(--range-max-limit, 1000)) * 100%);
+  right: calc(100% - (var(--range-max) / var(--range-max-limit, 1000)) * 100%);
+  border-radius: 2px;
+}
+
+/* More robust track calculation */
+.price-range-slider {
+  background: linear-gradient(to right, 
+    rgba(var(--color-foreground), 0.1) 0%, 
+    rgba(var(--color-foreground), 0.1) calc((var(--range-min) / var(--range-max-limit, 1)) * 100%), 
+    rgb(var(--color-foreground)) calc((var(--range-min) / var(--range-max-limit, 1)) * 100%), 
+    rgb(var(--color-foreground)) calc((var(--range-max) / var(--range-max-limit, 1)) * 100%), 
+    rgba(var(--color-foreground), 0.1) calc((var(--range-max) / var(--range-max-limit, 1)) * 100%), 
+    rgba(var(--color-foreground), 0.1) 100%
+  );
+}
+
+.price-range-slider input[type="range"] {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  background: none;
+  pointer-events: none;
+  margin: 0;
+  top: 0;
+}
+
+.price-range-slider input[type="range"]::-webkit-slider-thumb {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgb(var(--color-foreground));
+  -webkit-appearance: none;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.price-range-slider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.price-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.price-range-inputs .field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 0 1.2rem;
+  background: #fff;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+.price-range-inputs .field:focus-within {
+  border-color: #a88b6a;
+}
+
+.price-range-inputs .field:after,
+.price-range-inputs .field:before {
+  content: none !important;
+}
+
+.price-range-inputs .field__input {
+  border: none !important;
+  background: none !important;
+  padding: 0.8rem 0.5rem;
+  width: 100%;
+  font-size: 1.3rem;
+  text-align: right;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-appearance: none;
+}
+
+.price-range-inputs .field__input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.price-range-inputs .field-currency {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.price-range-inputs .field__label {
+  display: none;
 }
 
 .facets__price .field + .field-currency {
-  margin-left: 2rem;
-}
-
-.facets__price .field {
-  align-items: center;
-}
-
-.facets__price .field-currency {
-  align-self: center;
-  margin-right: 0.6rem;
-}
-
-.facets__price .field__label {
-  left: 1.5rem;
+  margin-left: 0;
 }
 
 button.facets__button {
