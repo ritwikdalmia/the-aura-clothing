@@ -16,63 +16,72 @@
           "type": "story",
           "settings": {
             "title": "Explore Collection",
-            "link": "shopify://collections"
+            "link": "shopify://collections",
+            "icon": "bag"
           }
         },
         "story_2": {
           "type": "story",
           "settings": {
             "title": "Dresses",
-            "link": "shopify://collections/dresses"
+            "link": "shopify://collections/dresses",
+            "icon": "sparkles"
           }
         },
         "story_3": {
           "type": "story",
           "settings": {
             "title": "Co-ord sets",
-            "link": "shopify://collections/co-ord-sets"
+            "link": "shopify://collections/co-ord-sets",
+            "icon": "heart"
           }
         },
         "story_4": {
           "type": "story",
           "settings": {
             "title": "Tops",
-            "link": "shopify://collections/tops"
+            "link": "shopify://collections/tops",
+            "icon": "sparkles"
           }
         },
         "story_5": {
           "type": "story",
           "settings": {
             "title": "Maxi",
-            "link": "shopify://collections/maxi"
+            "link": "shopify://collections/maxi",
+            "icon": "star"
           }
         },
         "story_6": {
           "type": "story",
           "settings": {
             "title": "Party Wear",
-            "link": "shopify://collections/party-wear"
+            "link": "shopify://collections/party-wear",
+            "icon": "sparkles"
           }
         },
         "story_LC7TLC": {
           "type": "story",
           "settings": {
             "title": "New Arrivals",
-            "link": "shopify://collections/new-arrivals"
+            "link": "shopify://collections/new-arrivals",
+            "icon": "star"
           }
         },
         "story_kpWkfE": {
           "type": "story",
           "settings": {
             "title": "Best Sellers",
-            "link": "shopify://collections/best-sellers"
+            "link": "shopify://collections/best-sellers",
+            "icon": "heart"
           }
         },
         "story_X89r7e": {
           "type": "story",
           "settings": {
             "title": "Sales",
-            "link": "shopify://collections/sales"
+            "link": "shopify://collections/sales",
+            "icon": "tag"
           }
         }
       },
@@ -89,6 +98,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-1",
+        "section_bg_color": "#f8f5f0",
         "padding_top": 12,
         "padding_bottom": 24
       }

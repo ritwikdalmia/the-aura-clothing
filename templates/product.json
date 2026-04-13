@@ -54,6 +54,28 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "specifications": {
+          "type": "specifications",
+          "settings": {
+            "heading": "Product Specifications"
+          }
+        },
+        "countdown_timer": {
+          "type": "countdown_timer",
+          "settings": {
+            "title": "Limited time offer",
+            "subtext": "Exclusive styles at 30% off, only for three days!"
+          }
+        },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {
+            "badge_1_title": "Free Shipping",
+            "badge_1_sub": "On orders over $150",
+            "badge_2_title": "Secure Payment",
+            "badge_2_sub": "100% Protected"
+          }
         }
       },
       "block_order": [
@@ -62,22 +84,25 @@
         "price",
         "variant_picker",
         "quantity_selector",
+        "countdown_timer",
         "buy_buttons",
+        "trust_badges",
         "description",
+        "specifications",
         "share"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "large",
+        "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
         "media_position": "left",
-        "image_zoom": "lightbox",
+        "image_zoom": "hover",
         "hide_variants": true,
-        "enable_video_looping": false,
+        "enable_video_looping": true,
         "padding_top": 36,
         "padding_bottom": 12
       }

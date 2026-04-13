@@ -94,7 +94,10 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
+    <label for="{{ input_id }}" {% if option.name == 'Color' or option.name == 'color' %}data-color-name="{{ value | escape }}"{% endif %}>
+      {% if option.name == 'Color' or option.name == 'color' %}
+        <span class="swatch-visual"></span>
+      {% endif %}
       {{ value -}}
       {{ label_unavailable }}
     </label>

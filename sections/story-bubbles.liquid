@@ -1,315 +1,77 @@
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  /* Premium Story Circles Styling */
-  .story-circles-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: visible;
-    padding: 0 40px; /* Space for buttons outside wrapper content */
-  }
-
-  .story-circles-wrapper {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 15px;
-    padding: 20px 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-behavior: smooth;
-    flex: 1;
-    justify-content: flex-start;
-  }
-  
-  .story-circles-wrapper::-webkit-scrollbar {
-    display: none;
-  }
-
-  .story-nav-button {
-    background: white;
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    z-index: 10;
-    transition: all 0.3s ease;
-    padding: 0;
-  }
-
-  .story-nav-prev { left: 0; }
-  .story-nav-next { right: 0; }
-
-  .story-nav-button:hover {
-    background: #f8f8f8;
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .story-nav-button svg { width: 20px; height: 20px; fill: #333; }
-
-  .story-circle-item {
-    scroll-snap-align: start;
-    flex: 0 0 90px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-  }
-
-  .story-circle-image-container {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    margin-bottom: 10px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-  }
-
-  .story-circle-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    display: block;
-  }
-
-  .story-circle-title {
-    font-size: 1rem;
-    color: #444;
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    width: 100%;
-    line-height: 1.2;
-    overflow-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  @media screen and (min-width: 750px) {
-    .story-circles-container {
-      padding: 0 60px; /* Even more space on desktop */
-    }
-    .story-circles-wrapper {
-      gap: 30px;
-      padding: 30px 0;
-      justify-content: center;
-    }
-    .story-circle-item {
-      flex: 0 0 110px;
-    }
-    .story-circle-image-container {
-      width: 100px;
-      height: 100px;
-    }
-    .story-circle-title {
-      font-size: 1.1rem;
-    }
-    .story-nav-button {
-      width: 44px;
-      height: 44px;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .story-nav-button { display: none; }
-    .story-circles-container { padding: 0 15px; }
-    .story-circles-wrapper { padding: 15px 0; }
-  }
-
-  .story-circle-item:hover { transform: translateY(-5px); }
-  .story-circle-item:hover .story-circle-image-container { transform: scale(1.05); }
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-family: var(--font-heading-family);
-  }
-
+.story-bubbles-section { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0; background-color: {{ section.settings.section_bg_color | default: '#f8f5f0' }}; }
+.story-bubbles-container { position: relative; max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+.story-bubbles-wrapper { display: flex; overflow-x: auto; gap: 20px; padding: 10px 0; scrollbar-width: none; -ms-overflow-style: none; justify-content: center; }
+.story-bubbles-wrapper::-webkit-scrollbar { display: none; }
+.story-bubble-item { flex: 0 0 100px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: transform 0.3s ease; }
+.story-bubble-item:hover { transform: translateY(-5px); }
+.story-bubble-icon-wrap { width: 90px; height: 90px; border-radius: 50%; padding: 3px; background: {{ section.settings.accent_color | default: '#a88b6a' }}; margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.story-bubble-img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 50% !important; border: 3px solid #ffffff !important; background: #ffffff !important; }
+.story-bubble-icon-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #fdfdfd; border-radius: 50%; color: {{ section.settings.accent_color | default: '#a88b6a' }}; border: 3px solid #ffffff; }
+.story-bubble-icon-inner svg { width: 40px; height: 40px; }
+.story-bubble-title { font-size: 13px; font-weight: 600; text-transform: uppercase; color: {{ section.settings.text_color | default: '#2c2c2c' }}; text-align: center; margin-top: 4px; letter-spacing: 0.05em; font-family: var(--font-heading-family); }
+@media screen and (max-width: 749px) { .story-bubbles-container { padding: 0 15px; } .story-bubbles-wrapper { justify-content: flex-start; gap: 15px; } .story-bubble-item { flex: 0 0 85px; } .story-bubble-icon-wrap { width: 80px; height: 80px; } }
 {%- endstyle -%}
-
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding">
-    <div class="story-circles-container">
-      <button class="story-nav-button story-nav-prev" aria-label="Previous" onclick="this.parentElement.querySelector('.story-circles-wrapper').scrollBy({left: -200, behavior: 'smooth'})">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-      </button>
-
-      <div class="story-circles-wrapper">
-        {%- for block in section.blocks -%}
-          <a href="{{ block.settings.link | default: '#' }}" class="story-circle-item" {{ block.shopify_attributes }}>
-            <div class="story-circle-image-container">
-              {%- if block.settings.image != blank -%}
-                <img
-                  src="{{ block.settings.image | image_url: width: 200 }}"
-                  alt="{{ block.settings.image.alt | escape }}"
-                  class="story-circle-image"
-                  loading="lazy"
-                  width="200"
-                  height="200"
-                >
-              {%- else -%}
-                {{ 'image' | placeholder_svg_tag: 'story-circle-image placeholder-svg' }}
-              {%- endif -%}
-            </div>
-            {%- if block.settings.title != blank -%}
-              <span class="story-circle-title">{{ block.settings.title | escape }}</span>
-            {%- endif -%}
-          </a>
-        {%- endfor -%}
-      </div>
-
-      <button class="story-nav-button story-nav-next" aria-label="Next" onclick="this.parentElement.querySelector('.story-circles-wrapper').scrollBy({left: 200, behavior: 'smooth'})">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </button>
-    </div>
-  </div>
+<section class="story-bubbles-section section-{{ section.id }}-padding" style="background-color: {{ section.settings.section_bg_color | default: '#f8f5f0' }};">
+<div class="story-bubbles-container">
+<div class="story-bubbles-wrapper">
+{%- for block in section.blocks -%}
+<a id="story-bubble-{{ block.id }}" href="{{ block.settings.link | default: '#' }}" class="story-bubble-item" {{ block.shopify_attributes }}>
+<div class="story-bubble-icon-wrap">
+{%- if block.settings.image != blank -%}
+<img src="{{ block.settings.image | image_url: width: 180 }}" alt="{{ block.settings.image.alt | escape }}" class="story-bubble-img" loading="lazy" width="90" height="90">
+{%- else -%}
+<div class="story-bubble-icon-inner">
+{%- case block.settings.icon -%}
+{%- when 'bag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+{%- when 'star' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+{%- when 'heart' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+{%- when 'tag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+{%- when 'sparkles' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="m5 3 1 1"/><path d="m19 3-1 1"/><path d="m5 21 1-1"/><path d="m19 21-1-1"/></svg>
+{%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+{%- endcase -%}
 </div>
-
-<script>
-  /* Optional: Show/Hide arrows based on scroll position */
-  document.addEventListener('DOMContentLoaded', function() {
-    const wrappers = document.querySelectorAll('.story-circles-wrapper');
-    wrappers.forEach(wrapper => {
-      const container = wrapper.parentElement;
-      const prevBtn = container.querySelector('.story-nav-prev');
-      const nextBtn = container.querySelector('.story-nav-next');
-
-      const updateArrows = () => {
-        if (wrapper.scrollLeft <= 0) {
-          prevBtn.style.opacity = '0.3';
-          prevBtn.style.pointerEvents = 'none';
-        } else {
-          prevBtn.style.opacity = '1';
-          prevBtn.style.pointerEvents = 'auto';
-        }
-
-        if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 1) {
-          nextBtn.style.opacity = '0.3';
-          nextBtn.style.pointerEvents = 'none';
-        } else {
-          nextBtn.style.opacity = '1';
-          nextBtn.style.pointerEvents = 'auto';
-        }
-      };
-
-      wrapper.addEventListener('scroll', updateArrows);
-      window.addEventListener('resize', updateArrows);
-      updateArrows();
-    });
-  });
-</script>
-
+{%- endif -%}
+</div>
+{%- if block.settings.title != blank -%}
+<span class="story-bubble-title">{{ block.settings.title | escape }}</span>
+{%- endif -%}
+</a>
+{%- endfor -%}
+</div>
+</div>
+</section>
 {% schema %}
 {
   "name": "Story Quick Links",
   "tag": "section",
   "class": "section",
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 12
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 24
-    }
+    { "type": "color", "id": "section_bg_color", "label": "Background Color", "default": "#f8f5f0" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#a88b6a" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#2c2c2c" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Top", "default": 12 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding Bottom", "default": 24 }
   ],
   "blocks": [
     {
       "type": "story",
       "name": "Story Item",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Label",
-          "default": "Collection"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Label", "default": "Collection" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "none", "label": "None" },
+          { "value": "bag", "label": "Shopping Bag" },
+          { "value": "star", "label": "Star" },
+          { "value": "heart", "label": "Heart" },
+          { "value": "tag", "label": "Sale Tag" },
+          { "value": "sparkles", "label": "Sparkles" }
+        ], "default": "bag" }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "Story Quick Links",
-      "blocks": [
-        {
-          "type": "story"
-        },
-        {
-          "type": "story"
-        },
-        {
-          "type": "story"
-        },
-        {
-          "type": "story"
-        },
-        {
-          "type": "story"
-        }
-      ]
-    }
-  ]
+  "presets": [ { "name": "Story Quick Links", "blocks": [ { "type": "story" }, { "type": "story" }, { "type": "story" } ] } ]
 }
 {% endschema %}
