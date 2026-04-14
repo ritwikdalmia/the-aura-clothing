@@ -1,0 +1,62 @@
+{% comment %}
+    Renders a premium empty state for collections and search results.
+    Accepts:
+    - title: {String} Title text
+    - text_html: {String} Subtext (HTML supported)
+    - clear_url: {String} URL to clear filters
+    - back_to_collection: {Boolean} Whether to show back to collection link
+{% endcomment %}
+
+{%- liquid
+  assign is_empty_store = false
+  if collection.all_products_count == 0 or search.results_count == 0 and search.performed == false
+    assign is_empty_store = true
+  endif
+-%}
+
+<div class="collection-empty-premium" id="product-grid" data-id="{{ section.id }}">
+  <div class="empty-state-icon">
+    {% if is_empty_store %}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor" style="width: 40px; height: 40px;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12c.03-.282.325-.446.62-.394 1.397.234 4.195.53 4.195.53m0 0a3.75 3.75 0 107.5 0m-7.5 0h7.5" />
+      </svg>
+    {% else %}
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+      </svg>
+    {% endif %}
+  </div>
+  
+  <h2 class="empty-state-title">
+    {%- if is_empty_store -%}
+      Collection Coming Soon
+    {%- else -%}
+      {{ title | default: 'No products found' }}
+    {%- endif -%}
+  </h2>
+  
+  <div class="empty-state-text">
+    {% if is_empty_store %}
+      We're currently curating our latest pieces. Please check back shortly.
+    {% elsif text_html %}
+      {{ text_html }}
+    {% else %}
+      {{ 'sections.collection_template.use_fewer_filters_html' | t: link: clear_url, class: 'underlined-link' }}
+    {% endif %}
+  </div>
+
+  <div class="empty-state-actions">
+    {% if is_empty_store %}
+      <a href="{{ routes.root_url }}" class="empty-state-button empty-state-button--primary">
+        Back to Home
+      </a>
+    {% else %}
+      <a href="{{ clear_url }}" class="empty-state-button empty-state-button--primary">
+        Clear All Filters
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="empty-state-button empty-state-button--secondary">
+        Explore All Products
+      </a>
+    {% endif %}
+  </div>
+</div>

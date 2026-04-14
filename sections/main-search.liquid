@@ -41,6 +41,16 @@
   .search__button .icon {
     height: 1.8rem;
   }
+  
+  .collection-empty-layout {
+    display: block !important;
+  }
+  
+  .collection-empty-layout .product-grid-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
 </style>
 
 {%- liquid
@@ -205,14 +215,14 @@
       {%- endif -%}
       <div
         {% if section.settings.filter_type == 'vertical' %}
-          class="facets-vertical page-width"
+          class="facets-vertical page-width{% if search.results.size == 0 %} collection-empty-layout{% endif %}"
         {% endif %}
       >
         {%- if search.filters != empty -%}
           {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
             <aside
               aria-labelledby="verticalTitle"
-              class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+              class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}{% if search.results.size == 0 %} medium-hide large-up-hide{% endif %}"
               id="main-search-filters"
               data-id="{{ section.id }}"
             >
@@ -228,23 +238,11 @@
         {%- endif -%}
         <div class="product-grid-container" id="ProductGridContainer">
           {%- if search.results.size == 0 and search.filters != empty -%}
-            <div
-              class="template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-              id="product-grid"
-              data-id="{{ section.id }}"
-            >
-              <div class="loading-overlay gradient"></div>
-              <div class="title-wrapper center">
-                <h2 class="title title--primary">
-                  {{ 'sections.collection_template.empty' | t -}}
-                  <br>
-                  {{
-                    'sections.collection_template.use_fewer_filters_html'
-                    | t: link: search_url, class: 'underlined-link link'
-                  }}
-                </h2>
-              </div>
-            </div>
+            {{ 'component-empty-state.css' | asset_url | stylesheet_tag }}
+            {% render 'empty-state', 
+              title: 'No results found',
+              clear_url: search_url
+            %}
           {%- else -%}
             <div
               class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"

@@ -34,9 +34,8 @@
       </div>
       {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
         <div class="na-qv-badge-row">
-          <span class="na-qv-badge">Sale</span>
           {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100 | divided_by: product.selected_or_first_available_variant.compare_at_price -%}
-          <span class="na-qv-savings">-{{ savings }}%</span>
+          <span class="na-qv-badge">-{{ savings }}% SALE</span>
         </div>
       {%- endif -%}
     </div>
@@ -102,7 +101,7 @@
 
     {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_quantity > 0 and product.selected_or_first_available_variant.inventory_quantity < 10 -%}
       <div class="na-qv-urgency">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 2 2 3.5 3 5.5.5 1 1 2.1 1 3.5 0 3-1 4-1 4a2.5 2.5 0 0 1-5 0s-1-1-1-4c0-1.4.5-2.5 1-3.5 1-2 2-3.5 3-5.5Z"></path><path d="M10 18c0 1.4 0 2.6 1 3.5a2.5 2.5 0 0 0 5 0c0-.5-.1-1.1-.3-1.6"></path></svg>
         Hurry! Only {{ product.selected_or_first_available_variant.inventory_quantity }} units left in stock!
       </div>
     {%- endif -%}

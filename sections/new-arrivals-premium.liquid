@@ -18,12 +18,7 @@
 
   /* Section Background */
   .na-premium-bg {
-    background: linear-gradient(180deg,
-      rgba(var(--color-background), 1) 0%,
-      {{ section.settings.section_bg_color | default: '#f8f5f0' }} 8%,
-      {{ section.settings.section_bg_color | default: '#f8f5f0' }} 92%,
-      rgba(var(--color-background), 1) 100%
-    );
+    background: var(--aura-brand-bg-warm);
     position: relative;
     overflow: hidden;
   }
@@ -78,24 +73,24 @@
     content: '';
     display: block;
     width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    height: 1px;
+    background: var(--aura-brand-gold);
     margin: 1.6rem auto 0;
   }
 
   .na-section-title {
-    font-size: 2.4rem;
+    font-size: var(--aura-font-size-lg);
     letter-spacing: 0.35em;
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
-    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    color: var(--aura-brand-dark);
     margin: 0 0 0.5rem;
   }
 
   .na-section-subtitle {
-    font-size: 1.2rem;
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    font-size: var(--aura-font-size-xs);
+    color: var(--aura-brand-gold);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     font-weight: 500;
@@ -127,9 +122,9 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    color: var(--aura-brand-dark);
     border-radius: 12px;
-    background: #ffffff;
+    background: var(--aura-brand-bg-warm);
     overflow: hidden;
     box-shadow:
       0 2px 8px rgba(0,0,0,0.06),
@@ -153,7 +148,7 @@
     position: relative;
     aspect-ratio: 3 / 4;
     overflow: hidden;
-    background: linear-gradient(135deg, #f5f0eb 0%, #ede7df 100%);
+    background: var(--aura-brand-bg-warm);
   }
 
   .na-card-image-wrapper img,
@@ -171,7 +166,7 @@
     width: 100%;
     height: 100%;
     padding: 20%;
-    background: linear-gradient(135deg, #f5f0eb 0%, #ede7df 100%);
+    background: var(--aura-brand-bg-warm);
     object-fit: contain;
   }
 
@@ -197,10 +192,18 @@
   }
 
   /* ===== Glassmorphism Badges ===== */
-  .na-badge {
+  .na-badge-container {
     position: absolute;
     top: 12px;
+    left: 12px;
     z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .na-badge {
     padding: 5px 14px;
     font-size: 1rem;
     font-weight: 700;
@@ -215,7 +218,7 @@
 
   .na-badge--sale {
     left: 12px;
-    background: rgba(229, 57, 53, 0.85);
+    background: var(--aura-brand-sale);
     color: #fff;
   }
 
@@ -224,6 +227,13 @@
     background: rgba(40, 40, 40, 0.8);
     color: #fff;
     border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .na-badge--sold-out {
+    left: 12px;
+    background: rgba(var(--color-background), 0.8);
+    color: rgb(var(--color-foreground));
+    border: 1px solid rgba(var(--color-foreground), 0.1);
   }
 
   /* Quick Add Button — light style matching collections */
@@ -239,7 +249,7 @@
     color: #121212;
     text-align: center;
     padding: 14px;
-    font-size: 1.2rem;
+    font-size: var(--aura-font-size-xs);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -269,25 +279,32 @@
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.4);
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+    opacity: 1; /* Always visible as per user request */
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: scale(1) rotate(0deg);
   }
 
   .na-wishlist {
     top: 12px;
-    transform: scale(0.7) rotate(-15deg);
   }
 
   .na-compare {
     top: 58px;
-    transform: scale(0.7) rotate(15deg);
   }
 
-  .na-product-card:hover .na-wishlist,
-  .na-product-card:hover .na-compare {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
+  .na-wishlist svg, .na-compare svg {
+    width: 16px;
+    height: 16px;
+    stroke: #333;
+    fill: none;
+    stroke-width: 1.8;
+  }
+
+  .na-wishlist:hover, .na-compare:hover {
+    background: #fff;
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   }
 
   .na-wishlist svg, .na-compare svg {
@@ -305,8 +322,8 @@
   }
 
   .na-wishlist:hover svg, .na-compare:hover svg {
-    stroke: #a88b6a;
-    fill: rgba(168, 139, 106, 0.1);
+    stroke: var(--aura-brand-gold);
+    fill: none;
   }
 
   /* ===== Product Info ===== */
@@ -320,7 +337,7 @@
     font-weight: 500;
     margin: 0 0 0.6rem;
     letter-spacing: 0.02em;
-    color: #2c2c2c;
+    color: var(--aura-brand-dark);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -336,24 +353,24 @@
   }
 
   .na-card-price {
-    font-size: 1.45rem;
+    font-size: var(--aura-font-size-base);
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--aura-brand-dark);
   }
 
   .na-card-compare-price {
-    font-size: 1.2rem;
+    font-size: var(--aura-font-size-xs);
     text-decoration: line-through;
-    color: #999;
+    color: var(--aura-brand-text-muted);
   }
 
   .na-card-discount {
     display: block;
     width: 100%;
     margin-top: 0.4rem;
-    color: #d73d3d;
+    color: var(--aura-brand-sale);
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: var(--aura-font-size-sm);
     letter-spacing: 0.02em;
   }
 
@@ -368,8 +385,8 @@
   .na-view-all-btn {
     display: inline-block;
     padding: 16px 56px;
-    border: 2px solid {{ section.settings.accent_color | default: '#a88b6a' }};
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    border: 1px solid var(--aura-brand-gold);
+    color: var(--aura-brand-gold);
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.22em;
@@ -385,7 +402,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: {{ section.settings.accent_color | default: '#a88b6a' }};
+    background: var(--aura-brand-gold);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -400,7 +417,46 @@
   .na-view-all-btn:hover {
     color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(168, 139, 106, 0.25);
+    box-shadow: 0 8px 20px rgba(var(--aura-brand-gold-rgb), 0.25);
+  }
+
+  @media screen and (max-width: 749px) {
+    .na-card-image-wrapper {
+      aspect-ratio: 3 / 4 !important;
+    }
+    .na-badge-container {
+      top: 10px;
+      left: 10px;
+      gap: 5px;
+    }
+    .na-badge {
+      padding: 3px 10px;
+      font-size: 0.85rem;
+    }
+    .na-wishlist, .na-compare {
+      width: 30px;
+      height: 30px;
+      right: 10px;
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    .na-wishlist { top: 10px; }
+    .na-compare { top: 48px; }
+    .na-wishlist svg, .na-compare svg {
+      width: 14px;
+      height: 14px;
+    }
+    .na-quick-add {
+      transform: translateY(0);
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+    .na-card-info {
+      padding: 1.2rem 1rem;
+    }
+    .na-card-title {
+      font-size: 1.2rem;
+    }
   }
 
 {%- endstyle -%}
@@ -440,9 +496,14 @@
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
           <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
             <div class="na-card-image-wrapper">
-              {%- if product.compare_at_price > product.price -%}
-                <span class="na-badge na-badge--sale">Sale</span>
-              {%- endif -%}
+              <div class="na-badge-container">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="na-badge na-badge--sale">Sale</span>
+                {%- endif -%}
+                {%- if product.available == false -%}
+                  <span class="na-badge na-badge--sold-out">Sold Out</span>
+                {%- endif -%}
+              </div>
               <button class="na-wishlist" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
               </button>

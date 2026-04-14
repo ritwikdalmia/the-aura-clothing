@@ -19,7 +19,7 @@ cart-items .title-wrapper-with-link {
 
 cart-items .title.title--primary {
   font-family: var(--font-heading-family);
-  font-size: 2.8rem;
+  font-size: var(--aura-font-size-lg);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 300;
@@ -33,12 +33,12 @@ cart-items .title.title--primary::after {
   left: 0;
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, var(--aura-gold), transparent);
+  background: var(--aura-brand-gold);
 }
 
 cart-items .underlined-link {
   color: var(--aura-gold);
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 500;
@@ -58,7 +58,7 @@ cart-items .underlined-link:hover {
 
 .cart__empty-text {
   font-family: var(--font-heading-family);
-  font-size: 2.4rem;
+  font-size: var(--aura-font-size-lg);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 300;
@@ -70,7 +70,7 @@ cart-items .underlined-link:hover {
   color: #fff;
   border: none;
   padding: 1.4rem 4rem;
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   border-radius: 4px;
@@ -89,7 +89,7 @@ cart-items .underlined-link:hover {
 }
 
 .cart-items thead th {
-  font-size: 1.1rem;
+  font-size: var(--aura-font-size-xs);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -161,7 +161,7 @@ cart-items .underlined-link:hover {
 /* ── Product Name ── */
 .cart-item__name {
   font-family: var(--font-heading-family);
-  font-size: 1.5rem !important;
+  font-size: var(--aura-font-size-base) !important;
   letter-spacing: 0.06em;
   font-weight: 500;
   color: rgb(var(--color-foreground));
@@ -175,7 +175,7 @@ cart-items .underlined-link:hover {
 
 /* ── Product Options ── */
 .product-option {
-  font-size: 1.25rem !important;
+  font-size: var(--aura-font-size-sm) !important;
   color: rgba(var(--color-foreground), 0.55);
   letter-spacing: 0.02em;
 }
@@ -189,13 +189,13 @@ cart-items .underlined-link:hover {
 .cart-item__price-wrapper .price {
   font-family: var(--font-heading-family);
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: var(--aura-font-size-base);
   letter-spacing: 0.04em;
 }
 
 .cart-item__old-price {
   color: rgba(var(--color-foreground), 0.4) !important;
-  font-size: 1.3rem !important;
+  font-size: var(--aura-font-size-sm) !important;
 }
 
 .cart-item__final-price {
@@ -214,7 +214,7 @@ cart-items .underlined-link:hover {
 .quantity.cart-quantity .quantity__input {
   font-family: var(--font-heading-family);
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: var(--aura-font-size-sm);
   background: transparent;
   letter-spacing: 0.05em;
 }
@@ -270,7 +270,7 @@ cart-remove-button .button:hover {
   border-radius: 10px !important;
   border: 1px solid var(--aura-border);
   background: #fff;
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   padding: 1.2rem 1.6rem;
   transition: border-color var(--aura-transition), box-shadow var(--aura-transition);
 }
@@ -281,7 +281,7 @@ cart-remove-button .button:hover {
 }
 
 .cart__note label {
-  font-size: 1.1rem;
+  font-size: var(--aura-font-size-xs);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 500;
@@ -297,7 +297,7 @@ cart-remove-button .button:hover {
 
 .totals__total {
   font-family: var(--font-heading-family);
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 400;
@@ -306,26 +306,26 @@ cart-remove-button .button:hover {
 
 .totals__total-value {
   font-family: var(--font-heading-family);
-  font-size: 2.4rem;
+  font-size: var(--aura-font-size-lg);
   font-weight: 500;
   letter-spacing: 0.04em;
 }
 
 /* ── Tax Note ── */
 .tax-note {
-  font-size: 1.2rem;
+  font-size: var(--aura-font-size-sm);
   color: rgba(var(--color-foreground), 0.45);
   letter-spacing: 0.02em;
 }
 
 /* ── Checkout Button ── */
 .cart__checkout-button {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+  background: var(--aura-brand-dark) !important;
   color: #fff !important;
   border: none !important;
   border-radius: 8px !important;
   padding: 1.8rem 4rem !important;
-  font-size: 1.35rem !important;
+  font-size: var(--aura-font-size-sm) !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   font-weight: 500 !important;
@@ -342,7 +342,7 @@ cart-remove-button .button:hover {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  background: rgba(var(--aura-brand-gold-rgb), 0.05);
   transition: left 0.6s ease;
 }
 
@@ -365,7 +365,7 @@ cart-remove-button .button:hover {
    Free Shipping Progress Bar
    ============================================ */
 .aura-free-shipping-bar {
-  background: linear-gradient(135deg, rgba(168,139,106,0.06) 0%, rgba(168,139,106,0.02) 100%);
+  background: var(--aura-brand-bg-warm);
   border: 1px solid rgba(168,139,106,0.12);
   border-radius: var(--aura-radius);
   padding: 2rem 2.4rem;
@@ -374,7 +374,7 @@ cart-remove-button .button:hover {
 }
 
 .aura-shipping-text {
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   letter-spacing: 0.08em;
   color: rgba(var(--color-foreground), 0.65);
   margin-bottom: 1.2rem;
@@ -396,7 +396,7 @@ cart-remove-button .button:hover {
 
 .aura-shipping-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--aura-gold), var(--aura-gold-light));
+  background: var(--aura-brand-gold);
   border-radius: 3px;
   transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
@@ -456,7 +456,7 @@ cart-remove-button .button:hover {
 }
 
 .aura-trust-badge span {
-  font-size: 1.05rem;
+  font-size: var(--aura-font-size-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;

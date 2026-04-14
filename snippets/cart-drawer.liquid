@@ -516,7 +516,7 @@
                            loading="lazy">
                     </div>
                     <p style="font-size: 1rem; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ product.title }}</p>
-                    <p style="font-size: 1rem; color: #a88b6a; margin: 0;">{{ product.price | money }}</p>
+                    <p style="font-size: var(--aura-font-size-xs); color: var(--aura-brand-gold); margin: 0;">{{ product.price | money }}</p>
                   </a>
                   <button type="button" 
                           onclick="openQuickAdd('{{ product.url }}')"

@@ -16,7 +16,7 @@
      ============================ */
 
   .pc-section-bg {
-    background: {{ section.settings.section_bg_color | default: '#f8f5f0' }};
+    background: var(--aura-brand-bg-warm);
     position: relative;
     overflow: hidden;
   }
@@ -45,14 +45,14 @@
     content: '';
     display: block;
     width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    height: 1px;
+    background: var(--aura-brand-gold);
     margin: 1.4rem auto 0;
   }
 
   .pc-subtitle {
-    font-size: 1.2rem;
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    font-size: var(--aura-font-size-xs);
+    color: var(--aura-brand-gold);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     font-weight: 500;
@@ -60,12 +60,19 @@
   }
 
   .pc-title {
-    font-size: 2.4rem;
+    font-size: var(--aura-font-size-lg);
     letter-spacing: 0.35em;
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
     color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    margin: 0;
+  }
+
+  .pc-card-price {
+    font-size: var(--aura-font-size-base);
+    font-weight: 700;
+    color: var(--aura-brand-gold);
     margin: 0;
   }
 
@@ -147,25 +154,13 @@
   .pc-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.7) 0%,
-      rgba(0,0,0,0.2) 40%,
-      rgba(0,0,0,0.05) 70%,
-      transparent 100%
-    );
+    background: rgba(0,0,0,0.3); /* Solid semi-transparent overlay */
     z-index: 1;
     transition: background 0.4s ease;
   }
 
   .pc-card:hover .pc-card-overlay {
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.8) 0%,
-      rgba(0,0,0,0.3) 45%,
-      rgba(0,0,0,0.1) 70%,
-      transparent 100%
-    );
+    background: rgba(0,0,0,0.5); /* Darker on hover */
   }
 
   /* Card Content */
@@ -183,16 +178,16 @@
   }
 
   .pc-card-label {
-    font-size: 1rem;
+    font-size: var(--aura-font-size-xs);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    color: var(--aura-brand-gold);
     font-weight: 600;
     margin: 0;
   }
 
   .pc-card-title {
-    font-size: 2.2rem;
+    font-size: var(--aura-font-size-lg);
     font-weight: 400;
     font-family: var(--font-heading-family);
     color: #fff;
@@ -220,7 +215,7 @@
     border: 1.5px solid rgba(255,255,255,0.35);
     border-radius: 30px;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: var(--aura-font-size-xs);
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -265,7 +260,7 @@
     -webkit-backdrop-filter: blur(8px);
     border-radius: 20px;
     color: #fff;
-    font-size: 1rem;
+    font-size: var(--aura-font-size-xs);
     font-weight: 500;
     letter-spacing: 0.05em;
   }
@@ -314,7 +309,7 @@
               height="1067"
             >
           {%- else -%}
-            <div class="pc-card-placeholder" style="background: linear-gradient(160deg, hsl({{ forloop.index | times: 40 | plus: 20 }}, 30%, 86%), hsl({{ forloop.index | times: 40 | plus: 40 }}, 25%, 78%));">
+            <div class="pc-card-placeholder" style="background: var(--aura-brand-bg-warm);">
               <svg viewBox="0 0 120 140" fill="none">
                 <path d="M60 12 C60 12 44 15 40 25 L34 46 L20 40 L25 55 L38 52 L33 95 L23 132 L50 132 L55 105 L60 118 L65 105 L70 132 L97 132 L87 95 L82 52 L95 55 L100 40 L86 46 L80 25 C76 15 60 12 60 12Z" stroke="#b8977a" stroke-width="1.5" fill="none"/>
                 <path d="M49 25 Q60 32 71 25" stroke="#b8977a" stroke-width="1" fill="none"/>

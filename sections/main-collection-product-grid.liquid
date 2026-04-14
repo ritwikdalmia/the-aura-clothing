@@ -34,13 +34,23 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  
+  .collection-empty-layout {
+    display: block !important;
+  }
+  
+  .collection-empty-layout .product-grid-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
-      <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
+      <facet-filters-form class="facets facets-vertical-sort page-width small-hide{% if collection.all_products_count == 0 %} hidden{% endif %}">
         <form class="facets-vertical-form" id="FacetSortForm">
           <div class="facet-filters sorting caption">
             <div class="facet-filters__field">
@@ -97,13 +107,13 @@
       </facet-filters-form>
     {%- endif -%}
 
-    <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
+    <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}{% if collection.products.size == 0 %} collection-empty-layout{% endif %}">
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}{% if collection.products.size == 0 %} medium-hide large-up-hide{% endif %}"
           id="main-collection-filters"
           data-id="{{ section.id }}"
         >
@@ -125,19 +135,11 @@
         {% endif %}
       >
         {%- if collection.products.size == 0 -%}
-          <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
-            <div class="loading-overlay gradient"></div>
-            <div class="title-wrapper center">
-              <h2 class="title title--primary">
-                {{ 'sections.collection_template.empty' | t -}}
-                <br>
-                {{
-                  'sections.collection_template.use_fewer_filters_html'
-                  | t: link: collection.url, class: 'underlined-link link'
-                }}
-              </h2>
-            </div>
-          </div>
+          {{ 'component-empty-state.css' | asset_url | stylesheet_tag }}
+          {% render 'empty-state', 
+            title: 'No products found',
+            clear_url: collection.url
+          %}
         {%- else -%}
           <div
             class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"

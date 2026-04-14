@@ -3,10 +3,10 @@
 
 <div class="page-width section-{{ section.id }}-padding section-main-list-collections">
   <div class="collection-list-header" style="text-align: center; margin-bottom: 6rem;">
-    <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}" style="color: #a88b6a; font-size: 4.2rem; letter-spacing: 0.1em; text-transform: uppercase;">
+    <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}" style="color: var(--aura-brand-gold); font-size: var(--aura-font-size-lg); letter-spacing: 0.1em; text-transform: uppercase;">
       {{ section.settings.title }}
     </h1>
-    <div class="header-line" style="width: 60px; height: 2px; background: #a88b6a; margin: 2rem auto;"></div>
+    <div class="header-line" style="width: 60px; height: 1px; background: var(--aura-brand-gold); margin: 2rem auto;"></div>
   </div>
   {%- liquid
     case section.settings.sort

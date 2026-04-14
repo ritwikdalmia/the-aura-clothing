@@ -28,7 +28,7 @@
     left: -20%;
     width: 60%;
     height: 200%;
-    background: radial-gradient(ellipse, rgba(168,139,106,0.04) 0%, transparent 65%);
+    background: radial-gradient(ellipse, rgba(var(--aura-brand-gold-rgb), 0.04) 0%, transparent 65%);
     pointer-events: none;
   }
 
@@ -39,7 +39,7 @@
     right: -15%;
     width: 50%;
     height: 160%;
-    background: radial-gradient(ellipse, rgba(168,139,106,0.03) 0%, transparent 60%);
+    background: radial-gradient(ellipse, rgba(var(--aura-brand-gold-rgb), 0.03) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -67,14 +67,14 @@
     content: '';
     display: block;
     width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, {{ section.settings.accent_color | default: '#a88b6a' }}, transparent);
+    height: 1px;
+    background: var(--aura-brand-gold);
     margin: 1.4rem auto 0;
   }
 
   .reels-subtitle {
-    font-size: 1.2rem;
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
+    font-size: var(--aura-font-size-xs);
+    color: var(--aura-brand-gold);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     font-weight: 500;
@@ -335,7 +335,7 @@
   .reel-views svg {
     width: 14px;
     height: 14px;
-    fill: {{ section.settings.accent_color | default: '#a88b6a' }};
+    fill: var(--aura-brand-gold);
   }
 
   /* ===== Product Info Bar (Glass Pill) ===== */
@@ -412,8 +412,8 @@
   }
 
   .reel-product-price {
-    color: {{ section.settings.accent_color | default: '#a88b6a' }};
-    font-size: 1.25rem;
+    color: var(--aura-brand-gold);
+    font-size: var(--aura-font-size-sm);
     font-weight: 700;
     margin: 0;
   }
@@ -478,7 +478,7 @@
                   height="427"
                 >
               {%- else -%}
-                <div class="reel-cover" style="background: linear-gradient(160deg, #f5e6d8, #e8d5c4, #dfc8b5);"></div>
+                <div class="reel-cover" style="background: var(--aura-brand-bg-warm);"></div>
               {%- endif -%}
 
               {%- comment -%} Video {%- endcomment -%}
@@ -558,7 +558,7 @@
                 <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                 {{ dummy_views[idx] }}
               </div>
-              <div class="reel-cover" style="background: linear-gradient(160deg, hsl({{ forloop.index | times: 30 | plus: 15 }}, 35%, 88%), hsl({{ forloop.index | times: 30 | plus: 25 }}, 30%, 82%), hsl({{ forloop.index | times: 30 | plus: 5 }}, 25%, 78%));"></div>
+              <div class="reel-cover" style="background: var(--aura-brand-bg-warm);"></div>
               <div class="reel-placeholder">
                 <svg class="reel-placeholder-dress" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M50 8 C50 8 38 10 35 18 L30 35 L18 30 L22 42 L32 40 L28 75 L20 130 L42 130 L46 85 L50 95 L54 85 L58 130 L80 130 L72 75 L68 40 L78 42 L82 30 L70 35 L65 18 C62 10 50 8 50 8Z" stroke="#b8977a" stroke-width="1.8" fill="none"/>

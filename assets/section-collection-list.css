@@ -13,17 +13,17 @@
 
 .collection-list-title {
   margin: 0;
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .section-main-list-collections,
 .template-list-collections main {
-  background-color: #f9f5f0 !important;
+  background-color: var(--aura-brand-bg-warm) !important;
 }
 
 .collection-list-wrapper, 
 .section-main-list-collections .page-width {
-  background-color: #f9f5f0;
+  background-color: var(--aura-brand-bg-warm);
   padding-bottom: 8rem;
 }
 
@@ -120,6 +120,16 @@
     width: 100%;
   }
   .grid--2-col-tablet-down .grid__item {
-    width: calc(50% - 1rem);
+    width: calc(50% - 1rem); /* 2 items per row with 2rem total gap */
   }
+  
+  .collection-list {
+    column-gap: 1.5rem !important;
+    row-gap: 2.5rem !important;
+    padding: 0 1rem !important;
+  }
+}
+
+.section-main-list-collections .collection-list-header {
+  margin-top: 4rem;
 }

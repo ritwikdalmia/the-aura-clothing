@@ -7,13 +7,13 @@
   --focused-base-outline-offset: 0.3rem;
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
 
-  /* Aura Brand Variables */
-  --aura-gold: #a88b6a;
-  --aura-gold-light: #c9ab82;
-  --aura-bg-warm: #faf8f5;
+  /* Aura Brand Variables (Mapped to Global Tokens) */
+  --aura-gold: var(--aura-brand-gold);
+  --aura-gold-light: var(--aura-brand-gold-light);
+  --aura-bg-warm: var(--aura-brand-bg-warm);
   --aura-border: rgba(0,0,0,0.06);
-  --aura-radius: 14px;
-  --aura-transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --aura-radius: var(--aura-radius);
+  --aura-transition: var(--aura-transition);
 }
 
 .product-card-wrapper .card,
@@ -451,6 +451,28 @@ table:not([class]) th {
   .large-up-hide {
     display: none !important;
   }
+}
+
+@media screen and (min-width: 990px) {
+  .na-qv-swatch-inner {
+    border: 1px solid rgba(0,0,0,0.1) !important;
+  }
+}
+
+/* Force Brand Background on Collection Templates */
+.template-collection #MainContent,
+.template-list-collections #MainContent,
+.template-collection .gradient,
+.template-list-collections .gradient,
+.section-main-list-collections,
+.section-main-list-collections .page-width {
+  background-color: var(--aura-brand-bg-warm) !important;
+  background: var(--aura-brand-bg-warm) !important;
+}
+
+.template-collection main,
+.template-list-collections main {
+  background-color: var(--aura-brand-bg-warm);
 }
 
 .left {
@@ -3609,9 +3631,9 @@ details-disclosure > details {
    ========================================================================== */
 
 :root {
-  --aura-gold: #a88b6a;
-  --aura-gold-light: #c5b095;
-  --aura-gold-gradient: linear-gradient(135deg, #a88b6a 0%, #c5b095 100%);
+  --aura-gold: var(--aura-brand-gold);
+  --aura-gold-light: var(--aura-brand-gold-light);
+  --aura-gold-gradient: var(--aura-brand-gold); /* Gradient removed for simple solid design */
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.4);
   --glass-blur: blur(12px);

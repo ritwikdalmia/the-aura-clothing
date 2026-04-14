@@ -110,7 +110,7 @@
   }
 
   .load-more-btn:hover {
-    background-color: #a88b6a; /* Premium Gold Hover */
+    background-color: var(--aura-brand-gold); /* Premium Gold Hover */
   }
 
   .load-more-ended {
@@ -128,6 +128,16 @@
   
   .grid__item:hover {
     transform: translateY(-5px);
+  }
+  
+  .collection-empty-layout {
+    display: block !important;
+  }
+  
+  .collection-empty-layout .product-grid-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
   }
 {%- endstyle -%}
 
@@ -187,14 +197,14 @@
         </facet-filters-form>
       {%- endif -%}
 
-      <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %}">
+      <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical{% endif %}{% if collection.products.size == 0 %} collection-empty-layout{% endif %}">
         {{ 'component-facets.css' | asset_url | stylesheet_tag }}
         <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
         
         {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
           <aside
             aria-labelledby="verticalTitle"
-            class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}"
+            class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if collection.products.size == 0 %} medium-hide large-up-hide{% endif %}"
             id="main-collection-filters"
             data-id="{{ section.id }}"
           >
@@ -216,15 +226,11 @@
           {% endif %}
         >
           {%- if collection.products.size == 0 -%}
-            <div class="collection collection--empty" id="product-grid" data-id="{{ section.id }}">
-              <div class="loading-overlay gradient"></div>
-              <div class="title-wrapper center">
-                <h2 class="title title--primary">
-                  {{ 'sections.collection_template.empty' | t -}}<br>
-                  {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: 'underlined-link link' }}
-                </h2>
-              </div>
-            </div>
+            {{ 'component-empty-state.css' | asset_url | stylesheet_tag }}
+            {% render 'empty-state', 
+              title: 'No products found',
+              clear_url: collection.url
+            %}
           {%- else -%}
             <div class="collection">
               <div class="loading-overlay gradient"></div>

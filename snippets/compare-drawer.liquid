@@ -102,7 +102,7 @@
     background: rgba(0,0,0,0.02);
   }
   .compare-drawer__content::-webkit-scrollbar-thumb {
-    background: #a88b6a;
+    background: var(--aura-brand-gold);
     border-radius: 10px;
   }
 
@@ -194,9 +194,9 @@
   .btn-remove { left: 1rem; }
   .btn-wishlist { right: 1rem; }
   .btn-wishlist.is-active {
-    background: #a88b6a;
+    background: var(--aura-brand-gold);
     color: #fff;
-    border-color: #a88b6a;
+    border-color: var(--aura-brand-gold);
   }
   .btn-wishlist.is-active svg path { fill: currentColor; }
 
@@ -220,7 +220,7 @@
     bottom: 2rem;
   }
   .badge--new {
-    background: #a88b6a;
+    background: var(--aura-brand-gold);
     color: #fff;
     left: -0.5rem;
     bottom: 4rem;
@@ -285,7 +285,7 @@
     background: #333;
   }
   .btn-buy-now {
-    background: #a88b6a;
+    background: var(--aura-brand-gold);
     color: #fff;
   }
   .btn-buy-now:hover {
@@ -389,7 +389,7 @@
     html += '<tr><th>Category</th>';
     products.forEach(p => {
       const cat = p.type || 'Boutique';
-      html += `<td style="font-weight:600; font-size:1.4rem; color:#a88b6a;">${cat}</td>`;
+      html += `<td style="font-weight:600; font-size:var(--aura-font-size-sm); color:var(--aura-brand-gold);">${cat}</td>`;
     });
     html += '</tr>';
 
@@ -402,7 +402,7 @@
         .filter(s => s && !s.includes('gid://'));
       
       const specHtml = specs.length > 0 
-        ? `<div style="text-align:left; font-size:1.2rem; line-height:1.6;">${specs.map(s => `<div style="margin-bottom:8px; display:flex; gap:8px;"><span style="color:#a88b6a;">•</span> <span>${s}</span></div>`).join('')}</div>`
+        ? `<div style="text-align:left; font-size:var(--aura-font-size-xs); line-height:1.6;">${specs.map(s => `<div style="margin-bottom:8px; display:flex; gap:8px;"><span style="color:var(--aura-brand-gold);">•</span> <span>${s}</span></div>`).join('')}</div>`
         : '<span style="color:#bbb; font-style:italic;">Standard Details</span>';
       html += `<td>${specHtml}</td>`;
     });

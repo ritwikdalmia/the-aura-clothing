@@ -32,7 +32,7 @@
 
 .list-menu--disclosure .list-menu__item:hover {
   background-color: rgba(var(--color-foreground), 0.05);
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
   padding-left: 2.5rem; /* Subtle shift effect */
 }
 
@@ -41,7 +41,7 @@
 }
 
 .list-menu__item--active {
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .list-menu__item--active::after {
@@ -51,7 +51,7 @@
   left: 2rem;
   right: 2rem;
   height: 1px;
-  background: #a88b6a;
+  background: var(--aura-brand-gold);
   transform: scaleX(1);
 }
 

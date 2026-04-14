@@ -105,7 +105,7 @@ product-info {
   font-weight: 700 !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
-  font-size: 1.2rem !important;
+  font-size: var(--aura-font-size-sm) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   border: none !important;
   overflow: hidden !important;
@@ -133,14 +133,14 @@ product-info {
 }
 
 .shopify-payment-button__button--unbranded {
-  background: linear-gradient(135deg, #a88b6a 0%, #8d7356 100%) !important;
+  background: var(--aura-brand-gold) !important;
   color: #fff !important;
   border: none !important;
 }
 
 .shopify-payment-button__button--unbranded:hover,
 .shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background: linear-gradient(135deg, #8d7356 0%, #765e44 100%) !important;
+  background: var(--aura-brand-dark) !important;
 }
 
 .product-secondary-actions {
@@ -170,8 +170,8 @@ product-info {
 
 .product-secondary-actions .na-wishlist-product:hover,
 .product-secondary-actions .na-compare-product:hover {
-  border-color: #a88b6a;
-  color: #a88b6a;
+  border-color: var(--aura-brand-gold);
+  color: var(--aura-brand-gold);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(168, 139, 106, 0.15);
 }
@@ -180,8 +180,8 @@ product-info {
 .na-wishlist-floating.is-active,
 .na-compare-product.is-active,
 .na-compare-floating.is-active {
-  background: #a88b6a !important;
-  border-color: #a88b6a !important;
+  background: var(--aura-brand-gold) !important;
+  border-color: var(--aura-brand-gold) !important;
   color: #fff !important;
 }
 
@@ -199,7 +199,7 @@ product-info {
 }
 
 .product-secondary-actions__text {
-  font-size: 1.1rem;
+  font-size: var(--aura-font-size-xs);
   color: #888;
   font-family: var(--font-body-family);
   text-transform: uppercase;
@@ -225,7 +225,7 @@ product-info {
 .product-form__error-message-wrapper:not([hidden]) {
   display: flex;
   align-items: flex-start;
-  font-size: 1.3rem;
+  font-size: var(--aura-font-size-sm);
   line-height: 1.4;
   letter-spacing: 0.04rem;
   margin-bottom: 1.5rem;
@@ -255,7 +255,7 @@ product-info {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 1.1rem;
+  font-size: var(--aura-font-size-xs);
   color: #666;
   margin-bottom: 0.8rem;
 }
@@ -298,7 +298,7 @@ product-info {
 .quantity__input {
   font-weight: 700 !important;
   font-family: var(--font-body-family);
-  font-size: 1.6rem !important;
+  font-size: var(--aura-font-size-base) !important;
   color: #2c2c2c !important;
   background: transparent !important;
   border: none !important;
@@ -358,7 +358,7 @@ product-info {
   background-color: #2c2c2c;
   color: #fff;
   border: none;
-  font-size: 1.2rem;
+  font-size: var(--aura-font-size-sm);
   text-transform: uppercase;
   position: relative;
   box-shadow: none !important;
@@ -446,20 +446,20 @@ product-info {
   font-weight: 700;
   color: #8d7356;
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: var(--aura-font-size-xs);
   letter-spacing: 0.12em;
 }
 
 .product__spec-value {
   color: #333;
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: var(--aura-font-size-base);
   line-height: 1.4;
 }
 
 /* Offer Countdown Card */
 .offer-countdown-card {
-  background: linear-gradient(135deg, #f9f9f9 0%, #f1f1f1 100%);
+  background: var(--aura-brand-bg-warm);
   border-radius: 12px;
   padding: 2.5rem;
   margin: 2rem 0;
@@ -539,7 +539,7 @@ product-info {
   padding: 1rem;
   border-radius: 50%;
   display: flex;
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .editable-trust-badges .badge-title {
@@ -906,7 +906,7 @@ a.product__text {
 .na-compare-floating:hover {
   background: #fff;
   transform: scale(1.1);
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .na-wishlist-floating svg, 
@@ -917,9 +917,9 @@ a.product__text {
 
 .na-wishlist-product.is-active,
 .na-wishlist-floating.is-active {
-  background: #a88b6a !important;
+  background: var(--aura-brand-gold) !important;
   color: #fff !important;
-  border-color: #a88b6a !important;
+  border-color: var(--aura-brand-gold) !important;
 }
 
 @media screen and (max-width: 749px) {
@@ -1389,7 +1389,7 @@ a.product__text {
 }
 
 .thumbnail[aria-current='true'] {
-  border: 1.5px solid #A88B6A !important;
+  border: 1.5px solid var(--aura-brand-gold) !important;
   box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.1) !important;
   transform: scale(1.02) !important;
 }
@@ -2105,9 +2105,9 @@ a.product__text {
   font-weight: 500;
   letter-spacing: 0.1em;
   min-height: 5rem;
-  background-color: #A88B6A !important;
+  background-color: var(--aura-brand-gold) !important;
   color: #ffffff !important;
-  border: 1px solid #A88B6A !important;
+  border: 1px solid var(--aura-brand-gold) !important;
 }
 
 .button:after {
@@ -2137,7 +2137,7 @@ a.product__text {
 /* Color Swatch Mappings */
 [data-color-name="Blue"] .swatch-visual { background-color: #2D5AF0 !important; }
 [data-color-name="Green"] .swatch-visual { background-color: #2D9F5E !important; }
-[data-color-name="Gold"] .swatch-visual { background-color: #A88B6A !important; }
+[data-color-name="Gold"] .swatch-visual { background-color: var(--aura-brand-gold) !important; }
 [data-color-name="Orange"] .swatch-visual { background-color: #FF8A00 !important; }
 [data-color-name="Purple"] .swatch-visual { background-color: #8E44AD !important; }
 [data-color-name="Red"] .swatch-visual { background-color: #E74C3C !important; }
@@ -2188,7 +2188,7 @@ label:hover .swatch-visual {
 .aura-specs-accordion .accordion__title,
 .aura-specs-accordion .icon-accordion,
 .product__spec-label {
-  color: #A88B6A !important; /* Theme Aura Gold */
+  color: var(--aura-brand-gold) !important; /* Theme Aura Gold */
 }
 
 .product__spec-value {

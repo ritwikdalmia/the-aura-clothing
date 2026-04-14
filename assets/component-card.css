@@ -592,6 +592,7 @@
   .grid__item:nth-child(8n) .product-card-wrapper:hover .shape--blob {
     clip-path: polygon(var(--shape--blob-5));
   }
+}
 
 /* ============================================================================
    Boutique Product Card (The Aura Custom)
@@ -601,12 +602,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #fdfaf7; /* Off-white premium tone */
+  background: rgb(var(--color-background));
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   height: 100%;
-  border: 1px solid rgba(var(--color-foreground), 0.03);
+  border: 1px solid rgba(var(--color-foreground), 0.05);
 }
 
 .na-product-card:hover {
@@ -625,8 +626,8 @@
 }
 
 .na-wishlist:hover svg, .na-compare:hover svg {
-  stroke: #a88b6a !important; /* Aura Gold on hover */
-  fill: rgba(168, 139, 106, 0.1) !important;
+  stroke: var(--aura-brand-gold) !important; /* Aura Gold on hover */
+  fill: var(--aura-brand-bg-warm) !important;
 }
 
 .na-card-image-wrapper {
@@ -634,7 +635,7 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: #f5f0eb;
+  background: rgba(var(--color-foreground), 0.03);
 }
 
 .na-card-image-wrapper img {
@@ -648,11 +649,17 @@
   transform: scale(1.08);
 }
 
-.na-badge {
+.na-badge-container {
   position: absolute;
   top: 15px;
   left: 15px;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.na-badge {
   padding: 5px 14px;
   font-size: 1rem;
   font-weight: 700;
@@ -663,27 +670,30 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  background: rgba(var(--color-background), 0.85);
+  color: rgb(var(--color-foreground));
 }
 
 .na-badge--sale {
-  background: rgba(229, 57, 53, 0.85); /* Premium Red */
+  background: rgba(215, 61, 61, 0.95); /* Premium Boutique Red */
   color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .na-badge--new {
-  background: rgba(40, 40, 40, 0.8); /* Premium Dark */
-  color: #fff;
+  background: rgba(var(--color-background), 0.85);
+  color: rgb(var(--color-foreground));
 }
 
 .na-badge--best {
-  background: rgba(168, 139, 106, 0.85); /* Brand Gold */
-  color: #fff;
+  background: rgba(var(--color-background), 0.85);
+  color: rgb(var(--color-foreground));
 }
 
 .na-badge--sold-out {
-  background: rgba(100, 100, 100, 0.8);
-  color: #fff;
+  background: rgba(var(--color-background), 0.8);
+  color: rgb(var(--color-foreground));
 }
 
 .na-wishlist, .na-compare {
@@ -749,14 +759,14 @@
 
 .na-card-title {
   margin: 0 0 1rem 0;
-  font-size: 1.7rem; /* Increased size */
+  font-size: var(--aura-font-size-md);
   font-weight: 500;
-  color: #121212;
+  color: rgb(var(--color-foreground));
   transition: color 0.3s ease;
 }
 
 .na-product-card:hover .na-card-title {
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .na-card-price-row {
@@ -768,23 +778,23 @@
 
 .na-card-price {
   font-weight: 700;
-  color: #121212;
-  font-size: 1.8rem; /* Increased size */
+  color: rgb(var(--color-foreground));
+  font-size: var(--aura-font-size-md);
 }
 
 .na-card-compare-price {
   text-decoration: line-through;
-  color: #999;
-  font-size: 1.4rem;
+  color: var(--aura-brand-text-muted);
+  font-size: var(--aura-font-size-sm);
 }
 
 .na-card-discount {
   display: block;
   width: 100%;
   margin-top: 0.4rem;
-  color: #d73d3d;
+  color: var(--aura-brand-sale);
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: var(--aura-font-size-sm);
 }
 
 /* ============================================================================
@@ -796,20 +806,20 @@
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  background: #fdfaf7;
+  background: var(--aura-brand-bg-warm);
   width: 100%;
   height: 100%;
   border-radius: 24px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 
-    0 4px 12px rgba(168, 139, 106, 0.05),
+    0 4px 12px rgba(var(--aura-brand-gold-rgb), 0.05),
     0 10px 30px rgba(0,0,0,0.03);
 }
 
 .na-collection-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(168, 139, 106, 0.1);
+  box-shadow: 0 25px 50px rgba(var(--aura-brand-gold-rgb), 0.1);
 }
 
 .na-collection-image-wrapper {
@@ -817,7 +827,7 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #fdfaf7;
+  background: var(--aura-brand-bg-warm);
 }
 
 .na-collection-card:hover .na-collection-image-wrapper img {
@@ -830,7 +840,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  background: #fdfaf7;
+  background: var(--aura-brand-bg-warm);
   flex-grow: 1;
 }
 
@@ -841,25 +851,25 @@
 .na-collection-count {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  background: rgba(168, 139, 106, 0.08);
+  background: rgba(var(--aura-brand-gold-rgb), 0.08);
   padding: 0.4rem 1rem;
   border-radius: 50px;
 }
 
 .na-collection-title {
-  font-size: 2.2rem;
+  font-size: var(--aura-font-size-lg);
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--aura-brand-dark);
   margin: 0;
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .na-collection-card:hover .na-collection-title {
-  color: #a88b6a;
+  color: var(--aura-brand-gold);
 }
 
 .na-collection-action {
@@ -868,8 +878,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  color: #1a1a1a;
-  font-size: 1.3rem;
+  color: var(--aura-brand-dark);
+  font-size: var(--aura-font-size-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -897,8 +907,8 @@
 }
 
 .na-collection-card:hover .na-collection-action .icon-wrap {
-  background: #a88b6a;
-  border-color: #a88b6a;
+  background: var(--aura-brand-gold);
+  border-color: var(--aura-brand-gold);
   color: #fff;
   transform: translateX(4px);
 }
@@ -983,7 +993,7 @@
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
-  font-size: 2.4rem;
+  font-size: var(--aura-font-size-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -997,7 +1007,8 @@
 
 .na-modal-content-inner {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Quick View Inner Detail Layout */
@@ -1009,7 +1020,7 @@
 
 @media screen and (max-width: 767px) {
   .na-modal-body {
-    grid-template-columns: 1fr;
+    display: block !important;
   }
 }
 
@@ -1019,6 +1030,12 @@
   height: 100%;
   min-height: 500px;
   overflow: hidden;
+  border-radius: 20px 0 0 20px; /* Curve left side on desktop */
+}
+
+.na-quick-view-media {
+  overflow: hidden;
+  border-radius: 20px 0 0 20px;
 }
 
 .na-qv-slide {
@@ -1056,8 +1073,8 @@
 }
 
 .na-qv-title {
-  font-size: 2.8rem;
-  margin: 0 0 1.5rem 0;
+  font-size: var(--aura-font-size-lg);
+  margin: 0 0 1rem 0;
   font-weight: 500;
 }
 
@@ -1072,35 +1089,35 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .na-qv-price {
-  font-size: 2.2rem;
+  font-size: var(--aura-font-size-lg);
   font-weight: 700;
-  color: #2c2c2c; /* Matched PDP */
+  color: var(--aura-brand-dark); /* Matched PDP */
 }
 
 .na-qv-compare-price {
   text-decoration: line-through;
-  color: #8d7356;
-  font-size: 1.6rem;
+  color: var(--aura-brand-gold);
+  font-size: var(--aura-font-size-base);
   opacity: 0.7;
 }
 
 .na-qv-savings {
-  color: #d73d3d;
+  color: var(--aura-brand-sale);
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: var(--aura-font-size-sm);
   letter-spacing: 0.02em;
 }
 
 .na-qv-badge {
-  background: #d73d3d;
+  background: var(--aura-brand-sale);
   color: #fff;
-  font-size: 1.1rem;
+  font-size: var(--aura-font-size-xs);
   font-weight: 700;
-  padding: 0.4rem 1.2rem;
+  padding: 5px 15px;
   border-radius: 50px;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
@@ -1108,11 +1125,11 @@
 }
 
 .na-qv-variants {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .na-qv-option-title {
-  font-size: 1.2rem;
+  font-size: var(--aura-font-size-xs);
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   margin-bottom: 1rem;
@@ -1130,7 +1147,7 @@
   padding: 0.1rem 2rem;
   border: 1px solid #eee;
   border-radius: 30px;
-  font-size: 1.4rem;
+  font-size: var(--aura-font-size-sm);
   cursor: pointer;
   transition: all 0.3s ease;
   line-height: normal;
@@ -1181,7 +1198,7 @@
 /* Premium Color Mapping (Synced with PDP) */
 [data-color-name="Blue"] .na-qv-swatch-inner { background-color: #2D5AF0 !important; }
 [data-color-name="Green"] .na-qv-swatch-inner { background-color: #2D9F5E !important; }
-[data-color-name="Gold"] .na-qv-swatch-inner { background-color: #A88B6A !important; }
+[data-color-name="Gold"] .na-qv-swatch-inner { background-color: var(--aura-brand-gold) !important; }
 [data-color-name="Orange"] .na-qv-swatch-inner { background-color: #FF8A00 !important; }
 [data-color-name="Purple"] .na-qv-swatch-inner { background-color: #8E44AD !important; }
 [data-color-name="Red"] .na-qv-swatch-inner { background-color: #E74C3C !important; }
@@ -1219,16 +1236,16 @@
   width: 40px;
   text-align: center;
   border: none;
-  font-size: 1.6rem;
+  font-size: var(--aura-font-size-base);
   font-weight: 600;
   background: transparent;
 }
 
 .na-qv-add-btn, .na-qv-buy-btn {
   width: 100%;
-  height: 52px;
+  min-height: 60px !important;
   border-radius: 20px; /* Matched PDP */
-  font-size: 1.5rem;
+  font-size: var(--aura-font-size-base);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -1242,23 +1259,24 @@
 }
 
 .na-qv-add-btn {
-  background: #A88B6A; /* Aura Gold */
+  background: var(--aura-brand-gold);
   color: #fff;
 }
 
 .na-qv-add-btn:hover {
-  background: #927555;
+  background: var(--aura-brand-dark);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(168, 139, 106, 0.2);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .na-qv-buy-btn {
-  background: #1A1A1A; /* Premium Dark */
+  background: var(--aura-brand-dark);
   color: #fff;
 }
 
 .na-qv-buy-btn:hover {
-  background: #000;
+  background: var(--aura-brand-dark);
+  filter: brightness(1.2);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
@@ -1280,4 +1298,158 @@
 @keyframes slideUp {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Overrides */
+@media screen and (max-width: 1024px) {
+  .na-qv-add-btn, .na-qv-buy-btn {
+    min-height: 52px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .na-modal-content {
+    max-height: 90vh !important;
+    width: 92% !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .na-modal-content-inner {
+    flex: 1;
+    overflow-y: auto !important;
+    height: auto;
+    max-height: 100%;
+  }
+  .na-modal-body {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important; /* Remove whitespace around image */
+    padding-bottom: 2rem !important;
+  }
+  .na-qv-carousel {
+    min-height: 380px;
+    height: 380px;
+    background: #fdfaf7;
+    border-radius: 20px 20px 0 0 !important; /* Match Modal radius exactly */
+  }
+  .na-qv-slide img {
+    object-fit: cover !important; /* Fill space to remove white bars */
+    object-position: center top !important; /* Prioritize the top of the product */
+    border-radius: 20px 20px 0 0 !important;
+  }
+  .na-quick-view-info {
+    padding: 2.5rem 2rem;
+    padding-bottom: 4rem !important;
+    max-height: none !important;
+    overflow: visible !important;
+    flex: none !important;
+  }
+  .na-qv-title {
+    font-size: var(--aura-font-size-lg);
+    margin-bottom: 0.8rem;
+  }
+  .na-qv-badge-row {
+    margin-bottom: 1.2rem;
+  }
+  .na-qv-variants {
+    margin-bottom: 2rem;
+  }
+  .na-qv-price {
+    font-size: var(--aura-font-size-md);
+  }
+  .na-qv-add-btn, .na-qv-buy-btn {
+    min-height: 52px !important;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Fix Homepage Grid Breakage for Mobile/Tablet */
+@media screen and (max-width: 1024px) {
+  .na-product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.2rem !important;
+  }
+  .na-product-card {
+    border-radius: 8px !important;
+  }
+  .na-card-image-wrapper {
+    aspect-ratio: 3 / 4 !important; /* Premium portrait ratio for mobile */
+  }
+  .na-wishlist, .na-compare {
+    width: 28px !important;
+    height: 28px !important;
+    top: 10px !important;
+  }
+  .na-wishlist { right: 10px !important; }
+  .na-compare { top: 46px !important; right: 10px !important; }
+  .na-wishlist svg, .na-compare svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .na-badge {
+    padding: 3px 10px !important;
+    font-size: 0.85rem !important;
+    top: 10px !important;
+    left: 10px !important;
+  }
+  .na-badge-container {
+    top: 10px !important;
+    left: 10px !important;
+    gap: 5px !important;
+  }
+  .na-quick-add {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    padding: 8px !important;
+    font-size: 0.9rem !important;
+    background: rgba(255,255,255,0.95) !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .na-product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+  .na-card-info {
+    padding: 1rem 0.8rem !important;
+  }
+  .na-card-title {
+    font-size: var(--aura-font-size-sm) !important;
+  }
+  .na-card-price {
+    font-size: var(--aura-font-size-sm) !important;
+  }
+}
+
+/* Collection Card Mobile Refinements */
+@media screen and (max-width: 767px) {
+  .na-collection-info {
+    padding: 1.5rem 1.2rem !important; /* Reduced padding for 2-col */
+    gap: 0.5rem !important;
+  }
+  
+  .na-collection-title {
+    font-size: 1.4rem !important; /* Smaller text for mobile */
+    min-height: 2.8rem; /* Reduced min-height */
+  }
+  
+  .na-collection-count {
+    font-size: 0.9rem !important;
+    padding: 0.2rem 0.6rem !important;
+  }
+  
+  .na-collection-action {
+    font-size: 1rem !important;
+    gap: 0.6rem !important;
+  }
+  
+  .na-collection-action .icon-wrap {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  
+  .na-collection-card {
+    border-radius: 16px !important; /* Softer corners for smaller cards */
+  }
 }

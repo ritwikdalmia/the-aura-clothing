@@ -4,19 +4,22 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
 {%- if card_product and card_product != empty -%}
-<div class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+<div class="na-product-card color-{{ settings.card_color_scheme }} gradient{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="na-card-image-wrapper">
-      {%- if card_product.available == false -%}
-        <span class="na-badge na-badge--sold-out">Sold out</span>
-      {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-        <span class="na-badge na-badge--sale">Sale</span>
-      {%- endif -%}
+      <div class="na-badge-container">
+        {%- if card_product.available == false -%}
+          <span class="na-badge na-badge--sold-out color-{{ settings.sold_out_badge_color_scheme }} gradient">Sold out</span>
+        {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
+          {%- assign savings = card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price -%}
+          <span class="na-badge na-badge--sale color-{{ settings.sale_badge_color_scheme }} gradient">-{{ savings }}% SALE</span>
+        {%- endif -%}
 
-      {%- if card_product.tags contains 'Best Seller' or card_product.tags contains 'best-seller' or card_product.tags contains 'Best' -%}
-        <span class="na-badge na-badge--best" style="{% if card_product.compare_at_price > card_product.price or card_product.available == false %}top: 55px;{% endif %}">Best Seller</span>
-      {%- elsif card_product.tags contains 'New' or card_product.tags contains 'new' -%}
-        <span class="na-badge na-badge--new" style="{% if card_product.compare_at_price > card_product.price or card_product.available == false %}top: 55px;{% endif %}">New Arrival</span>
-      {%- endif -%}
+        {%- if card_product.tags contains 'Best Seller' or card_product.tags contains 'best-seller' or card_product.tags contains 'Best' -%}
+          <span class="na-badge na-badge--best color-{{ settings.sale_badge_color_scheme }} gradient">Best Seller</span>
+        {%- elsif card_product.tags contains 'New' or card_product.tags contains 'new' -%}
+          <span class="na-badge na-badge--new color-{{ settings.card_color_scheme }} gradient">New Arrival</span>
+        {%- endif -%}
+      </div>
 
       <button class="na-wishlist" aria-label="Add to wishlist" data-aura-wishlist="{{ card_product.handle }}">
         <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -76,7 +79,7 @@
           <span class="na-card-compare-price">{{ card_product.compare_at_price | money }}</span>
           <span class="na-card-price">{{ card_product.price | money }}</span>
           {%- assign savings = card_product.compare_at_price | minus: card_product.price | times: 100 | divided_by: card_product.compare_at_price -%}
-          <span class="na-card-discount">-{{ savings }}%</span>
+          <span class="na-card-discount" style="color: #d73d3d; font-weight: 600;">-{{ savings }}%</span>
         {%- else -%}
           <span class="na-card-price">{{ card_product.price | money }}</span>
         {%- endif -%}

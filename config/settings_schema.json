@@ -102,6 +102,57 @@
     ]
   },
   {
+    "name": "Aura Brand Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Global brand colors for The Aura boutique. These override gradients and hardcoded values."
+      },
+      {
+        "type": "color",
+        "id": "aura_gold",
+        "label": "Primary Gold",
+        "default": "#a88b6a"
+      },
+      {
+        "type": "color",
+        "id": "aura_gold_light",
+        "label": "Secondary Gold",
+        "default": "#c9ab82"
+      },
+      {
+        "type": "color",
+        "id": "aura_bg_warm",
+        "label": "Neutral Warm Background",
+        "default": "#faf8f5"
+      },
+      {
+        "type": "color",
+        "id": "brand_dark",
+        "label": "Premium Dark (Buttons/Text)",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "text_primary",
+        "label": "Main Text Color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "text_secondary",
+        "label": "Muted Text Color",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "sale_accent",
+        "label": "Sale/Badge Accent",
+        "default": "#e53935"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.typography.name",
     "settings": [
       {

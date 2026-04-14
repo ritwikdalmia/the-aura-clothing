@@ -566,23 +566,15 @@
 .price-range-slider .slider-track {
   position: absolute;
   height: 100%;
-  background: {{ section.settings.accent_color | default: '#a88b6a' }}; /* Hardcoded fallback for now, but will use accent if possible */
-  background: rgb(var(--color-foreground));
+  background: var(--aura-brand-gold);
   left: calc((var(--range-min) / var(--range-max-limit, 1000)) * 100%);
   right: calc(100% - (var(--range-max) / var(--range-max-limit, 1000)) * 100%);
   border-radius: 2px;
 }
 
-/* More robust track calculation */
+/* Simplified track without complex gradient */
 .price-range-slider {
-  background: linear-gradient(to right, 
-    rgba(var(--color-foreground), 0.1) 0%, 
-    rgba(var(--color-foreground), 0.1) calc((var(--range-min) / var(--range-max-limit, 1)) * 100%), 
-    rgb(var(--color-foreground)) calc((var(--range-min) / var(--range-max-limit, 1)) * 100%), 
-    rgb(var(--color-foreground)) calc((var(--range-max) / var(--range-max-limit, 1)) * 100%), 
-    rgba(var(--color-foreground), 0.1) calc((var(--range-max) / var(--range-max-limit, 1)) * 100%), 
-    rgba(var(--color-foreground), 0.1) 100%
-  );
+  background: rgba(var(--aura-brand-dark-rgb), 0.1);
 }
 
 .price-range-slider input[type="range"] {
@@ -632,7 +624,7 @@
 }
 
 .price-range-inputs .field:focus-within {
-  border-color: #a88b6a;
+  border-color: var(--aura-brand-gold);
 }
 
 .price-range-inputs .field:after,

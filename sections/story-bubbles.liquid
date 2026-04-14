@@ -1,16 +1,17 @@
 {%- style -%}
 .story-bubbles-section { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0; background-color: {{ section.settings.section_bg_color | default: '#f8f5f0' }}; }
 .story-bubbles-container { position: relative; max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-.story-bubbles-wrapper { display: flex; overflow-x: auto; gap: 20px; padding: 10px 0; scrollbar-width: none; -ms-overflow-style: none; justify-content: center; }
+.story-bubbles-wrapper { display: flex; overflow-x: auto; gap: 20px; padding: 10px 15px; scrollbar-width: none; -ms-overflow-style: none; justify-content: flex-start; }
 .story-bubbles-wrapper::-webkit-scrollbar { display: none; }
 .story-bubble-item { flex: 0 0 100px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: transform 0.3s ease; }
 .story-bubble-item:hover { transform: translateY(-5px); }
-.story-bubble-icon-wrap { width: 90px; height: 90px; border-radius: 50%; padding: 3px; background: {{ section.settings.accent_color | default: '#a88b6a' }}; margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.story-bubble-icon-wrap { width: 90px; height: 90px; border-radius: 50%; padding: 3px; background: var(--aura-brand-gold); margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .story-bubble-img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 50% !important; border: 3px solid #ffffff !important; background: #ffffff !important; }
-.story-bubble-icon-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #fdfdfd; border-radius: 50%; color: {{ section.settings.accent_color | default: '#a88b6a' }}; border: 3px solid #ffffff; }
+.story-bubble-icon-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #fdfdfd; border-radius: 50%; color: var(--aura-brand-gold); border: 3px solid #ffffff; }
 .story-bubble-icon-inner svg { width: 40px; height: 40px; }
 .story-bubble-title { font-size: 13px; font-weight: 600; text-transform: uppercase; color: {{ section.settings.text_color | default: '#2c2c2c' }}; text-align: center; margin-top: 4px; letter-spacing: 0.05em; font-family: var(--font-heading-family); }
-@media screen and (max-width: 749px) { .story-bubbles-container { padding: 0 15px; } .story-bubbles-wrapper { justify-content: flex-start; gap: 15px; } .story-bubble-item { flex: 0 0 85px; } .story-bubble-icon-wrap { width: 80px; height: 80px; } }
+@media screen and (min-width: 1400px) { .story-bubbles-wrapper { justify-content: center; } }
+@media screen and (max-width: 749px) { .story-bubbles-container { padding: 0; } .story-bubbles-wrapper { justify-content: flex-start; gap: 12px; } .story-bubble-item { flex: 0 0 75px; } .story-bubble-icon-wrap { width: 70px; height: 70px; } .story-bubble-title { font-size: 10px; letter-spacing: 0.02em; } }
 {%- endstyle -%}
 <section class="story-bubbles-section section-{{ section.id }}-padding" style="background-color: {{ section.settings.section_bg_color | default: '#f8f5f0' }};">
 <div class="story-bubbles-container">
