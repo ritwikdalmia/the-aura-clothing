@@ -38,7 +38,7 @@ class FacetFiltersForm extends HTMLElement {
       '.facets-container .loading__spinner, facet-filters-form .loading__spinner'
     );
     loadingSpinners.forEach((spinner) => spinner.classList.remove('hidden'));
-    document.getElementById('ProductGridContainer').querySelector('.collection').classList.add('loading');
+    document.getElementById('ProductGridContainer').querySelector('.collection')?.classList.add('loading');
     if (countContainer) {
       countContainer.classList.add('loading');
     }
@@ -93,12 +93,14 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderProductCount(html) {
-    const count = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount').innerHTML;
+    const count = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount')?.innerHTML;
     const container = document.getElementById('ProductCount');
     const containerDesktop = document.getElementById('ProductCountDesktop');
-    container.innerHTML = count;
-    container.classList.remove('loading');
-    if (containerDesktop) {
+    if (container && count !== undefined) {
+      container.innerHTML = count;
+      container.classList.remove('loading');
+    }
+    if (containerDesktop && count !== undefined) {
       containerDesktop.innerHTML = count;
       containerDesktop.classList.remove('loading');
     }
@@ -245,7 +247,10 @@ class FacetFiltersForm extends HTMLElement {
   static getSections() {
     return [
       {
-        section: document.getElementById('product-grid').dataset.id,
+        section: document.getElementById('product-grid')?.dataset.id || 
+                 document.querySelector('.facets-wrapper')?.dataset.id || 
+                 document.getElementById('main-collection-filters')?.dataset.id || 
+                 document.getElementById('main-search-filters')?.dataset.id,
       },
     ];
   }

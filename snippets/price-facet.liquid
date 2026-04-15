@@ -1,4 +1,8 @@
 <div class="facets__price-range-slider">
+  <div class="slider-range-text">
+    <span>{{ cart.currency.symbol }}0</span>
+    <span>{{ filter.range_max | money }}</span>
+  </div>
   <div class="price-range-slider" 
     data-min="0" 
     data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"

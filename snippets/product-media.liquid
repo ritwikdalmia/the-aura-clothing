@@ -93,7 +93,7 @@
           }}
         {%- endif -%}
       {%- when 'video' -%}
-        {{ media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, preload: 'none' }}
+        {{ media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, preload: 'none', controlslist: 'nodownload nopictureinpicture' }}
       {%- when 'model' -%}
         {{ media | media_tag: image_size: '2048x', toggleable: true }}
     {%- endcase -%}

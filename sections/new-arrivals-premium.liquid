@@ -298,31 +298,29 @@
     stroke: #333;
     fill: none;
     stroke-width: 1.8;
+    transition: fill 0.2s ease, stroke 0.2s ease;
   }
 
-  .na-wishlist:hover, .na-compare:hover {
+  .na-wishlist:hover:not(.is-active), .na-compare:hover:not(.is-active) {
     background: #fff;
     transform: scale(1.1) !important;
     box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   }
 
-  .na-wishlist svg, .na-compare svg {
-    width: 16px;
-    height: 16px;
-    stroke: #333;
-    fill: none;
-    stroke-width: 1.8;
-    transition: fill 0.2s ease, stroke 0.2s ease;
-  }
-
-  .na-wishlist:hover, .na-compare:hover {
-    background: #fff;
-    transform: scale(1.1) !important;
-  }
-
-  .na-wishlist:hover svg, .na-compare:hover svg {
+  .na-wishlist:hover:not(.is-active) svg, .na-compare:hover:not(.is-active) svg {
     stroke: var(--aura-brand-gold);
     fill: none;
+  }
+
+  .na-wishlist.is-active, .na-compare.is-active {
+    background: var(--aura-brand-gold) !important;
+    border-color: var(--aura-brand-gold) !important;
+    color: #fff !important;
+  }
+
+  .na-wishlist.is-active svg, .na-compare.is-active svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
   }
 
   /* ===== Product Info ===== */

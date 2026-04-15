@@ -50,23 +50,26 @@
 
     @media screen and (max-width: 749px) {
       .quantity-icons-container {
-        flex-wrap: wrap; 
-        gap: 1.5rem;
-        justify-content: center; /* Center on mobile for better aesthetic */
-        text-align: center;
+        flex-wrap: nowrap; 
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: flex-end;
+        width: 100%;
       }
       
       .product-form__input.product-form__quantity {
-        width: 100% !important;
-        max-width: 100% !important;
+        width: auto !important;
+        max-width: none !important;
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
       }
       
       .main-product-actions {
-        width: 100%;
-        justify-content: center;
+        width: auto;
+        justify-content: flex-start;
+        flex: 0 0 auto;
       }
     }
 

@@ -342,15 +342,26 @@
     transition: fill 0.2s ease, stroke 0.2s ease;
   }
 
-  .bs-wishlist:hover svg, .bs-compare svg:hover {
+  .bs-wishlist:hover:not(.is-active) svg, .bs-compare:hover:not(.is-active) svg {
     stroke: var(--aura-brand-gold);
     fill: none;
   }
 
-  .bs-wishlist:hover, .bs-compare:hover {
+  .bs-wishlist:hover:not(.is-active), .bs-compare:hover:not(.is-active) {
     background: #fff;
     transform: scale(1.1) !important;
     box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  }
+
+  .bs-wishlist.is-active, .bs-compare.is-active {
+    background: var(--aura-brand-gold) !important;
+    border-color: var(--aura-brand-gold) !important;
+    color: #fff !important;
+  }
+
+  .bs-wishlist.is-active svg, .bs-compare.is-active svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
   }
 
   /* Quick Add — premium gold styling */

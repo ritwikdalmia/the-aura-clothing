@@ -219,6 +219,65 @@
     }
   }
 
+  /* View All Card */
+  .reel-card--view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px dashed rgba(var(--aura-brand-gold-rgb), 0.3);
+    box-shadow: none;
+    text-decoration: none;
+  }
+
+  .reel-card--view-all:hover {
+    background: rgba(var(--aura-brand-gold-rgb), 0.05);
+    border-color: var(--aura-brand-gold);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  }
+
+  .reel-view-all-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reel-view-all-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+  }
+
+  .reel-card--view-all:hover .reel-view-all-icon {
+    transform: translateX(6px);
+  }
+
+  .reel-view-all-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--aura-brand-gold);
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .reel-view-all-content p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--aura-brand-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
   /* Cover Image */
   .reel-cover {
     position: absolute;
@@ -436,54 +495,36 @@
     display: none;
   }
 
-  /* Quick Add for Reels */
-  .reel-quick-add {
-    position: absolute;
-    bottom: 74px; /* Positioned above the product pill */
-    left: 18px;
-    right: 18px;
-    z-index: 7;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--aura-brand-dark);
-    text-align: center;
-    padding: 10px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  /* Quick Add Icon for Reels */
+  .reel-quick-add-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--aura-brand-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(var(--aura-brand-gold-rgb), 0.3);
     cursor: pointer;
-    border-radius: 8px;
-    border: 1px solid rgba(var(--aura-brand-gold-rgb), 0.25);
-    transform: translateY(10px);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   }
 
-  .reel-quick-add:hover {
+  .reel-quick-add-icon:hover {
     background: var(--aura-brand-gold);
     color: #fff;
-    border-color: var(--aura-brand-gold);
+    transform: scale(1.05);
   }
 
-  .reel-card:hover .reel-quick-add {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* Small Screen Optimization and Quick Add Responsiveness */
-  @media screen and (max-width: 749px) {
-    .reel-quick-add {
-      opacity: 1;
-      transform: translateY(0);
-      bottom: 70px;
-      padding: 8px;
-      font-size: 0.95rem;
-      left: 15px;
-      right: 15px;
-    }
+  .reel-quick-add-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
   }
 
   /* Wishlist Active State */
@@ -546,7 +587,7 @@
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: #000;
+    background: transparent;
     display: none;
     flex-direction: column;
     overflow: hidden;
@@ -580,7 +621,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000;
+    background: transparent;
   }
 
   .reels-player-video {
@@ -898,6 +939,24 @@
   assign dummy_names = "Mermaid Scarf Dress,Heartstring Emerald Dress,Noir Sequin Top,Lovisa Lace Up Dress,Champagne Siren 3pcs Set,Red Temptation Mini" | split: ","
   assign dummy_prices = "3200,2400,1300,2499,2200,2499" | split: ","
   assign dummy_views = "7K,4K,4K,7K,8K,7K" | split: ","
+
+  # Unified Data Logic
+  assign meta_reels = shop.metaobjects.shoppable_reel.values
+  if meta_reels != blank and meta_reels.size > 0
+    assign reels_data = meta_reels
+  else
+    assign reels_data = section.blocks
+  endif
+
+  assign limit = 1000
+  if request.page_type == 'index' or template == 'index'
+    assign limit = section.settings.max_reels_home | default: 9
+  endif
+
+  assign show_view_all = false
+  if reels_data.size > limit and section.settings.show_view_all
+    assign show_view_all = true
+  endif
 -%}
 
 <div class="reels-section-bg color-{{ section.settings.color_scheme }} gradient">
@@ -925,23 +984,46 @@
       {%- endif -%}
 
       <div class="reels-carousel" data-reels-carousel data-autoplay="{{ section.settings.enable_autoplay }}">
-        {%- if section.blocks.size > 0 -%}
-          {%- for block in section.blocks -%}
-            <div class="reel-card" {{ block.shopify_attributes }} data-reel-card>
+        {%- if reels_data.size > 0 -%}
+          {%- for item in reels_data limit: limit -%}
+            {%- liquid
+              if item.type == 'reel' 
+                assign video = item.settings.video
+                assign cover_image = item.settings.cover_image
+                assign view_count = item.settings.view_count
+                assign product = item.settings.product
+                assign product_name = item.settings.product_name
+                assign product_price = item.settings.product_price
+                assign product_compare_at_price = item.settings.product_compare_at_price
+                assign product_link = item.settings.product_link
+                assign shopify_attributes = item.shopify_attributes
+              else
+                assign video = item.video.value
+                assign cover_image = item.cover_image.value
+                assign view_count = item.view_count.value
+                assign product = item.product.value
+                assign product_name = item.product_name.value
+                assign product_price = item.product_price.value
+                assign product_compare_at_price = item.product_compare_at_price.value
+                assign product_link = item.product_link.value
+                assign shopify_attributes = ""
+              endif
+            -%}
+            <div class="reel-card" {{ shopify_attributes }} data-reel-card>
               {%- comment -%} View Count {%- endcomment -%}
-              {%- if block.settings.view_count != blank -%}
+              {%- if view_count != blank -%}
                 <div class="reel-views">
                   <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
-                  {{ block.settings.view_count }}
+                  {{ view_count }}
                 </div>
               {%- endif -%}
 
               {%- comment -%} Cover Image {%- endcomment -%}
-              {%- if block.settings.cover_image != blank -%}
+              {%- if cover_image != blank -%}
                 <img
                   class="reel-cover"
-                  src="{{ block.settings.cover_image | image_url: width: 480 }}"
-                  alt="{{ block.settings.cover_image.alt | default: 'Reel cover' | escape }}"
+                  src="{{ cover_image | image_url: width: 480 }}"
+                  alt="{{ cover_image.alt | default: 'Reel cover' | escape }}"
                   loading="lazy"
                   width="240"
                   height="427"
@@ -951,7 +1033,7 @@
               {%- endif -%}
 
               {%- comment -%} Video {%- endcomment -%}
-              {%- if block.settings.video != blank -%}
+              {%- if video != blank -%}
                 <video
                   class="reel-video"
                   muted
@@ -959,9 +1041,10 @@
                   playsinline
                   {% if section.settings.enable_autoplay %}autoplay{% endif %}
                   preload="metadata"
-                  poster="{%- if block.settings.cover_image != blank -%}{{ block.settings.cover_image | image_url: width: 480 }}{%- endif -%}"
+                  poster="{%- if cover_image != blank -%}{{ cover_image | image_url: width: 480 }}{%- endif -%}"
+                  controlslist="nodownload nopictureinpicture noremoteplayback"
                 >
-                  {%- for source in block.settings.video.sources -%}
+                  {%- for source in video.sources -%}
                     <source src="{{ source.url }}" type="{{ source.mime_type }}">
                   {%- endfor -%}
                 </video>
@@ -985,13 +1068,13 @@
               <div class="reel-gradient-overlay"></div>
 
               {%- comment -%} Product Info Bar {%- endcomment -%}
-              {%- if block.settings.product != blank -%}
-                <a href="{{ block.settings.product.url }}" class="reel-product-bar">
-                  {%- if block.settings.product.featured_media -%}
+              {%- if product != blank -%}
+                <a href="{{ product.url }}" class="reel-product-bar">
+                  {%- if product.featured_media -%}
                     <img
                       class="reel-product-thumb"
-                      src="{{ block.settings.product.featured_media | image_url: width: 80 }}"
-                      alt="{{ block.settings.product.title | escape }}"
+                      src="{{ product.featured_media | image_url: width: 80 }}"
+                      alt="{{ product.title | escape }}"
                       width="40"
                       height="40"
                       loading="lazy"
@@ -1002,42 +1085,56 @@
                     </div>
                   {%- endif -%}
                   <div class="reel-product-info">
-                    <p class="reel-product-name">{{ block.settings.product.title }}</p>
+                    <p class="reel-product-name">{{ product.title }}</p>
                     <div class="reel-price-row">
-                      {%- if block.settings.product.compare_at_price > block.settings.product.price -%}
-                        <span class="reel-product-compare-price">{{ block.settings.product.compare_at_price | money }}</span>
+                      {%- if product.compare_at_price > product.price -%}
+                        <span class="reel-product-compare-price">{{ product.compare_at_price | money }}</span>
                       {%- endif -%}
                       <p class="reel-product-price">
-                        {%- if block.settings.product.price_varies -%}
-                          {%- assign price = block.settings.product.price | money -%}
+                        {%- if product.price_varies -%}
+                          {%- assign price = product.price | money -%}
                           {{ 'products.product.price.from_price_html' | t: price: price }}
                         {%- else -%}
-                          {{ block.settings.product.price | money }}
+                          {{ product.price | money }}
                         {%- endif -%}
                       </p>
                     </div>
                   </div>
+                  <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')" aria-label="Quick Add">
+                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
                 </a>
-                <div class="reel-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ block.settings.product.url }}')">Quick Add</div>
-              {%- elsif block.settings.product_name != blank -%}
-                <a href="{{ block.settings.product_link | default: '#' }}" class="reel-product-bar">
+              {%- elsif product_name != blank -%}
+                <a href="{{ product_link | default: '#' }}" class="reel-product-bar">
                   <div class="reel-product-thumb-placeholder">
                     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
                   </div>
                   <div class="reel-product-info">
-                    <p class="reel-product-name">{{ block.settings.product_name }}</p>
+                    <p class="reel-product-name">{{ product_name }}</p>
                     <div class="reel-price-row">
-                      {%- if block.settings.product_compare_at_price != blank -%}
-                        <span class="reel-product-compare-price">{{ cart.currency.symbol }}{{ block.settings.product_compare_at_price }}</span>
+                      {%- if product_compare_at_price != blank -%}
+                        <span class="reel-product-compare-price">{{ cart.currency.symbol }}{{ product_compare_at_price }}</span>
                       {%- endif -%}
-                      <p class="reel-product-price">{{ cart.currency.symbol }}{{ block.settings.product_price }}</p>
+                      <p class="reel-product-price">{{ cart.currency.symbol }}{{ product_price }}</p>
                     </div>
                   </div>
+                  <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product_link | default: '#' }}')" aria-label="Quick Add">
+                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
                 </a>
-                <div class="reel-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ block.settings.product_link | default: '#' }}')">Quick Add</div>
               {%- endif -%}
             </div>
           {%- endfor -%}
+          {%- if show_view_all -%}
+            <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="reel-card reel-card--view-all">
+              <div class="reel-view-all-content">
+                <div class="reel-view-all-icon">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+                <p>View All Reels</p>
+              </div>
+            </a>
+          {%- endif -%}
         {%- else -%}
           {%- comment -%} Dummy / Placeholder Reels {%- endcomment -%}
           {%- for i in (1..6) -%}
@@ -1068,8 +1165,10 @@
                   <p class="reel-product-name">{{ dummy_names[idx] }}</p>
                   <p class="reel-product-price">{{ cart.currency.symbol }}{{ dummy_prices[idx] }}</p>
                 </div>
+                <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); alert('Quick add is disabled for placeholder products')" aria-label="Quick Add">
+                  <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
               </a>
-              <div class="reel-quick-add" onclick="alert('Quick add is disabled for placeholder products')">Quick Add</div>
             </div>
           {%- endfor -%}
         {%- endif -%}
@@ -1078,21 +1177,45 @@
   </div>
 </div>
 
-{%- comment -%} Full-Screen Reels Player Modal {%- endcomment -%}
+ {%- comment -%} Full-Screen Reels Player Modal {%- endcomment -%}
 <div id="ReelsPlayerModal" class="reels-player-modal">
   <div class="reels-player-slider" data-reels-player-slider>
-    {%- if section.blocks.size > 0 -%}
-      {%- for block in section.blocks -%}
-        <div class="reels-player-item" data-index="{{ forloop.index0 }}" data-block-id="{{ block.id }}">
-          {%- if block.settings.video != blank -%}
+    {%- if reels_data.size > 0 -%}
+      {%- for item in reels_data limit: limit -%}
+        {%- liquid
+          if item.type == 'reel' 
+            assign video = item.settings.video
+            assign cover_image = item.settings.cover_image
+            assign view_count = item.settings.view_count
+            assign product = item.settings.product
+            assign product_name = item.settings.product_name
+            assign product_price = item.settings.product_price
+            assign product_compare_at_price = item.settings.product_compare_at_price
+            assign product_link = item.settings.product_link
+            assign item_id = item.id
+          else
+            assign video = item.video.value
+            assign cover_image = item.cover_image.value
+            assign view_count = item.view_count.value
+            assign product = item.product.value
+            assign product_name = item.product_name.value
+            assign product_price = item.product_price.value | money
+            assign product_compare_at_price = item.product_compare_at_price.value | money
+            assign product_link = item.product_link.value
+            assign item_id = item.system.id
+          endif
+        -%}
+        <div class="reels-player-item" data-index="{{ forloop.index0 }}" data-block-id="{{ item_id }}">
+          {%- if video != blank -%}
             <video
               class="reels-player-video"
               muted
               loop
               playsinline
               preload="auto"
+              controlslist="nodownload nopictureinpicture noremoteplayback"
             >
-              {%- for source in block.settings.video.sources -%}
+              {%- for source in video.sources -%}
                 <source src="{{ source.url }}" type="{{ source.mime_type }}">
               {%- endfor -%}
             </video>
@@ -1109,18 +1232,18 @@
             </div>
 
             <div class="reels-player-bottom">
-              <div class="reels-player-product-pill" data-product-url="{{ block.settings.product.url }}">
-                {%- if block.settings.product.featured_media -%}
-                  <img class="reels-pill-img" src="{{ block.settings.product.featured_media | image_url: width: 100 }}" alt="" loading="lazy">
+              <div class="reels-player-product-pill" data-product-url="{{ product.url | default: product_link }}">
+                {%- if product.featured_media -%}
+                  <img class="reels-pill-img" src="{{ product.featured_media | image_url: width: 100 }}" alt="" loading="lazy">
                 {%- endif -%}
                 <div class="reels-pill-info">
-                   <p class="reels-pill-name">{{ block.settings.product.title | default: block.settings.product_name }}</p>
-                   <p class="reels-pill-price">{{ block.settings.product.price | money }}</p>
+                   <p class="reels-pill-name">{{ product.title | default: product_name }}</p>
+                   <p class="reels-pill-price">{{ product.price | money | default: product_price }}</p>
                 </div>
               </div>
 
               <div class="reels-player-actions">
-                <div class="reels-action-btn reels-wishlist-btn" data-handle="{{ block.settings.product.handle }}">
+                <div class="reels-action-btn reels-wishlist-btn" data-handle="{{ product.handle }}">
                    <div class="reels-action-icon">
                      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                    </div>
@@ -1140,18 +1263,19 @@
           <div class="reels-variant-overlay">
              <div class="reels-variant-content">
                 <div class="reels-variant-header">
-                   {%- if block.settings.product.featured_media -%}
-                     <img class="reels-variant-thumb" src="{{ block.settings.product.featured_media | image_url: width: 200 }}" alt="">
+                   {%- if product.featured_media -%}
+                     <img class="reels-variant-thumb" src="{{ product.featured_media | image_url: width: 200 }}" alt="">
                    {%- endif -%}
                    <div class="reels-variant-meta">
-                      <h4 class="reels-variant-title">{{ block.settings.product.title }}</h4>
-                      <div class="reels-variant-price-box">{{ block.settings.product.price | money }}</div>
+                      <h4 class="reels-variant-title">{{ product.title | default: product_name }}</h4>
+                      <div class="reels-variant-price-box">{{ product.price | money | default: product_price }}</div>
                    </div>
                 </div>
+                {%- if product != blank -%}
                 <div class="reels-variant-options">
                    <p class="reels-variant-opt-title">Size</p>
                    <div class="reels-variant-list">
-                      {%- for variant in block.settings.product.variants -%}
+                      {%- for variant in product.variants -%}
                          <div class="reels-variant-item {% if forloop.first %}is-selected{% endif %}" data-variant-id="{{ variant.id }}">
                            {{ variant.title }}
                          </div>
@@ -1160,8 +1284,9 @@
                 </div>
                 <div class="reels-variant-footer">
                    <button class="reels-var-btn reels-var-btn--cancel">Cancel</button>
-                   <button class="reels-var-btn reels-var-btn--add" data-variant-id="{{ block.settings.product.variants.first.id }}">Add to Cart</button>
+                   <button class="reels-var-btn reels-var-btn--add" data-variant-id="{{ product.variants.first.id }}">Add to Cart</button>
                 </div>
+                {%- endif -%}
              </div>
           </div>
         </div>
@@ -1217,7 +1342,8 @@
       });
     }
 
-    // 2. Open Reels Player
+    // 2. Open Reels Player - DISABLED
+    /*
     document.querySelectorAll('[data-reel-card]').forEach((card, index) => {
       card.addEventListener('click', (e) => {
         // Prevent opening if clicking Quick Add button (which uses a different modal)
@@ -1226,6 +1352,7 @@
         openReelPlayer(index);
       });
     });
+    */
 
     function openReelPlayer(index) {
       playerModal.classList.add('is-active');
@@ -1459,6 +1586,27 @@
       "label": "Enable Autoplay",
       "default": true,
       "info": "Videos will play automatically when they enter the viewport."
+    },
+    {
+      "type": "range",
+      "id": "max_reels_home",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "label": "Max reels to show (Home Page)",
+      "default": 9
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link",
+      "info": "Link to the dedicated video page"
     },
     {
       "type": "header",
