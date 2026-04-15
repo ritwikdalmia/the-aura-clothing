@@ -18,7 +18,7 @@
 
   /* Section Background */
   .na-premium-bg {
-    background: var(--aura-brand-bg-warm);
+    background: transparent; /* Background specifically handled by the scheme class */
     position: relative;
     overflow: hidden;
   }
@@ -84,7 +84,7 @@
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
-    color: var(--aura-brand-dark);
+    color: rgb(var(--color-foreground));
     margin: 0 0 0.5rem;
   }
 
@@ -126,21 +126,14 @@
     border-radius: 12px;
     background: var(--aura-brand-bg-warm);
     overflow: hidden;
-    box-shadow:
-      0 2px 8px rgba(0,0,0,0.06),
-      0 8px 24px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.08);
     transition:
-      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
   }
 
   .na-product-card:hover {
     transform: translateY(-8px) scale(1.015);
-    box-shadow:
-      0 12px 28px rgba(0,0,0,0.12),
-      0 24px 48px rgba(0,0,0,0.06),
-      0 0 0 1px rgba(0,0,0,0.02);
   }
 
   /* Image Container */
@@ -361,13 +354,14 @@
   .na-card-price {
     font-size: var(--aura-font-size-base);
     font-weight: 700;
-    color: var(--aura-brand-dark);
+    color: var(--aura-brand-gold);
   }
 
   .na-card-compare-price {
     font-size: var(--aura-font-size-xs);
     text-decoration: line-through;
-    color: var(--aura-brand-text-muted);
+    color: #000; /* Match product page strikethrough color */
+    opacity: 0.6;
   }
 
   .na-card-discount {
@@ -378,6 +372,26 @@
     font-weight: 600;
     font-size: var(--aura-font-size-sm);
     letter-spacing: 0.02em;
+  }
+
+  @media screen and (max-width: 320px) {
+    .na-card-title {
+      font-size: 1.15rem !important;
+    }
+    .na-card-price {
+      font-size: 1.2rem !important;
+    }
+    .na-badge {
+      font-size: 0.8rem !important;
+      padding: 3px 6px !important;
+    }
+    .na-wishlist, .na-compare {
+      width: 28px !important;
+      height: 28px !important;
+    }
+    .na-compare {
+      top: 5rem !important;
+    }
   }
 
   /* ===== View All Button ===== */
@@ -483,8 +497,8 @@
   endif
 -%}
 
-<div class="na-premium-bg">
-  <div class="na-wide-container section-{{ section.id }}-padding">
+<div class="na-premium-bg color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="na-wide-container">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="na-section-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {%- if section.settings.subtitle != blank -%}
@@ -499,8 +513,13 @@
     {%- if section.settings.collection != blank and section.settings.collection.all_products_count > 0 -%}
       {%- comment -%} Dynamic mode: render real products from a collection {%- endcomment -%}
       <div class="na-product-grid">
-        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
+        {%- assign products_count = 0 -%}
+        {%- for product in section.settings.collection.products -%}
+          {%- if section.settings.filter_on_sale and product.compare_at_price <= product.price -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- assign products_count = products_count | plus: 1 -%}
+          <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ products_count | times: 80 }}ms;">
             <div class="na-card-image-wrapper">
               <div class="na-badge-container">
                 {%- if product.compare_at_price > product.price -%}
@@ -565,13 +584,21 @@
             <div class="na-card-info">
               <h3 class="na-card-title">{{ product.title }}</h3>
               <div class="na-card-price-row">
-                <span class="na-card-price">{{ product.price | money }}</span>
                 {%- if product.compare_at_price > product.price -%}
                   <span class="na-card-compare-price">{{ product.compare_at_price | money }}</span>
                 {%- endif -%}
+                <span class="na-card-price">
+                  {%- if product.price_varies -%}
+                    {%- assign price = product.price | money -%}
+                    {{ 'products.product.price.from_price_html' | t: price: price }}
+                  {%- else -%}
+                    {{ product.price | money }}
+                  {%- endif -%}
+                </span>
               </div>
             </div>
           </a>
+          {%- if products_count >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
         {%- endfor -%}
       </div>
     {%- else -%}
@@ -599,10 +626,10 @@
             <div class="na-card-info">
               <h3 class="na-card-title">{{ dummy_products[idx] }}</h3>
               <div class="na-card-price-row">
-                <span class="na-card-price">₹{{ dummy_prices[idx] }}</span>
                 {%- if dummy_badges[idx] == 'sale' -%}
-                  <span class="na-card-compare-price">₹{{ dummy_compare[idx] }}</span>
+                  <span class="na-card-compare-price">{{ cart.currency.symbol }}{{ dummy_compare[idx] }}</span>
                 {%- endif -%}
+                <span class="na-card-price">{{ cart.currency.symbol }}{{ dummy_prices[idx] }}</span>
               </div>
             </div>
           </div>
@@ -660,6 +687,13 @@
       "info": "Controls badges shown on placeholder cards"
     },
     {
+      "type": "checkbox",
+      "id": "filter_on_sale",
+      "label": "Only show products on sale",
+      "default": false,
+      "info": "If checked, only products with a compare-at price will be shown."
+    },
+    {
       "type": "range",
       "id": "products_to_show",
       "min": 4,
@@ -686,22 +720,10 @@
       "label": "View All button link"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#f8f5f0"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color (underline, button)",
-      "default": "#a88b6a"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading & text color",
-      "default": "#2c2c2c"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

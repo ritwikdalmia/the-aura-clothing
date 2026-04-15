@@ -3,9 +3,7 @@
    ============================ */
 
 /* ── Global page-level refinements ── */
-cart-items {
-  /* Aura Brand Variables moved to :root for global consistency */
-}
+
 
 /* ── Page Title ── */
 cart-items .title-wrapper-with-link {
@@ -67,7 +65,7 @@ cart-items .underlined-link:hover {
 
 .cart__warnings .button {
   background: var(--aura-gold);
-  color: #fff;
+  color: rgb(var(--color-button-text));
   border: none;
   padding: 1.4rem 4rem;
   font-size: var(--aura-font-size-sm);
@@ -119,7 +117,7 @@ cart-items .underlined-link:hover {
 
 @media screen and (max-width: 749px) {
   .cart-item {
-    background: #fff;
+    background: rgb(var(--color-background));
     border-radius: var(--aura-radius);
     padding: 1.6rem;
     margin-bottom: 1.6rem !important;
@@ -235,7 +233,7 @@ cart-remove-button .button {
 
 cart-remove-button .button:hover {
   opacity: 1;
-  color: #c0392b !important;
+  color: rgb(var(--color-error)) !important;
 }
 
 /* ── Discount Badges ── */
@@ -269,7 +267,7 @@ cart-remove-button .button:hover {
 .cart__note .field__input {
   border-radius: 10px !important;
   border: 1px solid var(--aura-border);
-  background: #fff;
+  background: rgb(var(--color-background));
   font-size: var(--aura-font-size-sm);
   padding: 1.2rem 1.6rem;
   transition: border-color var(--aura-transition), box-shadow var(--aura-transition);
@@ -321,7 +319,7 @@ cart-remove-button .button:hover {
 /* ── Checkout Button ── */
 .cart__checkout-button {
   background: var(--aura-brand-dark) !important;
-  color: #fff !important;
+  color: rgb(var(--color-button-text)) !important;
   border: none !important;
   border-radius: 8px !important;
   padding: 1.8rem 4rem !important;
@@ -415,7 +413,7 @@ cart-remove-button .button:hover {
 }
 
 .aura-shipping-reached {
-  color: #2ecc71;
+  color: rgb(var(--color-success));
   font-weight: 600;
 }
 
@@ -424,7 +422,7 @@ cart-remove-button .button:hover {
   height: 18px;
   vertical-align: middle;
   margin-right: 6px;
-  fill: #2ecc71;
+  fill: rgb(var(--color-success));
 }
 
 /* ============================================

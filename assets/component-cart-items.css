@@ -110,11 +110,14 @@ cart-items .title-wrapper-with-link {
 }
 
 .cart-item__old-price {
-  opacity: 0.7;
+  color: #000; /* Match product page strikethrough color */
+  opacity: 0.6;
+  text-decoration: line-through;
 }
 
 .cart-item__final-price {
-  font-weight: 400;
+  font-weight: 700;
+  color: var(--aura-brand-gold);
 }
 
 .product-option {

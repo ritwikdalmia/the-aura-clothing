@@ -37,6 +37,95 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+    /* Quantity + Icons Layout */
+    .quantity-icons-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: nowrap;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 749px) {
+      .quantity-icons-container {
+        flex-wrap: wrap; 
+        gap: 1.5rem;
+        justify-content: center; /* Center on mobile for better aesthetic */
+        text-align: center;
+      }
+      
+      .product-form__input.product-form__quantity {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .main-product-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .main-product-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 5px;
+      flex-shrink: 0;
+    }
+
+    .na-wishlist-product, .na-compare-product {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: #333;
+      padding: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .na-wishlist-product:hover, .na-compare-product:hover {
+      background: #fff;
+      color: var(--aura-brand-gold);
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .na-wishlist-product svg, .na-compare-product svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      transition: fill 0.2s ease, stroke 0.2s ease;
+    }
+
+    .na-wishlist-product:hover svg, .na-compare-product:hover svg {
+      stroke: var(--aura-brand-gold);
+    }
+
+    .na-wishlist-product.is-active {
+      background: var(--aura-brand-gold);
+      border-color: var(--aura-brand-gold);
+      color: #fff;
+    }
+
+    .na-wishlist-product.is-active svg {
+      fill: currentColor;
+      stroke: currentColor;
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -96,11 +185,6 @@
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
-                  <a href="{{ product.url }}" class="product__title">
-                    <h2 class="h1">
-                      {{ product.title | escape }}
-                    </h2>
-                  </a>
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
@@ -293,33 +377,90 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'quantity_selector' -%}
-                <div class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}" {{ block.shopify_attributes }}>
-                  <label class="form__label" for="Quantity-{{ section.id }}">
-                    {{ 'products.product.quantity.label' | t }}
-                  </label>
-                  <quantity-input class="quantity">
-                    <button class="quantity__button no-js-hidden" name="minus" type="button">
-                      <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                <div class="quantity-icons-container" {{ block.shopify_attributes }}>
+                  <div class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}" style="margin: 0; max-width: 18rem;">
+                    <label class="form__label" for="Quantity-{{ section.id }}">
+                      {{ 'products.product.quantity.label' | t }}
+                    </label>
+                    <quantity-input class="quantity">
+                      <button class="quantity__button no-js-hidden" name="minus" type="button">
+                        <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-minus.svg' | inline_asset_content -}}
+                        </span>
+                      </button>
+                      <input class="quantity__input"
+                          type="number"
+                          name="quantity"
+                          id="Quantity-{{ section.id }}"
+                          min="1"
+                          step="1"
+                          value="1"
+                          form="{{ product_form_id }}"
+                        >
+                      <button class="quantity__button no-js-hidden" name="plus" type="button">
+                        <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-plus.svg' | inline_asset_content -}}
+                        </span>
+                      </button>
+                    </quantity-input>
+                  </div>
+
+                  <div class="main-product-actions">
+                    {%- liquid
+                      assign product_specs = ""
+                      for metafield in product.metafields.shopify
+                        assign key = metafield | first
+                        assign val_obj = metafield | last
+                        assign val = val_obj.value
+                        
+                        assign normalized_key = key | replace: '_', ' ' | replace: '-', ' ' | downcase
+                        assign is_option = false
+                        for opt in product.options_with_values
+                          assign opt_name_down = opt.name | downcase
+                          if normalized_key contains opt_name_down or opt_name_down contains normalized_key
+                            assign is_option = true
+                          endif
+                        endfor
+
+                        if val != blank and is_option == false
+                          assign display_val = ''
+                          if val.label != blank
+                            assign display_val = val.label
+                          elsif val.name != blank
+                            assign display_val = val.name
+                          else
+                            assign labels = val | map: 'label' | compact
+                            if labels.size > 0
+                              assign display_val = labels | join: ', '
+                            else
+                              assign names = val | map: 'name' | compact
+                              if names.size > 0
+                                assign display_val = names | join: ', '
+                              else
+                                assign display_val = val | strip_html
+                              endif
+                            endif
+                          endif
+                          
+                          unless display_val contains 'gid://' or key contains 'Internal'
+                            assign product_specs = product_specs | append: key | replace: '_', ' ' | capitalize | append: ": " | append: display_val | append: "|"
+                          endunless
+                        endif
+                      endfor
+                    -%}
+                    <button type="button" class="na-wishlist-product" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
                       <span class="svg-wrapper">
-                        {{- 'icon-minus.svg' | inline_asset_content -}}
+                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                       </span>
                     </button>
-                    <input class="quantity__input"
-                        type="number"
-                        name="quantity"
-                        id="Quantity-{{ section.id }}"
-                        min="1"
-                        step="1"
-                        value="1"
-                        form="{{ product_form_id }}"
-                      >
-                    <button class="quantity__button no-js-hidden" name="plus" type="button">
-                      <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                    <button type="button" class="na-compare-product" aria-label="Add to compare" data-aura-compare="{{ product.handle }}" data-aura-specs="{{ product_specs | escape }}">
                       <span class="svg-wrapper">
-                        {{- 'icon-plus.svg' | inline_asset_content -}}
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
                       </span>
                     </button>
-                  </quantity-input>
+                  </div>
                 </div>
               {%- when 'buy_buttons' -%}
                 {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}

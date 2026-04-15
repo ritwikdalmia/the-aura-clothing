@@ -16,7 +16,7 @@
      ============================ */
 
   .pc-section-bg {
-    background: var(--aura-brand-bg-warm);
+    background: transparent;
     position: relative;
     overflow: hidden;
   }
@@ -65,7 +65,7 @@
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
-    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    color: rgb(var(--color-foreground));
     margin: 0;
   }
 
@@ -267,7 +267,7 @@
 
 {%- endstyle -%}
 
-<div class="pc-section-bg">
+<div class="pc-section-bg color-{{ section.settings.color_scheme }} gradient">
   <div class="pc-wide-container section-{{ section.id }}-padding">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="pc-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -309,7 +309,7 @@
               height="1067"
             >
           {%- else -%}
-            <div class="pc-card-placeholder" style="background: var(--aura-brand-bg-warm);">
+            <div class="pc-card-placeholder" style="background: rgba(var(--color-foreground), 0.05);">
               <svg viewBox="0 0 120 140" fill="none">
                 <path d="M60 12 C60 12 44 15 40 25 L34 46 L20 40 L25 55 L38 52 L33 95 L23 132 L50 132 L55 105 L60 118 L65 105 L70 132 L97 132 L87 95 L82 52 L95 55 L100 40 L86 46 L80 25 C76 15 60 12 60 12Z" stroke="#b8977a" stroke-width="1.5" fill="none"/>
                 <path d="M49 25 Q60 32 71 25" stroke="#b8977a" stroke-width="1" fill="none"/>
@@ -365,22 +365,10 @@
       "label": "Subtitle"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#f8f5f0"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "default": "#a88b6a"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#2c2c2c"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

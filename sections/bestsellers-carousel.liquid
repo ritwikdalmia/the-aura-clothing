@@ -16,7 +16,7 @@
      ============================ */
 
   .bs-section-bg {
-    background: var(--aura-brand-bg-warm);
+    background: transparent;
     position: relative;
     overflow: hidden;
   }
@@ -87,7 +87,7 @@
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
-    color: var(--aura-brand-dark);
+    color: rgb(var(--color-foreground));
     margin: 0;
   }
 
@@ -181,23 +181,14 @@
     border-radius: 12px;
     background: var(--aura-brand-bg-warm);
     overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.04);
-    box-shadow:
-      0 1px 3px rgba(0,0,0,0.04),
-      0 4px 12px rgba(0,0,0,0.06),
-      0 12px 28px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.08);
     transition:
-      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
   }
 
   .bs-product-card:hover {
     transform: translateY(-8px) scale(1.015);
-    box-shadow:
-      0 8px 20px rgba(0,0,0,0.10),
-      0 20px 40px rgba(0,0,0,0.08),
-      0 32px 56px rgba(0,0,0,0.05);
   }
 
   @media screen and (min-width: 750px) {
@@ -292,7 +283,19 @@
   .bs-badge--sale {
     background: var(--aura-brand-sale);
     color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .bs-badge--new {
+    background: rgba(40, 40, 40, 0.8);
+    color: #fff;
     border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .bs-badge--best {
+    background: rgba(var(--aura-brand-gold-rgb), 0.85);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
   }
 
   .bs-badge--sold-out {
@@ -408,41 +411,72 @@
   .bs-card-price {
     font-size: var(--aura-font-size-base);
     font-weight: 700;
-    color: var(--aura-brand-dark);
+    color: var(--aura-brand-gold);
   }
 
   .bs-card-compare-price {
     font-size: var(--aura-font-size-xs);
-    color: var(--aura-brand-text-muted);
+    color: #000; /* Match product page strikethrough color */
     text-decoration: line-through;
+    opacity: 0.6;
   }
 
-  .bs-card-discount {
+  .bs-card-discount-val {
     font-size: var(--aura-font-size-xs);
     font-weight: 700;
     color: var(--aura-brand-sale);
+    margin-top: 4px;
   }
 
-  /* Rank Badge */
-  .bs-rank {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 3;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(var(--aura-brand-gold-rgb), 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--aura-font-size-xs);
-    font-weight: 800;
-    color: var(--aura-brand-gold);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  /* Responsive Adjustments */
+  @media screen and (max-width: 749px) {
+    .bs-wishlist, .bs-compare {
+      width: 32px;
+      height: 32px;
+      right: 8px;
+    }
+    .bs-wishlist { top: 8px; }
+    .bs-compare { top: 46px; }
+    
+    .bs-badge {
+      font-size: 0.9rem;
+      padding: 4px 8px;
+      left: 8px;
+      top: 8px;
+    }
+
+    .bs-card-info {
+      padding: 1rem 1rem 1.2rem;
+    }
+
+    .bs-card-title {
+      font-size: 1.2rem;
+    }
+    
+    .bs-card-price {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .bs-wishlist, .bs-compare {
+      width: 28px !important;
+      height: 28px !important;
+    }
+    .bs-compare { top: 40px !important; }
+    
+    .bs-card-title {
+      font-size: 1.15rem !important;
+    }
+    
+    .bs-card-price {
+      font-size: 1.25rem !important;
+    }
+
+    .bs-badge {
+      font-size: 0.8rem !important;
+      padding: 3px 6px !important;
+    }
   }
 
   /* View All Button */
@@ -496,8 +530,11 @@
   }
 
   @media screen and (max-width: 749px) {
+    .bs-carousel-wrapper {
+      padding: 0 20px;
+    }
     .bs-product-card {
-      flex: 0 0 200px;
+      flex: 0 0 82%; /* Ensures one full card and a peek of the next */
     }
     .bs-card-image-wrapper {
       aspect-ratio: 3 / 4 !important;
@@ -520,10 +557,12 @@
       width: 14px;
       height: 14px;
     }
-    .bs-quick-add {
+     .bs-quick-add {
       transform: translateY(0);
-      padding: 8px;
+      padding: 12px;
       font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--aura-brand-dark);
     }
     .bs-card-info {
       padding: 1rem;
@@ -545,8 +584,8 @@
   assign products_to_show = section.settings.products_to_show | default: 8
 -%}
 
-<div class="bs-section-bg">
-  <div class="bs-wide-container section-{{ section.id }}-padding">
+<div class="bs-section-bg color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="bs-wide-container">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="bs-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {%- if section.settings.subtitle != blank -%}
@@ -568,13 +607,20 @@
 
       <div class="bs-carousel-track" data-bs-track>
         {%- if section.settings.collection != blank and section.settings.collection.products.size > 0 -%}
-          {%- for product in section.settings.collection.products limit: products_to_show -%}
-            <a href="{{ product.url }}" class="bs-product-card" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
+          {%- assign products_count = 0 -%}
+          {%- for product in section.settings.collection.products -%}
+            {%- if section.settings.filter_on_sale and product.compare_at_price <= product.price -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign products_count = products_count | plus: 1 -%}
+            <a href="{{ product.url }}" class="bs-product-card" style="animation-delay: {{ products_count | times: 80 }}ms;">
               <div class="bs-card-image-wrapper">
                 <div class="bs-badge-container">
                   {%- if product.compare_at_price > product.price -%}
                     {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
-                    <span class="bs-badge bs-badge--sale">Sale -{{ savings }}%</span>
+                    <span class="bs-badge bs-badge--sale">-{{ savings }}% SALE</span>
+                  {%- elsif product.tags contains 'new' -%}
+                    <span class="bs-badge bs-badge--new">NEW</span>
                   {%- endif -%}
                   {%- if product.available == false -%}
                     <span class="bs-badge bs-badge--sold-out">Sold Out</span>
@@ -599,23 +645,31 @@
               <div class="bs-card-info">
                 <h3 class="bs-card-title">{{ product.title }}</h3>
                 <div class="bs-card-price-row">
-                  <span class="bs-card-price">{{ product.price | money }}</span>
                   {%- if product.compare_at_price > product.price -%}
                     <span class="bs-card-compare-price">{{ product.compare_at_price | money }}</span>
-{%- comment -%} Removed savings span from here to place in badge {%- endcomment -%}
                   {%- endif -%}
+                  <span class="bs-card-price">
+                    {%- if product.price_varies -%}
+                      {%- assign price = product.price | money -%}
+                      {{ 'products.product.price.from_price_html' | t: price: price }}
+                    {%- else -%}
+                      {{ product.price | money }}
+                    {%- endif -%}
+                  </span>
                 </div>
               </div>
             </a>
+            {%- if products_count >= products_to_show -%}{%- break -%}{%- endif -%}
           {%- endfor -%}
         {%- else -%}
           {%- for i in (1..8) -%}
             {%- assign idx = forloop.index0 -%}
             <div class="bs-product-card" style="animation-delay: {{ forloop.index | times: 80 }}ms;">
               <div class="bs-card-image-wrapper">
-                <span class="bs-badge bs-badge--bestseller">#{{ forloop.index }} Best</span>
                 {%- if dummy_has_sale[idx] == 'true' -%}
-                  <span class="bs-badge bs-badge--sale">Sale -{{ dummy_discounts[idx] }}%</span>
+                  <span class="bs-badge bs-badge--sale">-{{ dummy_discounts[idx] }}% SALE</span>
+                {%- elsif idx < 3 -%}
+                  <span class="bs-badge bs-badge--new">NEW</span>
                 {%- endif -%}
                 <button class="bs-wishlist" aria-label="Add to wishlist">
                   <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -627,10 +681,10 @@
               <div class="bs-card-info">
                 <h3 class="bs-card-title">{{ dummy_products[idx] }}</h3>
                 <div class="bs-card-price-row">
-                  <span class="bs-card-price">₹{{ dummy_prices[idx] }}</span>
                   {%- if dummy_has_sale[idx] == 'true' -%}
-                    <span class="bs-card-compare-price">₹{{ dummy_compare[idx] }}</span>
+                    <span class="bs-card-compare-price">{{ cart.currency.symbol }}{{ dummy_compare[idx] }}</span>
                   {%- endif -%}
+                  <span class="bs-card-price">{{ cart.currency.symbol }}{{ dummy_prices[idx] }}</span>
                 </div>
               </div>
             </div>
@@ -745,6 +799,13 @@
       "label": "Products to show"
     },
     {
+      "type": "checkbox",
+      "id": "filter_on_sale",
+      "label": "Only show products on sale",
+      "default": false,
+      "info": "If checked, only products with a compare-at price will be shown."
+    },
+    {
       "type": "range",
       "id": "auto_scroll_speed",
       "min": 2,
@@ -772,22 +833,10 @@
       "label": "View All button link"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "default": "#a88b6a"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#2c2c2c"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

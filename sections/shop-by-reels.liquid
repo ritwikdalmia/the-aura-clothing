@@ -16,7 +16,7 @@
      ============================ */
 
   .reels-section-bg {
-    background: {{ section.settings.section_bg_color | default: '#ffffff' }};
+    background: transparent;
     position: relative;
     overflow: hidden;
   }
@@ -87,7 +87,7 @@
     text-transform: uppercase;
     font-weight: 300;
     font-family: var(--font-heading-family);
-    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    color: rgb(var(--color-foreground));
     margin: 0;
   }
 
@@ -418,9 +418,478 @@
     margin: 0;
   }
 
+  .reel-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .reel-product-compare-price {
+    text-decoration: line-through;
+    color: #000; /* Match product page strikethrough color */
+    font-size: 1.1rem;
+    opacity: 0.6;
+  }
+
   /* No dark gradient overhead needed now */
   .reel-gradient-overlay {
     display: none;
+  }
+
+  /* Quick Add for Reels */
+  .reel-quick-add {
+    position: absolute;
+    bottom: 74px; /* Positioned above the product pill */
+    left: 18px;
+    right: 18px;
+    z-index: 7;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--aura-brand-dark);
+    text-align: center;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid rgba(var(--aura-brand-gold-rgb), 0.25);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .reel-quick-add:hover {
+    background: var(--aura-brand-gold);
+    color: #fff;
+    border-color: var(--aura-brand-gold);
+  }
+
+  .reel-card:hover .reel-quick-add {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Small Screen Optimization and Quick Add Responsiveness */
+  @media screen and (max-width: 749px) {
+    .reel-quick-add {
+      opacity: 1;
+      transform: translateY(0);
+      bottom: 70px;
+      padding: 8px;
+      font-size: 0.95rem;
+      left: 15px;
+      right: 15px;
+    }
+  }
+
+  /* Wishlist Active State */
+  .reels-action-btn.is-active .reels-action-icon {
+    background: var(--aura-brand-gold);
+    color: #fff;
+    border-color: var(--aura-brand-gold);
+  }
+
+  .reels-action-btn.is-active .reels-action-icon svg {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  @media screen and (max-width: 400px) {
+    .reels-title { 
+      font-size: 2.0rem !important; 
+      letter-spacing: 0.25em !important;
+    }
+    .reel-product-name { font-size: 1.0rem !important; }
+    .reel-product-price { font-size: 1.1rem !important; }
+    .reel-product-compare-price { font-size: 0.95rem !important; }
+    .reel-product-bar { 
+      padding: 6px !important; 
+      gap: 8px !important;
+      bottom: 10px !important;
+      left: 10px !important;
+      right: 10px !important;
+    }
+    .reel-product-thumb { 
+      width: 38px !important; 
+      height: 38px !important; 
+    }
+    .reel-price-row { gap: 5px !important; }
+    .reel-quick-add {
+      bottom: 64px !important;
+      left: 12px !important;
+      right: 12px !important;
+      padding: 7px !important;
+      font-size: 0.9rem !important;
+    }
+    .reel-views {
+      font-size: 1.0rem !important;
+      padding: 4px 10px !important;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .reel-card { flex: 0 0 185px !important; }
+    .reels-wide-container { 
+      padding-left: 1.5rem !important; 
+      padding-right: 1.5rem !important; 
+    }
+  }
+
+  /* ============================
+     Full-Screen Reels Player
+     ============================ */
+  .reels-player-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .reels-player-modal.is-active {
+    display: flex;
+  }
+
+  .reels-player-slider {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+  }
+
+  .reels-player-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .reels-player-item {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    scroll-snap-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+  }
+
+  .reels-player-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 749px) {
+    .reels-player-video {
+      object-fit: cover;
+    }
+  }
+
+  /* Player UI Controls */
+  .reels-player-controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .reels-player-controls > * {
+    pointer-events: auto;
+  }
+
+  /* Top Bar */
+  .reels-player-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .reels-control-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s ease;
+  }
+
+  .reels-control-btn:hover {
+    background: rgba(0,0,0,0.5);
+  }
+
+  .reels-control-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  /* Bottom Area */
+  .reels-player-bottom {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  /* Product Pill (Bottom Left) */
+  .reels-player-product-pill {
+    max-width: 70%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 50px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: #2c2c2c;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .reels-player-product-pill:hover {
+    transform: translateY(-2px);
+    background: #fff;
+  }
+
+  .reels-pill-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+  }
+
+  .reels-pill-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .reels-pill-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .reels-pill-price {
+    font-size: 1.15rem;
+    color: var(--aura-brand-gold);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* Action Stack (Bottom Right) */
+  .reels-player-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .reels-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .reels-action-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .reels-action-btn:hover .reels-action-icon {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.25);
+  }
+
+  .reels-action-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .reels-action-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  /* Variant Selector (The Small Modal / Overlay) */
+  .reels-variant-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: flex-end;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .reels-variant-overlay.is-active {
+    display: flex;
+  }
+
+  .reels-variant-content {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 2.5rem 2rem 3rem;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+  }
+
+  .reels-variant-overlay.is-active .reels-variant-content {
+    transform: translateY(0);
+  }
+
+  .reels-variant-header {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .reels-variant-thumb {
+    width: 80px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .reels-variant-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .reels-variant-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 5px;
+    color: #000;
+  }
+
+  .reels-variant-price-box {
+    display: inline-block;
+    background: #f5f5f5;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+
+  .reels-variant-options {
+    margin-bottom: 2.5rem;
+  }
+
+  .reels-variant-opt-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #000;
+  }
+
+  .reels-variant-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .reels-variant-item {
+    padding: 10px 18px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #333;
+  }
+
+  .reels-variant-item.is-selected {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  .reels-variant-footer {
+    display: flex;
+    gap: 12px;
+  }
+
+  .reels-var-btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .reels-var-btn--cancel {
+    background: #f5f5f5;
+    color: #333;
+  }
+
+  .reels-var-btn--add {
+    background: #000;
+    color: #fff;
+  }
+
+  .reels-var-btn:active {
+    opacity: 0.8;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
 {%- endstyle -%}
@@ -431,7 +900,7 @@
   assign dummy_views = "7K,4K,4K,7K,8K,7K" | split: ","
 -%}
 
-<div class="reels-section-bg">
+<div class="reels-section-bg color-{{ section.settings.color_scheme }} gradient">
   <div class="reels-wide-container section-{{ section.id }}-padding">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
       <div class="reels-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -455,7 +924,7 @@
         </button>
       {%- endif -%}
 
-      <div class="reels-carousel" data-reels-carousel>
+      <div class="reels-carousel" data-reels-carousel data-autoplay="{{ section.settings.enable_autoplay }}">
         {%- if section.blocks.size > 0 -%}
           {%- for block in section.blocks -%}
             <div class="reel-card" {{ block.shopify_attributes }} data-reel-card>
@@ -488,6 +957,7 @@
                   muted
                   loop
                   playsinline
+                  {% if section.settings.enable_autoplay %}autoplay{% endif %}
                   preload="metadata"
                   poster="{%- if block.settings.cover_image != blank -%}{{ block.settings.cover_image | image_url: width: 480 }}{%- endif -%}"
                 >
@@ -533,9 +1003,22 @@
                   {%- endif -%}
                   <div class="reel-product-info">
                     <p class="reel-product-name">{{ block.settings.product.title }}</p>
-                    <p class="reel-product-price">{{ block.settings.product.price | money }}</p>
+                    <div class="reel-price-row">
+                      {%- if block.settings.product.compare_at_price > block.settings.product.price -%}
+                        <span class="reel-product-compare-price">{{ block.settings.product.compare_at_price | money }}</span>
+                      {%- endif -%}
+                      <p class="reel-product-price">
+                        {%- if block.settings.product.price_varies -%}
+                          {%- assign price = block.settings.product.price | money -%}
+                          {{ 'products.product.price.from_price_html' | t: price: price }}
+                        {%- else -%}
+                          {{ block.settings.product.price | money }}
+                        {%- endif -%}
+                      </p>
+                    </div>
                   </div>
                 </a>
+                <div class="reel-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ block.settings.product.url }}')">Quick Add</div>
               {%- elsif block.settings.product_name != blank -%}
                 <a href="{{ block.settings.product_link | default: '#' }}" class="reel-product-bar">
                   <div class="reel-product-thumb-placeholder">
@@ -543,9 +1026,15 @@
                   </div>
                   <div class="reel-product-info">
                     <p class="reel-product-name">{{ block.settings.product_name }}</p>
-                    <p class="reel-product-price">₹{{ block.settings.product_price }}</p>
+                    <div class="reel-price-row">
+                      {%- if block.settings.product_compare_at_price != blank -%}
+                        <span class="reel-product-compare-price">{{ cart.currency.symbol }}{{ block.settings.product_compare_at_price }}</span>
+                      {%- endif -%}
+                      <p class="reel-product-price">{{ cart.currency.symbol }}{{ block.settings.product_price }}</p>
+                    </div>
                   </div>
                 </a>
+                <div class="reel-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ block.settings.product_link | default: '#' }}')">Quick Add</div>
               {%- endif -%}
             </div>
           {%- endfor -%}
@@ -577,9 +1066,10 @@
                 </div>
                 <div class="reel-product-info">
                   <p class="reel-product-name">{{ dummy_names[idx] }}</p>
-                  <p class="reel-product-price">₹{{ dummy_prices[idx] }}</p>
+                  <p class="reel-product-price">{{ cart.currency.symbol }}{{ dummy_prices[idx] }}</p>
                 </div>
               </a>
+              <div class="reel-quick-add" onclick="alert('Quick add is disabled for placeholder products')">Quick Add</div>
             </div>
           {%- endfor -%}
         {%- endif -%}
@@ -588,43 +1078,324 @@
   </div>
 </div>
 
+{%- comment -%} Full-Screen Reels Player Modal {%- endcomment -%}
+<div id="ReelsPlayerModal" class="reels-player-modal">
+  <div class="reels-player-slider" data-reels-player-slider>
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        <div class="reels-player-item" data-index="{{ forloop.index0 }}" data-block-id="{{ block.id }}">
+          {%- if block.settings.video != blank -%}
+            <video
+              class="reels-player-video"
+              muted
+              loop
+              playsinline
+              preload="auto"
+            >
+              {%- for source in block.settings.video.sources -%}
+                <source src="{{ source.url }}" type="{{ source.mime_type }}">
+              {%- endfor -%}
+            </video>
+          {%- endif -%}
+
+          <div class="reels-player-controls">
+            <div class="reels-player-top">
+              <button class="reels-control-btn reels-mute-toggle" title="Toggle Mute">
+                <svg class="icon-unmute" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path class="wave" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              </button>
+              <button class="reels-control-btn reels-close-btn" title="Close Player">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <div class="reels-player-bottom">
+              <div class="reels-player-product-pill" data-product-url="{{ block.settings.product.url }}">
+                {%- if block.settings.product.featured_media -%}
+                  <img class="reels-pill-img" src="{{ block.settings.product.featured_media | image_url: width: 100 }}" alt="" loading="lazy">
+                {%- endif -%}
+                <div class="reels-pill-info">
+                   <p class="reels-pill-name">{{ block.settings.product.title | default: block.settings.product_name }}</p>
+                   <p class="reels-pill-price">{{ block.settings.product.price | money }}</p>
+                </div>
+              </div>
+
+              <div class="reels-player-actions">
+                <div class="reels-action-btn reels-wishlist-btn" data-handle="{{ block.settings.product.handle }}">
+                   <div class="reels-action-icon">
+                     <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                   </div>
+                   <span class="reels-action-label">10</span>
+                </div>
+                <div class="reels-action-btn">
+                   <div class="reels-action-icon">
+                     <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                   </div>
+                   <span class="reels-action-label">24</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {%- comment -%} Internal Variant Overlay {%- endcomment -%}
+          <div class="reels-variant-overlay">
+             <div class="reels-variant-content">
+                <div class="reels-variant-header">
+                   {%- if block.settings.product.featured_media -%}
+                     <img class="reels-variant-thumb" src="{{ block.settings.product.featured_media | image_url: width: 200 }}" alt="">
+                   {%- endif -%}
+                   <div class="reels-variant-meta">
+                      <h4 class="reels-variant-title">{{ block.settings.product.title }}</h4>
+                      <div class="reels-variant-price-box">{{ block.settings.product.price | money }}</div>
+                   </div>
+                </div>
+                <div class="reels-variant-options">
+                   <p class="reels-variant-opt-title">Size</p>
+                   <div class="reels-variant-list">
+                      {%- for variant in block.settings.product.variants -%}
+                         <div class="reels-variant-item {% if forloop.first %}is-selected{% endif %}" data-variant-id="{{ variant.id }}">
+                           {{ variant.title }}
+                         </div>
+                      {%- endfor -%}
+                   </div>
+                </div>
+                <div class="reels-variant-footer">
+                   <button class="reels-var-btn reels-var-btn--cancel">Cancel</button>
+                   <button class="reels-var-btn reels-var-btn--add" data-variant-id="{{ block.settings.product.variants.first.id }}">Add to Cart</button>
+                </div>
+             </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Hover to play video
-    document.querySelectorAll('[data-reel-card]').forEach(function (card) {
-      var video = card.querySelector('.reel-video');
-      if (!video) return;
+    const carouselContainer = document.querySelector('[data-reels-carousel]');
+    const isAutoplay = carouselContainer ? carouselContainer.dataset.autoplay === 'true' : false;
+    const playerModal = document.getElementById('ReelsPlayerModal');
+    const playerSlider = document.querySelector('[data-reels-player-slider]');
+    let isGlobalMuted = true;
 
-      card.addEventListener('mouseenter', function () {
-        card.classList.add('is-playing');
-        video.play().catch(function () {});
-      });
+    // 1. Carousel Video Behavior (Main Page)
+    if (isAutoplay) {
+      const observerOptions = {
+        root: carouselContainer.closest('.layout--grid') ? null : carouselContainer,
+        threshold: 0.6
+      };
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('.reel-video');
+          if (!video) return;
+          if (entry.isIntersecting && !playerModal.classList.contains('is-active')) {
+            entry.target.classList.add('is-playing');
+            video.play().catch(() => {});
+          } else {
+            entry.target.classList.remove('is-playing');
+            video.pause();
+          }
+        });
+      }, observerOptions);
 
-      card.addEventListener('mouseleave', function () {
-        card.classList.remove('is-playing');
-        video.pause();
-        video.currentTime = 0;
-      });
-
-      // Mobile: tap to toggle
-      card.addEventListener('touchstart', function (e) {
-        if (card.classList.contains('is-playing')) {
+      document.querySelectorAll('[data-reel-card]').forEach(card => videoObserver.observe(card));
+    } else {
+      document.querySelectorAll('[data-reel-card]').forEach(card => {
+        const video = card.querySelector('.reel-video');
+        if (!video) return;
+        card.addEventListener('mouseenter', () => {
+          if (!playerModal.classList.contains('is-active')) {
+            card.classList.add('is-playing');
+            video.play().catch(() => {});
+          }
+        });
+        card.addEventListener('mouseleave', () => {
           card.classList.remove('is-playing');
           video.pause();
-        } else {
-          // Pause all others first
-          document.querySelectorAll('[data-reel-card].is-playing').forEach(function (other) {
-            other.classList.remove('is-playing');
-            var otherVideo = other.querySelector('.reel-video');
-            if (otherVideo) otherVideo.pause();
-          });
-          card.classList.add('is-playing');
-          video.play().catch(function () {});
-        }
-      }, { passive: true });
+          video.currentTime = 0;
+        });
+      });
+    }
+
+    // 2. Open Reels Player
+    document.querySelectorAll('[data-reel-card]').forEach((card, index) => {
+      card.addEventListener('click', (e) => {
+        // Prevent opening if clicking Quick Add button (which uses a different modal)
+        if (e.target.classList.contains('reel-quick-add')) return;
+        
+        openReelPlayer(index);
+      });
     });
 
-    // Carousel arrows
+    function openReelPlayer(index) {
+      playerModal.classList.add('is-active');
+      document.body.style.overflow = 'hidden'; // Lock scroll
+      
+      // Scroll to correct index
+      const targetItem = playerSlider.querySelector(`.reels-player-item[data-index="${index}"]`);
+      if (targetItem) {
+        playerSlider.scrollTo({
+          left: targetItem.offsetLeft,
+          behavior: 'instant'
+        });
+      }
+      
+      updateActiveVideo();
+    }
+
+    // 3. Player Navigation & Video Management
+    playerSlider.addEventListener('scroll', debounce(updateActiveVideo, 100));
+
+    function updateActiveVideo() {
+      const rect = playerSlider.getBoundingClientRect();
+      const items = playerSlider.querySelectorAll('.reels-player-item');
+      
+      items.forEach(item => {
+        const itemRect = item.getBoundingClientRect();
+        const video = item.querySelector('.reels-player-video');
+        if (!video) return;
+
+        // Check if item is mostly visible
+        if (Math.abs(itemRect.left - rect.left) < rect.width / 2) {
+          video.muted = isGlobalMuted;
+          video.play().catch(() => {});
+          toggleMuteIcon(item, isGlobalMuted);
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    }
+
+    function toggleMuteIcon(item, muted) {
+      const btn = item.querySelector('.reels-mute-toggle');
+      if (btn) {
+        btn.querySelector('.wave').style.display = muted ? 'none' : 'block';
+      }
+    }
+
+    // 4. Player Controls
+    playerModal.addEventListener('click', (e) => {
+      const btn = e.target.closest('.reels-control-btn');
+      if (btn) {
+        if (btn.classList.contains('reels-close-btn')) {
+          closeReelPlayer();
+        } else if (btn.classList.contains('reels-mute-toggle')) {
+          isGlobalMuted = !isGlobalMuted;
+          updateActiveVideo();
+        }
+        return;
+      }
+
+      // 4b. Action Stack buttons
+      const actionBtn = e.target.closest('.reels-action-btn');
+      if (actionBtn) {
+        if (actionBtn.classList.contains('reels-wishlist-btn')) {
+          const handle = actionBtn.dataset.handle;
+          if (typeof AuraPremium !== 'undefined' && AuraPremium.toggleWishlist) {
+            AuraPremium.toggleWishlist(handle);
+            actionBtn.classList.toggle('is-active');
+          }
+        } else {
+          // Share logic placeholder
+          if (navigator.share) {
+             const url = window.location.href;
+             navigator.share({ title: 'Check this out!', url: url }).catch(() => {});
+          } else {
+             alert('Link copied to clipboard!');
+          }
+        }
+      }
+    });
+
+    function closeReelPlayer() {
+      playerModal.classList.remove('is-active');
+      document.body.style.overflow = '';
+      
+      // Stop all player videos
+      playerSlider.querySelectorAll('.reels-player-video').forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+      });
+    }
+
+    // 5. Variant Selector Logic (Mini Modal)
+    playerModal.addEventListener('click', (e) => {
+      const pill = e.target.closest('.reels-player-product-pill');
+      if (pill) {
+        const item = pill.closest('.reels-player-item');
+        const overlay = item.querySelector('.reels-variant-overlay');
+        if (overlay) overlay.classList.add('is-active');
+        return;
+      }
+
+      const variantOverlay = e.target.closest('.reels-variant-overlay');
+      if (!variantOverlay) return;
+
+      // Select variant
+      const varItem = e.target.closest('.reels-variant-item');
+      if (varItem) {
+        varItem.parentElement.querySelectorAll('.reels-variant-item').forEach(i => i.classList.remove('is-selected'));
+        varItem.classList.add('is-selected');
+        const addBtn = variantOverlay.querySelector('.reels-var-btn--add');
+        if (addBtn) addBtn.dataset.variantId = varItem.dataset.variantId;
+        return;
+      }
+
+      // Action buttons
+      const actionBtn = e.target.closest('.reels-var-btn');
+      if (!actionBtn) return;
+
+      if (actionBtn.classList.contains('reels-var-btn--cancel')) {
+        variantOverlay.classList.remove('is-active');
+      } else if (actionBtn.classList.contains('reels-var-btn--add')) {
+        addReelItemToCart(actionBtn);
+      }
+    });
+
+    async function addReelItemToCart(btn) {
+      const variantId = btn.dataset.variantId;
+      const originalText = btn.innerText;
+      btn.innerText = 'Adding...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+        });
+        
+        if (response.ok) {
+          btn.innerText = 'Added!';
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.disabled = false;
+            btn.closest('.reels-variant-overlay').classList.remove('is-active');
+            // Refresh cart drawer if exist
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
+          }, 1000);
+        } else {
+          throw new Error('Failed to add');
+        }
+      } catch (e) {
+        alert('Could not add to cart. Please try again.');
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    // Utils
+    function debounce(func, wait) {
+      let timeout;
+      return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+      };
+    }
+
+    // 6. Carousel arrows (original logic)
     document.querySelectorAll('.reels-carousel-wrapper').forEach(function (wrapper) {
       var carousel = wrapper.querySelector('[data-reels-carousel]');
       var prevBtn = wrapper.querySelector('[data-carousel-prev]');
@@ -636,7 +1407,6 @@
           carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
       }
-
       if (nextBtn) {
         nextBtn.addEventListener('click', function () {
           carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
@@ -668,22 +1438,10 @@
       "label": "Subtitle"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "default": "#a88b6a"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#2c2c2c"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "select",
@@ -694,6 +1452,13 @@
         { "value": "grid", "label": "Multi-row Grid" }
       ],
       "default": "carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Autoplay",
+      "default": true,
+      "info": "Videos will play automatically when they enter the viewport."
     },
     {
       "type": "header",
@@ -773,6 +1538,12 @@
           "id": "product_price",
           "label": "Product price",
           "default": "2499"
+        },
+        {
+          "type": "text",
+          "id": "product_compare_at_price",
+          "label": "Product compare-at price (optional)",
+          "info": "Leave empty if not on sale"
         },
         {
           "type": "url",

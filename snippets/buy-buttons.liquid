@@ -103,62 +103,6 @@
             </span>
           </button>
           
-          <div class="product-secondary-actions">
-            {%- liquid
-              assign product_specs = ""
-              for metafield in product.metafields.shopify
-                assign key = metafield | first
-                assign val_obj = metafield | last
-                assign val = val_obj.value
-                
-                assign normalized_key = key | replace: '_', ' ' | replace: '-', ' ' | downcase
-                assign is_option = false
-                for opt in product.options_with_values
-                  assign opt_name_down = opt.name | downcase
-                  if normalized_key contains opt_name_down or opt_name_down contains normalized_key
-                    assign is_option = true
-                  endif
-                endfor
-
-                if val != blank and is_option == false
-                  assign display_val = ''
-                  if val.label != blank
-                    assign display_val = val.label
-                  elsif val.name != blank
-                    assign display_val = val.name
-                  else
-                    assign labels = val | map: 'label' | compact
-                    if labels.size > 0
-                      assign display_val = labels | join: ', '
-                    else
-                      assign names = val | map: 'name' | compact
-                      if names.size > 0
-                        assign display_val = names | join: ', '
-                      else
-                        assign display_val = val | strip_html
-                      endif
-                    endif
-                  endif
-                  
-                  unless display_val contains 'gid://' or key contains 'Internal'
-                    assign product_specs = product_specs | append: key | replace: '_', ' ' | capitalize | append: ": " | append: display_val | append: "|"
-                  endunless
-                endif
-              endfor
-            -%}
-            <button type="button" class="na-wishlist-product" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
-              <span class="svg-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-              </span>
-            </button>
-            <button type="button" class="na-compare-product" aria-label="Add to compare" data-aura-compare="{{ product.handle }}" data-aura-specs="{{ product_specs | escape }}">
-              <span class="svg-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
-              </span>
-            </button>
-            <span class="product-secondary-actions__text">Wishlist & Compare</span>
-          </div>
-
           {%- if show_dynamic_checkout -%}
             <div class="dynamic-checkout-wrapper">
               {%- if block.settings.bin_icon != 'none' -%}

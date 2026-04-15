@@ -616,12 +616,12 @@
 }
 
 .na-product-card:hover .na-wishlist, .na-product-card:hover .na-compare {
-  background: #fff !important;
-  color: #121212 !important;
+  background: rgb(var(--color-background)) !important;
+  color: rgb(var(--color-foreground)) !important;
 }
 
 .na-wishlist:hover, .na-compare:hover {
-  background: #fff !important;
+  background: rgb(var(--color-background)) !important;
   transform: scale(1.15) !important;
 }
 
@@ -676,8 +676,8 @@
 }
 
 .na-badge--sale {
-  background: rgba(215, 61, 61, 0.95); /* Premium Boutique Red */
-  color: #fff;
+  background: var(--aura-brand-sale);
+  color: rgb(var(--color-button-text));
   border-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -700,7 +700,7 @@
   position: absolute;
   top: 1.5rem;
   z-index: 5;
-  background: rgba(255,255,255,0.8);
+  background: rgba(var(--color-background), 0.8);
   border: none;
   width: 34px;
   height: 34px;
@@ -726,7 +726,7 @@
   width: 16px;
   height: 16px;
   fill: none;
-  stroke: #121212;
+  stroke: rgb(var(--color-foreground));
   stroke-width: 1.5px;
 }
 
@@ -735,7 +735,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255,255,255,0.9);
+  background: rgba(var(--color-background), 0.9);
   padding: 1.2rem;
   text-align: center;
   font-weight: 600;
@@ -778,14 +778,39 @@
 
 .na-card-price {
   font-weight: 700;
-  color: rgb(var(--color-foreground));
+  color: var(--aura-brand-gold);
   font-size: var(--aura-font-size-md);
 }
 
 .na-card-compare-price {
   text-decoration: line-through;
-  color: var(--aura-brand-text-muted);
+  color: #000; /* Match product page strikethrough color */
   font-size: var(--aura-font-size-sm);
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 320px) {
+  .na-card-title {
+    font-size: 1.15rem !important;
+  }
+  
+  .na-card-price {
+    font-size: 1.2rem !important;
+  }
+
+  .na-wishlist, .na-compare {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  .na-wishlist svg, .na-compare svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .na-compare {
+    top: 5rem !important;
+  }
 }
 
 .na-card-discount {
@@ -909,7 +934,7 @@
 .na-collection-card:hover .na-collection-action .icon-wrap {
   background: var(--aura-brand-gold);
   border-color: var(--aura-brand-gold);
-  color: #fff;
+  color: rgb(var(--color-button-text));
   transform: translateX(4px);
 }
 
@@ -919,7 +944,7 @@
 }
 
 .na-collection-card:hover .na-collection-action .icon-wrap svg {
-  stroke: #fff;
+  stroke: rgb(var(--color-button-text));
 }
 
 /* Slideshow Animation */
@@ -971,7 +996,7 @@
 }
 
 .na-modal-content {
-  background: #fff;
+  background: rgb(var(--color-background));
   width: 90%;
   max-width: 850px;
   max-height: 90vh;
@@ -1001,8 +1026,8 @@
 }
 
 .na-modal-close:hover {
-  background: #121212;
-  color: #fff;
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }
 
 .na-modal-content-inner {
@@ -1065,7 +1090,7 @@
 .na-quick-view-info {
   padding: 4rem;
   padding-bottom: 6rem; /* Extra space for buttons */
-  background: #fff;
+  background: rgb(var(--color-background));
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -1114,7 +1139,7 @@
 
 .na-qv-badge {
   background: var(--aura-brand-sale);
-  color: #fff;
+  color: rgb(var(--color-button-text));
   font-size: var(--aura-font-size-xs);
   font-weight: 700;
   padding: 5px 15px;
@@ -1157,9 +1182,9 @@
 }
 
 .na-qv-option.active {
-  background: #121212;
-  color: #fff;
-  border-color: #121212;
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  border-color: rgb(var(--color-foreground));
 }
 
 /* Swatch Styles & Color Mappings */
@@ -1177,11 +1202,11 @@
 
 .na-qv-swatch:hover {
   transform: scale(1.1);
-  border-color: #121212;
+  border-color: rgb(var(--color-foreground));
 }
 
 .na-qv-swatch.active {
-  border-color: #121212;
+  border-color: rgb(var(--color-foreground));
   border-width: 2px;
   background: none;
 }
@@ -1260,7 +1285,7 @@
 
 .na-qv-add-btn {
   background: var(--aura-brand-gold);
-  color: #fff;
+  color: rgb(var(--color-button-text));
 }
 
 .na-qv-add-btn:hover {
@@ -1271,7 +1296,7 @@
 
 .na-qv-buy-btn {
   background: var(--aura-brand-dark);
-  color: #fff;
+  color: rgb(var(--color-button-text));
 }
 
 .na-qv-buy-btn:hover {
@@ -1284,7 +1309,7 @@
 .na-qv-urgency {
   margin-top: 2rem;
   font-size: 1.2rem;
-  color: #d73d3d;
+  color: rgb(var(--color-error));
   display: flex;
   align-items: center;
   gap: 0.8rem;

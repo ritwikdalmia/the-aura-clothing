@@ -13,7 +13,7 @@
 
   /* Core Layout */
   .faq-premium-section {
-    background: var(--aura-brand-bg-warm);
+    background: transparent;
     position: relative;
     overflow: hidden;
   }
@@ -84,7 +84,7 @@
   .faq-title {
     font-size: var(--aura-font-size-lg);
     font-weight: 300;
-    color: var(--aura-brand-dark);
+    color: rgb(var(--color-foreground));
     margin: 0 0 2rem;
     line-height: 1.2;
     letter-spacing: 0.02em;
@@ -171,7 +171,7 @@
     border: none;
     cursor: pointer;
     text-align: left;
-    color: var(--aura-brand-dark);
+    color: rgb(var(--color-foreground));
     font-size: var(--aura-font-size-base);
     font-weight: 600;
     transition: color 0.3s ease, background-color 0.3s ease;
@@ -259,7 +259,7 @@
 
 {%- endstyle -%}
 
-<div class="faq-premium-section">
+<div class="faq-premium-section color-{{ section.settings.color_scheme }} gradient">
   <div class="faq-container section-{{ section.id }}-padding">
     <div class="faq-grid">
       
@@ -395,22 +395,10 @@
       "label": "Button Link"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#f8f5f0"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#2c2c2c"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "default": "#a88b6a"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

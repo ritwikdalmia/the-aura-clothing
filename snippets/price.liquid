@@ -97,19 +97,22 @@
           {{ money_price }}
         </span>
         <div class="price__badges-row">
-          {%- if compare_at_price > price -%}
-            {%- assign savings = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price -%}
-            <span class="price__percentage-discount">
-              -{{ savings }}%
-            </span>
-          {%- endif -%}
           {%- if show_badges -%}
             <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+              {%- if compare_at_price > price -%}
+                {%- assign savings = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price -%}
+                -{{ savings }}% 
+              {%- endif -%}
               {{ 'products.product.on_sale' | t }}
             </span>
             <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
               {{ 'products.product.sold_out' | t }}
             </span>
+            {%- if product.tags contains 'new' -%}
+               <span class="badge price__badge-new color-{{ settings.sale_badge_color_scheme }}" style="background: rgba(40,40,40,0.8); color: #fff;">NEW</span>
+            {%- elsif product.tags contains 'best' or product.tags contains 'best-seller' -%}
+               <span class="badge price__badge-best color-{{ settings.sale_badge_color_scheme }}" style="background: rgba(var(--aura-brand-gold-rgb), 0.85); color: #fff;">BEST</span>
+            {%- endif -%}
           {%- endif -%}
         </div>
       </div>

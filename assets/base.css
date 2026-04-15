@@ -2021,6 +2021,7 @@ input[type='checkbox'] {
 
 .quantity__input[type='number'] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .quantity__rules {
@@ -3662,7 +3663,7 @@ details-disclosure > details {
 }
 
 .na-modal-content {
-  background: #fff;
+  background: rgb(var(--color-background));
   width: 100%;
   max-width: 900px;
   max-height: 90vh;
@@ -3696,6 +3697,6 @@ details-disclosure > details {
 }
 
 .na-modal-close:hover {
-  background: #000;
-  color: #fff;
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }

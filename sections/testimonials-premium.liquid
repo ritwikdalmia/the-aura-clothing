@@ -12,7 +12,7 @@
   }
 
   .testim-section {
-    background: {{ section.settings.section_bg_color | default: '#f8f5f0' }};
+    background: transparent;
     overflow: hidden;
     position: relative;
   }
@@ -39,7 +39,7 @@
   .testim-title {
     font-size: 2.6rem;
     font-weight: 500;
-    color: {{ section.settings.heading_color | default: '#2c2c2c' }};
+    color: rgb(var(--color-foreground));
     margin: 0;
     letter-spacing: 0.05em;
   }
@@ -224,7 +224,7 @@
 
 {%- endstyle -%}
 
-<div class="testim-section">
+<div class="testim-section color-{{ section.settings.color_scheme }} gradient">
   <div class="testim-container section-{{ section.id }}-padding">
     <div class="testim-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <h2 class="testim-title">{{ section.settings.title | escape }}</h2>
@@ -318,22 +318,10 @@
   "class": "section",
   "settings": [
     {
-      "type": "text",
-      "id": "title",
-      "default": "Our Customers Love Us",
-      "label": "Heading"
-    },
-    {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background color",
-      "default": "#f8f5f0"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "default": "#2c2c2c"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "story_circles": {
@@ -118,8 +109,7 @@
             "show_text_box": false,
             "box_align": "middle-right",
             "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
+            "text_alignment_mobile": "center"
           }
         },
         "slide_2": {
@@ -135,8 +125,7 @@
             "show_text_box": false,
             "box_align": "middle-center",
             "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
+            "text_alignment_mobile": "center"
           }
         }
       },
@@ -333,6 +322,7 @@
         "subtitle": "Limited Time Deals",
         "collection": "sales",
         "badge_mode": "sale_only",
+        "filter_on_sale": true,
         "products_to_show": 12,
         "show_view_all": true,
         "view_all_text": "View All Deals",
