@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "story_circles": {
@@ -88,7 +97,6 @@
         "story_X89r7e"
       ],
       "settings": {
-        "section_bg_color": "#f8f5f0",
         "padding_top": 12,
         "padding_bottom": 24
       }
@@ -155,9 +163,6 @@
         "show_view_all": true,
         "view_all_text": "View All",
         "view_all_link": "shopify://collections/new-arrivals",
-        "section_bg_color": "#f8f5f0",
-        "accent_color": "#a88b6a",
-        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -260,9 +265,6 @@
       "settings": {
         "title": "Shop by Video",
         "subtitle": "Watch & Shop",
-        "section_bg_color": "#f8f5f0",
-        "accent_color": "#a88b6a",
-        "heading_color": "#2c2c2c",
         "layout": "carousel",
         "padding_top": 48,
         "padding_bottom": 48
@@ -307,9 +309,6 @@
       "settings": {
         "title": "Our Premium Collection",
         "subtitle": "Curated For You",
-        "section_bg_color": "#f8f5f0",
-        "accent_color": "#a88b6a",
-        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -327,9 +326,6 @@
         "show_view_all": true,
         "view_all_text": "View All Deals",
         "view_all_link": "shopify://collections/sales",
-        "section_bg_color": "#ffffff",
-        "accent_color": "#c0392b",
-        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -345,9 +341,6 @@
         "show_view_all": true,
         "view_all_text": "View All Best Sellers",
         "view_all_link": "shopify://collections/best-sellers",
-        "section_bg_color": "#ffffff",
-        "accent_color": "#a88b6a",
-        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -386,9 +379,6 @@
         "review_3"
       ],
       "settings": {
-        "title": "Our Customers Love Us",
-        "section_bg_color": "#f8f5f0",
-        "heading_color": "#2c2c2c",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -401,9 +391,6 @@
         "description": "Can't find what you're looking for? Reach out to our customer care team.",
         "button_text": "Contact Us",
         "button_link": "",
-        "section_bg_color": "#ffffff",
-        "heading_color": "#2c2c2c",
-        "accent_color": "#a88b6a",
         "padding_top": 60,
         "padding_bottom": 60
       }
