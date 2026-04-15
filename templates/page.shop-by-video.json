@@ -19,38 +19,6 @@
     },
     "reels-grid": {
       "type": "shop-by-reels",
-      "blocks": {
-        "reel_FpyQyq": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/whatmore_tn_91dba050-509e-4b3c-b68a-99dff2c4270e.mp4",
-            "cover_image": "shopify://shop_images/810B0C08-2F17-4594-B300-FA34A6FFBE89.webp",
-            "view_count": "7K",
-            "product": "ritwik",
-            "product_name": "Product Name",
-            "product_price": "2499",
-            "product_compare_at_price": "",
-            "product_link": ""
-          }
-        },
-        "reel_rKPMY7": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/whatmore_tn_4695ef3b-168d-402f-9a97-65a3547c9dfa.mp4",
-            "cover_image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
-            "view_count": "7K",
-            "product": "tulip-lace-red-dress",
-            "product_name": "Product Name",
-            "product_price": "2499",
-            "product_compare_at_price": "",
-            "product_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "reel_FpyQyq",
-        "reel_rKPMY7"
-      ],
       "settings": {
         "title": "Shop by Video",
         "subtitle": "Discover our new arrivals via video",
