@@ -940,13 +940,8 @@
   assign dummy_prices = "3200,2400,1300,2499,2200,2499" | split: ","
   assign dummy_views = "7K,4K,4K,7K,8K,7K" | split: ","
 
-  # Unified Data Logic
-  assign meta_reels = shop.metaobjects.shoppable_reel.values
-  if meta_reels != blank and meta_reels.size > 0
-    assign reels_data = meta_reels
-  else
-    assign reels_data = section.blocks
-  endif
+  # Unified Data Logic (Automated only)
+  assign reels_data = shop.metaobjects.shoppable_reel.values
 
   assign limit = 1000
   if request.page_type == 'index' or template == 'index'
@@ -987,27 +982,15 @@
         {%- if reels_data.size > 0 -%}
           {%- for item in reels_data limit: limit -%}
             {%- liquid
-              if item.type == 'reel' 
-                assign video = item.settings.video
-                assign cover_image = item.settings.cover_image
-                assign view_count = item.settings.view_count
-                assign product = item.settings.product
-                assign product_name = item.settings.product_name
-                assign product_price = item.settings.product_price
-                assign product_compare_at_price = item.settings.product_compare_at_price
-                assign product_link = item.settings.product_link
-                assign shopify_attributes = item.shopify_attributes
-              else
-                assign video = item.video.value
-                assign cover_image = item.cover_image.value
-                assign view_count = item.view_count.value
-                assign product = item.product.value
-                assign product_name = item.product_name.value
-                assign product_price = item.product_price.value
-                assign product_compare_at_price = item.product_compare_at_price.value
-                assign product_link = item.product_link.value
-                assign shopify_attributes = ""
-              endif
+              assign video = item.video.value
+              assign cover_image = item.cover_image.value
+              assign view_count = item.view_count.value
+              assign product = item.product.value
+              assign product_name = item.product_name.value
+              assign product_price = item.product_price.value
+              assign product_compare_at_price = item.product_compare_at_price.value
+              assign product_link = item.product_link.value
+              assign shopify_attributes = ""
             -%}
             <div class="reel-card" {{ shopify_attributes }} data-reel-card>
               {%- comment -%} View Count {%- endcomment -%}
@@ -1183,27 +1166,15 @@
     {%- if reels_data.size > 0 -%}
       {%- for item in reels_data limit: limit -%}
         {%- liquid
-          if item.type == 'reel' 
-            assign video = item.settings.video
-            assign cover_image = item.settings.cover_image
-            assign view_count = item.settings.view_count
-            assign product = item.settings.product
-            assign product_name = item.settings.product_name
-            assign product_price = item.settings.product_price
-            assign product_compare_at_price = item.settings.product_compare_at_price
-            assign product_link = item.settings.product_link
-            assign item_id = item.id
-          else
-            assign video = item.video.value
-            assign cover_image = item.cover_image.value
-            assign view_count = item.view_count.value
-            assign product = item.product.value
-            assign product_name = item.product_name.value
-            assign product_price = item.product_price.value | money
-            assign product_compare_at_price = item.product_compare_at_price.value | money
-            assign product_link = item.product_link.value
-            assign item_id = item.system.id
-          endif
+          assign video = item.video.value
+          assign cover_image = item.cover_image.value
+          assign view_count = item.view_count.value
+          assign product = item.product.value
+          assign product_name = item.product_name.value
+          assign product_price = item.product_price.value | money
+          assign product_compare_at_price = item.product_compare_at_price.value | money
+          assign product_link = item.product_link.value
+          assign item_id = item.system.id
         -%}
         <div class="reels-player-item" data-index="{{ forloop.index0 }}" data-block-id="{{ item_id }}">
           {%- if video != blank -%}
@@ -1633,85 +1604,9 @@
       "default": 48
     }
   ],
-  "blocks": [
-    {
-      "type": "reel",
-      "name": "Reel",
-      "settings": [
-        {
-          "type": "header",
-          "content": "Video"
-        },
-        {
-          "type": "video",
-          "id": "video",
-          "label": "Video",
-          "info": "Upload a vertical MP4 video (9:16 ratio recommended)"
-        },
-        {
-          "type": "image_picker",
-          "id": "cover_image",
-          "label": "Cover image / Thumbnail",
-          "info": "Shows before video plays. Recommended: 480x854px"
-        },
-        {
-          "type": "text",
-          "id": "view_count",
-          "label": "View count",
-          "default": "7K",
-          "info": "e.g. 4K, 12K, 1.2M"
-        },
-        {
-          "type": "header",
-          "content": "Product Link"
-        },
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product",
-          "info": "Auto-fills name, price & thumbnail. Leave empty to use manual fields below."
-        },
-        {
-          "type": "header",
-          "content": "Manual product info (if no product selected)"
-        },
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "Product name",
-          "default": "Product Name"
-        },
-        {
-          "type": "text",
-          "id": "product_price",
-          "label": "Product price",
-          "default": "2499"
-        },
-        {
-          "type": "text",
-          "id": "product_compare_at_price",
-          "label": "Product compare-at price (optional)",
-          "info": "Leave empty if not on sale"
-        },
-        {
-          "type": "url",
-          "id": "product_link",
-          "label": "Product link"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Shop by Reels",
-      "blocks": [
-        { "type": "reel" },
-        { "type": "reel" },
-        { "type": "reel" },
-        { "type": "reel" },
-        { "type": "reel" },
-        { "type": "reel" }
-      ]
+      "name": "Shop by Reels"
     }
   ]
 }
