@@ -1,4 +1,5 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'aura-customer-premium.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -12,20 +13,36 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .login-svg-animation {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+  }
+
+  /* Simple CSS animation for the SVG */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 {%- endstyle -%}
 
-{%- if section.settings.enable_shop_login_button == false -%}
-  {%- assign hide_shop_login_button = true -%}
-{%- endif -%}
-
 <div class="customer login section-{{ section.id }}-padding">
-  <h1 id="recover" tabindex="-1">
-    {{ 'customer.recover_password.title' | t }}
-  </h1>
-  <div>
-    <p>
-      {{ 'customer.recover_password.subtext' | t }}
-    </p>
+  
+  <!-- Recover Password Card -->
+  <div id="recover" class="premium-form-card" style="display: none;">
+    <div class="animated-icon-wrapper animate-float">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3m-3-3l-2.5-2.5"></path></svg>
+    </div>
+    <div class="premium-form-header">
+      <h1>{{ 'customer.recover_password.title' | t }}</h1>
+      <p>{{ 'customer.recover_password.subtext' | t }}</p>
+    </div>
 
     {%- form 'recover_customer_password' -%}
       {% assign recover_success = form.posted_successfully? %}
@@ -58,31 +75,38 @@
         </small>
       {%- endif -%}
 
-      <button>
+      <button class="button">
         {{ 'customer.login_page.submit' | t }}
       </button>
 
-      <a href="#login">
+      <a href="#login" class="link">
         {{ 'customer.login_page.cancel' | t }}
       </a>
     {%- endform -%}
   </div>
 
-  <h1 id="login" tabindex="-1">
-    {{ 'customer.login_page.title' | t }}
-  </h1>
-  <div>
+  <!-- Login Card -->
+  <div id="login" class="premium-form-card">
+    <div class="animated-icon-wrapper animate-float">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    </div>
+    <div class="premium-form-header">
+      <h1>{{ 'customer.login_page.title' | t }}</h1>
+      <p>Enter your credentials to access your account</p>
+    </div>
+
     {%- if recover_success == true -%}
-      <h3 class="form__message" tabindex="-1" autofocus>
+      <h3 class="form__message" tabindex="-1" autofocus style="justify-content: center;">
         <span class="svg-wrapper">
           {{- 'icon-success.svg' | inline_asset_content -}}
         </span>
         {{ 'customer.recover_password.success' | t }}
       </h3>
     {%- endif -%}
+
     {%- form 'customer_login', novalidate: 'novalidate' -%}
       {%- if form.errors -%}
-        <h2 class="form__message" tabindex="-1" autofocus>
+        <h2 class="form__message" tabindex="-1" autofocus style="justify-content: center;">
           <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
           <span class="svg-wrapper">
             {{- 'icon-error.svg' | inline_asset_content -}}
@@ -90,18 +114,6 @@
           {{ 'templates.contact.form.error_heading' | t }}
         </h2>
         {{ form.errors | default_errors }}
-      {%- endif -%}
-
-      {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-        <section name="sign-in-with-shop-provider">
-          {{ shop | login_button: hide_button: hide_shop_login_button }}
-
-          {%- unless hide_shop_login_button -%}
-            <p>
-              {{ 'customer.login_page.alternate_provider_separator' | t }}
-            </p>
-          {%- endunless -%}
-        </section>
       {%- endif -%}
 
       <div class="field">
@@ -140,34 +152,56 @@
           </label>
         </div>
 
-        <a href="#recover">
+        <a href="#recover" class="link" style="margin-top: 1rem; display: block; text-align: right; font-size: 1.2rem;">
           {{ 'customer.login_page.forgot_password' | t }}
         </a>
       {%- endif -%}
 
-      <button>
+      <button class="button">
         {{ 'customer.login_page.sign_in' | t }}
       </button>
 
-      <a href="{{ routes.account_register_url }}">
-        {{ 'customer.login_page.create_account' | t }}
-      </a>
+      <div style="margin-top: 2rem; color: #888; font-size: 1.4rem;">
+        Don't have an account? 
+        <a href="{{ routes.account_register_url }}" class="link" style="color: var(--aura-gold); font-weight: 600;">
+          {{ 'customer.login_page.create_account' | t }}
+        </a>
+      </div>
     {%- endform -%}
   </div>
 
   {%- if shop.checkout.guest_login -%}
-    <div>
-      <hr>
-      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+    <div class="premium-form-card" style="margin-top: 4rem;">
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #eee;">
+      <h2 style="font-size: 2rem;">{{ 'customer.login_page.guest_title' | t }}</h2>
 
       {%- form 'guest_login' -%}
-        <button>
+        <button class="button button--secondary" style="width: 100%;">
           {{ 'customer.login_page.guest_continue' | t }}
         </button>
       {%- endform -%}
     </div>
   {%- endif -%}
 </div>
+
+<script>
+  // Simple toggle for recover password
+  window.addEventListener('hashchange', function() {
+    if (window.location.hash === '#recover') {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('recover').style.display = 'block';
+    } else {
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('recover').style.display = 'none';
+    }
+  });
+
+  // Check on load
+  if (window.location.hash === '#recover') {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('recover').style.display = 'block';
+  }
+</script>
 
 {% schema %}
 {

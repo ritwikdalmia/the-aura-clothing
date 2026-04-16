@@ -1,23 +1,50 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
+{{ 'aura-customer-premium.css' | asset_url | stylesheet_tag }}
 
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
-  }
-</style>
-
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+<div class="aura-404-hero">
+  <div class="page-width aura-404-content">
+    <h1 class="aura-404-title">404</h1>
+    <p class="aura-404-sub">{{ 'templates.404.subtext' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
 </div>
+
+<div class="page-width" style="margin-top: 6rem; margin-bottom: 8rem;">
+  <div class="center" style="margin-bottom: 4rem;">
+    <h2 style="font-family: var(--font-heading-family); text-transform: uppercase; letter-spacing: 0.2em; font-size: 2.4rem;">
+      You might also like
+    </h2>
+    <div style="width: 60px; height: 1px; background: var(--aura-gold); margin: 1.5rem auto;"></div>
+  </div>
+
+  <div class="grid grid--2-col grid--4-col-desktop">
+    {%- for product in collections.all.products limit: 4 -%}
+      <div class="grid__item">
+        {% render 'card-product',
+          card_product: product,
+          media_aspect_ratio: 'portrait',
+          show_secondary_image: true,
+          show_vendor: false,
+          show_rating: false,
+          lazy_load: true
+        %}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="center" style="margin-top: 4rem;">
+    <a href="{{ routes.all_products_collection_url }}" class="link" style="color: var(--aura-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">
+      View All Collections
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-404.name",
+  "tag": "section",
+  "class": "section",
+  "settings": []
+}
+{% endschema %}

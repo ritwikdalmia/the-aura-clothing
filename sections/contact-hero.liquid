@@ -1,0 +1,239 @@
+{%- style -%}
+  .contact-hero-{{ section.id }} {
+    position: relative;
+    padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: {{ section.settings.min_height_mobile }}vh;
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-hero-{{ section.id }} {
+      padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+      min-height: {{ section.settings.min_height }}vh;
+    }
+  }
+
+  .contact-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .contact-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+  }
+
+  .contact-hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 2;
+  }
+
+  .contact-hero__content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 80rem;
+    padding: 0 2rem;
+    color: {{ section.settings.text_color }};
+  }
+
+  .contact-hero__title {
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--font-heading-scale) * {{ section.settings.title_size_mobile }}rem);
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-hero__title {
+      font-size: calc(var(--font-heading-scale) * {{ section.settings.title_size }}rem);
+    }
+  }
+
+  .contact-hero__subtitle {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.9;
+    letter-spacing: 0.05em;
+  }
+{%- endstyle -%}
+
+<div class="contact-hero-{{ section.id }} scroll-trigger animate--fade-in">
+  {%- if section.settings.image != blank -%}
+    <div class="contact-hero__bg">
+      {{ section.settings.image | image_url: width: 2000 | image_tag: 
+        loading: 'lazy',
+        sizes: '100vw',
+        widths: '375, 550, 750, 1100, 1500, 1780, 2000'
+      }}
+    </div>
+  {%- endif -%}
+  
+  <div class="contact-hero__overlay"></div>
+
+  <div class="contact-hero__content">
+    {%- if section.settings.title != blank -%}
+      <h1 class="contact-hero__title">
+        {{ section.settings.title }}
+      </h1>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <div class="contact-hero__subtitle">
+        {{ section.settings.subtitle }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 3,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Title Size (Desktop)",
+      "default": 4.5
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Title Size (Mobile)",
+      "default": 3
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "We'd love to hear from you. Reach out to us for any inquiries."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Fallback Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "vh",
+      "label": "Min Height (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "vh",
+      "label": "Min Height (Mobile)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Hero"
+    }
+  ]
+}
+{% endschema %}

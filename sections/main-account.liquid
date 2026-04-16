@@ -1,4 +1,5 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'aura-customer-premium.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -14,139 +15,94 @@
   }
 {%- endstyle -%}
 
-<div class="customer account section-{{ section.id }}-padding">
-  <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
-    <a href="{{ routes.account_logout_url }}">
-      <span class="svg-wrapper">
-        {{- 'icon-account.svg' | inline_asset_content -}}
-      </span>
-      {{ 'customer.log_out' | t }}
-    </a>
+<div class="page-width section-{{ section.id }}-padding">
+  <div class="account-header">
+    <h1>Welcome back, {{ customer.first_name }}</h1>
+    <p>Manage your orders, profile, and settings</p>
   </div>
 
-  <div>
-    <div>
-      <h2>{{ 'customer.orders.title' | t }}</h2>
+  <div class="customer account-container">
+    <!-- Sidebar Navigation -->
+    <aside class="account-nav">
+      <ul class="account-nav-list">
+        <li class="account-nav-item is-active">
+          <a href="{{ routes.account_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Dashboard
+          </a>
+        </li>
+        <li class="account-nav-item">
+          <a href="{{ routes.account_addresses_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Addresses ({{ customer.addresses_count }})
+          </a>
+        </li>
+        <li class="account-nav-item">
+          <a href="{{ routes.account_logout_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Logout
+          </a>
+        </li>
+      </ul>
+
+      <div class="premium-form-card" style="margin-top: 3rem; padding: 2rem; text-align: left;">
+        <h3 style="font-size: 1.4rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--aura-gold);">Profile Details</h3>
+        <p style="margin-bottom: 0.5rem; font-weight: 600;">{{ customer.name }}</p>
+        <p style="margin-bottom: 1.5rem;">{{ customer.email }}</p>
+        {{ customer.default_address | format_address }}
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="account-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+        <h2 style="font-size: 2.2rem; text-transform: uppercase; letter-spacing: 0.1em;">Order History</h2>
+        {%- if customer.orders.size > 0 -%}
+          <span class="status-badge status-badge--info">Total {{ customer.orders_count }} orders</span>
+        {%- endif -%}
+      </div>
 
       {% paginate customer.orders by 20 %}
         {%- if customer.orders.size > 0 -%}
-          <table role="table" class="order-history">
-            <caption class="visually-hidden">
-              {{ 'customer.orders.title' | t }}
-            </caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
-                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
-                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
-                <th id="ColumnFulfillment" scope="col" role="columnheader">
-                  {{ 'customer.orders.fulfillment_status' | t }}
-                </th>
-                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-            </thead>
-            <tbody role="rowgroup">
-              {%- for order in customer.orders -%}
-                <tr role="row">
-                  <td
-                    id="RowOrder"
-                    role="cell"
-                    headers="ColumnOrder"
-                    data-label="{{ 'customer.orders.order_number' | t }}"
-                  >
-                    <a
-                      href="{{ order.customer_url }}"
-                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
-                    >
-                      {{ order.name }}
-                    </a>
-                  </td>
-                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
-                    {{ order.created_at | time_tag: format: 'date' }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnPayment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.payment_status' | t }}"
-                  >
-                    {{ order.financial_status_label }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnFulfillment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.fulfillment_status' | t }}"
-                  >
-                    {{ order.fulfillment_status_label }}
-                  </td>
-                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
-                    {{ order.total_net_amount | money_with_currency }}
-                  </td>
-                </tr>
-              {%- endfor -%}
-            </tbody>
-          </table>
+          <div class="order-list">
+            {%- for order in customer.orders -%}
+              <div class="order-card">
+                <div class="order-card__info">
+                  <h3>Order {{ order.name }}</h3>
+                  <p>{{ order.created_at | time_tag: format: 'date' }}</p>
+                  <p style="margin-top: 1rem; font-weight: 600; color: var(--aura-gold);">{{ order.total_net_amount | money_with_currency }}</p>
+                </div>
+                
+                <div style="text-align: right;">
+                  <div style="margin-bottom: 1.5rem;">
+                    <span class="status-badge {% if order.financial_status == 'paid' %}status-badge--success{% else %}status-badge--warning{% endif %}">
+                      {{ order.financial_status_label }}
+                    </span>
+                    <span class="status-badge status-badge--info" style="margin-left: 0.5rem;">
+                      {{ order.fulfillment_status_label }}
+                    </span>
+                  </div>
+                  <a href="{{ order.customer_url }}" class="button button--secondary" style="font-size: 1.2rem; padding: 0.8rem 2rem;">
+                    View Order Details
+                  </a>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
         {%- else -%}
-          <p>{{ 'customer.orders.none' | t }}</p>
+          <div class="premium-form-card" style="padding: 6rem 2rem;">
+             <p style="color: #888;">{{ 'customer.orders.none' | t }}</p>
+             <a href="{{ routes.all_products_collection_url }}" class="button" style="margin-top: 2rem;">
+               Start Shopping
+             </a>
+          </div>
         {%- endif -%}
 
         {%- if paginate.pages > 1 -%}
-          {%- if paginate.parts.size > 0 -%}
-            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-              <ul role="list">
-                {%- if paginate.previous -%}
-                  <li>
-                    <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-
-                {%- for part in paginate.parts -%}
-                  <li>
-                    {%- if part.is_link -%}
-                      <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                        {{- part.title -}}
-                      </a>
-                    {%- else -%}
-                      {%- if part.title == paginate.current_page -%}
-                        <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                          {{- part.title -}}
-                        </span>
-                      {%- else -%}
-                        <span>{{ part.title }}</span>
-                      {%- endif -%}
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-
-                {%- if paginate.next -%}
-                  <li>
-                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </nav>
-          {%- endif -%}
+          {% render 'pagination', paginate: paginate %}
         {%- endif -%}
       {% endpaginate %}
-    </div>
-
-    <div>
-      <h2>{{ 'customer.account.details' | t }}</h2>
-
-      {{ customer.default_address | format_address }}
-
-      <a href="{{ routes.account_addresses_url }}">
-        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
-      </a>
-    </div>
+    </main>
   </div>
 </div>
 
@@ -181,3 +137,4 @@
   ]
 }
 {% endschema %}
+

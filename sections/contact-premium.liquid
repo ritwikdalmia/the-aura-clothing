@@ -1,0 +1,460 @@
+{%- style -%}
+  .contact-premium-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: var(--aura-bg-warm, #faf8f5);
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-premium-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .contact-premium__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .contact-premium__grid {
+      flex-direction: row;
+      gap: 8rem;
+    }
+  }
+
+  /* Left Column: Info */
+  .contact-premium__info {
+    flex: 1;
+  }
+
+  .contact-premium__info-title {
+    font-family: var(--font-heading-family);
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: var(--brand-dark, #1a1a1a);
+    margin: 0 0 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-premium__info-text {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #666);
+    margin-bottom: 4rem;
+  }
+
+  .contact-premium__items {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .contact-premium__item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .contact-premium__icon {
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--aura-gold, #a88b6a);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid rgba(168, 139, 106, 0.1);
+  }
+
+  .contact-premium__icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .contact-premium__item-content h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--aura-gold, #a88b6a);
+    margin: 0 0 0.5rem;
+  }
+
+  .contact-premium__item-content p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--brand-dark, #1a1a1a);
+    margin: 0;
+  }
+
+  .contact-premium__socials {
+    margin-top: 5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-premium__social-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-dark, #1a1a1a);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .contact-premium__social-link:hover {
+    background: var(--aura-gold, #a88b6a);
+    color: #fff;
+    transform: translateY(-3px);
+    border-color: var(--aura-gold, #a88b6a);
+  }
+
+  .contact-premium__social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* Right Column: Form */
+  .contact-premium__form-wrapper {
+    flex: 1.2;
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.02);
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-premium__form-wrapper {
+      padding: 5rem;
+    }
+  }
+
+  .contact-premium__form .field {
+    margin-bottom: 2rem;
+  }
+
+  .contact-premium__form .field__input {
+    background: var(--aura-bg-warm, #faf8f5);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .contact-premium__form .field__input:focus {
+    border-color: var(--aura-gold, #a88b6a);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(168, 139, 106, 0.1);
+  }
+
+  .contact-premium__form .field__label {
+    left: 2rem;
+  }
+
+  .contact-premium__form .contact__button {
+    margin-top: 3rem;
+  }
+
+  .contact-premium__form .button {
+    width: 100%;
+    background-color: var(--brand-dark, #1a1a1a);
+    color: #fff;
+    border-radius: 30px;
+    padding: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    font-size: 1.3rem;
+  }
+
+  .contact-premium__form .button:hover {
+    background-color: var(--aura-gold, #a88b6a);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(168, 139, 106, 0.2);
+  }
+
+  /* Success Message */
+  .contact-premium__form .form__message {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: #f0fdf4;
+    border-radius: 12px;
+    color: #166534;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+{%- endstyle -%}
+
+<div id="AuraPremiumContact" class="contact-premium-{{ section.id }}">
+  <div class="page-width">
+    <div class="contact-premium__grid">
+      
+      <!-- Info Column -->
+      <div class="contact-premium__info scroll-trigger animate--slide-in">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="contact-premium__info-title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="contact-premium__info-text">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        <div class="contact-premium__items">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'contact_info' -%}
+                <div class="contact-premium__item" {{ block.shopify_attributes }}>
+                  <div class="contact-premium__icon">
+                    {%- liquid
+                      case block.settings.icon
+                        when 'email'
+                          echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
+                        when 'phone'
+                          echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>'
+                        when 'location'
+                          echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'
+                        when 'clock'
+                          echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
+                      endcase
+                    -%}
+                    {%- if block.settings.custom_svg != blank -%}
+                      {{ block.settings.custom_svg }}
+                    {%- endif -%}
+                  </div>
+                  <div class="contact-premium__item-content">
+                    <h3>{{ block.settings.label }}</h3>
+                    <p>{{ block.settings.value }}</p>
+                  </div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_socials -%}
+          <div class="contact-premium__socials">
+            {%- if settings.social_instagram_link != blank -%}
+              <a href="{{ settings.social_instagram_link }}" class="contact-premium__social-link" aria-label="Instagram">
+                {% render 'icon-instagram' %}
+              </a>
+            {%- endif -%}
+            {%- if settings.social_facebook_link != blank -%}
+              <a href="{{ settings.social_facebook_link }}" class="contact-premium__social-link" aria-label="Facebook">
+                {% render 'icon-facebook' %}
+              </a>
+            {%- endif -%}
+            {%- if settings.social_twitter_link != blank -%}
+              <a href="{{ settings.social_twitter_link }}" class="contact-premium__social-link" aria-label="Twitter">
+                {% render 'icon-twitter' %}
+              </a>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+              <a href="{{ settings.social_pinterest_link }}" class="contact-premium__social-link" aria-label="Pinterest">
+                {% render 'icon-pinterest' %}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-premium__form-wrapper scroll-trigger animate--slide-in">
+        {%- form 'contact', id: 'ContactFormPremium', class: 'contact-premium__form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form__message" tabindex="-1" autofocus>
+              {% render 'icon-success' %}
+              {{ 'templates.contact.form.post_success' | t }}
+            </div>
+          {%- elsif form.errors -%}
+            <div class="form__message form__message--error">
+              {% render 'icon-error' %}
+              {{ 'templates.contact.form.error_heading' | t }}
+            </div>
+          {%- endif -%}
+
+          <div class="contact__fields">
+            <div class="field">
+              <input
+                class="field__input"
+                autocomplete="name"
+                type="text"
+                id="ContactForm-name"
+                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                placeholder="{{ 'templates.contact.form.name' | t }}"
+                required
+              >
+              <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
+            </div>
+            <div class="field">
+              <input
+                autocomplete="email"
+                type="email"
+                id="ContactForm-email"
+                class="field__input"
+                name="contact[email]"
+                spellcheck="false"
+                autocapitalize="off"
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                aria-required="true"
+                placeholder="{{ 'templates.contact.form.email' | t }}"
+                required
+              >
+              <label class="field__label" for="ContactForm-email">{{ 'templates.contact.form.email' | t }}</label>
+            </div>
+          </div>
+          <div class="field">
+            <input
+              type="tel"
+              id="ContactForm-phone"
+              class="field__input"
+              autocomplete="tel"
+              name="contact[{{ 'templates.contact.form.phone' | t }}]"
+              pattern="[0-9\-]*"
+              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+              placeholder="{{ 'templates.contact.form.phone' | t }}"
+            >
+            <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
+          </div>
+          <div class="field">
+            <textarea
+              rows="6"
+              id="ContactForm-body"
+              class="text-area field__input"
+              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              placeholder="{{ 'templates.contact.form.comment' | t }}"
+              required
+            >
+              {{- form.body -}}
+            </textarea>
+            <label class="form__label field__label" for="ContactForm-body">
+              {{- 'templates.contact.form.comment' | t -}}
+            </label>
+          </div>
+          <div class="contact__button">
+            <button type="submit" class="button">
+              {{ 'templates.contact.form.send' | t }}
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Premium",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Information"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description Text",
+      "default": "<p>Have questions or feedback? We'd love to hear from you. Fill out the form or reach us via our contact details.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_socials",
+      "label": "Show Social Media Icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_info",
+      "name": "Contact Detail",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "email", "label": "Email" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "location", "label": "Location" },
+            { "value": "clock", "label": "Hours" }
+          ],
+          "default": "email"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG (Optional)",
+          "info": "Overrides the selected icon above."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Email Us"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "hello@theaura.clothing"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Premium",
+      "blocks": [
+        { "type": "contact_info", "settings": { "icon": "email", "label": "Email", "value": "support@theaura.clothing" } },
+        { "type": "contact_info", "settings": { "icon": "phone", "label": "Phone", "value": "+1 (555) 000-0000" } },
+        { "type": "contact_info", "settings": { "icon": "location", "label": "Address", "value": "123 Fashion Blvd, NY" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

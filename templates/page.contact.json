@@ -1,25 +1,56 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "hero": {
+      "type": "contact-hero",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
+        "title": "Get in Touch",
+        "subtitle": "Reach out to us for any inquiries, partnerships, or just to say hello.",
+        "overlay_opacity": 50,
+        "min_height": 45
       }
     },
-    "form": {
-      "type": "contact-form",
+    "premium_form": {
+      "type": "contact-premium",
+      "blocks": {
+        "email": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "email",
+            "label": "Email Us",
+            "value": "support@theaura.clothing"
+          }
+        },
+        "phone": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "phone",
+            "label": "Call Us",
+            "value": "+91 9116815456"
+          }
+        },
+        "location": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "location",
+            "label": "Our Boutique",
+            "value": "Jaipur, Rajasthan, India"
+          }
+        }
+      },
+      "block_order": [
+        "email",
+        "phone",
+        "location"
+      ],
       "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "heading": "Contact Us",
+        "text": "<p>Our team is here to help you with any questions regarding our collections, orders, or styling advice. Feel free to contact us through any of the channels below or fill out the form, and we'll get back to you within 24 hours.<\/p>",
+        "show_socials": true
       }
     }
   },
   "order": [
-    "main",
-    "form"
+    "hero",
+    "premium_form"
   ]
 }
