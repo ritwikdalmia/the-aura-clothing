@@ -49,31 +49,7 @@
       {%- endif -%}
     </div>
 
-    {%- comment -%} ── Free Shipping Progress Bar ── {%- endcomment -%}
-    {%- if cart != empty -%}
-      {%- assign free_shipping_threshold = 999 -%}
-      {%- assign cart_total = cart.total_price | divided_by: 100 -%}
-      {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
-      {%- if remaining < 0 -%}{%- assign remaining = 0 -%}{%- endif -%}
-      {%- assign progress = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
-      {%- if progress > 100 -%}{%- assign progress = 100 -%}{%- endif -%}
 
-      <div class="aura-free-shipping-bar">
-        {%- if remaining > 0 -%}
-          <p class="aura-shipping-text">
-            Shop for <strong>₹{{ remaining }}</strong> more to unlock <strong>Free Shipping</strong>
-          </p>
-        {%- else -%}
-          <p class="aura-shipping-text aura-shipping-reached">
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            You've unlocked <strong>Free Shipping!</strong>
-          </p>
-        {%- endif -%}
-        <div class="aura-shipping-track">
-          <div class="aura-shipping-fill" style="width: {{ progress }}%;"></div>
-        </div>
-      </div>
-    {%- endif -%}
 
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">

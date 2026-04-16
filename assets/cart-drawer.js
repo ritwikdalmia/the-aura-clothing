@@ -29,6 +29,17 @@ class CartDrawer extends HTMLElement {
     if (triggeredBy) this.setActiveElement(triggeredBy);
     const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
     if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
+    
+    // THE AURA PREMIUM: Announcement Bar Offset Logic
+    const announcementBar = document.querySelector('.announcement-bar');
+    const drawerInner = this.querySelector('.drawer__inner');
+    if (announcementBar && drawerInner) {
+        const rect = announcementBar.getBoundingClientRect();
+        const topOffset = rect.bottom > 0 ? rect.bottom : 0;
+        drawerInner.style.top = `${topOffset}px`;
+        drawerInner.style.height = `calc(100vh - ${topOffset}px)`;
+    }
+
     // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {
       this.classList.add('animate', 'active');

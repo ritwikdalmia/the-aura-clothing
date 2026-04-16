@@ -2,29 +2,27 @@
   .compare-drawer {
     visibility: hidden;
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
+    inset: 0;
+    z-index: 2147483647;
     display: flex;
     justify-content: flex-end;
-    transition: visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: visibility 0s linear 0.45s;
+    pointer-events: none;
   }
   .compare-drawer.is-open {
     visibility: visible;
+    transition-delay: 0s;
+    pointer-events: auto;
   }
   .compare-drawer__overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(18, 18, 18, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    inset: 0;
+    background: rgba(var(--aura-brand-dark-rgb), 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     opacity: 0;
     transition: opacity 0.4s ease;
+    cursor: pointer;
   }
   .compare-drawer.is-open .compare-drawer__overlay {
     opacity: 1;
@@ -34,76 +32,114 @@
     width: 100%;
     max-width: 950px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    transform: translateX(100%);
+    background: var(--aura-brand-bg-warm);
+    transform: translateX(105%);
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     display: flex;
     flex-direction: column;
-    box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.18);
+    border-left: 1px solid rgba(var(--aura-brand-gold-rgb), 0.12);
+    overflow: hidden;
   }
   .compare-drawer.is-open .compare-drawer__inner {
     transform: translateX(0);
   }
+
+  .compare-drawer__inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      var(--aura-brand-gold),
+      transparent 60%
+    );
+    opacity: 0.6;
+    z-index: 10;
+  }
+
   .compare-drawer__header {
-    padding: 2.5rem 3rem;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 2.4rem 3rem 2rem;
+    border-bottom: 1px solid rgba(var(--aura-brand-dark-rgb), 0.06);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255,255,255,0.4);
+    background: rgba(var(--color-background), 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-shrink: 0;
   }
   .compare-drawer__header h2 {
     margin: 0;
     font-weight: 700;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     gap: 1.2rem;
-    color: #121212;
+    color: var(--aura-brand-text-main);
   }
   .compare-drawer__header .aura-compare-count {
-    background: #121212;
-    color: #fff;
-    padding: 0.2rem 1.2rem;
+    background: var(--aura-brand-gold) !important;
+    color: #fff !important;
+    padding: 0 1rem;
     border-radius: 50px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 3.5rem;
+    height: 2.2rem;
+    min-width: 2.2rem;
   }
   .drawer__close-btn {
-    background: none;
+    width: 4rem;
+    height: 4rem;
+    background: var(--aura-brand-gold);
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    padding: 1rem;
-    color: #121212;
-    transition: transform 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), 0.35);
+    flex-shrink: 0;
   }
   .drawer__close-btn:hover {
-    transform: rotate(90deg);
+    background: var(--aura-brand-text-main);
+    color: #fff;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   }
 
-  /* Content Area */
+  /* Content Area Scrollbar */
   .compare-drawer__content {
     flex: 1;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--aura-brand-gold) rgba(0,0,0,0.02);
   }
   .compare-drawer__content::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 6px;
   }
   .compare-drawer__content::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.02);
+    background: rgba(0,0,0,0.03);
   }
   .compare-drawer__content::-webkit-scrollbar-thumb {
-    background: var(--aura-brand-gold);
+    background: rgba(var(--aura-brand-gold-rgb), 0.5);
     border-radius: 10px;
+    border: 1px solid transparent;
+  }
+  .compare-drawer__content::-webkit-scrollbar-thumb:hover {
+    background: var(--aura-brand-gold);
   }
 
   /* Comparison Table */
@@ -116,15 +152,15 @@
     position: sticky;
     left: 0;
     z-index: 5;
-    background: #fdfaf7;
-    padding: 2rem 3rem;
+    background: var(--aura-brand-bg-warm);
+    padding: 2.4rem 3rem;
     text-align: left;
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-weight: 700;
     color: var(--aura-brand-gold);
-    border-right: 1px solid rgba(168, 139, 106, 0.1);
+    border-right: 1px solid rgba(var(--aura-brand-gold-rgb), 0.12);
     vertical-align: middle;
     width: 160px;
     box-shadow: 2px 0 10px rgba(0,0,0,0.02);
@@ -132,14 +168,14 @@
   .compare-table td {
     padding: 2rem;
     min-width: 260px;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    border-right: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid rgba(var(--aura-brand-dark-rgb), 0.04);
+    border-right: 1px solid rgba(var(--aura-brand-dark-rgb), 0.04);
     vertical-align: top;
     transition: background 0.3s ease;
   }
   /* Row Hover Effect */
   .compare-table tr:hover td {
-    background: rgba(168, 139, 106, 0.02);
+    background: rgba(var(--aura-brand-gold-rgb), 0.03);
   }
 
   /* Product Header Cell */
@@ -162,7 +198,7 @@
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.06);
     transition: transform 0.4s ease;
-    background: #fff;
+    background: var(--aura-brand-gold-light);
   }
   .compare-product-cell:hover .compare-product-image {
     transform: translateY(-5px);
@@ -172,11 +208,11 @@
   .compare-action-btn {
     position: absolute;
     top: 1.5rem;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.05);
+    background: var(--color-background);
+    border: 1px solid rgba(var(--aura-brand-dark-rgb), 0.05);
     cursor: pointer;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -184,26 +220,28 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     z-index: 10;
-    color: #121212;
+    color: var(--aura-brand-text-main);
   }
   .compare-action-btn:hover {
-    background: #121212;
+    background: var(--aura-brand-text-main);
     color: #fff;
     transform: scale(1.1);
   }
-  .btn-remove { left: 1rem; }
-  .btn-wishlist { right: 1rem; }
-  .btn-wishlist.is-active {
-    background: var(--aura-brand-gold);
-    color: #fff;
-    border-color: var(--aura-brand-gold);
+  .btn-remove { 
+    right: 1.5rem; 
+    background: transparent;
+    border: none;
+    box-shadow: none;
   }
-  .btn-wishlist.is-active svg path { fill: currentColor; }
+  .btn-remove:hover {
+    background: transparent;
+    color: var(--aura-brand-sale);
+    transform: scale(1.1);
+  }
 
   /* Badges - Positioned on the IMAGE wrapper to avoid button overlap */
   .compare-badge {
     position: absolute;
-    bottom: 1rem;
     padding: 0.3rem 1rem;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -214,16 +252,12 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
   .badge--sale {
-    background: #ff4d4d;
+    background: var(--aura-brand-sale);
     color: #fff;
-    right: -0.5rem;
-    bottom: 2rem;
   }
   .badge--new {
     background: var(--aura-brand-gold);
     color: #fff;
-    left: -0.5rem;
-    bottom: 4rem;
   }
 
   /* Product Details */
@@ -232,7 +266,7 @@
     font-weight: 600;
     margin-bottom: 0.8rem;
     line-height: 1.3;
-    color: #121212;
+    color: var(--aura-brand-text-main);
     min-height: 3.8rem;
     display: flex;
     align-items: center;
@@ -250,7 +284,7 @@
   }
   .compare-compare-price {
     text-decoration: line-through;
-    color: #000;
+    color: var(--aura-brand-text-muted);
     font-size: 1.2rem;
     opacity: 0.6;
   }
@@ -279,18 +313,18 @@
     gap: 0.8rem;
   }
   .btn-cart {
-    background: #121212;
+    background: var(--aura-brand-text-main);
     color: #fff;
   }
   .btn-cart:hover {
-    background: #333;
+    background: var(--aura-brand-gold);
   }
   .btn-buy-now {
     background: var(--aura-brand-gold);
     color: #fff;
   }
   .btn-buy-now:hover {
-    background: var(--aura-brand-dark);
+    background: var(--aura-brand-text-main);
   }
 
 </style>
@@ -312,25 +346,52 @@
 
 <script>
   function openCompare() {
-    document.getElementById('CompareDrawer').classList.add('is-open');
+    const drawer = document.getElementById('CompareDrawer');
+    drawer.classList.add('is-open');
+
+    // Offset for announcement bar / sticky header so it doesn't overlap
+    const announcementBar = document.querySelector('.shopify-section-announcement-bar, .announcement-bar, [class*="announcement"], #shopify-section-announcement-bar');
+    let offset = 0;
+    if (announcementBar) {
+      const rect = announcementBar.getBoundingClientRect();
+      // Only offset if the bar is at the top of the viewport
+      if (rect.top <= 0) {
+        offset = rect.height;
+      }
+    }
+    
+    const inner = drawer.querySelector('.compare-drawer__inner');
+    if (inner) {
+      inner.style.paddingTop = offset > 0 ? (offset + 10) + 'px' : '';
+    }
+
+    document.body.style.overflow = 'hidden';
     renderCompare();
   }
 
   function closeCompare() {
-    document.getElementById('CompareDrawer').classList.remove('is-open');
+    const drawer = document.getElementById('CompareDrawer');
+    drawer.classList.remove('is-open');
+    document.body.style.overflow = '';
   }
+
+  // Spec cache — avoids re-fetching on re-open
+  window._auraSpecsCache = window._auraSpecsCache || {};
 
   async function renderCompare() {
     const container = document.getElementById('CompareContent');
-    const handles = window.AuraFeatures.getCompareList();
-    const details = window.AuraFeatures.getCompareDetails();
+    let handles = window.AuraFeatures.getCompareList();
     const wishlist = window.AuraFeatures.getWishlist();
-    
+
+    // Limit to 2 max handles for rendering
+    if (handles.length > 2) {
+      handles = handles.slice(0, 2);
+    }
     if (handles.length === 0) {
       container.innerHTML = `
         <div class="compare-drawer__empty" style="text-align:center; padding:100px 40px;">
           <div style="font-size: 5rem; margin-bottom: 2rem; opacity: 0.3;">✨</div>
-          <p style="font-size: 1.8rem; color: #666; font-weight: 500;">Your comparison list is empty.</p>
+          <p style="font-size: 1.6rem; color: var(--aura-brand-text-muted); font-weight: 500;">Your comparison list is empty.</p>
           <a href="/collections/all" class="button" style="margin-top:2rem; border-radius: 50px;">Browse Collections</a>
         </div>`;
       return;
@@ -338,53 +399,82 @@
 
     container.innerHTML = '<div style="display: flex; justify-content: center; padding: 10rem;"><div class="loading-spinner"></div></div>';
 
-    const products = [];
-    for (const handle of handles) {
-      try {
-        const response = await fetch(`/products/${handle}.js`);
-        if (!response.ok) continue;
-        const product = await response.json();
-        products.push(product);
-      } catch (e) { console.error('Error fetching product for comparison:', e); }
-    }
+    // ── Fetch product data + page HTML in parallel ──────────────────────────
+    const [productResults, pageResults] = await Promise.all([
+      // Fetch all product .js data simultaneously
+      Promise.allSettled(handles.map(h =>
+        fetch('/products/' + h + '.js').then(r => r.ok ? r.json() : Promise.reject())
+      )),
+      // Fetch all product page HTMLs simultaneously (for specs)
+      Promise.allSettled(handles.map(async h => {
+        if (window._auraSpecsCache[h]) return { handle: h, cached: true };
+        const r = await fetch('/products/' + h);
+        if (!r.ok) return null;
+        const text = await r.text();
+        return { handle: h, text };
+      }))
+    ]);
+
+    // Parse product.js results
+    const products = productResults
+      .filter(r => r.status === 'fulfilled')
+      .map(r => r.value);
+
+    // Parse & cache spec results
+    pageResults.forEach(r => {
+      if (r.status !== 'fulfilled' || !r.value) return;
+      const { handle, text, cached } = r.value;
+      if (cached || !text) return;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const specItems = doc.querySelectorAll('.aura-specs-accordion .product__spec-item');
+      const rows = Array.from(specItems).map(item => ({
+        label: item.querySelector('.product__spec-label')?.textContent?.trim() || '',
+        value: item.querySelector('.product__spec-value')?.textContent?.trim() || ''
+      })).filter(r => r.label && r.value);
+      window._auraSpecsCache[handle] = rows;
+    });
 
     if (products.length === 0) {
       container.innerHTML = '<div style="text-align:center; padding:40px;"><p>No products found.</p></div>';
       return;
     }
 
+    // Row 1: Product Header
     let html = '<table class="compare-table">';
-    
-    // Row 1: Product Header (Images, Badges, & Titles)
     html += '<tr><th>Product</th>';
     products.forEach(p => {
       const isWishlisted = wishlist.includes(p.handle);
-      const onSale = p.compare_at_price > p.price;
+      const onSale = p.compare_at_price && p.compare_at_price > p.price;
       const isNew = p.tags && (p.tags.includes('new') || p.tags.includes('New'));
-      
+
+      const priceHtml = onSale
+        ? `<s style="color:var(--aura-brand-text-muted); opacity:0.6; font-size:1.2rem; font-weight:400; display:block; margin-bottom:2px;">${window.AuraFeatures.formatMoney(p.compare_at_price)}</s>` +
+          `<span class="compare-price" style="font-weight: 500; font-size: 1.5rem;">${p.price_varies ? window.AuraFeatures.formatMoney(p.price_min) + ' — ' + window.AuraFeatures.formatMoney(p.price_max) : window.AuraFeatures.formatMoney(p.price)}</span>`
+        : `<span class="compare-price" style="font-weight: 500; font-size: 1.5rem;">${p.price_varies ? window.AuraFeatures.formatMoney(p.price_min) + ' — ' + window.AuraFeatures.formatMoney(p.price_max) : window.AuraFeatures.formatMoney(p.price)}</span>`;
+
       html += `
         <td class="compare-product-cell">
-          ${onSale ? '<span class="compare-badge badge--sale">Sale</span>' : ''}
-          ${isNew ? '<span class="compare-badge badge--new">New</span>' : ''}
-          
-          <button class="compare-action-btn btn-remove" onclick="window.AuraFeatures.toggleCompare('${p.handle}'); renderCompare();" title="Remove">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-          <button class="compare-action-btn btn-wishlist ${isWishlisted ? 'is-active' : ''}" onclick="window.AuraFeatures.toggleWishlist('${p.handle}'); renderCompare();" title="Wishlist">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <button class="compare-action-btn btn-remove" onclick="window.AuraFeatures.toggleCompare('${p.handle}'); renderCompare();" title="Remove item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
           </button>
           <div class="compare-product-image-wrapper">
+            ${onSale ? '<span class="compare-badge badge--sale" style="position: absolute; right: 0.5rem; top: 0.5rem; z-index: 10;">Sale</span>' : ''}
+            ${isNew ? '<span class="compare-badge badge--new" style="position: absolute; left: 0.5rem; top: 0.5rem; z-index: 10;">New</span>' : ''}
             <a href="${p.url}"><img src="${p.featured_image}" class="compare-product-image"></a>
           </div>
           <div class="compare-product-title"><a href="${p.url}" style="text-decoration:none; color:inherit;">${p.title}</a></div>
-          <div class="compare-price-row">
-            ${onSale ? `<span class="compare-compare-price">${window.AuraFeatures.formatMoney(p.compare_at_price)}</span>` : ''}
-            <span class="compare-price">${window.AuraFeatures.formatMoney(p.price)}</span>
-          </div>
+          <div class="compare-price-row">${priceHtml}</div>
         </td>
       `;
     });
     html += '</tr>';
+
 
     // Row: Category
     html += '<tr><th>Category</th>';
@@ -394,20 +484,25 @@
     });
     html += '</tr>';
 
-    // Row: Specifications (Matching Product Page Logic)
+    // Row: Specifications — reads from cache (populated by parallel page fetch above)
     html += '<tr><th>Quick Specs</th>';
     products.forEach(p => {
-      const specStr = details[p.handle] || '';
-      const specs = specStr.split('|')
-        .map(s => s.trim())
-        .filter(s => s && !s.includes('gid://'));
-      
-      const specHtml = specs.length > 0 
-        ? `<div style="text-align:left; font-size:var(--aura-font-size-xs); line-height:1.6;">${specs.map(s => `<div style="margin-bottom:8px; display:flex; gap:8px;"><span style="color:var(--aura-brand-gold);">•</span> <span>${s}</span></div>`).join('')}</div>`
-        : '<span style="color:#bbb; font-style:italic;">Standard Details</span>';
-      html += `<td>${specHtml}</td>`;
+      const rows = window._auraSpecsCache[p.handle] || [];
+      let specHtml = '<span style="color:var(--aura-brand-text-muted); opacity:0.4; font-style:italic;">—</span>';
+      if (rows.length > 0) {
+        specHtml = '<div style="text-align:left; line-height:1.9;">' +
+          rows.map(r =>
+            '<div style="display:grid; grid-template-columns: 140px 1fr; gap:8px; align-items:baseline; border-bottom: 1px solid rgba(var(--aura-brand-dark-rgb), 0.04); padding: 5px 0;">' +
+            '<span style="font-size:1rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--aura-brand-gold); font-weight:600;">' + r.label + '</span>' +
+            '<span style="font-size:1.2rem; color:var(--aura-brand-text-main);">' + r.value + '</span>' +
+            '</div>'
+          ).join('') +
+        '</div>';
+      }
+      html += '<td>' + specHtml + '</td>';
     });
     html += '</tr>';
+
 
     // Row: Variations (Full List)
     html += '<tr><th>Variations</th>';
@@ -418,7 +513,7 @@
       const colorList = colorOpt ? colorOpt.values.join(', ') : 'N/A';
       
       html += `
-        <td style="font-size:1.2rem; color:#555;">
+        <td style="font-size:1.2rem; color:var(--aura-brand-text-muted);">
           <div style="margin-bottom:10px;"><strong>Sizes:</strong> ${sizeList}</div>
           <div><strong>Colors:</strong> ${colorList}</div>
         </td>
@@ -433,6 +528,10 @@
         <td>
           <div class="action-buttons-grid">
             <button class="btn-compare-action btn-cart" onclick="addToCartFromWishlist('${p.variants[0].id}', this)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
               Add to Cart
             </button>
             <button class="btn-compare-action btn-buy-now" onclick="buyItNowFromCompare('${p.variants[0].id}')">
@@ -447,6 +546,9 @@
     html += '</table>';
     container.innerHTML = html;
   }
+
+  // Make renderCompare async to support await for metafields
+  // (already declared async above)
 
   function buyItNowFromCompare(variantId) {
     window.location.href = `/cart/${variantId}:1`;

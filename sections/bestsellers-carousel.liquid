@@ -651,7 +651,9 @@
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag: 'bs-card-img-primary' }}
                 {%- endif -%}
-                <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')">Quick Add</div>
+                {%- if product.available -%}
+                  <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')">Quick Add</div>
+                {%- endif -%}
               </div>
               <div class="bs-card-info">
                 <h3 class="bs-card-title">{{ product.title }}</h3>

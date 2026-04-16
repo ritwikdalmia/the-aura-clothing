@@ -45,7 +45,12 @@ function initQuickAddVariants(container) {
 
 function updateProductVariant(container) {
     const selectedOptions = Array.from(container.querySelectorAll('.na-qv-option.active')).map(o => o.dataset.value);
-    const variants = window.qvVariants;
+    
+    // Parse variants from hidden JSON script tag
+    const variantDataTag = container.querySelector('#naQvVariantData');
+    if (!variantDataTag) return;
+    
+    const variants = JSON.parse(variantDataTag.textContent);
     
     const matchedVariant = variants.find(v => {
         return v.options.every((opt, index) => opt === selectedOptions[index]);
@@ -63,6 +68,14 @@ function updateProductVariant(container) {
         
         // Update Buy Now
         container.querySelector('.na-qv-buy-btn').dataset.variantId = matchedVariant.id;
+        
+        if (matchedVariant.available) {
+            container.querySelector('.na-qv-buy-btn').disabled = false;
+            container.querySelector('.na-qv-buy-btn').style.display = 'block';
+        } else {
+            container.querySelector('.na-qv-buy-btn').disabled = true;
+            container.querySelector('.na-qv-buy-btn').style.display = 'none';
+        }
         
         // Update Image if variant has featured media
         if (matchedVariant.featured_media) {
@@ -82,32 +95,52 @@ function updateQvQty(btn, delta) {
 
 async function addQvToCart(btn) {
     const variantId = btn.dataset.variantId;
-    const qty = btn.closest('.na-modal-body').querySelector('.na-qv-qty-val').value;
+    const qtyInput = btn.closest('.na-modal-body').querySelector('.na-qv-qty-val');
+    const qty = qtyInput ? qtyInput.value : 1;
+    const originalText = btn.innerText;
     
-    btn.innerText = 'Adding...';
+    btn.innerHTML = '<span class="na-loader"></span> Adding...';
     btn.disabled = true;
 
+    // Get the cart drawer instance to request updated sections
+    const cartDrawer = document.querySelector('cart-drawer');
+    const sections = cartDrawer ? cartDrawer.getSectionsToRender().map((section) => section.id) : [];
+
     try {
-        await fetch(window.Shopify.routes.root + 'cart/add.js', {
+        const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: [{ id: variantId, quantity: qty }] })
+            body: JSON.stringify({ 
+                items: [{ id: variantId, quantity: qty }],
+                sections: sections,
+                sections_url: window.location.pathname
+            })
         });
         
-        // Close modal
-        closeNaModal();
-        
-        // Refresh cart drawer
-        if (typeof cartRefresh === 'function') {
-            cartRefresh();
-        } else {
-            // Fallback: search for cart drawer trigger or refresh page
-            document.dispatchEvent(new CustomEvent('cart:refresh'));
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.description || data.message || 'Error adding to cart');
         }
+        
+        // Success feedback
+        btn.innerText = 'Added!';
+        
+        // Trigger the drawer refresh immediately
+        if (cartDrawer && typeof cartDrawer.renderContents === 'function') {
+            cartDrawer.renderContents(data);
+        }
+        
+        // Close modal after a short delay
+        setTimeout(() => {
+            closeNaModal();
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }, 1000);
+        
     } catch (e) {
-        alert('Could not add to cart. Please try again.');
-    } finally {
-        btn.innerText = 'Add to cart';
+        alert(e.message);
+        btn.innerText = originalText;
         btn.disabled = false;
     }
 }

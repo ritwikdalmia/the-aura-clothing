@@ -67,7 +67,9 @@
         {%- endif -%}
       </div>
       
-      <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ card_product.url }}')">Quick Add</div>
+      {%- if card_product.available -%}
+        <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ card_product.url }}')">Quick Add</div>
+      {%- endif -%}
     </div>
     
     <div class="na-card-info">

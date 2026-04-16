@@ -100,8 +100,8 @@ const AuraFeatures = {
       delete details[handle];
       this.notify('Removed from Compare');
     } else {
-      if (list.length >= 4) {
-        this.notify('You can only compare up to 4 products');
+      if (list.length >= 2) {
+        this.notify('You can only compare up to 2 products');
         return false;
       }
       list.push(handle);

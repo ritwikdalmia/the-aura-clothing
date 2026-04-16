@@ -404,3 +404,82 @@ quick-add-bulk .quantity__input {
 .quantity__input-disabled {
   pointer-events: none;
 }
+
+/* ============================
+   Aura Custom Quick Add / Loader
+   ============================ */
+
+.na-loader {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: na-spin 0.8s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes na-spin {
+    to { transform: rotate(360deg); }
+}
+
+.na-qv-add-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #ccc !important;
+    border-color: #ccc !important;
+    color: #666 !important;
+}
+
+/* Premium Quick View Styling */
+#naQuickAddModal {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.na-modal-content {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.na-qv-badge-row {
+    margin-bottom: 2rem;
+}
+
+.na-qv-badge {
+    background: var(--aura-brand-sale, #e63946);
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.na-qv-urgency {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e63946;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(230, 57, 70, 0.05);
+    border-radius: 8px;
+}
+
+.na-qv-urgency svg {
+    animation: aura-pulse 2s infinite;
+}
+
+@keyframes aura-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}

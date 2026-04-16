@@ -91,6 +91,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-accordion icon-lightning-bolt" viewBox="0 0 20 20"><path fill="currentColor" d="M14.68.162a.5.5 0 0 1 .22.582l-2.384 7.468 4.178 1a.5.5 0 0 1 .242.834l-9.373 9.649a.5.5 0 0 1-.824-.533l2.965-7.481-4.47-1.07a.5.5 0 0 1-.245-.831L14.062.247a.5.5 0 0 1 .617-.085M6.311 9.84l4.186 1.002a.5.5 0 0 1 .348.67L8.593 17.2l7.014-7.22-3.847-.921a.5.5 0 0 1-.36-.639l1.886-5.907z"/></svg>
                   {%- endif -%}
                 </span>
+              {%- else -%}
+                <!-- Always show cart icon when no icon type set -->
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:6px;vertical-align:middle;">
+                  <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
               {%- endif -%}
               
               {%- if product.selected_or_first_available_variant == null -%}

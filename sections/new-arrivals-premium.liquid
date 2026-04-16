@@ -577,7 +577,9 @@
               {%- else -%}
                 {{ 'product-1' | placeholder_svg_tag: 'na-card-img-primary' }}
               {%- endif -%}
-              <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')">Quick Add</div>
+              {%- if product.available -%}
+                <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')">Quick Add</div>
+              {%- endif -%}
             </div>
             <div class="na-card-info">
               <h3 class="na-card-title">{{ product.title }}</h3>

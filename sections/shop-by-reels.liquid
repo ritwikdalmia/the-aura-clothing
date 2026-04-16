@@ -1083,9 +1083,11 @@
                       </p>
                     </div>
                   </div>
-                  <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')" aria-label="Quick Add">
-                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                  </button>
+                  {%- if product.available -%}
+                    <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')" aria-label="Quick Add">
+                      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                  {%- endif -%}
                 </a>
               {%- elsif product_name != blank -%}
                 <a href="{{ product_link | default: '#' }}" class="reel-product-bar">
