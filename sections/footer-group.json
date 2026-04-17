@@ -47,9 +47,6 @@
         "text_color": "#ffffff",
         "heading_color": "#ffffff",
         "accent_color": "#ffffff",
-        "show_newsletter": true,
-        "newsletter_title": "Join The Aura",
-        "newsletter_subtitle": "Subscribe to receive updates, access to exclusive deals, and more.",
         "show_payment_icons": true,
         "padding_top": 80
       }
