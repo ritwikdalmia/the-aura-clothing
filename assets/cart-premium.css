@@ -9,10 +9,50 @@
 .cart-drawer .cart__blocks,
 .cart-drawer .totals,
 .cart-drawer .quantity,
-.cart-drawer .quantity-popover-container {
+.cart-drawer .quantity-popover-container,
+.cart-drawer .cart-items th,
+.cart-drawer details,
+.cart-drawer .cart-remove-button,
+.cart-drawer textarea,
+.cart-drawer .text-area,
+.cart-drawer .field,
+.cart-drawer .field__input {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
+  box-sizing: border-box !important;
+  background-image: none !important;
+}
+
+/* THE AURA: Kill the Dawn "Box" Border Artifacts */
+.cart-drawer button::after,
+.cart-drawer .button::after,
+.cart-drawer .quantity::after,
+.cart-drawer .quantity-popover-container::after,
+.cart-drawer .quantity__button::after,
+.cart-drawer .cart-remove-button::after,
+.cart-drawer textarea::after,
+.cart-drawer .text-area::after,
+.cart-drawer .field::after,
+.cart-drawer .field::before,
+.cart-drawer .field__input::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Global focus reset for the drawer */
+.cart-drawer *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure no foreground color fallbacks */
+.drawer__overlay {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.drawer__close, .drawer__close-btn {
+  color: #fff !important;
 }
 
 /* ── Full-Height Experience ── */
@@ -22,6 +62,15 @@
   flex-direction: column !important;
   background: var(--aura-bg-warm) !important;
   padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.drawer__inner-empty {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
 }
 
 .drawer__contents {
@@ -34,7 +83,9 @@
 cart-drawer-items {
   flex: 1 !important;
   overflow-y: auto !important;
-  padding: 0 1.5rem !important;
+  padding: 2rem 1.5rem 1.5rem !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--aura-brand-gold) transparent !important;
 }
 
 /* ── Drawer Header ── */
@@ -129,14 +180,14 @@ cart-drawer-items {
 
 /* ── Quantity Selector (Aggressive Pill Fix) ── */
 .cart-item-card .quantity.cart-quantity {
-  background: rgba(0,0,0,0.04) !important;
+  background: var(--aura-brand-gold) !important;
   border: none !important;
   border-radius: 50px !important;
   height: 38px !important;
-  width: 100px !important;
+  width: 110px !important;
   display: flex !important;
   align-items: center !important;
-  padding: 0 4px !important;
+  padding: 0 8px !important;
 }
 
 .cart-item-card .quantity__button {
@@ -146,7 +197,12 @@ cart-drawer-items {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: rgba(0,0,0,0.4) !important;
+  color: #fff !important;
+  transition: all 0.2s ease !important;
+}
+
+.cart-item-card .quantity__button:hover {
+  background: rgba(255,255,255,0.1) !important;
 }
 
 .cart-item-card .quantity__input {
@@ -154,48 +210,153 @@ cart-drawer-items {
   background: transparent !important;
   text-align: center !important;
   font-weight: 700 !important;
-  color: var(--aura-brand-text-main) !important;
+  color: #fff !important;
   font-size: 1.4rem !important;
-  width: 100% !important;
+  width: 40px !important; 
+  padding: 0 !important;
+}
+
+.cart-item-card__actions-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 1.2rem !important;
+  margin-top: 1.5rem !important;
 }
 
 /* ── Delete Button ── */
 .cart-remove-button {
-  color: rgba(0,0,0,0.25) !important;
-  transition: all 0.3s ease !important;
+  color: rgba(0,0,0,0.3) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: rgba(0,0,0,0.03) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 0 !important;
 }
 
 .cart-remove-button:hover {
-  color: #e63946 !important;
-  transform: scale(1.15) !important;
+  color: #fff !important;
+  background: #e63946 !important;
+  transform: scale(1.1) rotate(5deg) !important;
 }
 
 /* ── Drawer Footer ── */
 .drawer__footer {
   margin-top: auto !important;
-  padding: 3rem 2.5rem !important;
+  padding: 1.5rem 2.5rem !important;
   background: #fff !important;
   border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* ── Order Special Instructions Box ── */
+#Details-CartDrawer {
+  margin-bottom: 1rem !important;
+}
+
+#Details-CartDrawer summary {
+  display: flex !important;
+  align-items: center !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--aura-brand-text-main) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  cursor: pointer !important;
+  padding: 1rem 0 !important;
+  list-style: none !important;
+  border: none !important;
+}
+
+#Details-CartDrawer summary::after,
+#Details-CartDrawer summary::before,
+.cart__note .field::after,
+.cart__note .field::before {
+  display: none !important;
+  content: none !important;
+}
+
+#Details-CartDrawer summary span {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+}
+
+#Details-CartDrawer summary svg {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  transition: transform 0.3s ease !important;
+  color: var(--aura-brand-gold) !important;
+}
+
+#Details-CartDrawer[open] summary svg {
+  transform: rotate(180deg) !important;
+}
+
+.cart__note {
+  margin-top: 1rem !important;
+}
+
+#CartDrawer-Note {
+  background: color-mix(in srgb, var(--aura-brand-gold), transparent 94%) !important;
+  border: 1px solid color-mix(in srgb, var(--aura-brand-gold), transparent 80%) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  font-size: 1.4rem !important;
+  color: var(--aura-brand-text-main) !important;
+  width: 100% !important;
+  min-height: 100px !important;
+  outline: none !important;
+  transition: all 0.3s ease !important;
+  resize: vertical !important;
+  box-shadow: none !important;
+}
+
+#CartDrawer-Note:focus {
+  background: color-mix(in srgb, var(--aura-brand-gold), transparent 90%) !important;
+  border-color: var(--aura-brand-gold) !important;
+  box-shadow: 0 0 0 1px var(--aura-brand-gold) !important;
+}
+
+.totals__total {
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  color: var(--aura-brand-text-main) !important;
+  margin: 0 !important;
+  text-transform: capitalize !important;
 }
 
 .totals__total-value {
   font-size: 2.2rem !important;
   font-weight: 700 !important;
-  color: var(--aura-brand-text-main) !important;
+  color: var(--aura-brand-gold) !important;
+  margin: 0 !important;
+}
+
+.tax-note {
+  margin: 0.5rem 0 1rem !important;
 }
 
 .cart__checkout-button {
   width: 100% !important;
-  background: var(--aura-brand-text-main) !important;
+  background: var(--aura-brand-gold) !important;
   color: #fff !important;
   border-radius: 50px !important;
-  padding: 1.8rem !important;
+  padding: 1.5rem !important;
   font-size: 1.3rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   transition: all 0.3s ease !important;
-  margin-top: 2rem !important;
+  margin-top: 0.5rem !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), 0.3) !important;
 }
 
 .cart__checkout-button:hover {
@@ -208,8 +369,16 @@ cart-drawer-items {
   display: flex !important;
   justify-content: center !important;
   gap: 2rem !important;
-  margin-bottom: 2rem !important;
-  opacity: 0.6 !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 1.5rem !important;
+  opacity: 0.8 !important;
+  width: 100% !important;
+}
+
+.cart__ctas {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 
 .na-trust-item {
@@ -234,7 +403,33 @@ cart-drawer-items::-webkit-scrollbar-thumb {
   border-radius: 10px !important;
 }
 
-/* ── Empty State ── */
+/* ── Alerts & Errors (Premium Brand Styling) ── */
+.cart-item__error,
+#CartDrawer-CartErrors {
+  background: color-mix(in srgb, var(--aura-brand-gold), transparent 94%) !important;
+  border: 1px solid color-mix(in srgb, var(--aura-brand-gold), transparent 80%) !important;
+  border-radius: 12px !important;
+  padding: 1.2rem !important;
+  margin-top: 1rem !important;
+  color: var(--aura-brand-gold) !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  display: none; /* Hidden by default by Dawn JS */
+}
+
+/* Show when containing text */
+.cart-item__error:not(:empty),
+#CartDrawer-CartErrors:not(:empty) {
+  display: block !important;
+}
+
+.cart-item__error-text {
+  color: inherit !important;
+}
+
+/* Empty State Adjustments */
 .cart-drawer__empty-visual { font-size: 5rem !important; opacity: 0.1 !important; margin-bottom: 2rem !important; }
 .cart__empty-text { font-size: 2.2rem !important; letter-spacing: 0.1em !important; font-weight: 300 !important; color: var(--aura-brand-text-main) !important; }
 .boutique-button { background: var(--aura-brand-gold) !important; color: #fff !important; border-radius: 50px !important; padding: 1.4rem 3.5rem !important; margin-top: 2.5rem !important; }

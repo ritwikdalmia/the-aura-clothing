@@ -8,20 +8,26 @@ class CartDrawer extends HTMLElement {
   }
 
   setHeaderCartIconAccessibility() {
-    const cartLink = document.querySelector('#cart-icon-bubble');
-    if (!cartLink) return;
+    const cartIconSelector = '#cart-icon-bubble, .header__icon--cart, [href="/cart"]';
+    
+    // Delegate click and keydown to document body to catch icons even if header re-renders
+    document.body.addEventListener('click', (event) => {
+      const cartLink = event.target.closest(cartIconSelector);
+      if (!cartLink) return;
+      
+      // Don't intercept if it's meant to be a normal link (unlikely but safe)
+      if (cartLink.classList.contains('no-drawer')) return;
 
-    cartLink.setAttribute('role', 'button');
-    cartLink.setAttribute('aria-haspopup', 'dialog');
-    cartLink.addEventListener('click', (event) => {
       event.preventDefault();
       this.open(cartLink);
     });
-    cartLink.addEventListener('keydown', (event) => {
-      if (event.code.toUpperCase() === 'SPACE') {
-        event.preventDefault();
-        this.open(cartLink);
-      }
+
+    document.body.addEventListener('keydown', (event) => {
+      const cartLink = event.target.closest(cartIconSelector);
+      if (!cartLink || event.code.toUpperCase() !== 'SPACE') return;
+
+      event.preventDefault();
+      this.open(cartLink);
     });
   }
 
@@ -82,8 +88,10 @@ class CartDrawer extends HTMLElement {
   }
 
   renderContents(parsedState) {
-    this.querySelector('.drawer__inner').classList.contains('is-empty') &&
-      this.querySelector('.drawer__inner').classList.remove('is-empty');
+    this.classList.remove('is-empty');
+    if (this.querySelector('cart-drawer-items')) {
+      this.querySelector('cart-drawer-items').classList.remove('is-empty');
+    }
     this.productId = parsedState.id;
     this.getSectionsToRender().forEach((section) => {
       const sectionElement = section.selector

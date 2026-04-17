@@ -101,7 +101,11 @@ if (!customElements.get('product-form')) {
           })
           .finally(() => {
             this.submitButton.classList.remove('loading');
-            if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
+            if (this.cart) {
+              this.cart.classList.remove('is-empty');
+              const cartItems = this.cart.querySelector('cart-drawer-items');
+              if (cartItems) cartItems.classList.remove('is-empty');
+            }
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
             this.querySelector('.loading__spinner').classList.add('hidden');
 

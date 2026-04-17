@@ -28,6 +28,24 @@
       aria-label="{{ 'sections.cart.title' | t }}"
       tabindex="-1"
     >
+      <div class="drawer__header">
+        <h2 class="drawer__heading">
+          {{ 'sections.cart.title' | t | upcase }}
+          <span class="drawer__count-pill" id="CartDrawer-Count">{{ cart.item_count }}</span>
+        </h2>
+        <button
+          class="drawer__close-btn"
+          type="button"
+          onclick="this.closest('cart-drawer').close()"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
       {%- if cart == empty -%}
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center">
@@ -47,26 +65,6 @@
           </div>
         </div>
       {%- endif -%}
-
-
-
-      <div class="drawer__header">
-        <h2 class="drawer__heading">
-          {{ 'sections.cart.title' | t | upcase }}
-          <span class="drawer__count-pill" id="CartDrawer-Count">{{ cart.item_count }}</span>
-        </h2>
-        <button
-          class="drawer__close-btn"
-          type="button"
-          onclick="this.closest('cart-drawer').close()"
-          aria-label="{{ 'accessibility.close' | t }}"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -235,33 +233,11 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
 
-        {% comment %} --- THE AURA PREMIUM: UPSELL SECTION --- {% endcomment %}
+        {% comment %} --- THE AURA PREMIUM: UPSELL SECTION (REMOVED AS PER REQUEST) ---
         {%- if settings.cart_drawer_collection != blank and cart != empty -%}
-          <div class="na-cart-upsells" style="padding: 1.5rem; border-top: 1px solid #eee;">
-            <p style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Complete The Look</p>
-            <div class="na-upsell-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-              {%- for product in settings.cart_drawer_collection.products limit: 3 -%}
-                <div class="na-upsell-item" style="text-align: center;">
-                  <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
-                    <div style="aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; margin-bottom: 0.5rem; border: 1px solid #eee;">
-                      <img src="{{ product.featured_image | image_url: width: 200 }}" 
-                           alt="{{ product.title }}" 
-                           style="width: 100%; height: 100%; object-fit: cover;"
-                           width="200"
-                           height="200"
-                           loading="lazy">
-                    </div>
-                    <p style="font-size: 1rem; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ product.title }}</p>
-                    <p style="font-size: var(--aura-font-size-xs); color: var(--aura-brand-gold); margin: 0;">{{ product.price | money }}</p>
-                  </a>
-                   <button type="button" 
-                           onclick="openQuickAdd('{{ product.url }}')"
-                           class="na-upsell-add-btn">+</button>
-                </div>
-              {%- endfor -%}
-            </div>
-          </div>
+          ...
         {%- endif -%}
+        {% endcomment %}
       </cart-drawer-items>
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
@@ -350,6 +326,19 @@
 
         <!-- CTAs -->
         <div class="cart__ctas" {{ block.shopify_attributes }}>
+          <button
+            type="submit"
+            id="CartDrawer-Checkout"
+            class="cart__checkout-button button"
+            name="checkout"
+            form="CartDrawer-Form"
+            {% if cart == empty %}
+              disabled
+            {% endif %}
+          >
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+
           <div class="na-cart-trust">
              <div class="na-trust-item">
                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -364,20 +353,6 @@
                <span>Premium</span>
              </div>
           </div>
-
-
-          <button
-            type="submit"
-            id="CartDrawer-Checkout"
-            class="cart__checkout-button button"
-            name="checkout"
-            form="CartDrawer-Form"
-            {% if cart == empty %}
-              disabled
-            {% endif %}
-          >
-            {{ 'sections.cart.checkout' | t }}
-          </button>
         </div>
       </div>
     </div>

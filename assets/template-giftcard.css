@@ -1,324 +1,329 @@
-/* Base */
+/* 
+  Aura Premium Gift Card Styles - Final Responsive Polish
+  Optimized for theme integration and fluid scaling
+*/
+
+:root {
+  --aura-glass-bg: rgba(255, 255, 255, 0.03);
+  --aura-glass-border: rgba(255, 255, 255, 0.1);
+  --aura-card-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+}
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
 
-a:empty,
-ul:empty,
-dl:empty,
-div:empty,
-section:empty,
-article:empty,
-p:empty,
-h1:empty,
-h2:empty,
-h3:empty,
-h4:empty,
-h5:empty,
-h6:empty {
-  display: none;
+/* Page Wrapper - Integrated with theme */
+.gift-card-page-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  background-color: var(--aura-brand-bg-warm);
+  background: radial-gradient(circle at center, var(--aura-brand-bg-warm) 0%, #ede7e3 100%);
+  min-height: calc(100vh - 200px); /* Adjust for header/footer */
 }
 
-html {
-  font-size: calc(var(--font-body-scale) * 62.5%);
-  box-sizing: border-box;
+/* Background Decorative Icons - Non-intrusive */
+.gift-card__decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
 
-body {
-  background-color: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
-  letter-spacing: 0.07rem;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
-  max-width: var(--page-width);
+.decor-item {
+  position: absolute;
+  opacity: 0.12;
+  color: var(--aura-brand-gold);
+  animation: floatIcon 15s ease-in-out infinite;
+}
+
+.decor-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.item-1 { top: 10%; left: 5%; width: 120px; animation-delay: 0s; }
+.item-2 { top: 25%; right: 5%; width: 100px; animation-delay: 2s; }
+.item-3 { bottom: 20%; left: 8%; width: 140px; animation-delay: 4s; }
+.item-4 { bottom: 15%; right: 8%; width: 110px; animation-delay: 6s; }
+.item-5 { top: 50%; left: 2%; width: 80px; animation-delay: 8s; }
+.item-6 { bottom: 40%; right: 2%; width: 130px; animation-delay: 10s; }
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-40px) rotate(15deg); }
+}
+
+/* Main Gift Card Unit */
+.gift-card {
+  width: 100%;
+  max-width: 580px;
   margin: 0 auto;
-  flex: 1 0 auto;
-  font-family: var(--font-body-family);
-  font-style: var(--font-body-style);
-  font-weight: var(--font-body-weight);
+  z-index: 10;
+  animation: auraSlideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@media only screen and (min-width: 750px) {
-  body {
-    line-height: calc(1 + 0.8 / var(--font-body-scale));
-  }
+@keyframes auraSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-::selection {
-  background-color: rgba(var(--color-foreground), 0.2);
+/* Header Section */
+.gift-card__header {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
-h1,
-.h1,
-h2,
-.h2 {
+.header-logo-container {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 2rem;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 3px solid var(--aura-brand-gold);
+  overflow: hidden;
+}
+
+.header-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.gift-card__balance-display h1 {
   font-family: var(--font-heading-family);
-  font-style: var(--font-heading-style);
-  font-weight: var(--font-heading-weight);
-  letter-spacing: calc(var(--font-heading-scale) * 0.06rem);
-  line-height: calc(1 + 0.3 / max(1, var(--font-heading-scale)));
+  font-size: clamp(3.6rem, 8vw, 5.2rem);
+  font-weight: 300;
+  margin: 0;
+  color: var(--aura-brand-gold);
+  letter-spacing: -0.02em;
+}
+
+.balance-label {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--aura-brand-text-muted);
+  margin-top: 0.8rem;
+}
+
+/* The Card Body */
+.gift-card__main-unit {
+  position: relative;
+  background: white;
+  border-radius: 32px;
+  padding: 5rem 3.5rem;
+  box-shadow: var(--aura-card-shadow);
+  border: 1px solid rgba(0,0,0,0.02);
   text-align: center;
 }
 
-h1,
-.h1 {
-  font-size: calc(var(--font-heading-scale) * 3rem);
+/* QR Code */
+.gift-card__qr-code {
+  margin-bottom: 3.5rem;
+  display: flex;
+  justify-content: center;
 }
 
-@media only screen and (min-width: 750px) {
-  h1,
-  .h1 {
-    font-size: calc(var(--font-heading-scale) * 4rem);
-  }
+.gift-card__qr-code img, .gift-card__qr-code canvas {
+  padding: 15px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+  border: 1px solid #f2f2f2;
+  max-width: 140px;
+  height: auto;
 }
 
-h2,
-.h2 {
-  font-size: calc(var(--font-heading-scale) * 2rem);
+.gift-card__shop-name {
+  font-family: var(--font-heading-family);
+  font-size: 2.6rem;
+  margin: 0 0 1.2rem;
+  font-weight: 500;
+  color: #000;
 }
 
-@media only screen and (min-width: 750px) {
-  h2,
-  .h2 {
-    font-size: calc(var(--font-heading-scale) * 2.4rem);
+.gift-card__instructions {
+  font-size: 1.5rem;
+  color: var(--aura-brand-text-muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Message Box */
+.gift-card__message-box {
+  background: #fdfaf7;
+  border-radius: 18px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  border: 1px solid #f5eddf;
+}
+
+.message-label {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--aura-brand-gold);
+  margin-bottom: 0.6rem;
+  font-weight: 800;
+}
+
+.message-content {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--aura-brand-text-main);
+  margin: 0;
+}
+
+/* Code Unit */
+.gift-card__code-container {
+  background: #f9f9f9;
+  border: 2px dashed #e0e0e0;
+  border-radius: 14px;
+  padding: 1.8rem;
+  margin-bottom: 4rem;
+  transition: all 0.3s ease;
+}
+
+.gift-card__code-container:hover {
+  border-color: var(--aura-brand-gold);
+  background: #fff;
+}
+
+.gift-card__number {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  letter-spacing: 0.35rem;
+  color: #000;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Buttons Polish */
+.gift-card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@media screen and (min-width: 500px) {
+  .gift-card__buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
   }
 }
 
 .button {
-  font-family: inherit;
-  cursor: pointer;
-  display: inline-flex;
-  justify-content: center;
+  height: 54px;
+  display: flex;
   align-items: center;
-  text-align: center;
-  border: none;
-  padding: 1.5rem 3rem;
+  justify-content: center;
+  padding: 0 2rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   text-decoration: none;
-  background-color: rgb(var(--color-button));
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-button));
-  color: rgb(var(--color-button-label));
-  min-width: 12rem;
-  height: auto;
-  font-size: 1.5rem;
-  letter-spacing: 0.1rem;
-  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  width: 100%;
+  position: relative;
+  border: none;
+  outline: none;
 }
 
-.button::selection {
-  background-color: rgba(var(--color-button-label), 0.3);
+.button::after, .button::before {
+  display: none !important;
 }
 
-.button:hover {
-  box-shadow: 0 0 0 0.2rem rgb(var(--color-button));
+.gift-card__copy-button {
+  background: var(--aura-brand-gold);
+  color: white;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(181, 150, 115, 0.3);
+}
+
+.gift-card__copy-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(181, 150, 115, 0.4);
 }
 
 .button--secondary {
-  color: rgb(var(--color-secondary-button-label));
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-secondary-button-label));
-  background-color: transparent;
-}
-
-.button--secondary::selection {
-  background-color: rgba(var(--color-secondary-button-label), 0.3);
+  background: white;
+  color: var(--aura-brand-dark) !important;
+  border: 1.5px solid var(--aura-brand-dark) !important;
+  box-shadow: none !important;
 }
 
 .button--secondary:hover {
-  box-shadow: 0 0 0 0.2rem rgb(var(--color-secondary-button-label));
+  background: var(--aura-brand-dark);
+  color: white !important;
 }
 
-@media (forced-colors: active) {
-  .button {
-    border: transparent solid 1px;
-  }
-}
-
-.gift-card {
-  padding: 3rem;
-}
-
-@media only screen and (min-width: 750px) {
-  .gift-card {
-    padding: 5rem 5rem 3rem;
-  }
-}
-
-.gift-card__image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin: 3rem auto;
-  max-width: 40rem;
-}
-
-.gift-card__image {
-  max-width: 100%;
-  height: auto;
-  object-fit: scale-down;
-  max-height: 26rem;
-}
-
-@media only screen and (min-width: 750px) {
-  .gift-card__image {
-    padding: 0;
-  }
-}
-
-.gift-card__price {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0rem 1rem;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 1px;
-  opacity: 0.8;
-}
-
-.gift-card__price h1 {
-  margin: 0;
-}
-
-.gift-card__number {
-  color: rgb(var(--color-foreground));
-  font-size: 1.8rem;
-  line-height: calc(1 + 0.6 / var(--font-body-scale));
-  text-align: center;
-  letter-spacing: 0.25rem;
-  opacity: 0.8;
-  margin: 3rem 0;
-}
-
-.gift-card__text-wrapper {
-  max-width: 30rem;
-  margin: 0 auto;
-}
-
-.gift-card__text {
-  text-align: center;
-  font-size: 1.7rem;
-  opacity: 0.6;
-  margin: 0;
-  line-height: calc(1 + 0.5 / var(--font-body-scale));
-}
-
-.badge {
-  border: 1px solid transparent;
-  border-radius: 4rem;
-  display: inline-block;
-  font-size: 1.2rem;
-  letter-spacing: 0.1rem;
-  line-height: 1;
-  padding: 0.6rem 1.3rem;
-  text-align: center;
-  background-color: rgb(var(--color-background));
-  border-color: rgba(var(--color-foreground), 0.04);
-  color: rgb(var(--color-foreground));
-}
-
-.badge--expired {
-  background-color: rgb(var(--color-soldout-badge));
-  color: rgb(var(--color-soldout-badge-label));
-  border-color: rgba(var(--color-soldout-badge-label), 0.04);
-}
-
-.gift-card__qr-code {
-  margin: 3rem 0;
-}
-
-.gift-card__qr-code img {
-  margin: 0 auto;
-}
-
-.gift_card__apple-wallet {
-  line-height: 0;
-  display: block;
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.gift-card__buttons {
-  display: flex;
-  flex-direction: column;
-  max-width: 25rem;
-  flex-wrap: wrap;
-  margin: 0 auto;
-}
-
-.gift-card__buttons > .button {
-  display: block;
-  margin: 1rem 0;
-}
-
-/*
-  Focus ring - default (with offset)
-*/
-
-/* Fallback - for browsers that don't support :focus-visible, a fallback is set for :focus */
-*:focus {
-  outline: 0;
-  box-shadow: none;
-}
-
-*:focus-visible {
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.3rem;
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-/* Fallback - for browsers that don't support :focus-visible, a fallback is set for :focus */
-.focused {
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
-  outline-offset: 0.3rem;
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-.button:focus-visible {
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-button)), 0 0 0 0.3rem rgb(var(--color-background)),
-    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-.button:focus {
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-button)), 0 0 0 0.3rem rgb(var(--color-background)),
-    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-.button--secondary:focus-visible {
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-secondary-button-label)), 0 0 0 0.3rem rgb(var(--color-background)),
-    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-.button--secondary:focus {
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-secondary-button-label)), 0 0 0 0.3rem rgb(var(--color-background)),
-    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-}
-
-.form__message {
-  align-items: center;
-  display: flex;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
-}
-
-.form__message .icon {
-  flex-shrink: 0;
-  height: 1.3rem;
-  margin-right: 0.5rem;
-  width: 1.3rem;
-}
-
+/* Print Overrides - Isolating the Card */
 @media print {
-  .no-print {
-    display: none;
+  /* Hide theme header and footer */
+  header.header, footer.footer, .header-wrapper, .section-footer-group, .shopify-section-group-header-group, .shopify-section-group-footer-group {
+    display: none !important;
+  }
+
+  .gift-card-page-wrapper {
+    background: white !important;
+    padding: 0 !important;
+    display: block !important;
+    min-height: auto !important;
+  }
+
+  .no-print { display: none !important; }
+
+  .gift-card { 
+    box-shadow: none !important; 
+    margin: 0 auto !important; 
+    width: 100% !important; 
+    max-width: 100% !important; 
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .gift-card__main-unit { 
+    box-shadow: none !important; 
+    border: 1px solid #eee !important; 
+    padding: 3rem !important;
+    border-radius: 16px !important;
+  }
+
+  .gift-card__header {
+    margin-bottom: 2rem !important;
   }
 }
 
-.gradient {
-  background: rgb(var(--color-background));
-  background: var(--gradient-background);
-  background-attachment: fixed;
+/* Responsive Scaling */
+@media screen and (max-width: 600px) {
+  .gift-card-page-wrapper { padding: 4rem 1.5rem; }
+  .gift-card__main-unit { padding: 4rem 2rem; border-radius: 24px; }
 }
