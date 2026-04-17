@@ -15,6 +15,9 @@
     background: transparent;
     overflow: hidden;
     position: relative;
+    --aura-gold: #a88b6a;
+    --aura-gold-light: #c9ab82;
+    --aura-bg-warm: #faf8f5;
   }
 
   .testim-container {
@@ -33,39 +36,47 @@
 
   .testim-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .testim-title {
-    font-size: 2.6rem;
-    font-weight: 500;
-    color: rgb(var(--color-foreground));
-    margin: 0;
-    letter-spacing: 0.05em;
+    font-size: clamp(3rem, 5vw, 4.2rem);
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 1rem;
+    letter-spacing: 0.02em;
+    font-family: var(--font-heading-family);
+    text-transform: capitalize;
   }
 
-  @media screen and (min-width: 750px) {
-    .testim-title {
-      font-size: 3.2rem;
-    }
+  .testim-subtitle {
+     font-size: 1.4rem;
+     color: #666;
+     letter-spacing: 0.15em;
+     text-transform: uppercase;
+     display: block;
+     margin-bottom: 0.5rem;
   }
 
   /* Carousel */
   .testim-carousel-wrapper {
     position: relative;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
   }
 
   .testim-track {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 1rem 0.5rem 3rem;
-    margin: -1rem -0.5rem -3rem;
+    padding: 2rem 0.5rem 4rem;
+    margin: -1rem -0.5rem -2rem;
     scroll-behavior: smooth;
   }
 
@@ -75,32 +86,33 @@
 
   @media screen and (min-width: 750px) {
     .testim-track {
-      gap: 30px;
+      gap: 32px;
     }
   }
 
   /* Card */
   .testim-card {
-    flex: 0 0 280px;
+    flex: 0 0 300px;
     scroll-snap-align: center;
     background: #ffffff;
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    position: relative;
   }
 
   .testim-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
   }
 
   @media screen and (min-width: 750px) {
     .testim-card {
-      flex: 0 0 calc(33.333% - 20px);
+      flex: 0 0 calc(33.333% - 22px);
     }
   }
 
@@ -108,9 +120,9 @@
   .testim-image-box {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.1 / 1;
     overflow: hidden;
-    background: #f0ece6;
+    background: var(--aura-bg-warm);
   }
 
   .testim-image-box img,
@@ -118,63 +130,92 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   .testim-card:hover .testim-image-box img {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 
   .testim-placeholder-svg {
     padding: 20%;
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   /* Content Box */
   .testim-content {
-    padding: 2.5rem 2rem;
+    padding: 3rem 2.5rem;
     text-align: center;
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+
+  .testim-quote-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 2rem;
+    fill: var(--aura-gold);
+    opacity: 0.2;
+  }
+
+  .testim-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+    color: var(--aura-gold);
+  }
+
+  .testim-stars svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .testim-text {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 0 2.5rem;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .testim-footer {
+    margin-top: auto;
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    padding-top: 2rem;
   }
 
   .testim-name-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    margin-bottom: 1.5rem;
+    gap: 8px;
   }
 
   .testim-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c2c2c;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   .testim-verified {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    background: #00B67A;
-    border-radius: 50%;
+    color: var(--aura-gold);
   }
 
   .testim-verified svg {
-    width: 10px;
-    height: 10px;
-    fill: #fff;
-  }
-
-  .testim-text {
-    font-size: 1.35rem;
-    line-height: 1.6;
-    color: #4a4a4a;
-    margin: 0;
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
   }
 
   /* Arrows */
@@ -182,60 +223,82 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    background: #e8e8e8;
+    width: 50px;
+    height: 50px;
+    background: #fff;
     border-radius: 50%;
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: none;
+    border: 1px solid rgba(0,0,0,0.05);
     z-index: 10;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
   .testim-arrow:hover {
-    background: #d8d8d8;
-    transform: translateY(-50%) scale(1.05);
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+  }
+  
+  .testim-arrow:hover svg {
+    fill: #fff;
   }
 
   .testim-arrow svg {
-    width: 14px;
-    height: 14px;
-    fill: #333;
+    width: 12px;
+    height: 12px;
+    fill: #1a1a1a;
+    transition: fill 0.3s ease;
   }
 
   .testim-arrow--prev {
-    left: -22px;
+    left: -25px;
   }
 
   .testim-arrow--next {
-    right: -22px;
+    right: -25px;
   }
 
-  @media screen and (min-width: 1300px) {
+  @media screen and (min-width: 1450px) {
     .testim-arrow {
       display: flex;
     }
-    .testim-arrow--prev { left: -60px; }
-    .testim-arrow--next { right: -60px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .testim-track {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .testim-card {
+        flex: 0 0 85%;
+    }
   }
 
 {%- endstyle -%}
 
 <div class="testim-section color-{{ section.settings.color_scheme }} gradient">
   <div class="testim-container section-{{ section.id }}-padding">
-    <div class="testim-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      <h2 class="testim-title">{{ section.settings.title | escape }}</h2>
-    </div>
+    
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="testim-header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.subtitle != blank -%}
+          <span class="testim-subtitle">{{ section.settings.subtitle }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="testim-title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
     <div class="testim-carousel-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <button class="testim-arrow testim-arrow--prev" aria-label="Previous" data-ts-prev>
-        <svg viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>
+        <svg viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
       </button>
       <button class="testim-arrow testim-arrow--next" aria-label="Next" data-ts-next>
-        <svg viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6 .1 34z"/></svg>
+        <svg viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
       </button>
 
       <div class="testim-track" data-ts-track>
@@ -243,43 +306,41 @@
           <div class="testim-card" {{ block.shopify_attributes }}>
             <div class="testim-image-box">
               {%- if block.settings.image != blank -%}
-                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="600" height="600">
+                <img src="{{ block.settings.image | image_url: width: 800 }}" 
+                     alt="{{ block.settings.name | escape }}" 
+                     loading="lazy" 
+                     width="{{ block.settings.image.width }}" 
+                     height="{{ block.settings.image.height }}">
               {%- else -%}
                 {{ 'image' | placeholder_svg_tag: 'testim-placeholder-svg' }}
               {%- endif -%}
             </div>
             <div class="testim-content">
-              <div class="testim-name-row">
-                <h3 class="testim-name">{{ block.settings.name }}</h3>
-                {%- if block.settings.show_verified -%}
-                  <span class="testim-verified" title="Verified Buyer">
-                    <svg viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
-                  </span>
-                {%- endif -%}
+              <svg class="testim-quote-icon" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              
+              {%- if section.settings.show_stars -%}
+                <div class="testim-stars">
+                  {%- for i in (1..block.settings.star_rating) -%}
+                    <svg viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.8 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/></svg>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+
+              <p class="testim-text">"{{ block.settings.review_text | strip_html }}"</p>
+              
+              <div class="testim-footer">
+                <div class="testim-name-row">
+                  <h3 class="testim-name">{{ block.settings.name }}</h3>
+                  {%- if block.settings.show_verified -%}
+                    <span class="testim-verified" title="Verified Buyer">
+                      <svg viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+                    </span>
+                  {%- endif -%}
+                </div>
               </div>
-              <p class="testim-text">{{ block.settings.review_text | newline_to_br }}</p>
             </div>
           </div>
         {%- endfor -%}
-
-        {%- if section.blocks.size == 0 -%}
-          {%- for i in (1..4) -%}
-            <div class="testim-card">
-              <div class="testim-image-box">
-                {{ 'image' | placeholder_svg_tag: 'testim-placeholder-svg' }}
-              </div>
-              <div class="testim-content">
-                <div class="testim-name-row">
-                  <h3 class="testim-name">Customer Name</h3>
-                  <span class="testim-verified">
-                    <svg viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
-                  </span>
-                </div>
-                <p class="testim-text">This is such a pretty dress. Such soft material slipped like butter on me. I was initially worried... ✨</p>
-              </div>
-            </div>
-          {%- endfor -%}
-        {%- endif -%}
       </div>
     </div>
   </div>
@@ -287,27 +348,37 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.testim-carousel-wrapper').forEach(function (wrapper) {
-      var track = wrapper.querySelector('[data-ts-track]');
-      var prevBtn = wrapper.querySelector('[data-ts-prev]');
-      var nextBtn = wrapper.querySelector('[data-ts-next]');
-      if (!track) return;
+    const initCarousel = () => {
+        document.querySelectorAll('.testim-carousel-wrapper').forEach(function (wrapper) {
+          var track = wrapper.querySelector('[data-ts-track]');
+          var prevBtn = wrapper.querySelector('[data-ts-prev]');
+          var nextBtn = wrapper.querySelector('[data-ts-next]');
+          if (!track) return;
 
-      function scrollNext() {
-        var card = track.querySelector('.testim-card');
-        var cardWidth = card ? card.offsetWidth + 30 : 310;
-        track.scrollBy({ left: cardWidth, behavior: 'smooth' });
-      }
+          function scrollNext() {
+            var card = track.querySelector('.testim-card');
+            var cardWidth = card ? card.offsetWidth + 32 : 332;
+            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+          }
 
-      function scrollPrev() {
-        var card = track.querySelector('.testim-card');
-        var cardWidth = card ? card.offsetWidth + 30 : 310;
-        track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-      }
+          function scrollPrev() {
+            var card = track.querySelector('.testim-card');
+            var cardWidth = card ? card.offsetWidth + 32 : 332;
+            track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+          }
 
-      if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
-      if (nextBtn) nextBtn.addEventListener('click', scrollNext);
-    });
+          if (prevBtn) prevBtn.addEventListener('click', scrollPrev);
+          if (nextBtn) nextBtn.addEventListener('click', scrollNext);
+          
+          // Basic swipe/touch drag support logic could be added here if needed, 
+          // but native overflow-x scroll usually handles mobile well.
+        });
+    };
+    initCarousel();
+    // Re-init for theme editor events
+    if (Shopify.designMode) {
+        document.addEventListener('shopify:section:load', initCarousel);
+    }
   });
 </script>
 
@@ -317,6 +388,24 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Testimonials"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What our customers are saying"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show star ratings",
+      "default": true
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -356,7 +445,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Customer Image (Square recommended)"
+          "label": "Customer Image"
         },
         {
           "type": "text",
@@ -365,16 +454,25 @@
           "default": "Customer Name"
         },
         {
+          "type": "range",
+          "id": "star_rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
           "type": "checkbox",
           "id": "show_verified",
-          "label": "Show verified green checkmark",
+          "label": "Show verified badge",
           "default": true
         },
         {
           "type": "textarea",
           "id": "review_text",
           "label": "Review Text",
-          "default": "I love this dress so much! ❤️"
+          "default": "I love this dress so much! The material is incredibly soft and the fit is perfect."
         }
       ]
     }
@@ -397,3 +495,4 @@
   ]
 }
 {% endschema %}
+
