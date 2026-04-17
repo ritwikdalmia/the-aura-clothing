@@ -8,7 +8,7 @@
   <a href="{{ card_collection.url | default: '#' }}" class="na-collection-card">
     <div class="na-collection-image-wrapper">
       <div class="na-collection-slideshow">
-        {%- if card_collection.products.size > 0 -%}
+        {%- if card_collection.products.size > 1 -%}
           {%- for product in card_collection.products limit: 3 -%}
             <img
               srcset="
@@ -37,7 +37,9 @@
             style="animation: none; opacity: 1;"
           >
         {%- else -%}
-          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <div class="na-collection-placeholder">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
         {%- endif -%}
       </div>
     </div>

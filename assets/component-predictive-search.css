@@ -220,6 +220,8 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 
 .predictive-search__image {
   grid-area: product-image;
-  object-fit: contain;
-  font-family: 'object-fit: contain';
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }

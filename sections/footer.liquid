@@ -1,6 +1,6 @@
 {%- style -%}
   .footer-premium {
-    background-color: {{ section.settings.bg_color | default: '#1a1a1a' }};
+    background-color: {{ section.settings.bg_color | default: '#a88b6a' }};
     color: {{ section.settings.text_color | default: '#ffffff' }};
     padding-top: {{ section.settings.padding_top | default: 80 }}px;
     font-family: inherit;
@@ -18,36 +18,34 @@
     }
   }
 
-  /* Top Newsletter Area */
+  /* Newsletter Block (inside grid) */
   .footer-newsletter {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-bottom: 6rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 6rem;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .footer-newsletter h2 {
-    font-size: var(--aura-font-size-lg);
-    font-weight: 300;
+    font-size: var(--aura-font-size-md);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: {{ section.settings.heading_color | default: '#ffffff' }};
-    margin: 0 0 1rem 0;
-    letter-spacing: 0.05em;
+    margin: 0 0 1.2rem 0;
   }
 
   .footer-newsletter p {
     color: {{ section.settings.text_color | default: '#ffffff' }};
-    opacity: 0.7;
-    margin: 0 0 2.5rem 0;
+    opacity: 0.8;
+    margin: 0 0 2rem 0;
     font-size: var(--aura-font-size-sm);
+    line-height: 1.7;
   }
 
   .footer-newsletter-form {
     display: flex;
     width: 100%;
-    max-width: 500px;
     position: relative;
   }
 
@@ -55,7 +53,7 @@
     flex: 1;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     color: {{ section.settings.text_color | default: '#ffffff' }};
     padding: 1.2rem 0;
     font-size: var(--aura-font-size-sm);
@@ -66,28 +64,31 @@
   }
 
   .footer-newsletter-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .footer-newsletter-input:focus {
-    border-bottom-color: var(--aura-brand-gold);
+    border-bottom-color: #ffffff;
   }
 
   .footer-newsletter-btn {
     background: transparent;
     border: none;
-    color: {{ section.settings.heading_color | default: '#ffffff' }};
+    color: {{ section.settings.text_color | default: '#ffffff' }};
     font-family: inherit;
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
     text-transform: uppercase;
     cursor: pointer;
-    padding: 0 0 0 2rem;
-    transition: color 0.3s;
+    padding: 0 0 0 2.5rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    opacity: 0.9;
   }
 
   .footer-newsletter-btn:hover {
+    opacity: 1;
     color: var(--aura-brand-gold);
   }
 
@@ -107,7 +108,7 @@
 
   @media screen and (min-width: 990px) {
     .footer-grid {
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1.5fr;
       gap: 6rem;
     }
   }
@@ -121,10 +122,27 @@
     margin: 0 0 2.5rem 0;
   }
 
+  .footer-heading--center {
+    text-align: center;
+  }
+
   .footer-links {
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  .footer-links--two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 4rem;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 480px) {
+    .footer-links--two-columns {
+      grid-template-columns: 1fr;
+    }
   }
 
   .footer-links li {
@@ -141,7 +159,8 @@
 
   .footer-links a:hover {
     opacity: 1;
-    color: var(--aura-brand-gold);
+    color: #ffffff;
+    padding-left: 5px; /* Subtle high-end slide */
   }
 
   /* Brand Column */
@@ -157,11 +176,11 @@
 
   .footer-brand-desc {
     color: {{ section.settings.text_color | default: '#ffffff' }};
-    opacity: 0.7;
+    opacity: 0.9;
     font-size: var(--aura-font-size-sm);
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
-    max-width: 350px;
+    line-height: 1.8; /* Increased for readability */
+    margin-bottom: 3rem;
+    max-width: 400px; /* Slightly wider for better text flow */
   }
 
   .footer-social-links {
@@ -176,7 +195,8 @@
   }
 
   .footer-social-links a:hover {
-    color: var(--aura-brand-gold);
+    color: #ffffff;
+    opacity: 0.8;
   }
 
   .footer-social-links svg {
@@ -192,7 +212,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 3rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     gap: 2rem;
   }
 
@@ -211,14 +231,19 @@
     font-size: var(--aura-font-size-xs);
   }
 
-  .footer-copyright a {
+  .footer-copyright a,
+  .footer-bottom-link {
     color: inherit;
     text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
-  .footer-copyright a:hover {
+  .footer-copyright a:hover,
+  .footer-bottom-link:hover {
     opacity: 1;
-    text-decoration: underline;
+    color: var(--aura-brand-gold);
+    text-decoration: none;
   }
 
   .footer-payments {
@@ -238,30 +263,6 @@
 
 <footer class="footer-premium">
   <div class="footer-container">
-    
-    {%- if section.settings.show_newsletter -%}
-      <div class="footer-newsletter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        <h2>{{ section.settings.newsletter_title | escape }}</h2>
-        <p>{{ section.settings.newsletter_subtitle | escape }}</p>
-        
-        {% form 'customer', class: 'footer-newsletter-form' %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <input type="email" 
-                 name="contact[email]" 
-                 class="footer-newsletter-input" 
-                 placeholder="Enter your email address" 
-                 required>
-          <button type="submit" class="footer-newsletter-btn">Subscribe</button>
-          
-          {%- if form.posted_successfully? -%}
-            <style>
-              .footer-newsletter-success { position: absolute; top: 100%; left: 0; width: 100%; text-align: center; color: #4caf50; font-size: 1.3rem; margin-top: 1rem; }
-            </style>
-            <div class="footer-newsletter-success">Thanks for subscribing!</div>
-          {%- endif -%}
-        {% endform %}
-      </div>
-    {%- endif -%}
 
     <div class="footer-grid{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       {%- for block in section.blocks -%}
@@ -273,7 +274,7 @@
                 <img src="{{ block.settings.logo | image_url: width: 400 }}" alt="{{ shop.name }}" width="{{ block.settings.logo_width }}" loading="lazy">
               </a>
             {%- else -%}
-              <a href="/" class="footer-brand-logo" style="display: inline-block; font-size: var(--aura-font-size-lg); font-family: serif; color: var(--aura-brand-gold); letter-spacing: 0.1em; text-decoration: none; margin-bottom: 2rem;">
+              <a href="/" class="footer-brand-logo" style="display: inline-block; font-size: var(--aura-font-size-lg); font-family: serif; color: #ffffff; letter-spacing: 0.1em; text-decoration: none; margin-bottom: 2rem;">
                 {{ shop.name }}
               </a>
             {%- endif -%}
@@ -301,8 +302,8 @@
             {%- endif -%}
 
           {%- elsif block.type == 'link_list' -%}
-            <h3 class="footer-block-heading">{{ block.settings.heading | escape }}</h3>
-            <ul class="footer-links">
+            <h3 class="footer-block-heading{% if block.settings.heading contains 'Shop' %} footer-heading--center{% endif %}">{{ block.settings.heading | escape }}</h3>
+            <ul class="footer-links{% if block.settings.heading contains 'Shop' %} footer-links--two-columns{% endif %}">
               {%- if block.settings.menu != blank and block.settings.menu.links.size > 0 -%}
                 {%- for link in block.settings.menu.links -%}
                   <li><a href="{{ link.url }}">{{ link.title }}</a></li>
@@ -313,20 +314,30 @@
                   <li><a href="/collections/new-arrivals">New Arrivals</a></li>
                   <li><a href="/collections/best-sellers">Best Sellers</a></li>
                   <li><a href="/collections/dresses">Dresses</a></li>
-                {%- elsif block.settings.heading == 'Customer Service' -%}
-                  <li><a href="/pages/contact">Contact Us</a></li>
-                  <li><a href="/pages/track-order">Track Your Order</a></li>
-                  <li><a href="/pages/returns">Returns & Exchanges</a></li>
-                  <li><a href="/pages/faq">FAQs</a></li>
-                {%- else -%}
-                  <li><a href="/pages/about-us">About Us</a></li>
-                  <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
-                  <li><a href="/pages/terms-conditions">Terms & Conditions</a></li>
-                  <li><a href="/pages/shipping-policy">Shipping Policy</a></li>
                 {%- endif -%}
               {%- endif -%}
             </ul>
-            
+
+          {%- elsif block.type == 'newsletter' -%}
+            <div class="footer-newsletter">
+              <h2>{{ block.settings.newsletter_title | escape }}</h2>
+              {%- if block.settings.newsletter_subtitle != blank -%}
+                <p>{{ block.settings.newsletter_subtitle | escape }}</p>
+              {%- endif -%}
+              {% form 'customer', class: 'footer-newsletter-form' %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="email"
+                       name="contact[email]"
+                       class="footer-newsletter-input"
+                       placeholder="Enter your email"
+                       required>
+                <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+                {%- if form.posted_successfully? -%}
+                  <p style="position:absolute;top:100%;left:0;font-size:1.2rem;color:#ffffff;margin-top:0.8rem;">Thanks for subscribing!</p>
+                {%- endif -%}
+              {% endform %}
+            </div>
+
           {%- endif -%}
         </div>
       {%- endfor -%}
@@ -383,28 +394,6 @@
       "id": "accent_color",
       "label": "Accent Color",
       "default": "#a88b6a"
-    },
-    {
-      "type": "header",
-      "content": "Newsletter"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_newsletter",
-      "label": "Show Newsletter",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "newsletter_title",
-      "label": "Title",
-      "default": "Join The Aura"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_subtitle",
-      "label": "Subtitle",
-      "default": "Subscribe to receive updates, access to exclusive deals, and more."
     },
     {
       "type": "header",
@@ -480,6 +469,25 @@
           "type": "link_list",
           "id": "menu",
           "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "newsletter_title",
+          "label": "Title",
+          "default": "Join The Aura"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_subtitle",
+          "label": "Subtitle",
+          "default": "Subscribe to receive updates, access to exclusive deals, and more."
         }
       ]
     }

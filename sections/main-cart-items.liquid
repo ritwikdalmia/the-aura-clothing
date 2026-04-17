@@ -20,9 +20,30 @@
   }
 {%- endstyle -%}
 
-{%- unless settings.cart_type == 'drawer' -%}
+{%- if settings.cart_type == 'drawer' -%}
+  <script>
+    // THE AURA PREMIUM: Force Drawer Redirect
+    (function() {
+      const currentUrl = new URL(window.location.href);
+      if (currentUrl.searchParams.get('cart_drawer') === 'open') return;
+
+      const rootUrl = (window.routes && window.routes.root_url) ? window.routes.root_url : '/';
+      const targetUrl = (document.referrer && document.referrer.indexOf(window.location.host) !== -1 && document.referrer.indexOf('/cart') === -1) 
+        ? document.referrer 
+        : rootUrl;
+
+      try {
+        const finalUrl = new URL(targetUrl, window.location.origin);
+        finalUrl.searchParams.set('cart_drawer', 'open');
+        window.location.replace(finalUrl.toString());
+      } catch (e) {
+        window.location.replace(rootUrl + '?cart_drawer=open');
+      }
+    })();
+  </script>
+{%- else -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-{%- endunless -%}
+{%- endif -%}
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 

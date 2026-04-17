@@ -56,6 +56,18 @@
 }
 
 /* ── Full-Height Experience ── */
+.drawer {
+  z-index: 2000 !important; /* Match prefix logic or keep below bar */
+}
+
+/* Ensure announcement bar stays on top if it has a class we know */
+.announcement-bar-section, 
+.shopify-section-header,
+#shopify-section-announcement-bar {
+  z-index: 2001 !important;
+  position: relative;
+}
+
 .drawer__inner {
   height: 100vh !important;
   display: flex !important;
@@ -63,14 +75,17 @@
   background: var(--aura-bg-warm) !important;
   padding: 0 !important;
   overflow: hidden !important;
+  position: relative !important;
 }
 
 .drawer__inner-empty {
   flex: 1 !important;
   display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
+  flex-direction: column !important;
+  overflow-y: auto !important; /* Main scroll area for empty state */
+  position: relative !important;
+  align-items: stretch !important;
+  height: 100% !important; /* Stretch to fill parent flex container */
 }
 
 .drawer__contents {
@@ -83,14 +98,18 @@
 cart-drawer-items {
   flex: 1 !important;
   overflow-y: auto !important;
-  padding: 2rem 1.5rem 1.5rem !important;
+  padding: 1.2rem 1.5rem !important;
   scrollbar-width: thin !important;
   scrollbar-color: var(--aura-brand-gold) transparent !important;
 }
 
+cart-drawer-items.is-empty {
+  display: none !important;
+}
+
 /* ── Drawer Header ── */
 .drawer__header {
-  padding: 2.8rem 3rem 2rem !important;
+  padding: 1.8rem 2.5rem 1.4rem !important;
   border-bottom: 1px solid rgba(var(--aura-brand-dark-rgb), 0.05) !important;
   display: flex !important;
   justify-content: space-between !important;
@@ -146,11 +165,11 @@ cart-drawer-items {
 /* ── Cart Item Cards ── */
 .cart-item-card {
   display: flex !important;
-  gap: 1.8rem !important;
-  padding: 1.8rem !important;
+  gap: 1.5rem !important;
+  padding: 1.2rem !important;
   background: #fff !important;
-  border-radius: 20px !important;
-  margin-bottom: 1.2rem !important;
+  border-radius: 12px !important;
+  margin-bottom: 1rem !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.03) !important;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
@@ -227,9 +246,9 @@ cart-drawer-items {
 
 /* ── Delete Button ── */
 .cart-remove-button {
-  color: rgba(0,0,0,0.3) !important;
+  color: var(--aura-brand-gold) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  background: rgba(0,0,0,0.03) !important;
+  background: rgba(var(--aura-brand-gold-rgb),0.05) !important;
   border-radius: 50% !important;
   width: 32px !important;
   height: 32px !important;
@@ -250,7 +269,7 @@ cart-drawer-items {
 /* ── Drawer Footer ── */
 .drawer__footer {
   margin-top: auto !important;
-  padding: 1.5rem 2.5rem !important;
+  padding: 1.2rem 2.5rem !important;
   background: #fff !important;
   border-top: 1px solid rgba(0,0,0,0.06) !important;
 }
@@ -300,21 +319,21 @@ cart-drawer-items {
 }
 
 .cart__note {
-  margin-top: 1rem !important;
+  margin-top: 0.5rem !important;
 }
 
 #CartDrawer-Note {
   background: color-mix(in srgb, var(--aura-brand-gold), transparent 94%) !important;
   border: 1px solid color-mix(in srgb, var(--aura-brand-gold), transparent 80%) !important;
   border-radius: 12px !important;
-  padding: 1.5rem !important;
-  font-size: 1.4rem !important;
+  padding: 1rem 1.2rem !important;
+  font-size: 1.3rem !important;
   color: var(--aura-brand-text-main) !important;
   width: 100% !important;
-  min-height: 100px !important;
+  min-height: 60px !important;
   outline: none !important;
   transition: all 0.3s ease !important;
-  resize: vertical !important;
+  resize: none !important;
   box-shadow: none !important;
 }
 
@@ -333,7 +352,7 @@ cart-drawer-items {
 }
 
 .totals__total-value {
-  font-size: 2.2rem !important;
+  font-size: 1.8rem !important;
   font-weight: 700 !important;
   color: var(--aura-brand-gold) !important;
   margin: 0 !important;
@@ -348,13 +367,13 @@ cart-drawer-items {
   background: var(--aura-brand-gold) !important;
   color: #fff !important;
   border-radius: 50px !important;
-  padding: 1.5rem !important;
-  font-size: 1.3rem !important;
+  padding: 1.3rem !important;
+  font-size: 1.25rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.15em !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   transition: all 0.3s ease !important;
-  margin-top: 0.5rem !important;
+  margin-top: 0.4rem !important;
   border: none !important;
   box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), 0.3) !important;
 }
@@ -368,10 +387,10 @@ cart-drawer-items {
 .na-cart-trust {
   display: flex !important;
   justify-content: center !important;
-  gap: 2rem !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1.5rem !important;
-  opacity: 0.8 !important;
+  gap: 1.5rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  opacity: 0.7 !important;
   width: 100% !important;
 }
 
@@ -419,17 +438,175 @@ cart-drawer-items::-webkit-scrollbar-thumb {
   display: none; /* Hidden by default by Dawn JS */
 }
 
-/* Show when containing text */
-.cart-item__error:not(:empty),
+/* Show only when containing actual text to prevent 'empty pill' artifacts */
+.cart-item__error:has(.cart-item__error-text:not(:empty)),
 #CartDrawer-CartErrors:not(:empty) {
   display: block !important;
+  margin-top: 1.2rem !important;
 }
 
 .cart-item__error-text {
   color: inherit !important;
+  display: block;
 }
 
-/* Empty State Adjustments */
-.cart-drawer__empty-visual { font-size: 5rem !important; opacity: 0.1 !important; margin-bottom: 2rem !important; }
-.cart__empty-text { font-size: 2.2rem !important; letter-spacing: 0.1em !important; font-weight: 300 !important; color: var(--aura-brand-text-main) !important; }
-.boutique-button { background: var(--aura-brand-gold) !important; color: #fff !important; border-radius: 50px !important; padding: 1.4rem 3.5rem !important; margin-top: 2.5rem !important; }
+/* ── Empty State: Absolutely Positioned Close Button ── */
+.drawer__close-btn--empty {
+  position: absolute !important;
+  top: 2rem !important;
+  right: 2rem !important;
+  z-index: 10 !important;
+  width: 3.2rem !important;
+  height: 3.2rem !important;
+  background: var(--aura-brand-gold) !important;
+  border: none !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px rgba(var(--aura-brand-gold-rgb), 0.25) !important;
+  transition: all 0.3s ease !important;
+}
+
+.drawer__close-btn--empty:hover {
+  background: var(--aura-brand-text-main) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* ── Empty State Premium Redesign ── */
+.cart-drawer__warnings {
+  padding: 4rem 2rem 5rem !important; /* top padding creates space below the corner X, bottom padding for breathing room */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  flex-grow: 1 !important; /* Allow internal content to push if needed */
+}
+
+.cart__empty-text {
+  font-family: var(--font-heading-family) !important;
+  font-size: 2.4rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.1em !important;
+  margin: 1.5rem 0 1rem !important;
+  color: var(--aura-brand-text-main) !important;
+}
+
+.cart-drawer__empty-subtitle {
+  font-size: 1.3rem !important;
+  opacity: 0.7 !important;
+  max-width: 280px !important;
+  margin: 0 auto 3rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Sales Collection Grid */
+.drawer__empty-sales {
+  width: 100% !important;
+  margin: 3rem 0 !important;
+  text-align: left !important;
+}
+
+.drawer__empty-sales-title {
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  color: var(--aura-brand-gold) !important;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+}
+
+.drawer__sales-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  padding-bottom: 5rem !important; /* Prevents bottom items from Being cut off */
+  width: 100% !important;
+}
+
+.drawer__sales-item {
+  background: #fff !important;
+  border-radius: 15px !important;
+  overflow: visible !important; /* Allows shadows and info to breathe */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.drawer__sales-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.drawer__sales-image {
+  aspect-ratio: 4/5 !important;
+  overflow: hidden !important;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+.drawer__sales-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.drawer__sales-info {
+  padding: 1.2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.4rem !important;
+  flex-grow: 1 !important;
+}
+
+.drawer__sales-product-title {
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  color: var(--aura-brand-text-main) !important;
+}
+
+.drawer__sales-prices {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+}
+
+.drawer__sales-price-sale {
+  color: var(--aura-brand-gold) !important;
+  font-weight: 700 !important;
+  font-size: 1.3rem !important;
+}
+
+.drawer__sales-price-old {
+  color: rgba(0,0,0,0.3) !important;
+  font-size: 1.1rem !important;
+  text-decoration: line-through !important;
+}
+
+.drawer__empty-footer {
+  margin-top: 2rem !important;
+  width: 100% !important;
+}
+
+.boutique-button {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  background: var(--aura-brand-gold) !important;
+  color: #fff !important;
+  border-radius: 50px !important;
+  padding: 1.6rem !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), 0.3) !important;
+}

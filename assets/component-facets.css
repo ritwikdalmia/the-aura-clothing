@@ -933,7 +933,7 @@ a.active-facets__button.focused .active-facets__button-inner {
 
 .mobile-facets__header {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  padding: 1rem 2.5rem;
+  padding: 2.5rem 2.5rem 1.5rem;
   text-align: center;
   display: flex;
   position: sticky;
@@ -956,10 +956,16 @@ a.active-facets__button.focused .active-facets__button-inner {
 }
 
 .mobile-facets__count {
-  color: rgba(var(--color-foreground), 0.7);
-  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.5);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin: 0;
   flex-grow: 1;
+  padding: 0.5rem 0;
+  text-align: center;
+  width: 100%;
 }
 
 .mobile-facets__open-wrapper {
@@ -1021,8 +1027,21 @@ a.active-facets__button.focused .active-facets__button-inner {
   transition: opacity var(--duration-short) ease;
 }
 
+.mobile-facets__close {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem !important;
+  height: 3.6rem !important;
+  background: var(--aura-brand-gold) !important;
+  border-radius: 50% !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), 0.3) !important;
+}
+
 .mobile-facets__close .svg-wrapper {
-  width: 2.2rem;
+  width: 2rem;
+  color: #fff !important;
 }
 
 details.menu-opening .mobile-facets__close {

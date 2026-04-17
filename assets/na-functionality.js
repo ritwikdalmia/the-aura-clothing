@@ -15,7 +15,8 @@ async function openQuickAdd(productUrl) {
     content.innerHTML = '<div style="padding: 5rem; text-align: center;">Loading Boutique Experience...</div>';
     
     try {
-        const response = await fetch(`${productUrl}?section_id=product-quick-add`);
+        const separator = productUrl.includes('?') ? '&' : '?';
+        const response = await fetch(`${productUrl}${separator}section_id=product-quick-add`);
         const html = await response.text();
         content.innerHTML = html;
         

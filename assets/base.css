@@ -12,7 +12,7 @@
   --aura-gold-light: var(--aura-brand-gold-light);
   --aura-bg-warm: var(--aura-brand-bg-warm);
   --aura-border: rgba(0,0,0,0.06);
-  --aura-radius: var(--aura-radius);
+  /* --aura-radius: var(--aura-radius);  <-- REMOVED CIRCULAR REFERENCE TO PREVENT RADIUS BREAKAGE */
   --aura-transition: var(--aura-transition);
 }
 

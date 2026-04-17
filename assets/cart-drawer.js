@@ -5,6 +5,14 @@ class CartDrawer extends HTMLElement {
     this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
     this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
     this.setHeaderCartIconAccessibility();
+
+    // THE AURA PREMIUM: Auto-open Drawer if redirected from /cart
+    if (window.location.search.includes('cart_drawer=open')) {
+      this.open();
+      // Clean up the URL state
+      const newUrl = window.location.pathname + window.location.search.replace(/[?&]cart_drawer=open/, '').replace(/^&/, '?').replace(/\?$/, '');
+      window.history.replaceState({}, '', newUrl);
+    }
   }
 
   setHeaderCartIconAccessibility() {
@@ -36,12 +44,14 @@ class CartDrawer extends HTMLElement {
     const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
     if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
     
-    // THE AURA PREMIUM: Announcement Bar Offset Logic
-    const announcementBar = document.querySelector('.announcement-bar');
+    // THE AURA PREMIUM: Announcement Bar Offset Logic (Consistent with Wishlist/Compare)
+    const announcementBar = document.querySelector('.shopify-section-announcement-bar, .announcement-bar, [class*="announcement"], #shopify-section-announcement-bar');
     const drawerInner = this.querySelector('.drawer__inner');
-    if (announcementBar && drawerInner) {
-        const rect = announcementBar.getBoundingClientRect();
-        const topOffset = rect.bottom > 0 ? rect.bottom : 0;
+    if (drawerInner) {
+        let topOffset = 0;
+        if (announcementBar) {
+            topOffset = announcementBar.offsetHeight;
+        }
         drawerInner.style.top = `${topOffset}px`;
         drawerInner.style.height = `calc(100vh - ${topOffset}px)`;
     }

@@ -29,32 +29,24 @@
             "menu": "main-menu"
           }
         },
-        "help_links": {
-          "type": "link_list",
+        "newsletter_block": {
+          "type": "newsletter",
           "settings": {
-            "heading": "Customer Service",
-            "menu": "footer"
-          }
-        },
-        "legal_links": {
-          "type": "link_list",
-          "settings": {
-            "heading": "About Us",
-            "menu": "footer"
+            "newsletter_title": "Join The Aura",
+            "newsletter_subtitle": "Subscribe to receive updates, access to exclusive deals, and more."
           }
         }
       },
       "block_order": [
         "brand_1",
         "shop_links",
-        "help_links",
-        "legal_links"
+        "newsletter_block"
       ],
       "settings": {
-        "bg_color": "#111111",
+        "bg_color": "#a88b6a",
         "text_color": "#ffffff",
         "heading_color": "#ffffff",
-        "accent_color": "#a88b6a",
+        "accent_color": "#ffffff",
         "show_newsletter": true,
         "newsletter_title": "Join The Aura",
         "newsletter_subtitle": "Subscribe to receive updates, access to exclusive deals, and more.",

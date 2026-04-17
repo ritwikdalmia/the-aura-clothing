@@ -1,74 +1,384 @@
-.search__input.field__input {
-  padding-right: 9.8rem;
+/* Premium Search Bar - The Aura Boutique */
+.template-search__search,
+.search-modal__form {
+  margin: 3.5rem auto !important;
+  width: 100% !important;
+  max-width: 85rem !important;
+  position: relative !important;
 }
 
+@media screen and (max-width: 1023px) {
+  .template-search__search,
+  .search-modal__form {
+    width: 92% !important;
+    max-width: none !important;
+    margin: 0 auto !important; /* Removed margins as requested */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .template-search__search,
+  .search-modal__form {
+    margin-bottom: 7rem !important; /* Increased to prevent filter overlap */
+  }
+}
+
+
+
+
+/* Predictive search padding fix */
+predictive-search {
+  padding-top: 11px !important;
+  display: block !important;
+}
+
+
+
+
+/* Base field container */
+.template-search__search .field,
+.search-modal__form .field {
+  border-radius: 8px !important;
+  overflow: visible !important;
+  background: var(--aura-brand-bg-warm) !important;
+  border: none !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+
+
+/* Premium Border Effect using pseudo-element (to bypass Dawn box-shadows) */
+.template-search__search .field::after,
+.search-modal__form .field::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border: 2px solid var(--aura-brand-dark) !important;
+  border-radius: 8px !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+  z-index: 2 !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Hide Dawn default border logic */
+.template-search__search .field::before,
+.search-modal__form .field::before {
+  display: none !important;
+}
+
+/* Interaction States */
+.template-search__search .field:hover::after,
+.template-search__search .field:focus-within::after,
+.search-modal__form .field:hover::after,
+.search-modal__form .field:focus-within::after {
+  border-color: var(--aura-brand-gold) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+}
+
+/* Input Fields */
+.template-search__search .search__input.field__input,
+.search-modal__form .search__input.field__input {
+  padding: 1.5rem 6.5rem 1.5rem 2.5rem !important; /* Reduced vertical padding */
+  height: auto !important;
+  min-height: 6.5rem !important; /* Reduced from 7.5rem */
+  font-size: 1.6rem !important;
+
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+@media screen and (max-width: 1023px) {
+  .template-search__search .search__input.field__input,
+  .search-modal__form .search__input.field__input {
+    padding: 1.2rem 6rem 1.2rem 2rem !important;
+    min-height: 5.2rem !important; /* Reduced from 6rem */
+  }
+}
+
+
+
+/* Labels */
+.template-search__search .field__label,
+.search-modal__form .field__label {
+  left: 2.5rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 1.4rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  opacity: 0.5 !important;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+}
+
+.template-search__search .field__input:focus ~ .field__label,
+.template-search__search .field__input:not(:placeholder-shown) ~ .field__label,
+.search-modal__form .field__input:focus ~ .field__label,
+.search-modal__form .field__input:not(:placeholder-shown) ~ .field__label {
+  top: 1.5rem !important;
+  font-size: 0.9rem !important;
+  opacity: 1 !important;
+  color: var(--aura-brand-gold) !important;
+  font-weight: 700 !important;
+}
+
+/* Prevent search UI from leaking into drawers or duplicating on search page */
+.menu-drawer-container[open] ~ .search-modal,
+.menu-drawer-container[open] ~ .predictive-search,
+body:has(.menu-drawer-container[open]) .search-modal,
+body:has(.menu-drawer-container[open]) .predictive-search,
+body.template-search .header__search,
+body.template-search .search-modal {
+  display: none !important;
+}
+
+
 .search__button {
-  right: var(--inputs-border-width);
-  top: var(--inputs-border-width);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  right: 1.2rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--aura-brand-dark) !important;
+  z-index: 4 !important;
+  width: 4.4rem !important;
+  height: 4.4rem !important;
+  padding: 0 !important;
 }
 
 .reset__button {
-  right: calc(var(--inputs-border-width) + 4.4rem);
-  top: var(--inputs-border-width);
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: var(--aura-brand-gold) !important; /* Solid gold background as requested */
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 3 !important;
+  right: 6rem !important;
+  width: 2.8rem !important; /* Slightly smaller for a tighter boutique look */
+  height: 2.8rem !important;
+  color: #fff !important; /* White cross */
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.3s ease, background 0.3s ease !important;
+  padding: 0 !important;
+  cursor: pointer !important;
 }
 
-.reset__button:not(:focus-visible)::after {
-  border-right: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  display: block;
-  height: calc(100% - 1.6rem);
-  content: '';
-  position: absolute;
-  right: 0;
+.reset__button.hidden,
+.search__input:placeholder-shown ~ .reset__button {
+  display: none !important;
 }
 
+.reset__button svg {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+}
+
+
+
+@media screen and (max-width: 749px) {
+  .search__button {
+    right: 0.8rem !important;
+  }
+  .reset__button {
+    right: 4.5rem !important;
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+
+
+
+.reset__button:hover {
+  transform: translateY(-50%) rotate(90deg) !important;
+  color: var(--aura-brand-dark) !important;
+}
+
+.reset__button svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.reset__button circle {
+  stroke: var(--aura-brand-gold) !important;
+  stroke-width: 1.5 !important;
+  stroke-opacity: 0.8 !important;
+}
+
+/* Hide native browser clear button to prevent duplicate "X" icons */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none !important;
+  -webkit-appearance: none !important;
+}
+
+/* Close button for Search Modal/Drawer - Boutique Circular Style */
+.search-modal__close-button {
+  background: transparent !important;
+  color: var(--aura-brand-gold) !important;
+  border: 1px solid var(--aura-brand-gold) !important;
+  border-radius: 50% !important;
+  width: 4.4rem !important;
+  height: 4.4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 10 !important;
+  flex-shrink: 0 !important;
+  margin-left: 1.5rem !important;
+}
+
+/* Close button positioning for mobile modal */
+@media screen and (max-width: 989px) {
+  .search-modal__close-button {
+    position: absolute !important;
+    top: 3.2rem !important; /* Adjusted for smaller bar */
+    right: 1.5rem !important;
+
+    width: 3.6rem !important;
+    height: 3.6rem !important;
+    margin-left: 0 !important;
+    transform: none !important;
+    z-index: 100 !important;
+  }
+}
+
+.search-modal__content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 11px 2rem !important; /* Stripped to exactly 11px as requested */
+  position: relative !important;
+  width: 100% !important;
+  max-width: 120rem !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  min-height: auto !important; /* Removed minimum height for tightest fit */
+}
+
+
+
+
+@media screen and (min-width: 990px) {
+  .search-modal__content {
+    flex-direction: row !important; /* Horizontal on desktop */
+    justify-content: center !important;
+    padding: 0 2rem !important;
+    min-height: auto !important;
+  }
+}
+
+
+
+.search-modal__close-button:hover {
+  background: var(--aura-brand-gold) !important;
+  color: #fff !important;
+  transform: rotate(90deg) !important;
+}
+
+@media screen and (max-width: 989px) {
+  .search-modal__close-button:hover {
+    transform: translateY(-50%) rotate(90deg) !important;
+  }
+}
+
+.search-modal__close-button .icon {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+@media screen and (max-width: 749px) {
+  .search-modal__close-button .icon {
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+  }
+}
+
+
+
+
+.reset__button:not(:focus-visible)::after,
 .reset__button:not(:focus)::after {
-  border-right: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  display: block;
-  height: calc(100% - 1.8rem);
-  content: '';
-  position: absolute;
-  right: 0;
-}
-
-.search__button:focus-visible,
-.reset__button:focus-visible {
-  background-color: rgb(var(--color-background));
-  z-index: 4;
-}
-
-.search__button:focus,
-.reset__button:focus {
-  background-color: rgb(var(--color-background));
-  z-index: 4;
-}
-
-.search__button:not(:focus-visible):not(.focused),
-.reset__button:not(:focus-visible):not(.focused) {
-  box-shadow: inherit;
-  background-color: inherit;
-}
-
-.search__button:hover .icon,
-.reset__button:hover .icon {
-  transform: scale(1.07);
+  display: none !important;
 }
 
 .search__button .icon {
-  height: 1.8rem;
-  width: 1.8rem;
+  height: 2.4rem !important;
+  width: 2.4rem !important;
 }
 
-.reset__button .icon.icon-close {
-  height: 1.8rem;
-  width: 1.8rem;
-  stroke-width: 0.1rem;
+/* Align Grid with New Arrivals on Home Page */
+.template-search .product-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  margin-top: 6rem !important;
+  margin-bottom: 6rem !important;
 }
 
-/* Remove extra spacing for search inputs in Safari */
-input::-webkit-search-decoration {
-  -webkit-appearance: none;
+@media screen and (min-width: 768px) {
+  .template-search .product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important; /* Reduced from 3rem as requested */
+  }
+}
+
+
+@media screen and (min-width: 1024px) {
+  .template-search .product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* Ensure each grid item displays the premium card correctly */
+.template-search .grid__item {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.template-search .grid {
+  display: grid !important;
+  flex-wrap: nowrap !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .template-search__results {
-  position: relative;
+  position: relative !important;
+  margin-top: 5rem !important;
 }
+
+/* Hide redundant results text - handled by main h1 */
+.template-search__header p[role="status"] {
+  display: none !important;
+}
+
+
+/* Remove page-width padding from facets container as requested */
+.template-search .facets-vertical.page-width {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: none !important;
+}
+

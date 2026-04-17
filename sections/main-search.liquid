@@ -2,6 +2,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
 
 {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
   {{ 'component-facets.css' | asset_url | stylesheet_tag }}
@@ -13,45 +14,10 @@
 {%- endif -%}
 
 <script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'collection-premium-loadmore.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'na-functionality.js' | asset_url }}" defer="defer"></script>
 
-<style>
-  .template-search__header {
-    margin-bottom: 3rem;
-  }
-
-  .template-search__search {
-    margin: 0 auto 3.5rem;
-    max-width: 74.1rem;
-  }
-
-  .template-search__search .search {
-    margin-top: 3rem;
-  }
-
-  .template-search--empty {
-    padding-bottom: 18rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .template-search__header {
-      margin-bottom: 5rem;
-    }
-  }
-
-  .search__button .icon {
-    height: 1.8rem;
-  }
-  
-  .collection-empty-layout {
-    display: block !important;
-  }
-  
-  .collection-empty-layout .product-grid-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
-</style>
+{%- comment -%} Premium Aura Styling {%- endcomment -%}
 
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
@@ -71,24 +37,257 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Premium Aura Search Enhancements — Parity with New Arrivals */
+  .premium-search-container {
+    max-width: 160rem; /* Increased for larger cards */
+    padding: 0 2rem;
+    margin: 0 auto;
+  }
+  
+  .section-main-search-premium {
+    background-color: #f9f5f0; /* Force brand background tone */
+  }
+  
+  @media screen and (min-width: 990px) {
+    .premium-search-container {
+      padding: 0 5rem;
+    }
+    
+    /* Sticky Sidebar logic */
+    .facets-wrapper {
+      position: sticky;
+      top: 120px;
+      align-self: flex-start;
+      height: auto;
+      max-height: calc(100vh - 140px);
+      overflow-y: auto;
+      padding-right: 4.5rem; /* Matched to collection */
+      margin-right: 2rem;
+      border-right: 1px solid rgba(var(--color-foreground), 0.05);
+    }
+    
+    .facets-vertical {
+      display: flex;
+      gap: 3rem; /* Matched to collection */
+    }
+    
+    .facets-vertical .facets-wrapper {
+      width: 32rem; /* Matched to collection */
+      flex-shrink: 0;
+    }
+    
+    .facets-vertical .product-grid-container {
+      flex-grow: 1;
+    }
+    
+    .facets-wrapper::-webkit-scrollbar {
+      width: 4px;
+    }
+    .facets-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.1);
+      border-radius: 4px;
+    }
+  }
+
+  /* ===== Premium Card Compatibility Layer ===== */
+  .na-product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #1a1a1a;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    height: 100%;
+  }
+
+  .na-product-card:hover {
+    transform: translateY(-8px) scale(1.015);
+  }
+
+  .na-card-image-wrapper {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #fdfaf7;
+  }
+
+  .na-card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .na-product-card:hover .na-card-image-wrapper img {
+    transform: scale(1.1);
+  }
+
+  /* Glassmorphism Quick Add */
+  .na-quick-add {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #1a1a1a;
+    text-align: center;
+    padding: 16px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    border-top: 1px solid rgba(168, 139, 106, 0.15); /* aura-brand-gold approximation */
+    transform: translateY(101%);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .na-quick-add:hover {
+    background: #a88b6a; /* var(--aura-brand-gold) */
+    color: #fff;
+  }
+
+  .na-product-card:hover .na-quick-add {
+    transform: translateY(0);
+  }
+
+  /* Badges & Icons parity */
+  .na-badge-container {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .na-badge {
+    padding: 5px 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  .na-badge--sale { background: #e63946; color: #fff; }
+  .na-badge--sold-out { background: rgba(255,255,255,0.8); color: #1a1a1a; }
+
+  .na-wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+  }  .template-search__results {
+    position: relative !important;
+    margin-top: 5rem !important;
+  }
+
+  /* Load More Styling */
+  .load-more-container {
+    display: flex;
+    justify-content: center;
+    margin: 4rem 0 8rem;
+  }
+
+  .na-load-more {
+    background: transparent;
+    color: var(--aura-brand-dark);
+    border: 1.5px solid var(--aura-brand-dark);
+    padding: 1.6rem 4.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .na-load-more:hover {
+    background: var(--aura-brand-dark);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+
+
+  .load-more-btn {
+    background-color: var(--color-foreground, #1a1a1a);
+    color: #ffffff;
+    padding: 1.5rem 4rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+
+  .load-more-btn:hover {
+    background-color: var(--aura-brand-gold);
+  }
+
+  .grid__item {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .grid__item:hover {
+    transform: translateY(-5px);
+  }
+  #FacetSortForm {
+    margin-top: 2rem;
+  }
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
-    <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      <h1 class="h2 center">
-        {%- if search.performed -%}
-          {{- 'templates.search.title' | t -}}
-        {%- else -%}
-          {{- 'general.search.search' | t -}}
-        {%- endif -%}
-      </h1>
-      <div class="template-search__search">
+    <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding section-main-search-premium">
+      <div class="premium-search-container">
+
+      <div class="template-search__header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <h1 class="h2 search-results-title uppercase" style="margin: 0 auto 3.5rem !important; font-size: clamp(2.2rem, 4vw, 3.2rem) !important; letter-spacing: 0.12em !important; text-align: center !important; line-height: 1.2 !important; max-width: 90% !important;">
+          {%- if search.performed -%}
+            {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+          {%- else -%}
+            {{ 'general.search.search' | t }}
+          {%- endif -%}
+        </h1>
+
+      <div class="template-search__search" style="display: flex !important; justify-content: center !important; width: 100% !important;">
         {%- if settings.predictive_search_enabled -%}
-          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}" style="width: 100% !important; display: flex !important; justify-content: center !important;">
         {%- endif -%}
-        <main-search>
-          <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+        <main-search style="width: 100% !important; display: flex !important; justify-content: center !important;">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search" style="width: 100% !important; max-width: 85rem !important;">
             <div class="field">
               <input
                 class="search__input field__input"
@@ -142,6 +341,7 @@
           </predictive-search>
         {%- endif -%}
       </div>
+
       {%- if search.performed -%}
         {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
           {%- if search.results_count > 0 -%}
@@ -245,7 +445,7 @@
             %}
           {%- else -%}
             <div
-              class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+              class="template-search__results collection"
               id="product-grid"
               data-id="{{ section.id }}"
             >
@@ -278,7 +478,8 @@
                           show_vendor: section.settings.show_vendor,
                           show_rating: section.settings.show_rating,
                           lazy_load: lazy_load,
-                          skip_styles: skip_card_product_styles
+                          skip_styles: skip_card_product_styles,
+                          section_id: section.id
                         %}
                         {%- assign skip_card_product_styles = true -%}
                       {%- when 'article' -%}
@@ -318,14 +519,22 @@
                 {%- endfor -%}
               </ul>
               {%- if paginate.pages > 1 -%}
-                {% render 'pagination', paginate: paginate %}
+                <premium-load-more class="load-more-container scroll-trigger animate--slide-in" data-cascade>
+                  <button data-next-url="{{ paginate.next.url }}" class="load-more-btn">
+                    Load More
+                  </button>
+                  <div class="load-more-spinner" style="display:none; margin-top:2rem;">
+                    {% render 'loading-spinner' %}
+                  </div>
+                </premium-load-more>
               {%- endif -%}
             </div>
           {%- endif -%}
         </div>
       </div>
     {%- endif -%}
-  </div>
+      </div>
+    </div>
 {% endpaginate %}
 {% if section.settings.image_shape == 'arch' %}
   {{ 'mask-arch.svg' | inline_asset_content }}
