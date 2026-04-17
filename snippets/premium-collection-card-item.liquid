@@ -1,0 +1,69 @@
+{%- comment -%}
+    Renders a premium collection card item.
+    Accepts:
+    - col: {Object} Collection object
+    - col_url: {String} URL for the card
+    - col_title: {String} Title for the card
+    - col_label: {String} Label for the card (e.g. "Exclusive")
+    - block_image: {Object} Optional custom image
+    - index: {Number} For animation delay
+    - block: {Object} Optional block object for shopify_attributes
+{%- endcomment -%}
+
+<a
+  href="{{ col_url }}"
+  class="pc-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+  style="animation-delay: {{ index | times: 120 }}ms;"
+  {% if block %}{{ block.shopify_attributes }}{% endif %}
+>
+  {%- comment -%} Image Slideshow / Fallback Logic {%- endcomment -%}
+  <div class="pc-card-slideshow">
+    {%- if block_image != blank -%}
+      <img class="pc-card-image" src="{{ block_image | image_url: width: 800 }}" alt="{{ col_title }}" loading="lazy" width="800" height="1067">
+    {%- elsif col != blank and col.products.size > 1 -%}
+      {%- for product in col.products limit: 3 -%}
+        <img
+          class="pc-card-image slideshow-item"
+          src="{{ product.featured_image | image_url: width: 800 }}"
+          alt="{{ product.title | escape }}"
+          loading="lazy"
+          width="800"
+          height="1067"
+          style="animation-delay: {{ forloop.index0 | times: 4 }}s"
+        >
+      {%- endfor -%}
+    {%- elsif col != blank and col.featured_image -%}
+      <img class="pc-card-image" src="{{ col.featured_image | image_url: width: 800 }}" alt="{{ col_title }}" loading="lazy" width="800" height="1067">
+    {%- elsif col != blank and col.products.first.featured_image -%}
+      {%- comment -%} Final fallback to first product image if no collection image {%- endcomment -%}
+      <img class="pc-card-image" src="{{ col.products.first.featured_image | image_url: width: 800 }}" alt="{{ col_title }}" loading="lazy" width="800" height="1067">
+    {%- else -%}
+      <div class="pc-card-placeholder" style="background: rgba(var(--color-foreground), 0.05);">
+        <svg viewBox="0 0 120 140" fill="none">
+          <path d="M60 12 C60 12 44 15 40 25 L34 46 L20 40 L25 55 L38 52 L33 95 L23 132 L50 132 L55 105 L60 118 L65 105 L70 132 L97 132 L87 95 L82 52 L95 55 L100 40 L86 46 L80 25 C76 15 60 12 60 12Z" stroke="#b8977a" stroke-width="1.5" fill="none"/>
+          <circle cx="60" cy="8" r="4" stroke="#b8977a" stroke-width="1.2" fill="none"/>
+        </svg>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Overlay {%- endcomment -%}
+  <div class="pc-card-overlay"></div>
+
+  {%- comment -%} Product count badge {%- endcomment -%}
+  {%- if col != blank and col.all_products_count > 0 -%}
+    <div class="pc-card-count">{{ col.all_products_count }} items</div>
+  {%- endif -%}
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="pc-card-content">
+    {%- if col_label != blank -%}
+      <p class="pc-card-label">{{ col_label | escape }}</p>
+    {%- endif -%}
+    <h3 class="pc-card-title">{{ col_title | escape }}</h3>
+    <span class="pc-card-btn">
+      Explore
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </span>
+  </div>
+</a>

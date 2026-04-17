@@ -97,6 +97,7 @@
         "story_X89r7e"
       ],
       "settings": {
+        "color_scheme": "",
         "padding_top": 12,
         "padding_bottom": 24
       }
@@ -117,7 +118,8 @@
             "show_text_box": false,
             "box_align": "middle-right",
             "text_alignment": "center",
-            "text_alignment_mobile": "center"
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
           }
         },
         "slide_2": {
@@ -133,7 +135,8 @@
             "show_text_box": false,
             "box_align": "middle-center",
             "text_alignment": "center",
-            "text_alignment_mobile": "center"
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
           }
         }
       },
@@ -159,10 +162,12 @@
         "subtitle": "Fresh Picks",
         "collection": "new-arrivals",
         "badge_mode": "mixed",
+        "filter_on_sale": false,
         "products_to_show": 12,
         "show_view_all": true,
         "view_all_text": "View All",
         "view_all_link": "shopify://collections/new-arrivals",
+        "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -172,7 +177,12 @@
       "settings": {
         "title": "Shop by Video",
         "subtitle": "Watch & Shop",
+        "color_scheme": "",
         "layout": "carousel",
+        "enable_autoplay": true,
+        "max_reels_home": 9,
+        "show_view_all": true,
+        "view_all_link": "",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -186,6 +196,7 @@
             "title": "Summer Dresses",
             "label": "New Season",
             "collection": "dresses",
+            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
             "link": ""
           }
         },
@@ -195,6 +206,7 @@
             "title": "Co-ord Sets",
             "label": "Trending",
             "collection": "co-ord-sets",
+            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
             "link": ""
           }
         },
@@ -204,6 +216,7 @@
             "title": "Party Wear",
             "label": "Exclusive",
             "collection": "party-wear",
+            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
             "link": ""
           }
         }
@@ -216,6 +229,10 @@
       "settings": {
         "title": "Our Premium Collection",
         "subtitle": "Curated For You",
+        "color_scheme": "",
+        "collection_list": [
+          "dresses"
+        ],
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -233,6 +250,7 @@
         "show_view_all": true,
         "view_all_text": "View All Deals",
         "view_all_link": "shopify://collections/sales",
+        "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -244,10 +262,12 @@
         "subtitle": "Top Picks",
         "collection": "best-sellers",
         "products_to_show": 16,
+        "filter_on_sale": false,
         "auto_scroll_speed": 4,
         "show_view_all": true,
         "view_all_text": "View All Best Sellers",
         "view_all_link": "shopify://collections/best-sellers",
+        "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -286,6 +306,7 @@
         "review_3"
       ],
       "settings": {
+        "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -298,6 +319,7 @@
         "description": "Can't find what you're looking for? Reach out to our customer care team.",
         "button_text": "Contact Us",
         "button_link": "",
+        "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
       }
