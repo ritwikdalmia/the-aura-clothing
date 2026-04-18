@@ -69,7 +69,7 @@
 }
 
 .drawer__inner {
-  height: 100vh !important;
+  height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
   background: var(--aura-bg-warm) !important;
@@ -180,6 +180,11 @@ cart-drawer-items.is-empty {
   height: 125px !important;
   border-radius: 12px !important;
   overflow: hidden !important;
+}
+
+.cart-item-card__info {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .cart-item-card__name {
@@ -386,6 +391,7 @@ cart-drawer-items.is-empty {
 /* ── Trust Badges (Minimalist) ── */
 .na-cart-trust {
   display: flex !important;
+  flex-wrap: wrap !important;
   justify-content: center !important;
   gap: 1.5rem !important;
   margin-top: 1.5rem !important;
@@ -420,6 +426,31 @@ cart-drawer-items::-webkit-scrollbar { width: 4px !important; }
 cart-drawer-items::-webkit-scrollbar-thumb {
   background: var(--aura-brand-gold) !important;
   border-radius: 10px !important;
+}
+
+/* ── Mobile Optimizations (<= 360px ) ── */
+@media screen and (max-width: 360px) {
+  .cart-item-card {
+    gap: 1rem !important;
+    padding: 1rem !important;
+  }
+  .cart-item-card__image {
+    width: 75px !important;
+    height: 100px !important;
+  }
+  .cart-item-card .quantity.cart-quantity {
+    width: 95px !important;
+    height: 34px !important;
+  }
+  .cart-item-card__actions-inner {
+    gap: 0.8rem !important;
+  }
+  .na-cart-trust {
+    gap: 0.8rem !important;
+  }
+  .na-trust-item {
+    font-size: 0.85rem !important;
+  }
 }
 
 /* ── Alerts & Errors (Premium Brand Styling) ── */
