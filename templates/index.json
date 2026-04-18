@@ -56,7 +56,7 @@
           "type": "story",
           "settings": {
             "title": "Party Wear",
-            "link": "shopify://collections/party-wear",
+            "link": "shopify://collections/new-arrivals-1",
             "icon": "sparkles"
           }
         },
@@ -116,7 +116,7 @@
             "link": "shopify://collections/all",
             "button_style_secondary": false,
             "show_text_box": false,
-            "box_align": "middle-right",
+            "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
             "color_scheme": ""
@@ -233,6 +233,7 @@
         "collection_list": [
           "dresses"
         ],
+        "overlay_opacity": 40,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -279,6 +280,7 @@
           "type": "review",
           "settings": {
             "name": "Kanwal",
+            "star_rating": 5,
             "show_verified": true,
             "review_text": "This is such a pretty dress. Such soft material slipped like butter on me. I was initially worried..."
           }
@@ -287,6 +289,7 @@
           "type": "review",
           "settings": {
             "name": "Pawani",
+            "star_rating": 5,
             "show_verified": false,
             "review_text": "I love this dresss 😩🥺🥺❤️❤️\n❤️ Thankyou so so much 🥰"
           }
@@ -295,6 +298,7 @@
           "type": "review",
           "settings": {
             "name": "Arti Belekar",
+            "star_rating": 5,
             "show_verified": false,
             "review_text": "✨"
           }
@@ -306,6 +310,9 @@
         "review_3"
       ],
       "settings": {
+        "subtitle": "Testimonials",
+        "title": "What our customers are saying",
+        "show_stars": true,
         "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
