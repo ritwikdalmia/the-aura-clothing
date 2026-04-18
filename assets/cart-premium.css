@@ -69,6 +69,7 @@
 }
 
 .drawer__inner {
+  height: 100vh !important;
   display: flex !important;
   flex-direction: column !important;
   height: calc(100vh - 39px) !important;
