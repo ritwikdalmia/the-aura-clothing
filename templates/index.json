@@ -12,10 +12,10 @@
     "story_circles": {
       "type": "story-bubbles",
       "blocks": {
-        "story_1": {
+        "story_nh8rrj": {
           "type": "story",
           "settings": {
-            "title": "Explore Collection",
+            "title": "Collection",
             "link": "shopify://collections",
             "icon": "bag"
           }
@@ -86,7 +86,7 @@
         }
       },
       "block_order": [
-        "story_1",
+        "story_nh8rrj",
         "story_2",
         "story_3",
         "story_4",
@@ -108,7 +108,7 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "image_overlay_opacity": 20,
+            "image_overlay_opacity": 10,
             "heading": "SUMMER BLOOMS ARE NEAR",
             "heading_size": "h0",
             "subheading": "Light fabrics. Fresh prints. New arrivals",
