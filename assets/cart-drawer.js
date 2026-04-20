@@ -44,7 +44,8 @@ class CartDrawer extends HTMLElement {
     const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
     if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
     
-    // THE AURA PREMIUM: Announcement Bar Offset Logic (Consistent with Wishlist/Compare)
+    // THE AURA PREMIUM: Announcement Bar Offset Logic (REMOVED: Causing cropping issues when scrolled)
+    /*
     const announcementBar = document.querySelector('.shopify-section-announcement-bar, .announcement-bar, [class*="announcement"], #shopify-section-announcement-bar');
     const drawerInner = this.querySelector('.drawer__inner');
     if (drawerInner) {
@@ -55,6 +56,7 @@ class CartDrawer extends HTMLElement {
         drawerInner.style.top = `${topOffset}px`;
         drawerInner.style.height = `calc(100vh - ${topOffset}px)`;
     }
+    */
 
     // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {

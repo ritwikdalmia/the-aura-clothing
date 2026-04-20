@@ -57,7 +57,22 @@
 
 /* ── Full-Height Experience ── */
 .drawer {
-  z-index: 2000 !important; /* Match prefix logic or keep below bar */
+  z-index: 3000 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+}
+
+.drawer__overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  cursor: pointer !important;
 }
 
 /* Ensure announcement bar stays on top if it has a class we know */
@@ -69,15 +84,16 @@
 }
 
 .drawer__inner {
-  height: 100vh !important;
+  height: 100dvh !important;
   display: flex !important;
   flex-direction: column !important;
-  height: calc(100vh - 39px) !important;
-  max-height: calc(100vh - 39px) !important;
+  max-height: 100dvh !important;
   background: #ffffff !important;
   padding: 0 !important;
   overflow: hidden !important;
-  position: relative !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
 }
 
 .drawer__inner-empty {
