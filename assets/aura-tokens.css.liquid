@@ -1,25 +1,12 @@
 :root {
   /* Dynamic Brand Solid Colors (Source of Truth) */
   --aura-brand-gold: {{ settings.aura_gold }};
-  --aura-brand-gold-rgb: {{ settings.aura_gold | color_extract: 'red' }}, {{ settings.aura_gold | color_extract: 'green' }}, {{ settings.aura_gold | color_extract: 'blue' }};
-  
   --aura-brand-gold-light: {{ settings.aura_gold_light }};
-  --aura-brand-gold-light-rgb: {{ settings.aura_gold_light | color_extract: 'red' }}, {{ settings.aura_gold_light | color_extract: 'green' }}, {{ settings.aura_gold_light | color_extract: 'blue' }};
-
   --aura-brand-bg-warm: {{ settings.aura_bg_warm }};
-  --aura-brand-bg-warm-rgb: {{ settings.aura_bg_warm | color_extract: 'red' }}, {{ settings.aura_bg_warm | color_extract: 'green' }}, {{ settings.aura_bg_warm | color_extract: 'blue' }};
-
   --aura-brand-dark: {{ settings.brand_dark }};
-  --aura-brand-dark-rgb: {{ settings.brand_dark | color_extract: 'red' }}, {{ settings.brand_dark | color_extract: 'green' }}, {{ settings.brand_dark | color_extract: 'blue' }};
-
   --aura-brand-text-main: {{ settings.text_primary }};
-  --aura-brand-text-main-rgb: {{ settings.text_primary | color_extract: 'red' }}, {{ settings.text_primary | color_extract: 'green' }}, {{ settings.text_primary | color_extract: 'blue' }};
-
   --aura-brand-text-muted: {{ settings.text_secondary }};
-  --aura-brand-text-muted-rgb: {{ settings.text_secondary | color_extract: 'red' }}, {{ settings.text_secondary | color_extract: 'green' }}, {{ settings.text_secondary | color_extract: 'blue' }};
-
   --aura-brand-sale: {{ settings.sale_accent }};
-  --aura-brand-sale-rgb: {{ settings.sale_accent | color_extract: 'red' }}, {{ settings.sale_accent | color_extract: 'green' }}, {{ settings.sale_accent | color_extract: 'blue' }};
 
   /* Standardized Typography Tokens */
   --aura-font-size-xs: 1.1rem;
