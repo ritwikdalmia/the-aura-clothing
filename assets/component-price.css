@@ -1,1 +1,225 @@
-.price{font-size:1.8rem;font-weight:600;letter-spacing:.1rem;line-height:calc(1 + .5/var(--font-body-scale));color:#1a1a1a}.price>*{display:inline-block;vertical-align:top}.price.price--unavailable{visibility:hidden}.price--end{text-align:right}.price .price-item{display:inline-block;margin:0 1rem 0 0}.price__regular .price-item--regular{margin-right:0}.price:not(.price--show-badge) .price-item--last:last-of-type{margin:0}@media screen and (min-width:750px){.price{margin-bottom:0}}.price--large{font-size:1.6rem;line-height:calc(1 + .5/var(--font-body-scale));letter-spacing:.13rem}@media screen and (min-width:750px){.price--large{font-size:1.8rem}}.price--sold-out .price__availability,.price__regular{display:block}.price .price__badge-sold-out,.price--on-sale .price__availability,.price--on-sale .price__regular,.price__availability,.price__sale{display:none}.price--on-sale .price__sale{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}.price__badges-row{display:flex;align-items:center;gap:1.2rem;width:100%;margin-top:.5rem}@media screen and (min-width:1024px){.price__badges-row{width:auto;margin-top:0}}.price__percentage-discount{color:#d73d3d;font-weight:700;font-size:1.4rem;white-space:nowrap}.price--on-sale .price__badge-sale,.price--sold-out .price__badge-sold-out,.volume-pricing--sale-badge .price__badge-sale{display:inline-block}.volume-pricing--sale-badge .price__badge-sale{margin-left:.5rem}.price--on-sale .price-item--regular{text-decoration:line-through;color:#000;font-size:1.4rem;font-weight:400;opacity:.6}.price--on-sale .price-item--sale{color:var(--aura-brand-gold);font-weight:700;margin-right:1.5rem!important}.price__badge-sale{background-color:#d73d3d!important;color:#fff!important;border-radius:50px!important;font-weight:700!important;padding:5px 15px!important;font-size:1.1rem!important;letter-spacing:.05em!important;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.1);white-space:nowrap!important}.unit-price{display:block;font-size:1.1rem;letter-spacing:.04rem;line-height:calc(1 + .2/var(--font-body-scale));margin-top:.2rem;color:rgba(var(--color-foreground),.7)}
+/* ===== UNIFIED PRICE & BADGE SYSTEM ===== */
+
+.price {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  line-height: 1 !important;
+  color: #1a1a1a;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.price__container {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  width: auto !important;
+}
+
+.price > * {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.price.price--unavailable {
+  visibility: hidden;
+}
+
+/* 1. PRODUCT PAGE: Large Price Styles */
+.price--large .price-item {
+  font-size: 1.8rem !important;
+  font-weight: 700 !important;
+  color: var(--aura-brand-gold, #a88b6a) !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+  line-height: 1 !important;
+}
+
+@media screen and (min-width: 750px) {
+  .price--large .price-item {
+    font-size: 2.2rem !important;
+  }
+}
+
+/* Strikethrough for Old Price */
+.price--large .price__sale s.price-item--regular,
+.price--large .price__sale .price-item--regular {
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+  opacity: 0.5 !important;
+  text-decoration: line-through !important;
+  color: #000000 !important;
+  margin-right: 8px !important;
+}
+
+/* 2. BADGE VISIBILITY LOGIC */
+
+.price__sale,
+.price__availability,
+.price__regular {
+  display: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.price:not(.price--on-sale):not(.price--sold-out) .price__regular {
+  display: block;
+}
+
+/* 3. MUTUALLY EXCLUSIVE SHOW/HIDE LOGIC */
+
+/* State 1: NO SALE, NO BADGE, NO SOLD OUT -> Show ONLY Regular */
+.price:not(.price--on-sale):not(.price--sold-out):not(.price--show-badge) .price__regular {
+  display: inline-flex !important;
+}
+
+/* State 2: SPECIAL STATES -> Show ONLY Sale (badges are inside sale) */
+.price--on-sale .price__sale,
+.price--show-badge .price__sale,
+.price--sold-out .price__sale {
+  display: inline-flex !important;
+}
+
+/* Cleanup for State 2: Hide Regular if any special state is active */
+.price--on-sale .price__regular,
+.price--sold-out .price__regular,
+.price--show-badge .price__regular {
+  display: none !important;
+}
+
+/* Cleanup for State 1: Hide Sale if no special state is active */
+.price:not(.price--on-sale):not(.price--sold-out):not(.price--show-badge) .price__sale {
+  display: none !important;
+}
+
+/* Shared Flex Styles for active container */
+.price__sale,
+.price__regular {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .price__sale,
+  .price__regular {
+    gap: 8px !important;
+  }
+}
+
+/* Internal element cleanup */
+.price__sale > *,
+.price__regular > * {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.price__sale > .visually-hidden,
+.price__sale > span:empty,
+.price__regular > .visually-hidden,
+.price__regular > span:empty {
+  display: none !important;
+}
+
+/* Price items group (Old Price container) - Only show if actually on sale */
+.price__sale > span:not(.price-item) {
+  display: none !important; /* Hide by default */
+}
+.price--on-sale .price__sale > span:not(.price-item) {
+  display: flex !important; /* Show only on sale */
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* 4. BADGE LAYOUT ROW */
+.price__badges-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 0 !important;
+  width: auto !important;
+}
+
+/* 5. UNIFIED BADGE STYLING (The Source of Truth) */
+.badge,
+.na-badge,
+.price__badge-sale,
+.price__badge-sold-out,
+.price__badge-new,
+.badge--new,
+.na-badge--new,
+.na-badge--sale,
+.na-badge--sold-out,
+span[class*="badge"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  padding: 0 8px !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 50px !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+/* Red Badges (Sale) */
+.price__badge-sale,
+.na-badge--sale,
+.badge:not(.badge--new):not(.na-badge--new):not(.price__badge-new):not(.price__badge-sold-out) {
+  background-color: #d73d3d !important;
+  color: #ffffff !important;
+}
+
+/* Black/Dark Badges (New) */
+.badge--new,
+.na-badge--new,
+.price__badge-new,
+span[class*="badge"][class*="new"] {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+/* Sale Badges Visibility */
+.price:not(.price--on-sale) .price__badge-sale,
+.price:not(.price--on-sale) .na-badge--sale,
+.price:not(.price--on-sale) .badge:not(.badge--new):not(.na-badge--new):not(.price__badge-new):not(.price__badge-sold-out) {
+  display: none !important;
+}
+
+/* Sold Out Badges */
+.price:not(.price--sold-out) .price__badge-sold-out,
+.price:not(.price--sold-out) .na-badge--sold-out {
+  display: none !important;
+}
+
+.price--sold-out .price__badge-sold-out,
+.price--sold-out .na-badge--sold-out {
+  display: inline-flex !important;
+  background-color: #f4f4f4 !important;
+  color: #000000 !important;
+  opacity: 0.8 !important;
+}

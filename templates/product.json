@@ -72,7 +72,7 @@
           "type": "trust_badges",
           "settings": {
             "badge_1_title": "Free Shipping",
-            "badge_1_sub": "On orders over $150",
+            "badge_1_sub": "On orders over Rs 150",
             "badge_2_title": "Secure Payment",
             "badge_2_sub": "100% Protected"
           }

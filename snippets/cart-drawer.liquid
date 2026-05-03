@@ -81,7 +81,7 @@
                         <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}" loading="lazy">
                       </div>
                       <div class="drawer__sales-info">
-                        <span class="drawer__sales-product-title">{{ product.title | truncate: 25 }}</span>
+                        <span class="drawer__sales-product-title">{{ product.title }}</span>
                         <div class="drawer__sales-prices">
                           <span class="drawer__sales-price-sale">{{ product.price | money }}</span>
                           {%- if product.compare_at_price > product.price -%}
@@ -153,7 +153,10 @@
 
                          <!-- Price: strikethrough original → discounted -->
                          <div class="cart-item-card__price-row">
-                           {%- if item.original_price != item.final_price -%}
+                           {%- if item.variant.compare_at_price > item.variant.price -%}
+                             <s class="cart-item-card__price-original">{{ item.variant.compare_at_price | money }}</s>
+                             <span class="cart-item-card__price-discounted">{{ item.final_price | money }}</span>
+                           {%- elsif item.original_price != item.final_price -%}
                              <s class="cart-item-card__price-original">{{ item.original_price | money }}</s>
                              <span class="cart-item-card__price-discounted">{{ item.final_price | money }}</span>
                            {%- else -%}

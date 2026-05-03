@@ -4,7 +4,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
 {%- if card_product and card_product != empty -%}
-<a href="{{ card_product.url }}" class="na-product-card color-{{ settings.card_color_scheme }} gradient{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+<a href="{{ card_product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="na-card-image-wrapper">
       <div class="na-badge-container">
         {%- if card_product.available == false -%}
