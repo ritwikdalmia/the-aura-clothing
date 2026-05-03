@@ -583,7 +583,7 @@
                     {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
                     <span class="bs-badge bs-badge--sale">-{{ savings }}% SALE</span>
                   {%- elsif is_new or product.tags contains 'new' or product.tags contains 'New' -%}
-                    <span class="bs-badge bs-badge--new">NEW</span>
+                    <span class="bs-badge bs-badge--new">New</span>
                   {%- endif -%}
                   {%- if product.available == false -%}
                     <span class="bs-badge bs-badge--sold-out">Sold Out</span>
