@@ -183,7 +183,10 @@ async function buyQvNow(btn) {
 }
 
 function formatMoney(cents) {
-    return '₹' + (cents / 100).toLocaleString('en-IN');
+    return 'Rs. ' + (cents / 100).toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 }
 
 // Global listeners

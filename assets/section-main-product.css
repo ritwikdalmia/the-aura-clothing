@@ -151,6 +151,13 @@ product-info {
   white-space: nowrap;
 }
 
+.main-product-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
 .na-wishlist-product, .na-compare-product {
   width: 44px;
   height: 44px;
@@ -288,7 +295,7 @@ product-info {
   min-height: 5.2rem !important;
   border: 1px solid rgba(168, 139, 106, 0.2) !important;
   background: #fff;
-  width: 15rem;
+  width: 14rem;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -576,8 +583,14 @@ product-info {
 .product-form__input.product-form__input--quantity {
   clear: both;
   margin-top: 2rem;
-  display: block;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.product-form__input--quantity + .main-product-actions {
+  margin-top: -1rem; /* Bring them closer if they are separate blocks */
 }
 
 @media screen and (forced-colors: active) {

@@ -21,7 +21,7 @@
   
   <div class="na-quick-view-info">
     <div class="na-qv-header">
-      <p class="caption-with-letter-spacing light" style="margin-bottom: 0.5rem; color: #999;">{{ product.vendor }}</p>
+      <p class="caption-with-letter-spacing light" style="color: #999;">{{ product.vendor }}</p>
       <h2 class="na-qv-title">{{ product.title }}</h2>
       
       <div class="na-qv-price-row" id="naQvPrice-{{ section.id }}">
@@ -40,41 +40,43 @@
       {%- endif -%}
     </div>
 
-    <div class="na-qv-variants">
-      {%- for option in product.options_with_values -%}
-        {%- assign downcase_option = option.name | downcase -%}
-        {%- assign is_color = false -%}
-        {%- if downcase_option contains 'color' or downcase_option contains 'colour' -%}
-          {%- assign is_color = true -%}
-        {%- endif -%}
+    {%- unless product.has_only_default_variant -%}
+      <div class="na-qv-variants">
+        {%- for option in product.options_with_values -%}
+          {%- assign downcase_option = option.name | downcase -%}
+          {%- assign is_color = false -%}
+          {%- if downcase_option contains 'color' or downcase_option contains 'colour' -%}
+            {%- assign is_color = true -%}
+          {%- endif -%}
 
-        <div class="na-qv-option-wrapper" data-option-index="{{ forloop.index0 }}">
-          <h4 class="na-qv-option-title">{{ option.name }}</h4>
-          <div class="na-qv-options {% if is_color %}na-qv-color-options{% endif %}">
-            {%- for value in option.values -%}
-              <div class="na-qv-option{% if option.selected_value == value %} active{% endif %}{% if is_color %} na-qv-swatch{% endif %}" 
-                   data-value="{{ value | escape }}"
-                   {% if is_color %}title="{{ value | escape }}" data-color-name="{{ value | escape }}"{% endif %}>
-                {%- if is_color -%}
-                  {%- liquid
-                    assign swatch_value = null
-                    if value.swatch.image
-                      assign image_url = value.swatch.image | image_url: width: 50
-                      assign swatch_value = 'url(' | append: image_url | append: ')'
-                    elsif value.swatch.color
-                      assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
-                    endif
-                  -%}
-                  <span class="na-qv-swatch-inner" style="background: {{ swatch_value | default: value | escape }};"></span>
-                {%- else -%}
-                  {{ value }}
-                {%- endif -%}
-              </div>
-            {%- endfor -%}
+          <div class="na-qv-option-wrapper" data-option-index="{{ forloop.index0 }}">
+            <h4 class="na-qv-option-title">{{ option.name }}</h4>
+            <div class="na-qv-options {% if is_color %}na-qv-color-options{% endif %}">
+              {%- for value in option.values -%}
+                <div class="na-qv-option{% if option.selected_value == value %} active{% endif %}{% if is_color %} na-qv-swatch{% endif %}" 
+                     data-value="{{ value | escape }}"
+                     {% if is_color %}title="{{ value | escape }}" data-color-name="{{ value | escape }}"{% endif %}>
+                  {%- if is_color -%}
+                    {%- liquid
+                      assign swatch_value = null
+                      if value.swatch.image
+                        assign image_url = value.swatch.image | image_url: width: 50
+                        assign swatch_value = 'url(' | append: image_url | append: ')'
+                      elsif value.swatch.color
+                        assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                      endif
+                    -%}
+                    <span class="na-qv-swatch-inner" style="background: {{ swatch_value | default: value | escape }};"></span>
+                  {%- else -%}
+                    {{ value }}
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
           </div>
-        </div>
-      {%- endfor -%}
-    </div>
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
 
     <div class="na-qv-qty-row">
       <h4 class="na-qv-option-title" style="margin-bottom: 0;">Quantity</h4>
