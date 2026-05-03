@@ -151,13 +151,6 @@ product-info {
   white-space: nowrap;
 }
 
-.main-product-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-}
-
 .na-wishlist-product, .na-compare-product {
   width: 44px;
   height: 44px;
@@ -295,7 +288,7 @@ product-info {
   min-height: 5.2rem !important;
   border: 1px solid rgba(168, 139, 106, 0.2) !important;
   background: #fff;
-  width: 14rem;
+  width: 15rem;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -583,14 +576,8 @@ product-info {
 .product-form__input.product-form__input--quantity {
   clear: both;
   margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.product-form__input--quantity + .main-product-actions {
-  margin-top: -1rem; /* Bring them closer if they are separate blocks */
+  display: block;
+  width: 100%;
 }
 
 @media screen and (forced-colors: active) {
@@ -1562,7 +1549,7 @@ video::-webkit-media-controls-time-remaining-display {
 .thumbnail {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1.2px solid rgba(0,0,0,0.05);
-  border-radius: 4px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
   padding: 0;
@@ -1600,7 +1587,7 @@ video::-webkit-media-controls-time-remaining-display {
 
   media-gallery slider-component[id^="GalleryThumbnails"] {
     order: -1;
-    width: 80px;
+    width: 110px;
     flex-shrink: 0;
   }
 
@@ -1613,32 +1600,25 @@ video::-webkit-media-controls-time-remaining-display {
     display: flex !important;
     flex-direction: column !important;
     grid-template-columns: 1fr !important;
-    max-height: 600px;
+    max-height: 60vh;
     overflow-y: auto !important;
-    padding: 2px;
+    padding: 0.5rem;
     margin-top: 0 !important;
-    scrollbar-width: none;
-    gap: 8px !important;
+    scrollbar-width: thin;
   }
 
   .thumbnail-list::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  .thumbnail-list::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-foreground), 0.1);
+    border-radius: 10px;
   }
 
   .thumbnail-list .thumbnail-list__item {
     width: 100% !important;
     max-width: 100% !important;
-  }
-
-  .thumbnail {
-    border-radius: 4px !important;
-    border: 1px solid #e5e5e5 !important;
-  }
-
-  .thumbnail[aria-current='true'] {
-    border: 2px solid var(--aura-brand-gold) !important;
-    box-shadow: none !important;
-    transform: none !important;
   }
 }
 
