@@ -148,8 +148,10 @@ window.AuraFeatures = window.AuraFeatures || {
     `;
     
     try {
-      const separator = productUrl.includes('?') ? '&' : '?';
-      const response = await fetch(`${productUrl}${separator}section_id=product-quick-add`);
+      // Ensure we use a relative URL to avoid potential CORS issues
+      const cleanUrl = productUrl.replace(/^https?:\/\/[^\/]+/, '');
+      const separator = cleanUrl.includes('?') ? '&' : '?';
+      const response = await fetch(`${cleanUrl}${separator}section_id=product-quick-add`);
       if (!response.ok) throw new Error('Failed to load product details');
       const html = await response.text();
       content.innerHTML = html;
