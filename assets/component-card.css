@@ -1,4 +1,4 @@
-.card-wrapper {
+﻿.card-wrapper {
   color: inherit;
   height: 100%;
   position: relative;
@@ -615,7 +615,7 @@
   fill: var(--aura-brand-bg-warm) !important;
 }
 
-/* Active State Logic — Solid gold when active */
+/* Active State Logic â€” Solid gold when active */
 .na-wishlist.is-active, .na-compare.is-active,
 .bs-wishlist.is-active, .bs-compare.is-active,
 .na-wishlist-product.is-active, .na-compare-product.is-active {
