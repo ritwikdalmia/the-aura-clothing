@@ -1644,25 +1644,9 @@
   }
   
   .na-mobile-actions button {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-  }
-
-  .na-mobile-actions button svg {
-    width: 14px !important;
-    height: 14px !important;
-  }
-  .na-card-image-wrapper .na-wishlist,
-  .na-card-image-wrapper .na-compare,
-  .bs-card-image-wrapper .bs-wishlist,
-  .bs-card-image-wrapper .bs-compare {
-    display: none !important;
-  }
-  
-  .na-mobile-actions button {
-    width: 28px;
-    height: 28px;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
     border-radius: 50%;
     border: 1px solid rgba(0,0,0,0.08);
     background: #f8f8f8;
@@ -1673,12 +1657,19 @@
     padding: 0;
     transition: all 0.3s ease;
   }
-  
+
   .na-mobile-actions button svg {
-    width: 14px;
-    height: 14px;
+    width: 12px !important;
+    height: 12px !important;
     stroke: #333;
     fill: none;
+  }
+  
+  .na-card-image-wrapper .na-wishlist,
+  .na-card-image-wrapper .na-compare,
+  .bs-card-image-wrapper .bs-wishlist,
+  .bs-card-image-wrapper .bs-compare {
+    display: none !important;
   }
   
   .na-mobile-actions button.is-active {
