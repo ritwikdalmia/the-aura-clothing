@@ -17,27 +17,38 @@
 <div class="story-bubbles-container">
 <div class="story-bubbles-wrapper">
 {%- for block in section.blocks -%}
-<a id="story-bubble-{{ block.id }}" href="{{ block.settings.link | default: '#' }}" class="story-bubble-item" {{ block.shopify_attributes }}>
-<div class="story-bubble-icon-wrap">
-{%- if block.settings.image != blank -%}
-<img src="{{ block.settings.image | image_url: width: 180 }}" alt="{{ block.settings.image.alt | escape }}" class="story-bubble-img" loading="lazy" width="90" height="90">
-{%- else -%}
-<div class="story-bubble-icon-inner">
-{%- case block.settings.icon -%}
-{%- when 'bag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-{%- when 'star' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-{%- when 'heart' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-{%- when 'tag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
-{%- when 'sparkles' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="m5 3 1 1"/><path d="m19 3-1 1"/><path d="m5 21 1-1"/><path d="m19 21-1-1"/></svg>
-{%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
-{%- endcase -%}
-</div>
-{%- endif -%}
-</div>
-{%- if block.settings.title != blank -%}
-<span class="story-bubble-title">{{ block.settings.title | escape }}</span>
-{%- endif -%}
-</a>
+  {%- liquid
+    assign show_bubble = true
+    if block.settings.link contains '/collections/'
+      assign collection_handle = block.settings.link | split: '/collections/' | last | split: '?' | first
+      if collection_handle != blank and collections[collection_handle].all_products_count == 0 and request.design_mode == false
+        assign show_bubble = false
+      endif
+    endif
+  -%}
+  {%- if show_bubble -%}
+    <a id="story-bubble-{{ block.id }}" href="{{ block.settings.link | default: '#' }}" class="story-bubble-item" {{ block.shopify_attributes }}>
+    <div class="story-bubble-icon-wrap">
+    {%- if block.settings.image != blank -%}
+    <img src="{{ block.settings.image | image_url: width: 180 }}" alt="{{ block.settings.image.alt | escape }}" class="story-bubble-img" loading="lazy" width="90" height="90">
+    {%- else -%}
+    <div class="story-bubble-icon-inner">
+    {%- case block.settings.icon -%}
+    {%- when 'bag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    {%- when 'star' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    {%- when 'heart' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+    {%- when 'tag' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+    {%- when 'sparkles' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="m5 3 1 1"/><path d="m19 3-1 1"/><path d="m5 21 1-1"/><path d="m19 21-1-1"/></svg>
+    {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+    {%- endcase -%}
+    </div>
+    {%- endif -%}
+    </div>
+    {%- if block.settings.title != blank -%}
+    <span class="story-bubble-title">{{ block.settings.title | escape }}</span>
+    {%- endif -%}
+    </a>
+  {%- endif -%}
 {%- endfor -%}
 </div>
 </div>
