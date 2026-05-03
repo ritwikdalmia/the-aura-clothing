@@ -327,6 +327,9 @@
       {%- comment -%} 1. Render Collections from the collection_list setting {%- endcomment -%}
       {%- if section.settings.collection_list != blank -%}
         {%- for col in section.settings.collection_list -%}
+          {%- if col.all_products_count == 0 -%}
+            {%- continue -%}
+          {%- endif -%}
           {%- liquid
             assign col_url = col.url
             assign col_title = col.title
@@ -346,6 +349,9 @@
 
       {%- comment -%} 2. Render Collection Blocks {%- endcomment -%}
       {%- for block in section.blocks -%}
+        {%- if block.settings.collection != blank and block.settings.collection.all_products_count == 0 -%}
+          {%- continue -%}
+        {%- endif -%}
         {%- liquid
           assign col = block.settings.collection
           assign col_url = col.url | default: block.settings.link | default: '#'

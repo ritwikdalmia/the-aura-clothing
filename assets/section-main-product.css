@@ -2379,6 +2379,14 @@ video::-webkit-media-controls-time-remaining-display {
 /* Explicit style overrides for hover states and Shopify's dynamic 'buy it now' */
 
 /* Color Swatch Mappings - Robust Selectors */
+[data-color-name*="Red" i] .swatch-visual { background-color: #E74C3C !important; }
+[data-color-name*="Black" i] .swatch-visual { background-color: #1A1A1A !important; }
+[data-color-name*="White" i] .swatch-visual { background-color: #FFFFFF !important; border: 1px solid #E5E5E5 !important; }
+[data-color-name*="Blue" i] .swatch-visual { background-color: #3498DB !important; }
+[data-color-name*="Green" i] .swatch-visual { background-color: #27AE60 !important; }
+[data-color-name*="Yellow" i] .swatch-visual { background-color: #F1C40F !important; }
+[data-color-name*="Orange" i] .swatch-visual { background-color: #E67E22 !important; }
+[data-color-name*="Purple" i] .swatch-visual { background-color: #8E44AD !important; }
 [data-color-name*="Beige" i] .swatch-visual { background-color: #F5F5DC !important; }
 [data-color-name*="Cream" i] .swatch-visual { background-color: #FFFDD0 !important; }
 [data-color-name*="Brown" i] .swatch-visual { background-color: #8B4513 !important; }
@@ -2388,11 +2396,14 @@ video::-webkit-media-controls-time-remaining-display {
 [data-color-name*="Grey" i] .swatch-visual, [data-color-name*="Gray" i] .swatch-visual { background-color: #808080 !important; }
 [data-color-name*="Pink" i] .swatch-visual { background-color: #FFC0CB !important; }
 [data-color-name*="Fuchsia" i] .swatch-visual { background-color: #FF00FF !important; }
-[data-color-name*="Yellow" i] .swatch-visual { background-color: #F1C40F !important; }
-[data-color-name*="Clear" i] .swatch-visual { background: linear-gradient(45deg, #eee 25%, #fff 25%, #fff 50%, #eee 50%, #eee 75%, #fff 75%, #fff 100%) !important; background-size: 10px 10px !important; }
 [data-color-name*="Navy" i] .swatch-visual { background-color: #000080 !important; }
 [data-color-name*="Lavender" i] .swatch-visual { background-color: #E6E6FA !important; }
 [data-color-name*="Rose" i] .swatch-visual { background-color: #FF007F !important; }
+[data-color-name*="Gold" i] .swatch-visual { background-color: #D4AF37 !important; }
+[data-color-name*="Tan" i] .swatch-visual { background-color: #D2B48C !important; }
+[data-color-name*="Peach" i] .swatch-visual { background-color: #FFDAB9 !important; }
+[data-color-name*="Mint" i] .swatch-visual { background-color: #98FFED !important; }
+[data-color-name*="Clear" i] .swatch-visual { background: linear-gradient(45deg, #eee 25%, #fff 25%, #fff 50%, #eee 50%, #eee 75%, #fff 75%, #fff 100%) !important; background-size: 10px 10px !important; }
 
 /* Aura Specifications Accordion */
 .aura-specs-accordion {

@@ -97,7 +97,7 @@
     {%- assign option_name_down = option.name | downcase -%}
     <label for="{{ input_id }}" {% if option_name_down == 'color' or option_name_down == 'colour' %}data-color-name="{{ value | escape }}"{% endif %}>
       {% if option_name_down == 'color' or option_name_down == 'colour' %}
-        <span class="swatch-visual"></span>
+        <span class="swatch-visual" style="{% if swatch_value %}background: {{ swatch_value }} !important;{% else %}background-color: {{ value | replace: ' ', '' | downcase }};{% endif %}"></span>
       {% endif %}
       {{ value -}}
       {{ label_unavailable }}

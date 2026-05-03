@@ -3,7 +3,7 @@
  * Handles Wishlist, Compare, Quick Add, and UI Utilities.
  */
 
-const AuraFeatures = {
+window.AuraFeatures = window.AuraFeatures || {
   // Config
   KEYS: {
     WISHLIST: 'aura_wishlist',

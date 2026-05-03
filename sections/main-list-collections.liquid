@@ -29,6 +29,9 @@
       style="row-gap: 4rem; column-gap: 3rem;"
     >
       {%- for collection in collections -%}
+        {%- if collection.all_products_count == 0 -%}
+          {%- continue -%}
+        {%- endif -%}
         <li
           class="collection-list__item grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
           {% if settings.animations_reveal_on_scroll %}
