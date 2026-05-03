@@ -15,6 +15,7 @@
         "story_1": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_6402.png",
             "title": "Explore Collection",
             "link": "shopify://collections",
             "icon": "bag"
@@ -23,6 +24,7 @@
         "story_2": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_6385.png",
             "title": "Dresses",
             "link": "shopify://collections/dresses",
             "icon": "sparkles"
@@ -31,6 +33,7 @@
         "story_3": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_5183.jpg",
             "title": "Co-ord sets",
             "link": "shopify://collections/co-ord-sets",
             "icon": "heart"
@@ -39,6 +42,7 @@
         "story_4": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_5306.jpg",
             "title": "Tops",
             "link": "shopify://collections/tops",
             "icon": "sparkles"
@@ -47,6 +51,7 @@
         "story_5": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_6400.png",
             "title": "Maxi",
             "link": "shopify://collections/maxi",
             "icon": "star"
@@ -55,6 +60,7 @@
         "story_6": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_6389.png",
             "title": "Party Wear",
             "link": "shopify://collections/party-wear",
             "icon": "sparkles"
@@ -63,6 +69,7 @@
         "story_LC7TLC": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_5183.jpg",
             "title": "New Arrivals",
             "link": "shopify://collections/new-arrivals",
             "icon": "star"
@@ -71,6 +78,7 @@
         "story_kpWkfE": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/Fuchsiapinksatin.jpg",
             "title": "Best Sellers",
             "link": "shopify://collections/best-sellers",
             "icon": "heart"
@@ -79,6 +87,7 @@
         "story_X89r7e": {
           "type": "story",
           "settings": {
+            "image": "shopify://shop_images/IMG_6406.png",
             "title": "Sales",
             "link": "shopify://collections/sales",
             "icon": "tag"
@@ -196,7 +205,7 @@
             "title": "Summer Dresses",
             "label": "New Season",
             "collection": "dresses",
-            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
+            "image": "shopify://shop_images/IMG_6385.png",
             "link": ""
           }
         },
@@ -206,7 +215,7 @@
             "title": "Co-ord Sets",
             "label": "Trending",
             "collection": "co-ord-sets",
-            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
+            "image": "shopify://shop_images/Fuchsiapinksatin.jpg",
             "link": ""
           }
         },
@@ -216,7 +225,7 @@
             "title": "Party Wear",
             "label": "Exclusive",
             "collection": "party-wear",
-            "image": "shopify://shop_images/2A4E28B6-E49A-461B-8012-3B19E1BA5DB3.webp",
+            "image": "shopify://shop_images/IMG_5182.jpg",
             "link": ""
           }
         }
@@ -233,6 +242,7 @@
         "collection_list": [
           "dresses"
         ],
+        "overlay_opacity": 40,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -279,6 +289,7 @@
           "type": "review",
           "settings": {
             "name": "Kanwal",
+            "star_rating": 5,
             "show_verified": true,
             "review_text": "This is such a pretty dress. Such soft material slipped like butter on me. I was initially worried..."
           }
@@ -287,6 +298,7 @@
           "type": "review",
           "settings": {
             "name": "Pawani",
+            "star_rating": 5,
             "show_verified": false,
             "review_text": "I love this dresss 😩🥺🥺❤️❤️\n❤️ Thankyou so so much 🥰"
           }
@@ -295,6 +307,7 @@
           "type": "review",
           "settings": {
             "name": "Arti Belekar",
+            "star_rating": 5,
             "show_verified": false,
             "review_text": "✨"
           }
@@ -306,6 +319,9 @@
         "review_3"
       ],
       "settings": {
+        "subtitle": "Testimonials",
+        "title": "What our customers are saying",
+        "show_stars": true,
         "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60

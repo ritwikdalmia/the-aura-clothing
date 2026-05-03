@@ -143,7 +143,7 @@ window.AuraFeatures = window.AuraFeatures || {
     content.innerHTML = `
       <div class="aura-loader-container">
         <span class="aura-loader"></span>
-        <div style="margin-top:1.5rem;">Unveiling Boutique Experience...</div>
+        <span>Loading Boutique Experience...</span>
       </div>
     `;
     
