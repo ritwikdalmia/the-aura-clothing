@@ -72,24 +72,27 @@
   }
 
   .footer-newsletter-btn {
-    background: transparent;
+    background: #fff;
     border: none;
-    color: {{ section.settings.text_color | default: '#ffffff' }};
+    color: #000;
     font-family: inherit;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
-    padding: 0 0 0 2.5rem;
+    padding: 1rem 2.5rem;
+    margin-left: 1.5rem;
     transition: all 0.3s ease;
     white-space: nowrap;
-    opacity: 0.9;
+    border-radius: 50px;
   }
 
   .footer-newsletter-btn:hover {
-    opacity: 1;
-    color: var(--aura-brand-gold);
+    background: var(--aura-brand-gold);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
 
   /* Main Grid */

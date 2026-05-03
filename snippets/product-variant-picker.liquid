@@ -26,6 +26,11 @@
             assign picker_type = 'swatch'
           endif
         endif
+
+        assign option_name_handle = option.name | handle
+        if option_name_handle == 'color' or option_name_handle == 'colour'
+           assign picker_type = 'button'
+        endif
       -%}
       {%- if picker_type == 'swatch' -%}
         <fieldset class="js product-form__input product-form__input--swatch">
@@ -44,7 +49,7 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label">{{ option.name }}: <span class="selected-variant-value">{{ option.selected_value }}</span></legend>
           {% render 'product-variant-options',
             product: product,
             option: option,

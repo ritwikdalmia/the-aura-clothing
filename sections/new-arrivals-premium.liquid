@@ -116,79 +116,13 @@
     }
   }
 
-  /* ===== 3D Product Card ===== */
-  .na-product-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: var(--aura-brand-dark);
-    border-radius: 12px;
-    background: var(--aura-brand-bg-warm);
-    overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.08);
-    transition:
-      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-  }
-
-  .na-product-card:hover {
-    transform: translateY(-8px) scale(1.015);
-  }
-
-  /* Image Container */
-  .na-card-image-wrapper {
-    position: relative;
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-    background: var(--aura-brand-bg-warm);
-  }
-
-  .na-card-image-wrapper img,
-  .na-card-image-wrapper svg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
-  }
-
-  /* Make Shopify placeholder SVGs fill the card properly */
-  .na-card-image-wrapper .placeholder-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    padding: 20%;
-    background: var(--aura-brand-bg-warm);
-    object-fit: contain;
-  }
-
-  .na-product-card:hover .na-card-image-wrapper img,
-  .na-product-card:hover .na-card-image-wrapper svg {
-    transform: scale(1.1);
-  }
-
-  /* Second Image (hover reveal) */
-  .na-card-image-wrapper .na-card-img-hover {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    z-index: 1;
-  }
-
-  .na-product-card:hover .na-card-img-hover {
-    opacity: 1;
-  }
-
-  .na-product-card:hover .na-card-img-primary {
-    opacity: 0;
-  }
+  /* ===== 3D Product Card — Consolidated to component-card.css ===== */
 
   /* ===== Glassmorphism Badges ===== */
   .na-badge-container {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 16px;
+    left: 16px;
     z-index: 4;
     display: flex;
     flex-direction: column;
@@ -411,7 +345,7 @@
     font-size: 1.2rem;
     font-weight: 600;
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 6px;
+    border-radius: var(--aura-btn-radius, 50px);
     position: relative;
     overflow: hidden;
   }
@@ -443,26 +377,25 @@
       aspect-ratio: 3 / 4 !important;
     }
     .na-badge-container {
-      top: 10px;
-      left: 10px;
-      gap: 5px;
+      top: 12px;
+      left: 12px;
+      gap: 6px;
     }
     .na-badge {
-      padding: 3px 10px;
+      padding: 4px 10px;
       font-size: 0.85rem;
     }
     .na-wishlist, .na-compare {
-      width: 30px;
-      height: 30px;
-      right: 10px;
+      width: 32px;
+      height: 32px;
+      right: 12px;
       opacity: 1;
-      transform: scale(1) rotate(0deg);
     }
-    .na-wishlist { top: 10px; }
-    .na-compare { top: 48px; }
+    .na-wishlist { top: 12px; }
+    .na-compare { top: 50px; }
     .na-wishlist svg, .na-compare svg {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
     }
     .na-quick-add {
       transform: translateY(0);
@@ -477,6 +410,35 @@
     }
   }
 
+  @media screen and (max-width: 400px) {
+    .na-badge-container {
+      top: 10px !important;
+      left: 10px !important;
+      gap: 4px !important;
+    }
+    .na-badge {
+      padding: 3px 8px !important;
+      font-size: 0.75rem !important;
+    }
+    .na-wishlist, .na-compare {
+      width: 28px !important;
+      height: 28px !important;
+      right: 10px !important;
+    }
+    .na-wishlist { top: 10px !important; }
+    .na-compare { top: 44px !important; }
+    .na-wishlist svg, .na-compare svg {
+      width: 14px !important;
+      height: 14px !important;
+    }
+    .na-card-title {
+      font-size: 1.1rem !important;
+    }
+    .na-card-price {
+      font-size: 1.3rem !important;
+    }
+  }
+}
 {%- endstyle -%}
 
 {%- liquid
@@ -495,6 +457,7 @@
   endif
 -%}
 
+{%- if section.settings.collection != blank and section.settings.collection.all_products_count > 0 or request.design_mode -%}
 <div class="na-premium-bg color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="na-wide-container">
     {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
@@ -582,7 +545,17 @@
               {%- endif -%}
             </div>
             <div class="na-card-info">
-              <h3 class="na-card-title">{{ product.title }}</h3>
+              <div class="na-info-header">
+                <h3 class="na-card-title">{{ product.title }}</h3>
+                <div class="na-mobile-actions">
+                  <button class="na-wishlist-mobile" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </button>
+                  <button class="na-compare-mobile" aria-label="Add to compare" data-aura-compare="{{ product.handle }}" data-aura-specs="{{ specs | escape }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                  </button>
+                </div>
+              </div>
               <div class="na-card-price-row">
                 {%- if product.compare_at_price > product.price -%}
                   <span class="na-card-compare-price">{{ product.compare_at_price | money }}</span>
@@ -601,8 +574,8 @@
           {%- if products_count >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
         {%- endfor -%}
       </div>
-    {%- else -%}
-      {%- comment -%} Dummy / Placeholder mode: show beautiful placeholder cards {%- endcomment -%}
+    {%- elsif request.design_mode -%}
+      {%- comment -%} Dummy / Placeholder mode: show beautiful placeholder cards ONLY in Editor {%- endcomment -%}
       <div class="na-product-grid">
         {%- for i in (1..8) -%}
           {%- assign idx = forloop.index0 -%}
@@ -624,7 +597,17 @@
               <div class="na-quick-add" onclick="alert('Quick add is disabled for placeholder products')">Quick Add</div>
             </div>
             <div class="na-card-info">
-              <h3 class="na-card-title">{{ dummy_products[idx] }}</h3>
+              <div class="na-info-header">
+                <h3 class="na-card-title">{{ dummy_products[idx] }}</h3>
+                <div class="na-mobile-actions">
+                  <button class="na-wishlist-mobile" aria-label="Add to wishlist">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  </button>
+                  <button class="na-compare-mobile" aria-label="Add to compare">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                  </button>
+                </div>
+              </div>
               <div class="na-card-price-row">
                 {%- if dummy_badges[idx] == 'sale' -%}
                   <span class="na-card-compare-price">{{ cart.currency.symbol }}{{ dummy_compare[idx] }}</span>
@@ -646,6 +629,7 @@
     {%- endif -%}
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {

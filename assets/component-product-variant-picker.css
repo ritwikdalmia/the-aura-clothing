@@ -11,10 +11,12 @@ variant-selects {
   text-align: center;
 }
 
-.product--no-media .product-form__input.product-form__input--pill,
-.product--no-media .product-form__input.product-form__input--swatch {
+.product-form__input.product-form__input--pill,
+.product-form__input.product-form__input--swatch {
   flex-wrap: wrap;
-  margin: 0 auto 1.2rem auto;
+  margin: 0 0 1.2rem 0;
+  border: none;
+  padding: 0;
 }
 
 .product--no-media .product-form__input--dropdown {
@@ -56,80 +58,105 @@ variant-selects {
   z-index: 1;
 }
 
-/* Custom styles for Pill display type */
+.product-form__input--pill {
+  margin-bottom: 2.5rem;
+}
+
+.product-form__input--pill .form__label {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: #999;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
 .product-form__input--pill input[type='radio'] + label {
-  border: var(--variant-pills-border-width) solid rgba(var(--color-foreground), var(--variant-pills-border-opacity));
-  background-color: rgb(var(--color-background));
-  color: rgba(var(--color-foreground));
-  border-radius: var(--variant-pills-radius);
-  color: rgb(var(--color-foreground));
-  display: inline-block;
-  margin: 0.7rem 0.5rem 0.2rem 0;
-  padding: 1rem 2rem;
-  font-size: 1.4rem;
-  letter-spacing: 0.1rem;
-  line-height: 1;
-  text-align: center;
-  transition: border var(--duration-short) ease;
-  cursor: pointer;
-  position: relative;
+    border: 1px solid #e0e0e0 !important;
+    background: #fff !important;
+    color: #1a1a1a !important;
+    border-radius: 50px !important;
+    padding: 0.8rem 1.8rem !important;
+    margin: 0.4rem !important;
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.2rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    min-width: 60px !important;
+    text-transform: capitalize !important;
 }
 
-.product-form__input--pill input[type='radio'] + label:before {
-  content: '';
-  position: absolute;
-  top: calc(var(--variant-pills-border-width) * -1);
-  right: calc(var(--variant-pills-border-width) * -1);
-  bottom: calc(var(--variant-pills-border-width) * -1);
-  left: calc(var(--variant-pills-border-width) * -1);
-  z-index: -1;
-  border-radius: var(--variant-pills-radius);
-  box-shadow: var(--variant-pills-shadow-horizontal-offset) var(--variant-pills-shadow-vertical-offset)
-    var(--variant-pills-shadow-blur-radius) rgba(var(--color-shadow), var(--variant-pills-shadow-opacity));
-}
-
-.product-form__input--pill input[type='radio'] + label:hover {
-  border-color: rgb(var(--color-foreground));
+/* Swatch Circle inside Capsule */
+.swatch-visual {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    flex-shrink: 0 !important;
+    background-size: cover !important;
+    transition: transform 0.3s ease !important;
 }
 
 .product-form__input--pill input[type='radio']:checked + label {
-  background-color: rgb(var(--color-foreground));
-  color: rgb(var(--color-background));
+    background-color: #000 !important;
+    border-color: #000 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
 }
 
-@media screen and (forced-colors: active) {
-  .product-form__input--pill input[type='radio']:checked + label {
-    text-decoration: underline;
-  }
-
-  .product-form__input--pill input[type='radio']:focus-visible + label {
-    outline: transparent solid 1px;
-    outline-offset: 2px;
-  }
+.product-form__input--pill input[type='radio']:checked + label .swatch-visual {
+    border-color: rgba(255,255,255,0.4) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
 }
 
-.product-form__input--pill input[type='radio']:checked + label::selection {
-  background-color: rgba(var(--color-background), 0.3);
+.product-form__input--pill label:hover {
+    border-color: #000 !important;
+    transform: translateY(-1px);
 }
 
+/* Hide swatch if it's not a color variant but using pill style */
+.product-form__input--pill label:not([data-color-name]) .swatch-visual {
+    display: none !important;
+}
+
+.selected-variant-value {
+    color: var(--aura-brand-gold);
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+/* Sold Out / Disabled - Maintain Color Visibility */
 .product-form__input--pill input[type='radio']:disabled + label,
 .product-form__input--pill input[type='radio'].disabled + label {
-  border-color: rgba(var(--color-foreground), 0.1);
-  color: rgba(var(--color-foreground), 0.6);
+  border-color: #ddd !important;
+  color: #999 !important;
   text-decoration: line-through;
+  cursor: not-allowed;
+  background: #f9f9f9 !important;
+  opacity: 0.7 !important;
 }
 
-.product-form__input--pill input[type='radio'].disabled:checked + label,
-.product-form__input--pill input[type='radio']:disabled:checked + label {
-  color: rgba(var(--color-background), 0.6);
-}
-.product-form__input--pill input[type='radio']:focus-visible + label {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.5rem rgba(var(--color-foreground), 0.55);
+/* If Checked AND Disabled - Keep it Black */
+.product-form__input--pill input[type='radio']:checked:disabled + label,
+.product-form__input--pill input[type='radio']:checked.disabled + label {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
 }
 
-/* Fallback */
-.product-form__input--pill input[type='radio'].focused + label {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.5rem rgba(var(--color-foreground), 0.55);
+.product-form__input--pill input[type='radio']:disabled + label .swatch-visual,
+.product-form__input--pill input[type='radio'].disabled + label .swatch-visual {
+    opacity: 1 !important; /* Keep the color vivid even if sold out */
+    filter: none !important;
 }
 
 /* Custom styles for Swatch display type */

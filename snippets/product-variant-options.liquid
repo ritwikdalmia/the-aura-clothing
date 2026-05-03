@@ -94,8 +94,9 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}" {% if option.name == 'Color' or option.name == 'color' %}data-color-name="{{ value | escape }}"{% endif %}>
-      {% if option.name == 'Color' or option.name == 'color' %}
+    {%- assign option_name_down = option.name | downcase -%}
+    <label for="{{ input_id }}" {% if option_name_down == 'color' or option_name_down == 'colour' %}data-color-name="{{ value | escape }}"{% endif %}>
+      {% if option_name_down == 'color' or option_name_down == 'colour' %}
         <span class="swatch-visual"></span>
       {% endif %}
       {{ value -}}

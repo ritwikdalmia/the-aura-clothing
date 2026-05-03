@@ -1,4 +1,4 @@
-﻿{% comment %}
+{% comment %}
   Renders cart drawer
 
   Usage:
@@ -151,7 +151,7 @@
                            </div>
                          </div>
 
-                         <!-- Price: strikethrough original â†’ discounted -->
+                         <!-- Price: strikethrough original → discounted -->
                          <div class="cart-item-card__price-row">
                            {%- if item.original_price != item.final_price -%}
                              <s class="cart-item-card__price-original">{{ item.original_price | money }}</s>

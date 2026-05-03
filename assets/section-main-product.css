@@ -132,15 +132,23 @@ product-info {
   box-shadow: 0 8px 15px rgba(168, 139, 106, 0.3) !important;
 }
 
-.shopify-payment-button__button--unbranded {
-  background: var(--aura-brand-gold) !important;
+.product .shopify-payment-button .shopify-payment-button__button--unbranded {
+  background-color: #000 !important;
   color: #fff !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  min-height: 5rem !important;
+  transition: all 0.3s ease !important;
   border: none !important;
+  box-shadow: none !important;
 }
 
-.shopify-payment-button__button--unbranded:hover,
-.shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background: var(--aura-brand-dark) !important;
+.product .shopify-payment-button .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background-color: #333 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
 }
 
 .product-secondary-actions {
@@ -1531,14 +1539,28 @@ video::-webkit-media-controls-time-remaining-display {
 
 .product__media-list .media > * {
   overflow: hidden;
+  border-radius: 24px;
 }
+
+.product__media-item {
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fdfcfb;
+}
+
+.product__media img {
+  border-radius: 24px;
+}
+
 
 .thumbnail-list {
   flex-wrap: wrap;
   grid-gap: 1.2rem;
   margin-top: 2rem;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 0.5rem;
 }
+
 
 .thumbnail[aria-current='true'] {
   border: 1.5px solid var(--aura-brand-gold) !important;
@@ -1548,21 +1570,29 @@ video::-webkit-media-controls-time-remaining-display {
 
 .thumbnail {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1.2px solid rgba(0,0,0,0.05);
-  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  border-radius: 12px !important;
   overflow: hidden;
   position: relative;
   padding: 0;
-  background: transparent;
+  background: #fff;
   width: 100%;
   aspect-ratio: 1/1;
   display: block;
   box-sizing: border-box;
 }
 
+.thumbnail[aria-current='true'],
+.thumbnail[aria-current='step'] {
+  border: 2px solid var(--aura-brand-gold) !important;
+  box-shadow: 0 4px 12px rgba(168, 139, 106, 0.15) !important;
+  transform: scale(1.02);
+}
+
 .thumbnail:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  border-color: var(--aura-brand-gold-light) !important;
 }
 
 .thumbnail img {
@@ -1570,25 +1600,36 @@ video::-webkit-media-controls-time-remaining-display {
   height: 100%;
   object-fit: cover !important;
   display: block !important;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .thumbnail:hover img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
+
 
 /* Vertical Thumbnails for Laptop (>1024px) */
 @media screen and (min-width: 1024px) {
   media-gallery {
     display: flex !important;
-    gap: 3rem;
+    gap: 1.5rem;
     align-items: flex-start;
   }
+
 
   media-gallery slider-component[id^="GalleryThumbnails"] {
     order: -1;
     width: 110px;
     flex-shrink: 0;
+    margin-right: 1rem;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+
+  media-gallery slider-component[id^="GalleryThumbnails"] .slider-button {
+    display: none !important;
   }
 
   media-gallery slider-component[id^="GalleryViewer"] {
@@ -1596,16 +1637,21 @@ video::-webkit-media-controls-time-remaining-display {
     order: 0;
   }
 
+
   .thumbnail-list {
     display: flex !important;
     flex-direction: column !important;
     grid-template-columns: 1fr !important;
-    max-height: 60vh;
+    max-height: 80vh;
     overflow-y: auto !important;
     padding: 0.5rem;
     margin-top: 0 !important;
     scrollbar-width: thin;
+    gap: 1.2rem !important;
+    width: 100% !important;
   }
+
+
 
   .thumbnail-list::-webkit-scrollbar {
     width: 4px;
@@ -1617,10 +1663,19 @@ video::-webkit-media-controls-time-remaining-display {
   }
 
   .thumbnail-list .thumbnail-list__item {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 90px !important;
+    margin-bottom: 0.5rem !important;
   }
+  
+  .thumbnail-list .thumbnail-list__item .thumbnail {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
 }
+
 
 /* Fix to show some space at the end of our sliders in all browsers to be applied on thumbnails */
 .slider--mobile.thumbnail-list:after {
@@ -1629,32 +1684,75 @@ video::-webkit-media-controls-time-remaining-display {
 
 @media screen and (min-width: 750px) {
   .product--stacked .thumbnail-list {
-    display: flex; /* Force display if we want thumbnails below even in stacked mode */
+    display: flex; 
   }
 
-  .thumbnail-list {
+  /* Only apply horizontal grid if not in a vertical media-gallery layout */
+  media-gallery:not([data-desktop-layout*="thumbnail"]) .thumbnail-list {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
   }
 }
 
+
 .thumbnail-list_item--variant:not(:first-child) {
   display: none;
 }
 
-@media screen and (min-width: 990px) {
+@media screen and (max-width: 1023px) {
   .thumbnail-list {
-    grid-template-columns: repeat(4, 1fr);
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 1rem !important;
+    padding: 0.5rem 1.5rem !important;
+    margin-top: 1rem !important;
+    scrollbar-width: none;
+    list-style: none;
+  }
+  
+  .thumbnail-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .thumbnail-list .thumbnail-list__item {
+    flex: 0 0 90px !important;
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 90px !important;
+    scroll-snap-align: start;
+    margin: 0 !important;
   }
 
-  .product--medium .thumbnail-list {
-    grid-template-columns: repeat(5, 1fr);
+  .thumbnail-list .thumbnail-list__item::before {
+    display: none !important;
   }
+
+  .thumbnail {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Hide arrows and indicators on mobile */
+  media-gallery .slider-buttons,
+  media-gallery .slider-button,
+  media-gallery .slider-counter,
+  media-gallery .slider-bullets {
+    display: none !important;
+  }
+}
+
+
+
+
 
   .product--large .thumbnail-list {
     grid-template-columns: repeat(6, 1fr);
   }
-}
 
 @media screen and (max-width: 749px) {
   .product__media-item {
@@ -1741,8 +1839,15 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .thumbnail[aria-current] {
-  box-shadow: 0 0 0rem 0.1rem rgb(var(--color-foreground));
-  border-color: rgb(var(--color-foreground));
+  border: 2px solid var(--aura-brand-gold) !important;
+  box-shadow: 0 4px 12px rgba(168, 139, 106, 0.2) !important;
+  opacity: 1 !important;
+}
+
+
+.thumbnail:focus-visible {
+  outline: 2px solid var(--aura-brand-gold);
+  outline-offset: 2px;
 }
 
 .image-magnify-full-size {
@@ -2272,52 +2377,147 @@ video::-webkit-media-controls-time-remaining-display {
   box-shadow: none !important;
 }
 
-/* Explicit style overrides for hover states and Shopify's dynamic 'buy it now' */
-.product-form__buttons .button:hover {
-  background-color: #927555 !important;
+/* Premium Product Header Styling */
+.product__text.caption-with-letter-spacing {
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: #999;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
 
-.shopify-payment-button__button--unbranded {
-  background-color: #1A1A1A !important; /* Premium dark contrast for Buy it Now */
+.product__title h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.5rem 0;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+
+#price-MainProduct-template--24239845933333__main {
+  margin-bottom: 2rem;
+}
+
+.price--large {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.price--on-sale .price-item--sale {
+  color: var(--aura-brand-gold) !important;
+}
+
+.price--on-sale .price-item--regular {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-weight: 400;
+  color: #000;
+}
+
+.price__badge-sale {
+  background: #e74c3c !important;
   color: #fff !important;
-  border-radius: 20px !important;
-  font-weight: 500 !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important; /* Image shows slightly rectangular with rounded corners */
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+}
+
+/* Explicit style overrides for hover states and Shopify's dynamic 'buy it now' */
+
+/* Color Swatch Mappings - Robust Selectors */
+[data-color-name*="Beige" i] .swatch-visual { background-color: #F5F5DC !important; }
+[data-color-name*="Cream" i] .swatch-visual { background-color: #FFFDD0 !important; }
+[data-color-name*="Brown" i] .swatch-visual { background-color: #8B4513 !important; }
+[data-color-name*="Teal" i] .swatch-visual { background-color: #008080 !important; }
+[data-color-name*="Maroon" i] .swatch-visual { background-color: #800000 !important; }
+[data-color-name*="Silver" i] .swatch-visual { background-color: #C0C0C0 !important; }
+[data-color-name*="Grey" i] .swatch-visual, [data-color-name*="Gray" i] .swatch-visual { background-color: #808080 !important; }
+[data-color-name*="Pink" i] .swatch-visual { background-color: #FFC0CB !important; }
+[data-color-name*="Fuchsia" i] .swatch-visual { background-color: #FF00FF !important; }
+[data-color-name*="Yellow" i] .swatch-visual { background-color: #F1C40F !important; }
+[data-color-name*="Clear" i] .swatch-visual { background: linear-gradient(45deg, #eee 25%, #fff 25%, #fff 50%, #eee 50%, #eee 75%, #fff 75%, #fff 100%) !important; background-size: 10px 10px !important; }
+[data-color-name*="Navy" i] .swatch-visual { background-color: #000080 !important; }
+[data-color-name*="Lavender" i] .swatch-visual { background-color: #E6E6FA !important; }
+[data-color-name*="Rose" i] .swatch-visual { background-color: #FF007F !important; }
+
+/* Aura Specifications Accordion */
+.aura-specs-accordion {
+  border-top: 1px solid var(--aura-border) !important;
+  margin-top: 2rem !important;
+}
+
+.aura-specs-accordion details {
+  border: none !important;
+}
+
+.aura-specs-accordion summary {
+  padding: 2rem 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.aura-specs-accordion .summary__title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+}
+
+.aura-specs-accordion .accordion__title {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
   letter-spacing: 0.1em !important;
-  min-height: 5rem !important;
-  transition: opacity 0.3s ease;
+  text-transform: uppercase !important;
+  margin: 0 !important;
 }
 
-.shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background-color: #000 !important;
-  opacity: 0.9;
+.product__spec-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1rem 0 2.5rem 3.5rem;
 }
 
-/* Color Swatch Mappings */
-[data-color-name="Blue"] .swatch-visual { background-color: #2D5AF0 !important; }
-[data-color-name="Green"] .swatch-visual { background-color: #2D9F5E !important; }
-[data-color-name="Gold"] .swatch-visual { background-color: var(--aura-brand-gold) !important; }
-[data-color-name="Orange"] .swatch-visual { background-color: #FF8A00 !important; }
-[data-color-name="Purple"] .swatch-visual { background-color: #8E44AD !important; }
-[data-color-name="Red"] .swatch-visual { background-color: #E74C3C !important; }
-[data-color-name="Black"] .swatch-visual { background-color: #1A1A1A !important; }
-[data-color-name="White"] .swatch-visual { background-color: #FFFFFF !important; border: 1px solid #ddd !important; }
-[data-color-name="Yellow"] .swatch-visual { background-color: #F1C40F !important; }
-[data-color-name="Clear"] .swatch-visual { background: linear-gradient(45deg, #eee 25%, #fff 25%, #fff 50%, #eee 50%, #eee 75%, #fff 75%, #fff 100%) !important; background-size: 10px 10px !important; }
+.product__spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  border-bottom: 1px dashed rgba(0,0,0,0.05);
+  padding-bottom: 0.8rem;
+}
+
+.product__spec-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.product__spec-value {
+  color: #000;
+  font-weight: 500;
+}
 
 /* Swatch Visual Element */
 .swatch-visual {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
+  display: block;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  margin-right: 8px;
-  vertical-align: middle;
+  margin-right: 12px;
   border: 1px solid rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
 }
 
-label:hover .swatch-visual {
-  transform: scale(1.2);
+.product-form__input--pill input[type='radio'] + label:hover .swatch-visual {
+  transform: scale(1.15);
 }
 
 /* Ensure uniform product image frames — override Dawn .media padding-top trick */

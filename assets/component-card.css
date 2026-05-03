@@ -1,4 +1,4 @@
-﻿.card-wrapper {
+.card-wrapper {
   color: inherit;
   height: 100%;
   position: relative;
@@ -615,7 +615,7 @@
   fill: var(--aura-brand-bg-warm) !important;
 }
 
-/* Active State Logic â€” Solid gold when active */
+/* Active State Logic — Solid gold when active */
 .na-wishlist.is-active, .na-compare.is-active,
 .bs-wishlist.is-active, .bs-compare.is-active,
 .na-wishlist-product.is-active, .na-compare-product.is-active {
@@ -651,7 +651,35 @@
 }
 
 .na-product-card:hover .na-card-image-wrapper img {
-  transform: scale(1.08);
+  transform: scale(1.1);
+}
+
+@media screen and (max-width: 749px) {
+  .na-wishlist, .na-compare {
+    width: 32px !important;
+    height: 32px !important;
+    right: 12px !important;
+  }
+  .na-wishlist { top: 12px !important; }
+  .na-compare { top: 50px !important; }
+  .na-wishlist svg, .na-compare svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .na-wishlist, .na-compare {
+    width: 28px !important;
+    height: 28px !important;
+    right: 10px !important;
+  }
+  .na-wishlist { top: 10px !important; }
+  .na-compare { top: 44px !important; }
+  .na-wishlist svg, .na-compare svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
 }
 
 .na-badge-container {
@@ -778,9 +806,10 @@
   color: var(--aura-brand-text-main);
   margin: 0 0 8px;
   text-decoration: none;
-  min-height: 4rem; /* Reserve space for 2 lines for uniformity */
+  min-height: 2.8rem; /* Reserve space for up to 2 lines tightly */
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition: color 0.3s ease;
@@ -1527,39 +1556,41 @@
 
 /* ============================================================================
    Aura Global Product Cards (Premium Style)
-   ========================================================================== */
+   ======================================================================== */
 
-.na-product-card {
+/* Consolidated Premium Card Styles */
+.na-product-card,
+.bs-product-card {
   position: relative;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: var(--aura-brand-dark);
-  border-radius: var(--aura-radius) !important;
+  border-radius: 12px;
   background: var(--aura-brand-bg-warm);
-  overflow: hidden !important; /* CRITICAL: Ensures internal sections like info area respect the curve */
-  border: 1px solid rgba(0,0,0,0.1);
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
-  height: 100%;
 }
 
-.na-product-card:hover {
+.na-product-card:hover,
+.bs-product-card:hover {
   transform: translateY(-8px) scale(1.015);
-  box-shadow: 0 15px 45px rgba(0,0,0,0.12);
 }
 
-.na-card-image-wrapper {
+.na-card-image-wrapper,
+.bs-card-image-wrapper {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--aura-brand-bg-warm);
-  border-top-left-radius: var(--aura-radius);
-  border-top-right-radius: var(--aura-radius);
 }
 
 .na-card-image-wrapper img,
-.na-card-image-wrapper svg {
+.na-card-image-wrapper svg,
+.bs-card-image-wrapper img,
+.bs-card-image-wrapper svg {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1567,7 +1598,9 @@
 }
 
 .na-product-card:hover .na-card-image-wrapper img,
-.na-product-card:hover .na-card-image-wrapper svg {
+.na-product-card:hover .na-card-image-wrapper svg,
+.bs-product-card:hover .bs-card-image-wrapper img,
+.bs-product-card:hover .bs-card-image-wrapper svg {
   transform: scale(1.1);
 }
 
@@ -1589,8 +1622,8 @@
 /* Glassmorphism Badges */
 .na-badge-container {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 16px;
+  left: 16px;
   z-index: 4;
   display: flex;
   flex-direction: column;
@@ -1702,31 +1735,14 @@
   color: #fff !important;
 }
 
-/* Product Card Information Area */
 .na-card-info {
-  padding: 1.6rem 1.2rem;
+  padding: 0.8rem 1rem 1rem;
   background: #fff;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   border-bottom-left-radius: var(--aura-radius) !important;
   border-bottom-right-radius: var(--aura-radius) !important;
   border-top: 1px solid rgba(0,0,0,0.05); /* Subtle separation */
-}
-
-.na-card-title {
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin: 0 0 0.8rem;
-  letter-spacing: 0.02em;
-  color: var(--aura-brand-dark);
-  line-height: 1.4;
-}
-
-.na-card-price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 0.8rem;
 }
 
 .na-card-price {
@@ -1735,8 +1751,150 @@
   color: var(--aura-brand-gold);
 }
 
+.na-card-price-row, .bs-card-price-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0;
+}
+
+.na-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 0.4rem;
+}
+
+.na-card-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.02em;
+  color: var(--aura-brand-dark);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.na-mobile-actions {
+  display: none;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+@media screen and (max-width: 400px) {
+  .na-info-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .na-mobile-actions {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.8rem;
+  }
+
+  .na-card-title {
+    min-height: 0 !important;
+    font-size: 1.15rem !important;
+  }
+  
+  .na-mobile-actions button {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  .na-mobile-actions button svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .na-card-image-wrapper .na-wishlist,
+  .na-card-image-wrapper .na-compare,
+  .bs-card-image-wrapper .bs-wishlist,
+  .bs-card-image-wrapper .bs-compare {
+    display: none !important;
+  }
+  
+  .na-mobile-actions button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .na-mobile-actions button svg {
+    width: 14px;
+    height: 14px;
+    stroke: #333;
+    fill: none;
+  }
+  
+  .na-mobile-actions button.is-active {
+    background: var(--aura-brand-gold);
+    border-color: var(--aura-brand-gold);
+  }
+  
+  .na-mobile-actions button.is-active svg {
+    stroke: #fff;
+    fill: #fff;
+  }
+}
+
 .na-card-compare-price {
   font-size: var(--aura-font-size-xs);
   color: #999;
   text-decoration: line-through;
+}
+
+/* Core Premium Card Container */
+.na-product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--aura-brand-dark);
+  border-radius: var(--aura-radius, 12px);
+  background: var(--aura-brand-bg-warm);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  height: 100%;
+}
+
+.na-product-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+/* Premium Image Wrapper */
+.na-card-image-wrapper {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--aura-brand-bg-warm);
+}
+
+.na-card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.na-product-card:hover .na-card-image-wrapper img {
+  transform: scale(1.1);
 }
