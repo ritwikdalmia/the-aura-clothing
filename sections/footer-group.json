@@ -47,7 +47,6 @@
         "text_color": "#ffffff",
         "heading_color": "#ffffff",
         "accent_color": "#ffffff",
-        "policy_menu": "",
         "show_payment_icons": true,
         "padding_top": 80
       }

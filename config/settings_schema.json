@@ -1500,28 +1500,6 @@
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",
         "default": "scheme-1"
-      },
-      {
-        "type": "header",
-        "content": "Premium Trust Badges"
-      },
-      {
-        "type": "text",
-        "id": "cart_trust_label_1",
-        "label": "Trust Label 1",
-        "default": "Secure"
-      },
-      {
-        "type": "text",
-        "id": "cart_trust_label_2",
-        "label": "Trust Label 2",
-        "default": "Fast Delivery"
-      },
-      {
-        "type": "text",
-        "id": "cart_trust_label_3",
-        "label": "Trust Label 3",
-        "default": "Premium"
       }
     ]
   }

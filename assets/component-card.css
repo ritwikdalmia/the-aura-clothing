@@ -1123,26 +1123,18 @@
 }
 
 .na-quick-view-info {
-  padding: 3rem;
-  padding-bottom: 4rem;
+  padding: 4rem;
+  padding-bottom: 6rem; /* Extra space for buttons */
   background: rgb(var(--color-background));
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Consistent spacing between blocks */
   overflow-y: auto;
   max-height: 90vh;
 }
 
-.na-qv-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .na-qv-title {
   font-size: var(--aura-font-size-lg);
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-weight: 500;
 }
 
@@ -1150,14 +1142,14 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem; /* Reduced for badge below */
 }
 
 .na-qv-badge-row {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .na-qv-price {
@@ -1193,7 +1185,7 @@
 }
 
 .na-qv-variants {
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
 }
 
 .na-qv-option-title {
@@ -1208,7 +1200,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .na-qv-option {
@@ -1278,7 +1270,7 @@
 [data-color-name="Grey"] .na-qv-swatch-inner { background-color: #808080 !important; }
 
 .na-qv-qty-row {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .na-qv-qty-input {
@@ -1311,13 +1303,13 @@
 
 .na-qv-add-btn, .na-qv-buy-btn {
   width: 100%;
-  min-height: 54px !important;
+  min-height: 58px !important;
   border-radius: 50px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1717,7 +1709,6 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   border-bottom-left-radius: var(--aura-radius) !important;
   border-bottom-right-radius: var(--aura-radius) !important;
   border-top: 1px solid rgba(0,0,0,0.05); /* Subtle separation */
@@ -1736,7 +1727,6 @@
   display: flex;
   align-items: baseline;
   gap: 0.8rem;
-  margin-top: auto; /* Anchors price to the bottom to avoid empty space */
 }
 
 .na-card-price {

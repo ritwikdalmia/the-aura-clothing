@@ -126,7 +126,7 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": true,
-    "cart_drawer_collection": "sales",
+    "cart_drawer_collection": "dresses",
     "cart_color_scheme": "scheme-1",
     "sections": {
       "main-password-header": {
@@ -155,6 +155,28 @@
           "shadow": "#1a1a1a"
         }
       },
+      "scheme-2": {
+        "settings": {
+          "background": "#f3f3f3",
+          "background_gradient": "",
+          "text": "#121212",
+          "button": "#121212",
+          "button_label": "#f3f3f3",
+          "secondary_button_label": "#121212",
+          "shadow": "#121212"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#242833",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "secondary_button_label": "#ffffff",
+          "shadow": "#121212"
+        }
+      },
       "scheme-4": {
         "settings": {
           "background": "#111111",
@@ -164,6 +186,17 @@
           "button_label": "#111111",
           "secondary_button_label": "#ffffff",
           "shadow": "#111111"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#334fb4",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "button": "#ffffff",
+          "button_label": "#334fb4",
+          "secondary_button_label": "#ffffff",
+          "shadow": "#121212"
         }
       }
     }
