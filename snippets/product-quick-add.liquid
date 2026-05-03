@@ -79,15 +79,15 @@
     <div class="na-qv-qty-row">
       <h4 class="na-qv-option-title" style="margin-bottom: 0;">Quantity</h4>
       <div class="na-qv-qty-input">
-        <button type="button" class="na-qv-qty-btn minus" onclick="updateQvQty(this, -1)">&minus;</button>
+        <button type="button" class="na-qv-qty-btn minus" data-aura-qty-minus>&minus;</button>
         <input type="number" class="na-qv-qty-val" value="1" min="1" readonly>
-        <button type="button" class="na-qv-qty-btn plus" onclick="updateQvQty(this, 1)">&plus;</button>
+        <button type="button" class="na-qv-qty-btn plus" data-aura-qty-plus>&plus;</button>
       </div>
     </div>
 
     <button type="button" 
-            class="na-qv-add-btn" 
-            onclick="addQvToCart(this)"
+            class="na-qv-add-btn aura-btn-premium" 
+            data-aura-add-to-cart
             data-variant-id="{{ product.selected_or_first_available_variant.id }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
@@ -97,8 +97,8 @@
     </button>
     
     <button type="button" 
-            class="na-qv-buy-btn" 
-            onclick="buyQvNow(this)"
+            class="na-qv-buy-btn aura-btn-premium" 
+            data-aura-buy-now
             data-variant-id="{{ product.selected_or_first_available_variant.id }}">
       Buy it now
     </button>

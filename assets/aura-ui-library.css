@@ -1,0 +1,118 @@
+/**
+ * Aura UI Library - Consolidated Premium Patterns
+ * Centralizes high-end visual styles for consistency.
+ */
+
+/* ==========================================================================
+   1. Glassmorphism & Elevation
+   ========================================================================== */
+.aura-glass {
+  background: rgba(var(--color-background-rgb, 255, 255, 255), 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--color-foreground-rgb, 0, 0, 0), 0.1);
+  box-shadow: 0 8px 32px 0 rgba(var(--aura-brand-dark-rgb, 0, 0, 0), 0.08);
+}
+
+.aura-card-hover {
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.aura-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. Premium Buttons
+   ========================================================================== */
+.aura-btn-premium {
+  border-radius: var(--aura-btn-radius, 50px);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+}
+
+.aura-btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(var(--aura-brand-gold-rgb), 0.25);
+}
+
+/* ==========================================================================
+   3. Interactive States (Wishlist/Compare)
+   ========================================================================== */
+.aura-action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.aura-action-btn.is-active {
+  background: var(--aura-brand-gold) !important;
+  color: #fff !important;
+  border-color: var(--aura-brand-gold) !important;
+}
+
+.aura-action-btn.is-active svg {
+  fill: currentColor !important;
+}
+
+/* ==========================================================================
+   4. Feedback & Loading
+   ========================================================================== */
+.aura-toast {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--brand-dark, #1a1a1a);
+  color: #fff;
+  padding: 1.2rem 2.5rem;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.aura-toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.aura-loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: aura-spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes aura-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   5. Boutique Modal Overrides
+   ========================================================================== */
+.na-modal-content {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(168, 139, 106, 0.2);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}

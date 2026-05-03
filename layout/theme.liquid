@@ -256,6 +256,7 @@
     {% endstyle %}
 
     {{ 'aura-tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'aura-ui-library.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'component-card.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -378,14 +379,13 @@
     <!-- The Aura Premium Quick Add Modal -->
     <div id="naQuickAddModal" class="na-modal" style="display:none;">
       <div class="na-modal-content">
-        <button type="button" class="na-modal-close" onclick="closeNaModal()">&times;</button>
+        <button type="button" class="na-modal-close">&times;</button>
         <div class="na-modal-content-inner">
           <!-- Dynamically Loaded Content -->
         </div>
       </div>
     </div>
 
-    <script src="{{ 'na-functionality.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'aura-premium-features.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'aura-premium.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
