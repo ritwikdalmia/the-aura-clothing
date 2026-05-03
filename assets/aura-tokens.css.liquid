@@ -1,6 +1,7 @@
 :root {
   /* ========================================
-     BRAND COLORS — Sourced from Theme Settings
+     BRAND COLORS — Editable from Shopify Theme Editor
+     Theme Settings → "Aura Brand Colors"
      ======================================== */
   --aura-brand-gold: {{ settings.aura_gold }};
   --aura-brand-gold-light: {{ settings.aura_gold_light }};
@@ -12,21 +13,22 @@
   --aura-brand-sale: {{ settings.sale_accent }};
 
   /* ========================================
-     NEUTRAL COLORS — Change once, updates everywhere
+     NEUTRAL COLORS — Editable from Shopify Theme Editor
+     Theme Settings → "Aura Neutral Colors"
      ======================================== */
   --aura-white: #fff;
   --aura-black: #000;
-  --aura-color-text-dark: #1a1a1a;
-  --aura-color-text-medium: #333;
-  --aura-color-text-subtle: #666;
-  --aura-color-text-muted: #999;
-  --aura-color-border-light: #eee;
-  --aura-color-bg-subtle: #f8f8f8;
-  --aura-color-bg-warm: #fdfaf7;
+  --aura-color-text-dark: {{ settings.brand_dark }};
+  --aura-color-text-medium: {{ settings.aura_color_text_medium | default: '#333333' }};
+  --aura-color-text-subtle: {{ settings.text_secondary }};
+  --aura-color-text-muted: {{ settings.aura_color_text_muted | default: '#999999' }};
+  --aura-color-border-light: {{ settings.aura_color_border_light | default: '#eeeeee' }};
+  --aura-color-bg-subtle: {{ settings.aura_color_bg_subtle | default: '#f8f8f8' }};
+  --aura-color-bg-warm: {{ settings.aura_bg_warm }};
   --aura-color-badge-dark: rgba(40, 40, 40, 0.8);
 
   /* ========================================
-     OVERLAY UTILITIES
+     OVERLAY UTILITIES — Derived, not editable
      ======================================== */
   --aura-overlay-dark-heavy: rgba(0, 0, 0, 0.5);
   --aura-overlay-dark-medium: rgba(0, 0, 0, 0.15);
@@ -39,13 +41,14 @@
 
   /* ========================================
      TYPOGRAPHY — Font Sizes
+     Theme Settings → "Aura Typography & Shape"
      ======================================== */
   --aura-font-size-2xs: 1rem;
-  --aura-font-size-xs: 1.1rem;
-  --aura-font-size-sm: 1.3rem;
-  --aura-font-size-base: 1.5rem;
-  --aura-font-size-md: 1.8rem;
-  --aura-font-size-lg: 2.4rem;
+  --aura-font-size-xs: {{ settings.aura_font_size_xs | default: 11 }}px;
+  --aura-font-size-sm: {{ settings.aura_font_size_sm | default: 13 }}px;
+  --aura-font-size-base: {{ settings.aura_font_size_base | default: 15 }}px;
+  --aura-font-size-md: {{ settings.aura_font_size_md | default: 18 }}px;
+  --aura-font-size-lg: {{ settings.aura_font_size_lg | default: 24 }}px;
   --aura-font-size-xl: 3.2rem;
   --aura-font-size-xxl: 4.8rem;
 
@@ -60,15 +63,16 @@
   --aura-font-weight-black: 900;
 
   /* ========================================
-     SPACING & LAYOUT
+     SHAPE / RADII — Editable from Shopify Theme Editor
+     Theme Settings → "Aura Typography & Shape"
      ======================================== */
   --aura-radius-xs: 4px;
   --aura-radius-sm: 6px;
-  --aura-radius: 12px;
-  --aura-radius-lg: 20px;
+  --aura-radius: {{ settings.aura_radius | default: 12 }}px;
+  --aura-radius-lg: {{ settings.aura_radius_lg | default: 20 }}px;
   --aura-radius-xl: 24px;
-  --aura-radius-pill: 50px;
-  --aura-btn-radius: 50px;
+  --aura-radius-pill: {{ settings.aura_btn_radius | default: 50 }}px;
+  --aura-btn-radius: {{ settings.aura_btn_radius | default: 50 }}px;
 
   /* ========================================
      ANIMATION

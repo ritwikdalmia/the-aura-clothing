@@ -106,49 +106,179 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Global brand colors for The Aura boutique. These override gradients and hardcoded values."
+        "content": "Primary brand colors for The Aura boutique. Changing these updates the entire theme instantly."
       },
       {
         "type": "color",
         "id": "aura_gold",
-        "label": "Primary Gold",
+        "label": "Primary Gold (Accents, Prices, Borders)",
         "default": "#a88b6a"
       },
       {
         "type": "color",
         "id": "aura_gold_light",
-        "label": "Secondary Gold",
+        "label": "Secondary Gold (Hover, Highlights)",
         "default": "#c9ab82"
       },
       {
         "type": "color",
         "id": "aura_bg_warm",
-        "label": "Neutral Warm Background",
+        "label": "Warm Background",
         "default": "#faf8f5"
       },
       {
         "type": "color",
         "id": "brand_dark",
-        "label": "Premium Dark (Buttons/Text)",
+        "label": "Dark Text / Buttons",
         "default": "#1a1a1a"
       },
       {
         "type": "color",
         "id": "text_primary",
-        "label": "Main Text Color",
+        "label": "Primary Body Text",
         "default": "#121212"
       },
       {
         "type": "color",
         "id": "text_secondary",
-        "label": "Muted Text Color",
+        "label": "Muted / Secondary Text",
         "default": "#666666"
       },
       {
         "type": "color",
         "id": "sale_accent",
-        "label": "Sale/Badge Accent",
+        "label": "Sale Badge / Error Color",
         "default": "#e53935"
+      }
+    ]
+  },
+  {
+    "name": "Aura Neutral Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Neutral utility colors used for borders, backgrounds, and subtle overlays."
+      },
+      {
+        "type": "color",
+        "id": "aura_color_text_medium",
+        "label": "Medium Text (Headers, Emphasis)",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "aura_color_text_muted",
+        "label": "Muted Text (Placeholders, Meta)",
+        "default": "#999999"
+      },
+      {
+        "type": "color",
+        "id": "aura_color_border_light",
+        "label": "Light Border / Dividers",
+        "default": "#eeeeee"
+      },
+      {
+        "type": "color",
+        "id": "aura_color_bg_subtle",
+        "label": "Subtle Background (Input fills, Hover)",
+        "default": "#f8f8f8"
+      }
+    ]
+  },
+  {
+    "name": "Aura Typography & Shape",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Control font sizes and corner roundness across the entire theme."
+      },
+      {
+        "type": "header",
+        "content": "Font Sizes"
+      },
+      {
+        "type": "range",
+        "id": "aura_font_size_xs",
+        "min": 9,
+        "max": 14,
+        "step": 1,
+        "unit": "px",
+        "label": "Small Text (Badges, Labels)",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "aura_font_size_sm",
+        "min": 11,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "label": "Body Small (Prices, Meta)",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "aura_font_size_base",
+        "min": 13,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "label": "Base Body Text",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "aura_font_size_md",
+        "min": 16,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Medium Heading",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "aura_font_size_lg",
+        "min": 20,
+        "max": 36,
+        "step": 2,
+        "unit": "px",
+        "label": "Large Heading (Section Titles)",
+        "default": 24
+      },
+      {
+        "type": "header",
+        "content": "Corner Roundness"
+      },
+      {
+        "type": "range",
+        "id": "aura_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "label": "Card Corner Radius",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "aura_radius_lg",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Large Element Corner Radius",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "aura_btn_radius",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "label": "Button Corner Radius",
+        "default": 50
       }
     ]
   },
