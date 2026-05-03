@@ -216,25 +216,6 @@
     justify-content: center;
   }
 
-  /* Toast Notification */
-  .aura-toast {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: #333;
-    color: #fff;
-    padding: 1.2rem 2.4rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 2000;
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .aura-toast.is-visible {
-    transform: translateY(0);
-    opacity: 1;
-  }
 
   /* Mobile & Tablet Optimizations */
   @media screen and (max-width: 989px) {
@@ -552,7 +533,7 @@
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'aura-premium-features.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'aura-premium.js' | asset_url }}" defer="defer"></script>
 
 
 {%- liquid

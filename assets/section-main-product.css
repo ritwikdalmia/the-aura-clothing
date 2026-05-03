@@ -101,7 +101,7 @@ product-info {
 .shopify-payment-button__button {
   font-family: inherit;
   min-height: 5.2rem;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius) !important;
   font-weight: 700 !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
@@ -123,7 +123,7 @@ product-info {
 .shopify-payment-button {
   background-color: transparent !important;
   border: none !important;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius) !important;
   overflow: hidden !important;
 }
 
@@ -157,59 +157,6 @@ product-info {
   gap: 1.2rem;
   margin: 0;
   white-space: nowrap;
-}
-
-.na-wishlist-product, .na-compare-product {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #333;
-  padding: 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.na-wishlist-product:hover, .na-compare-product:hover {
-  background: #fff;
-  color: var(--aura-brand-gold);
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
-
-.na-wishlist-product svg, .na-compare-product svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  fill: none;
-  transition: fill 0.2s ease, stroke 0.2s ease;
-}
-
-.na-wishlist-product:hover svg, .na-compare-product:hover svg {
-  stroke: var(--aura-brand-gold);
-}
-
-.na-wishlist-product.is-active,
-.na-wishlist-floating.is-active,
-.na-compare-product.is-active,
-.na-compare-floating.is-active {
-  background: var(--aura-brand-gold) !important;
-  border-color: var(--aura-brand-gold) !important;
-  color: #fff !important;
-}
-
-.na-wishlist-product.is-active svg,
-.na-wishlist-floating.is-active svg {
-  fill: currentColor !important;
-  stroke: currentColor !important;
 }
 
 .product-secondary-actions .svg-wrapper {
@@ -372,7 +319,7 @@ product-info {
   margin-bottom: 0;
   flex: 1 1 auto;
   min-width: 18rem;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius) !important;
   min-height: 5.2rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -827,7 +774,7 @@ a.product__text {
 }
 
 .product__media-item {
-  border-radius: 20px;
+  border-radius: var(--aura-radius);
   overflow: hidden;
   isolation: isolate;
   transition: opacity 0.6s ease-in-out;
@@ -841,7 +788,7 @@ a.product__text {
 .product__media-item model-viewer,
 .product__media-item iframe,
 .product__media-item .deferred-media__poster {
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius) !important;
   overflow: hidden !important;
   object-fit: cover !important;
   width: 100% !important;

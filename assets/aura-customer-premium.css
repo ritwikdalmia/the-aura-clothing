@@ -2,15 +2,7 @@
    Aura Premium Customer Styles
    ========================================================================== */
 
-:root {
-  --aura-gold: #a88b6a;
-  --aura-gold-light: #c9ab82;
-  --aura-bg-warm: #faf8f5;
-  --brand-dark: #1a1a1a;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-shadow: 0 8px 32px 0 rgba(168, 139, 106, 0.1);
-}
+/* Variables inherited from aura-tokens.css.liquid */
 
 /* Common Layout */
 .customer.account-container, 
@@ -77,8 +69,8 @@
 
 .account-nav-item a:hover,
 .account-nav-item.is-active a {
-  background: var(--aura-bg-warm);
-  color: var(--aura-gold);
+  background: var(--aura-brand-bg-warm);
+  color: var(--aura-brand-gold);
 }
 
 .account-nav-item a svg {
@@ -101,7 +93,7 @@
   font-family: var(--font-heading-family);
   font-size: 3.6rem;
   font-weight: 500;
-  color: var(--brand-dark);
+  color: var(--aura-brand-dark);
   margin: 0 0 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -154,7 +146,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--aura-gold);
+  color: var(--aura-brand-gold);
 }
 
 .animated-icon-wrapper svg {
@@ -183,7 +175,7 @@
 .order-card__info h3 {
   font-size: 1.8rem;
   margin: 0 0 0.5rem;
-  color: var(--brand-dark);
+  color: var(--aura-brand-dark);
 }
 
 .order-card__info p {
@@ -209,7 +201,7 @@
 /* 404 Page Premium */
 .aura-404-hero {
   padding: 12rem 0;
-  background-color: var(--aura-bg-warm);
+  background-color: var(--aura-brand-bg-warm);
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -236,7 +228,7 @@
 .aura-404-title {
   font-size: 10rem;
   margin: 0;
-  color: var(--aura-gold);
+  color: var(--aura-brand-gold);
   line-height: 1;
 }
 

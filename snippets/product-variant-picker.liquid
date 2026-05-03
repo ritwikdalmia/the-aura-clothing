@@ -48,14 +48,16 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}: <span class="selected-variant-value">{{ option.selected_value }}</span></legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+        <fieldset class="js product-form__input product-form__input--pill aura-variant-picker-buttons">
+          <legend class="form__label">{{ option.name }}: <span class="selected-variant-value" style="color: var(--aura-brand-gold); font-weight: 700;">{{ option.selected_value }}</span></legend>
+          <div class="aura-variant-buttons-wrapper">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

@@ -29,7 +29,7 @@
         data-aura-compare="{{ card_product.handle }}"
         {%- liquid
           assign specs = ''
-          for metafield in card_product.metafields.shopify
+          for metafield in card_product.metafields.custom limit: 5
             assign key = metafield | first
             assign val_obj = metafield | last
             assign val = val_obj.value
@@ -52,15 +52,19 @@
 
       <div class="na-collection-slideshow">
         {%- if card_product.media.size > 0 -%}
-          {%- for media in card_product.media limit: 3 -%}
-            <img
-              src="{{ media | image_url: width: 600 }}"
-              alt="{{ media.alt | escape }}"
-              loading="lazy"
-              width="600"
-              height="{{ 600 | divided_by: media.aspect_ratio | ceil }}"
-              style="animation-delay: {{ forloop.index0 | times: 3 }}s"
-            >
+          {%- for media in card_product.media limit: 2 -%}
+            {%- assign image_loading = 'lazy' -%}
+            {%- if lazy_load == false -%}
+              {%- assign image_loading = 'eager' -%}
+            {%- endif -%}
+
+            {{ media.preview_image | image_url: width: 600 | image_tag:
+              loading: image_loading,
+              sizes: '(min-width: 1200px) 300px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)',
+              widths: '200, 300, 400, 500, 600, 700, 800',
+              class: 'na-card-img',
+              style: 'animation-delay: ' | append: forloop.index0 | append: 's'
+            }}
           {%- endfor -%}
         {%- else -%}
            {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg na-card-img-primary' }}

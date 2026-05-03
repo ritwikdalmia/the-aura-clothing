@@ -327,6 +327,22 @@
     background: var(--aura-brand-text-main);
   }
 
+  /* Empty State Specifics */
+  .aura-compare-svg {
+    filter: drop-shadow(0 10px 15px rgba(var(--aura-brand-gold-rgb), 0.15));
+    animation: auraFloat 3s ease-in-out infinite;
+  }
+  @keyframes auraFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .aura-compare-svg rect:last-child {
+    animation: auraCompareSlide 3s ease-in-out infinite;
+  }
+  @keyframes auraCompareSlide {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(4px, 4px); }
+  }
 </style>
 
 <div id="CompareDrawer" class="compare-drawer">
@@ -387,12 +403,22 @@
     if (handles.length > 2) {
       handles = handles.slice(0, 2);
     }
+
     if (handles.length === 0) {
       container.innerHTML = `
-        <div class="compare-drawer__empty" style="text-align:center; padding:100px 40px;">
-          <div style="font-size: 5rem; margin-bottom: 2rem; opacity: 0.3;">✨</div>
-          <p style="font-size: 1.6rem; color: var(--aura-brand-text-muted); font-weight: 500;">Your comparison list is empty.</p>
-          <a href="/collections/all" class="button" style="margin-top:2rem; border-radius: 50px;">Browse Collections</a>
+        <div class="compare-drawer__empty" style="padding: 8rem 3rem; text-align: center;">
+          <div class="aura-empty-compare-icon" style="margin-bottom: 2.5rem; display: flex; justify-content: center; color: var(--aura-brand-gold);">
+            <svg class="aura-compare-svg" width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="8" height="12" rx="1" stroke="currentColor" stroke-width="1.5" />
+              <rect x="12" y="8" width="8" height="12" rx="1" stroke="currentColor" stroke-width="1.5" />
+              <path d="M8 12h8" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4" />
+            </svg>
+          </div>
+          <h3 style="font-size: 1.8rem; font-weight: 600; color: var(--aura-brand-text-main); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">Refine Your Choices</h3>
+          <p style="font-size: 1.4rem; color: var(--aura-brand-text-muted); margin-bottom: 3rem; max-width: 320px; margin-left: auto; margin-right: auto; line-height: 1.6;">Add products to compare their unique features and find the piece that resonates most with your style.</p>
+          <a href="/collections/all" class="btn-compare-action btn-buy-now" style="max-width: 240px; margin: 0 auto; text-decoration: none;" onclick="closeCompare()">
+            Explore the Collection
+          </a>
         </div>`;
       return;
     }
@@ -527,7 +553,7 @@
       html += `
         <td>
           <div class="action-buttons-grid">
-            <button class="btn-compare-action btn-cart" onclick="addToCartFromWishlist('${p.variants[0].id}', this)">
+            <button class="btn-compare-action btn-cart" onclick="addToCartFromCompare('${p.variants[0].id}', this)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
@@ -549,6 +575,42 @@
 
   // Make renderCompare async to support await for metafields
   // (already declared async above)
+
+  async function addToCartFromCompare(variantId, btn) {
+    if (!variantId) return;
+    const label = btn.innerHTML;
+    btn.innerHTML = `<span class="aura-loader" style="width:14px; height:14px; border-width:2px;"></span> Adding…`;
+    btn.disabled = true;
+
+    try {
+      const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+      });
+      
+      if (!response.ok) throw new Error('Error adding to cart');
+      
+      btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Added!`;
+      btn.style.background = 'var(--aura-brand-gold)';
+      
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      
+      setTimeout(() => {
+        btn.innerHTML = label;
+        btn.disabled = false;
+        btn.style.background = '';
+      }, 2500);
+    } catch (e) {
+      btn.innerHTML = 'Error';
+      btn.disabled = false;
+      setTimeout(() => { btn.innerHTML = label; }, 2000);
+    }
+  }
 
   function buyItNowFromCompare(variantId) {
     window.location.href = `/cart/${variantId}:1`;
