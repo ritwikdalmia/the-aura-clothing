@@ -29,7 +29,7 @@
       style="row-gap: 4rem; column-gap: 3rem;"
     >
       {%- for collection in collections -%}
-        {%- if collection.all_products_count == 0 -%}
+        {%- if collection.all_products_count == 0 and request.design_mode == false -%}
           {%- continue -%}
         {%- endif -%}
         <li

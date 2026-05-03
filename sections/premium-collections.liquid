@@ -327,7 +327,7 @@
       {%- comment -%} 1. Render Collections from the collection_list setting {%- endcomment -%}
       {%- if section.settings.collection_list != blank -%}
         {%- for col in section.settings.collection_list -%}
-          {%- if col.all_products_count == 0 -%}
+          {%- if col.all_products_count == 0 and request.design_mode == false -%}
             {%- continue -%}
           {%- endif -%}
           {%- liquid
@@ -349,7 +349,7 @@
 
       {%- comment -%} 2. Render Collection Blocks {%- endcomment -%}
       {%- for block in section.blocks -%}
-        {%- if block.settings.collection != blank and block.settings.collection.all_products_count == 0 -%}
+        {%- if block.settings.collection != blank and block.settings.collection.all_products_count == 0 and request.design_mode == false -%}
           {%- continue -%}
         {%- endif -%}
         {%- liquid

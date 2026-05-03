@@ -14,9 +14,19 @@
           <span class="na-badge na-badge--sale">Sale -{{ savings }}%</span>
         {%- endif -%}
 
+        {%- liquid
+          assign date_now = 'now' | date: '%s'
+          assign date_published = card_product.published_at | date: '%s'
+          assign diff_seconds = date_now | minus: date_published
+          assign is_new = false
+          if diff_seconds < 2592000
+            assign is_new = true
+          endif
+        -%}
+
         {%- if card_product.tags contains 'Best Seller' or card_product.tags contains 'best-seller' or card_product.tags contains 'Best' -%}
           <span class="na-badge na-badge--best">Best Seller</span>
-        {%- elsif card_product.tags contains 'New' or card_product.tags contains 'new' -%}
+        {%- elsif is_new or card_product.tags contains 'New' or card_product.tags contains 'new' -%}
           <span class="na-badge na-badge--new">New Arrival</span>
         {%- endif -%}
       </div>

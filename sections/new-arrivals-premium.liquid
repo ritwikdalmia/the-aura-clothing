@@ -483,9 +483,21 @@
           <a href="{{ product.url }}" class="na-product-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="animation-delay: {{ products_count | times: 80 }}ms;">
             <div class="na-card-image-wrapper">
               <div class="na-badge-container">
+                {%- liquid
+                  assign date_now = 'now' | date: '%s'
+                  assign date_published = product.published_at | date: '%s'
+                  assign diff_seconds = date_now | minus: date_published
+                  assign is_new = false
+                  if diff_seconds < 2592000
+                    assign is_new = true
+                  endif
+                -%}
                 {%- if product.compare_at_price > product.price -%}
                   {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
                   <span class="na-badge na-badge--sale">Sale -{{ savings }}%</span>
+                {%- endif -%}
+                {%- if is_new or product.tags contains 'New' or product.tags contains 'new' -%}
+                  <span class="na-badge na-badge--new">New Arrival</span>
                 {%- endif -%}
                 {%- if product.available == false -%}
                   <span class="na-badge na-badge--sold-out">Sold Out</span>

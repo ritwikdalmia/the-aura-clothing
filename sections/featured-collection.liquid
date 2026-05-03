@@ -64,7 +64,7 @@
   endif
 
   assign show_section = true
-  if section.settings.collection != blank and section.settings.collection.all_products_count == 0
+  if section.settings.collection != blank and section.settings.collection.all_products_count == 0 and request.design_mode == false
     assign show_section = false
   endif
 -%}
