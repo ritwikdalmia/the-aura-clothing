@@ -1575,7 +1575,7 @@
 }
 
 .na-card-info {
-  padding: 1rem;
+  padding: 1.2rem;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -1583,10 +1583,12 @@
   border-bottom-left-radius: var(--aura-radius) !important;
   border-bottom-right-radius: var(--aura-radius) !important;
   border-top: 1px solid rgba(0,0,0,0.05); /* Subtle separation */
+  text-align: left;
+  align-items: flex-start;
 }
 
 .na-card-price {
-  font-size: var(--aura-font-size-sm);
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--aura-brand-gold);
 }
@@ -1599,12 +1601,13 @@
 }
 
 .na-card-title {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   margin: 0 0 0.5rem 0;
   letter-spacing: 0.02em;
   color: var(--aura-brand-dark);
   line-height: 1.3;
+  text-align: left;
 }
 
 .na-mobile-actions {
@@ -1622,7 +1625,7 @@
 
   .na-card-title {
     min-height: 0 !important;
-    font-size: 1.15rem !important;
+    font-size: 1.3rem !important;
   }
   
   .na-mobile-actions button {
