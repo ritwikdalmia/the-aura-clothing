@@ -1,4 +1,4 @@
-{%- style -%}
+﻿{%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -77,7 +77,7 @@
     color: var(--aura-brand-gold);
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: var(--aura-font-weight-medium);
     margin-bottom: 0.4rem;
   }
 
@@ -85,7 +85,7 @@
     font-size: var(--aura-font-size-lg);
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: var(--aura-font-weight-light);
     font-family: var(--font-heading-family);
     color: rgb(var(--color-foreground));
     margin: 0;
@@ -137,11 +137,11 @@
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.95);
+    background: var(--aura-overlay-white-heavy);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 14px var(--aura-overlay-dark);
     cursor: pointer;
     display: none;
     align-items: center;
@@ -151,7 +151,7 @@
 
   .bs-arrow:hover {
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 18px var(--aura-overlay-dark-medium);
   }
 
   .bs-arrow--prev { left: -40px; }
@@ -160,7 +160,7 @@
   .bs-arrow svg {
     width: 18px;
     height: 18px;
-    stroke: #333;
+    stroke: var(--aura-color-text-medium);
     stroke-width: 2.5;
     fill: none;
   }
@@ -208,37 +208,37 @@
   .bs-badge {
     padding: 5px 14px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    border-radius: 6px;
+    border-radius: var(--aura-radius-sm);
     line-height: 1.4;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 8px var(--aura-overlay-dark);
   }
 
   .bs-badge--bestseller {
     background: rgba(var(--aura-brand-gold-rgb), 0.85);
-    color: #fff;
+    color: var(--aura-white);
     border: 1px solid rgba(255,255,255,0.2);
   }
 
   .bs-badge--sale {
     background: var(--aura-brand-sale);
-    color: #fff;
+    color: var(--aura-white);
     border: 1px solid rgba(255,255,255,0.2);
   }
 
   .bs-badge--new {
-    background: rgba(40, 40, 40, 0.8);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
+    background: var(--aura-color-badge-dark);
+    color: var(--aura-white);
+    border: 1px solid var(--aura-overlay-white-subtle);
   }
 
   .bs-badge--best {
     background: rgba(var(--aura-brand-gold-rgb), 0.85);
-    color: #fff;
+    color: var(--aura-white);
     border: 1px solid rgba(255,255,255,0.2);
   }
 
@@ -257,15 +257,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.75);
+    background: var(--aura-overlay-white);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid var(--aura-overlay-white-subtle);
     cursor: pointer;
     opacity: 1; /* Always visible as per user request */
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px var(--aura-overlay-dark);
     transform: scale(1) rotate(0deg);
   }
 
@@ -280,7 +280,7 @@
   .bs-wishlist svg, .bs-compare svg {
     width: 16px;
     height: 16px;
-    stroke: #333;
+    stroke: var(--aura-color-text-medium);
     fill: none;
     stroke-width: 1.8;
     transition: fill 0.2s ease, stroke 0.2s ease;
@@ -292,15 +292,15 @@
   }
 
   .bs-wishlist:hover:not(.is-active), .bs-compare:hover:not(.is-active) {
-    background: #fff;
+    background: var(--aura-white);
     transform: scale(1.1) !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 16px var(--aura-overlay-dark);
   }
 
   .bs-wishlist.is-active, .bs-compare.is-active {
     background: var(--aura-brand-gold) !important;
     border-color: var(--aura-brand-gold) !important;
-    color: #fff !important;
+    color: var(--aura-white) !important;
   }
 
   .bs-wishlist.is-active svg, .bs-compare.is-active svg {
@@ -315,14 +315,14 @@
     left: 0;
     right: 0;
     z-index: 5;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--aura-overlay-white-heavy);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: var(--aura-brand-dark);
     text-align: center;
     padding: 16px;
     font-size: var(--aura-font-size-xs);
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
@@ -334,7 +334,7 @@
 
   .bs-quick-add:hover {
     background: var(--aura-brand-gold);
-    color: #fff;
+    color: var(--aura-white);
   }
 
   .bs-product-card:hover .bs-quick-add {
@@ -344,7 +344,7 @@
   /* Card Info */
   .bs-card-info {
     padding: 1.5rem 1.4rem 1.8rem;
-    background: #fff;
+    background: var(--aura-white);
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -354,7 +354,7 @@
 
   .bs-card-title {
     font-size: 1.5rem;
-    font-weight: 500;
+    font-weight: var(--aura-font-weight-medium);
     color: var(--aura-brand-dark);
     margin: 0 0 0.5rem;
     white-space: nowrap;
@@ -373,20 +373,20 @@
 
   .bs-card-price {
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     color: var(--aura-brand-gold);
   }
 
   .bs-card-compare-price {
     font-size: var(--aura-font-size-xs);
-    color: #000; /* Match product page strikethrough color */
+    color: var(--aura-black); /* Match product page strikethrough color */
     text-decoration: line-through;
     opacity: 0.6;
   }
 
   .bs-card-discount-val {
     font-size: var(--aura-font-size-xs);
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     color: var(--aura-brand-sale);
     margin-top: 4px;
   }
@@ -452,10 +452,10 @@
     display: inline-block;
     padding: 14px 42px;
     border: 1px solid var(--aura-brand-gold);
-    border-radius: 50px;
+    border-radius: var(--aura-radius-pill);
     color: var(--aura-brand-dark);
     font-size: var(--aura-font-size-xs);
-    font-weight: 600;
+    font-weight: var(--aura-font-weight-semibold);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
@@ -482,7 +482,7 @@
   }
 
   .na-view-all-btn:hover {
-    color: #fff;
+    color: var(--aura-white);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(var(--aura-brand-gold-rgb), 0.25);
   }
@@ -524,7 +524,7 @@
       transform: translateY(0);
       padding: 8px 12px;
       font-size: 0.85rem;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--aura-overlay-white-heavy);
       color: var(--aura-brand-dark);
     }
     .bs-card-info {

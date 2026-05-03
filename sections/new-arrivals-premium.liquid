@@ -1,4 +1,4 @@
-{%- style -%}
+﻿{%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -82,7 +82,7 @@
     font-size: var(--aura-font-size-lg);
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: var(--aura-font-weight-light);
     font-family: var(--font-heading-family);
     color: rgb(var(--color-foreground));
     margin: 0 0 0.5rem;
@@ -93,7 +93,7 @@
     color: var(--aura-brand-gold);
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: var(--aura-font-weight-medium);
     margin-bottom: 0.4rem;
   }
 
@@ -110,7 +110,7 @@
     flex-direction: column;
     height: 100%;
     position: relative;
-    background: #fff;
+    background: var(--aura-white);
     border-radius: var(--aura-radius);
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -143,27 +143,27 @@
   .na-badge {
     padding: 5px 14px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    border-radius: 6px;
+    border-radius: var(--aura-radius-sm);
     line-height: 1.4;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 8px var(--aura-overlay-dark);
   }
 
   .na-badge--sale {
     left: 12px;
     background: var(--aura-brand-sale);
-    color: #fff;
+    color: var(--aura-white);
   }
 
   .na-badge--new {
     left: 12px;
-    background: rgba(40, 40, 40, 0.8);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
+    background: var(--aura-color-badge-dark);
+    color: var(--aura-white);
+    border: 1px solid var(--aura-overlay-white-subtle);
   }
 
   .na-badge--sold-out {
@@ -180,14 +180,14 @@
     left: 0;
     right: 0;
     z-index: 5;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--aura-overlay-white-heavy);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: var(--aura-brand-dark);
     text-align: center;
     padding: 16px;
     font-size: var(--aura-font-size-xs);
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
@@ -199,7 +199,7 @@
 
   .na-quick-add:hover {
     background: var(--aura-brand-gold);
-    color: #fff;
+    color: var(--aura-white);
   }
 
   .na-product-card:hover .na-quick-add {
@@ -216,15 +216,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.75);
+    background: var(--aura-overlay-white);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid var(--aura-overlay-white-subtle);
     cursor: pointer;
     opacity: 1; /* Always visible as per user request */
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px var(--aura-overlay-dark);
     transform: scale(1) rotate(0deg);
   }
 
@@ -239,16 +239,16 @@
   .na-wishlist svg, .na-compare svg {
     width: 16px;
     height: 16px;
-    stroke: #333;
+    stroke: var(--aura-color-text-medium);
     fill: none;
     stroke-width: 1.8;
     transition: fill 0.2s ease, stroke 0.2s ease;
   }
 
   .na-wishlist:hover:not(.is-active), .na-compare:hover:not(.is-active) {
-    background: #fff;
+    background: var(--aura-white);
     transform: scale(1.1) !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 16px var(--aura-overlay-dark);
   }
 
   .na-wishlist:hover:not(.is-active) svg, .na-compare:hover:not(.is-active) svg {
@@ -259,7 +259,7 @@
   .na-wishlist.is-active, .na-compare.is-active {
     background: var(--aura-brand-gold) !important;
     border-color: var(--aura-brand-gold) !important;
-    color: #fff !important;
+    color: var(--aura-white) !important;
   }
 
   .na-wishlist.is-active svg, .na-compare.is-active svg {
@@ -270,7 +270,7 @@
   /* ===== Product Info ===== */
   .na-card-info {
     padding: 1.4rem 1.2rem 1.6rem;
-    background: #fff;
+    background: var(--aura-white);
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -280,7 +280,7 @@
 
   .na-card-title {
     font-size: 1.5rem;
-    font-weight: 500;
+    font-weight: var(--aura-font-weight-medium);
     margin: 0 0 0.6rem;
     letter-spacing: 0.02em;
     color: var(--aura-brand-dark);
@@ -301,14 +301,14 @@
 
   .na-card-price {
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: var(--aura-font-weight-bold);
     color: var(--aura-brand-gold);
   }
 
   .na-card-compare-price {
     font-size: var(--aura-font-size-xs);
     text-decoration: line-through;
-    color: #000; /* Match product page strikethrough color */
+    color: var(--aura-black); /* Match product page strikethrough color */
     opacity: 0.6;
   }
 
@@ -317,7 +317,7 @@
     width: 100%;
     margin-top: 0.4rem;
     color: var(--aura-brand-sale);
-    font-weight: 600;
+    font-weight: var(--aura-font-weight-semibold);
     font-size: var(--aura-font-size-sm);
     letter-spacing: 0.02em;
   }
@@ -359,7 +359,7 @@
     text-transform: uppercase;
     letter-spacing: 0.22em;
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: var(--aura-font-weight-semibold);
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border-radius: var(--aura-btn-radius, 50px);
     position: relative;
@@ -383,7 +383,7 @@
   }
 
   .na-view-all-btn:hover {
-    color: #fff;
+    color: var(--aura-white);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(var(--aura-brand-gold-rgb), 0.25);
   }

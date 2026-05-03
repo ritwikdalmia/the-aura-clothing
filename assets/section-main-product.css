@@ -1,4 +1,4 @@
-product-info {
+﻿product-info {
   display: block;
 }
 
@@ -102,7 +102,7 @@ product-info {
   font-family: inherit;
   min-height: 5.2rem;
   border-radius: var(--aura-radius) !important;
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   font-size: var(--aura-font-size-sm) !important;
@@ -133,10 +133,10 @@ product-info {
 }
 
 .product .shopify-payment-button .shopify-payment-button__button--unbranded {
-  background-color: #000 !important;
-  color: #fff !important;
-  border-radius: 50px !important;
-  font-weight: 600 !important;
+  background-color: var(--aura-black) !important;
+  color: var(--aura-white) !important;
+  border-radius: var(--aura-radius-pill) !important;
+  font-weight: var(--aura-font-weight-semibold) !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   min-height: 5rem !important;
@@ -146,7 +146,7 @@ product-info {
 }
 
 .product .shopify-payment-button .shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background-color: #333 !important;
+  background-color: var(--aura-color-text-medium) !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
 }
@@ -169,11 +169,11 @@ product-info {
 
 .product-secondary-actions__text {
   font-size: var(--aura-font-size-xs);
-  color: #888;
+  color: var(--aura-color-text-muted);
   font-family: var(--font-body-family);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-weight: 600;
+  font-weight: var(--aura-font-weight-semibold);
 }
 
 .shopify-payment-button__more-options {
@@ -221,11 +221,11 @@ product-info {
 .product-form__input .form__label {
   padding-left: 0;
   display: block;
-  font-weight: 600;
+  font-weight: var(--aura-font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: var(--aura-font-size-xs);
-  color: #666;
+  color: var(--aura-color-text-subtle);
   margin-bottom: 0.8rem;
 }
 
@@ -241,13 +241,13 @@ product-info {
 .quantity {
   border-radius: 25px !important;
   min-height: 5.2rem !important;
-  border: 1px solid rgba(168, 139, 106, 0.2) !important;
-  background: #fff;
+  border: 1px solid var(--aura-brand-gold-light) !important;
+  background: var(--aura-white);
   width: 15rem;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px var(--aura-overlay-dark-xs);
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -255,7 +255,7 @@ product-info {
 
 .quantity:hover {
   border-color: rgba(168, 139, 106, 0.5) !important;
-  box-shadow: 0 4px 12px rgba(168, 139, 106, 0.1);
+  box-shadow: 0 4px 12px var(--aura-brand-gold-light);
 }
 
 .quantity:before,
@@ -265,10 +265,10 @@ product-info {
 }
 
 .quantity__input {
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
   font-family: var(--font-body-family);
   font-size: var(--aura-font-size-base) !important;
-  color: #2c2c2c !important;
+  color: var(--aura-color-text-dark) !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -311,8 +311,8 @@ product-info {
 }
 
 .quantity__button:hover {
-  background-color: rgba(168, 139, 106, 0.1) !important;
-  color: #6a563f !important;
+  background-color: var(--aura-brand-gold-light) !important;
+  color: var(--aura-brand-gold) !important;
 }
 
 .product-form__submit {
@@ -321,11 +321,11 @@ product-info {
   min-width: 18rem;
   border-radius: var(--aura-radius) !important;
   min-height: 5.2rem;
-  font-weight: 700;
+  font-weight: var(--aura-font-weight-bold);
   letter-spacing: 0.15em;
   transition: all 0.3s ease;
-  background-color: #2c2c2c;
-  color: #fff;
+  background-color: var(--aura-color-text-dark);
+  color: var(--aura-white);
   border: none;
   font-size: var(--aura-font-size-sm);
   text-transform: uppercase;
@@ -358,18 +358,18 @@ product-info {
   transform: translateY(-50%);
   z-index: 2;
   pointer-events: none;
-  color: #fff;
+  color: var(--aura-white);
 }
 
 .product-form__submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
-  background-color: #1a1a1a;
+  box-shadow: 0 8px 20px var(--aura-overlay-dark-medium) !important;
+  background-color: var(--aura-color-text-dark);
 }
 
 /* Inventory Status Premium */
 .product__inventory {
-  font-weight: 500;
+  font-weight: var(--aura-font-weight-medium);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -380,7 +380,7 @@ product-info {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #e53935;
+  background-color: var(--aura-brand-sale);
   box-shadow: 0 0 0 rgba(229, 57, 53, 0.4);
   animation: pulse 2s infinite;
 }
@@ -403,7 +403,7 @@ product-info {
   display: grid;
   grid-template-columns: 140px 1fr;
   align-items: center;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--aura-overlay-dark-subtle);
   padding: 1.5rem 0;
 }
 
@@ -412,7 +412,7 @@ product-info {
 }
 
 .product__spec-label {
-  font-weight: 700;
+  font-weight: var(--aura-font-weight-bold);
   color: var(--aura-brand-gold);
   text-transform: uppercase;
   font-size: var(--aura-font-size-xs);
@@ -420,8 +420,8 @@ product-info {
 }
 
 .product__spec-value {
-  color: #333;
-  font-weight: 500;
+  color: var(--aura-color-text-medium);
+  font-weight: var(--aura-font-weight-medium);
   font-size: var(--aura-font-size-base);
   line-height: 1.4;
 }
@@ -429,26 +429,26 @@ product-info {
 /* Offer Countdown Card */
 .offer-countdown-card {
   background: var(--aura-brand-bg-warm);
-  border-radius: 12px;
+  border-radius: var(--aura-radius);
   padding: 2.5rem;
   margin: 2rem 0;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px var(--aura-overlay-dark-subtle);
+  border: 1px solid var(--aura-overlay-dark-subtle);
 }
 
 .countdown-title {
   font-family: var(--font-heading-family);
   font-size: 2.2rem;
-  font-weight: 600;
-  color: #000;
+  font-weight: var(--aura-font-weight-semibold);
+  color: var(--aura-black);
   margin-bottom: 0.8rem;
   letter-spacing: 0.02em;
 }
 
 .countdown-subtext {
   font-size: 1.4rem;
-  color: #666;
+  color: var(--aura-color-text-subtle);
   margin-bottom: 2rem;
   line-height: 1.5;
 }
@@ -468,16 +468,16 @@ product-info {
 
 .unit-value {
   font-size: 2.4rem;
-  font-weight: 700;
-  color: #000;
+  font-weight: var(--aura-font-weight-bold);
+  color: var(--aura-black);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 
 .unit-label {
   font-size: 1rem;
-  font-weight: 600;
-  color: #999;
+  font-weight: var(--aura-font-weight-semibold);
+  color: var(--aura-color-text-muted);
   letter-spacing: 0.1em;
 }
 
@@ -485,10 +485,10 @@ product-info {
 .editable-trust-badges {
   margin: 2.5rem 0;
   padding: 2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.03);
+  background: var(--aura-white);
+  border-radius: var(--aura-radius);
+  box-shadow: 0 4px 12px var(--aura-overlay-dark-xs);
+  border: 1px solid var(--aura-overlay-dark-xs);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -504,7 +504,7 @@ product-info {
 }
 
 .editable-trust-badges .badge-icon {
-  background: #fdfaf7;
+  background: var(--aura-color-bg-warm);
   padding: 1rem;
   border-radius: 50%;
   display: flex;
@@ -513,9 +513,9 @@ product-info {
 
 .editable-trust-badges .badge-title {
   display: block;
-  font-weight: 700;
+  font-weight: var(--aura-font-weight-bold);
   font-size: 1.1rem;
-  color: #1a1a1a;
+  color: var(--aura-color-text-dark);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.2rem;
@@ -524,7 +524,7 @@ product-info {
 .editable-trust-badges .badge-subtitle {
   display: block;
   font-size: 1rem;
-  color: #888;
+  color: var(--aura-color-text-muted);
 }
 
 /* Fix for Button/Quantity alignment */
@@ -588,9 +588,9 @@ a.product__text {
 
 .product__title h1 {
   margin: 0;
-  color: #1a1a1a;
+  color: var(--aura-color-text-dark);
   font-family: var(--font-heading-family);
-  font-weight: 500;
+  font-weight: var(--aura-font-weight-medium);
   letter-spacing: 0.02em;
   font-size: calc(var(--font-heading-scale) * 3rem);
 }
@@ -649,7 +649,7 @@ a.product__text {
 }
 
 .product__description-title {
-  font-weight: 600;
+  font-weight: var(--aura-font-weight-semibold);
 }
 
 .product--no-media .product__title,
@@ -887,19 +887,19 @@ a.product__text {
   width: 2.8rem;
   height: 2.8rem;
   z-index: 5;
-  color: #fff;
+  color: var(--aura-white);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px 0 var(--aura-overlay-dark);
 }
 
 .thumbnail__badge:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--aura-overlay-white-subtle);
   transform: scale(1.1);
   color: var(--aura-brand-gold);
 }
 
 .product__media-icon {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--aura-overlay-white);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 50%;
@@ -913,7 +913,7 @@ a.product__text {
   width: 4.4rem;
   height: 4.4rem;
   z-index: 2;
-  color: #1a1a1a;
+  color: var(--aura-color-text-dark);
   border: none;
   transition: all 0.3s ease;
 }
@@ -961,15 +961,15 @@ a.product__text {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #121212;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  color: var(--aura-color-text-dark);
+  box-shadow: 0 4px 15px var(--aura-overlay-dark-subtle);
 }
 
 .na-wishlist-floating:hover, 
 .na-compare-floating:hover {
-  background: #fff;
+  background: var(--aura-white);
   transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px var(--aura-overlay-dark);
   color: var(--aura-brand-gold);
 }
 
@@ -986,8 +986,8 @@ a.product__text {
 }
 
 .na-wishlist-floating.active path {
-  fill: #ff4d4d;
-  stroke: #ff4d4d;
+  fill: var(--aura-brand-sale);
+  stroke: var(--aura-brand-sale);
 }
 
 .product__media-video .product__media-icon {
@@ -1051,7 +1051,7 @@ video::-webkit-media-controls-overflow-button {
 
 video::-webkit-media-controls-timeline {
   height: 2px !important;
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background-color: var(--aura-overlay-white-subtle) !important;
   border-radius: 2px !important;
   margin: 0 15px !important;
   filter: brightness(0) invert(1) !important;
@@ -1059,10 +1059,10 @@ video::-webkit-media-controls-timeline {
 
 video::-webkit-media-controls-current-time-display,
 video::-webkit-media-controls-time-remaining-display {
-  color: #fff !important;
+  color: var(--aura-white) !important;
   font-family: inherit !important;
   font-size: 11px !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+  text-shadow: 0 1px 2px var(--aura-overlay-dark-heavy) !important;
 }
 .product__media-list video:focus {
   outline: none;
@@ -1486,17 +1486,17 @@ video::-webkit-media-controls-time-remaining-display {
 
 .product__media-list .media > * {
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: var(--aura-radius-xl);
 }
 
 .product__media-item {
-  border-radius: 24px;
+  border-radius: var(--aura-radius-xl);
   overflow: hidden;
-  background: #fdfcfb;
+  background: var(--aura-color-bg-warm);
 }
 
 .product__media img {
-  border-radius: 24px;
+  border-radius: var(--aura-radius-xl);
 }
 
 
@@ -1511,18 +1511,18 @@ video::-webkit-media-controls-time-remaining-display {
 
 .thumbnail[aria-current='true'] {
   border: 1.5px solid var(--aura-brand-gold) !important;
-  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.1) !important;
+  box-shadow: 0 0 0 3px var(--aura-brand-gold-light) !important;
   transform: scale(1.02) !important;
 }
 
 .thumbnail {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(0,0,0,0.08) !important;
-  border-radius: 12px !important;
+  border: 1px solid var(--aura-overlay-dark) !important;
+  border-radius: var(--aura-radius) !important;
   overflow: hidden;
   position: relative;
   padding: 0;
-  background: #fff;
+  background: var(--aura-white);
   width: 100%;
   aspect-ratio: 1/1;
   display: block;
@@ -1538,7 +1538,7 @@ video::-webkit-media-controls-time-remaining-display {
 
 .thumbnail:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 16px var(--aura-overlay-dark-subtle);
   border-color: var(--aura-brand-gold-light) !important;
 }
 
@@ -1606,7 +1606,7 @@ video::-webkit-media-controls-time-remaining-display {
 
   .thumbnail-list::-webkit-scrollbar-thumb {
     background: rgba(var(--color-foreground), 0.1);
-    border-radius: 10px;
+    border-radius: var(--aura-radius);
   }
 
   .thumbnail-list .thumbnail-list__item {
@@ -1681,7 +1681,7 @@ video::-webkit-media-controls-time-remaining-display {
   .thumbnail {
     width: 90px !important;
     height: 90px !important;
-    border-radius: 12px !important;
+    border-radius: var(--aura-radius) !important;
   }
 
   /* Hide arrows and indicators on mobile */
@@ -1787,7 +1787,7 @@ video::-webkit-media-controls-time-remaining-display {
 
 .thumbnail[aria-current] {
   border: 2px solid var(--aura-brand-gold) !important;
-  box-shadow: 0 4px 12px rgba(168, 139, 106, 0.2) !important;
+  box-shadow: 0 4px 12px var(--aura-brand-gold-light) !important;
   opacity: 1 !important;
 }
 
@@ -1801,7 +1801,7 @@ video::-webkit-media-controls-time-remaining-display {
   cursor: zoom-out;
   z-index: 1;
   margin: 0;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius-lg) !important;
   overflow: hidden !important;
 }
 
@@ -1811,7 +1811,7 @@ video::-webkit-media-controls-time-remaining-display {
 .global-media-settings:after,
 .product-media-container,
 .product__media {
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius-lg) !important;
   overflow: hidden !important;
 }
 
@@ -1855,13 +1855,13 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .thumbnail[aria-current]:focus-visible {
-  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.2);
+  box-shadow: 0 0 0 3px var(--aura-brand-gold-light);
 }
 
 .thumbnail[aria-current]:focus,
 .thumbnail.focused {
   outline: 0;
-  box-shadow: 0 0 0 3px rgba(168, 139, 106, 0.2);
+  box-shadow: 0 0 0 3px var(--aura-brand-gold-light);
 }
 
 .thumbnail img {
@@ -2281,7 +2281,7 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .badge-item:hover .badge-icon {
-  background: #fff;
+  background: var(--aura-white);
   transform: translateY(-2px);
   border-color: var(--aura-gold);
   box-shadow: var(--aura-shadow-sm);
@@ -2290,8 +2290,8 @@ video::-webkit-media-controls-time-remaining-display {
 .badge-icon svg { width: 2rem; height: 2rem; }
 
 .badge-text { display: flex; flex-direction: column; }
-.badge-title { font-size: 1.1rem; font-weight: 700; color: #000; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
-.badge-subtitle { font-size: 0.95rem; color: rgba(0,0,0,0.5); letter-spacing: 0.02em; line-height: 1.2; }
+.badge-title { font-size: 1.1rem; font-weight: var(--aura-font-weight-bold); color: var(--aura-black); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+.badge-subtitle { font-size: 0.95rem; color: var(--aura-overlay-dark-heavy); letter-spacing: 0.02em; line-height: 1.2; }
 
 .badge-divider {
   width: 1px;
@@ -2311,12 +2311,12 @@ video::-webkit-media-controls-time-remaining-display {
 /* Add to Cart Premium Curves & Colors */
 .button.button--secondary,
 .product-form__buttons .button {
-  border-radius: 20px !important;
-  font-weight: 500;
+  border-radius: var(--aura-radius-lg) !important;
+  font-weight: var(--aura-font-weight-medium);
   letter-spacing: 0.1em;
   min-height: 5rem;
   background-color: var(--aura-brand-gold) !important;
-  color: #ffffff !important;
+  color: var(--aura-white) !important;
   border: 1px solid var(--aura-brand-gold) !important;
 }
 
@@ -2328,18 +2328,18 @@ video::-webkit-media-controls-time-remaining-display {
 .product__text.caption-with-letter-spacing {
   font-size: 1.1rem;
   letter-spacing: 0.2em;
-  color: #999;
-  font-weight: 600;
+  color: var(--aura-color-text-muted);
+  font-weight: var(--aura-font-weight-semibold);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
 .product__title h1 {
   font-size: 3.2rem;
-  font-weight: 500;
+  font-weight: var(--aura-font-weight-medium);
   letter-spacing: -0.01em;
   margin: 0 0 1.5rem 0;
-  color: #1a1a1a;
+  color: var(--aura-color-text-dark);
   line-height: 1.2;
 }
 
@@ -2349,7 +2349,7 @@ video::-webkit-media-controls-time-remaining-display {
 
 .price--large {
   font-size: 2rem !important;
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -2362,15 +2362,15 @@ video::-webkit-media-controls-time-remaining-display {
 .price--on-sale .price-item--regular {
   text-decoration: line-through;
   opacity: 0.5;
-  font-weight: 400;
-  color: #000;
+  font-weight: var(--aura-font-weight-normal);
+  color: var(--aura-black);
 }
 
 .price__badge-sale {
-  background: #e74c3c !important;
-  color: #fff !important;
+  background: var(--aura-brand-sale) !important;
+  color: var(--aura-white) !important;
   padding: 4px 12px !important;
-  border-radius: 4px !important; /* Image shows slightly rectangular with rounded corners */
+  border-radius: var(--aura-radius-xs) !important; /* Image shows slightly rectangular with rounded corners */
   font-size: 1.1rem !important;
   font-weight: 800 !important;
   text-transform: uppercase;
@@ -2379,9 +2379,9 @@ video::-webkit-media-controls-time-remaining-display {
 /* Explicit style overrides for hover states and Shopify's dynamic 'buy it now' */
 
 /* Color Swatch Mappings - Robust Selectors */
-[data-color-name*="Red" i] .swatch-visual { background-color: #E74C3C !important; }
-[data-color-name*="Black" i] .swatch-visual { background-color: #1A1A1A !important; }
-[data-color-name*="White" i] .swatch-visual { background-color: #FFFFFF !important; border: 1px solid #E5E5E5 !important; }
+[data-color-name*="Red" i] .swatch-visual { background-color: var(--aura-brand-sale) !important; }
+[data-color-name*="Black" i] .swatch-visual { background-color: var(--aura-color-text-dark) !important; }
+[data-color-name*="White" i] .swatch-visual { background-color: var(--aura-white) !important; border: 1px solid #E5E5E5 !important; }
 [data-color-name*="Blue" i] .swatch-visual { background-color: #3498DB !important; }
 [data-color-name*="Green" i] .swatch-visual { background-color: #27AE60 !important; }
 [data-color-name*="Yellow" i] .swatch-visual { background-color: #F1C40F !important; }
@@ -2396,14 +2396,14 @@ video::-webkit-media-controls-time-remaining-display {
 [data-color-name*="Grey" i] .swatch-visual, [data-color-name*="Gray" i] .swatch-visual { background-color: #808080 !important; }
 [data-color-name*="Pink" i] .swatch-visual { background-color: #FFC0CB !important; }
 [data-color-name*="Fuchsia" i] .swatch-visual { background-color: #FF00FF !important; }
-[data-color-name*="Navy" i] .swatch-visual { background-color: #000080 !important; }
+[data-color-name*="Navy" i] .swatch-visual { background-color: var(--aura-black)080 !important; }
 [data-color-name*="Lavender" i] .swatch-visual { background-color: #E6E6FA !important; }
 [data-color-name*="Rose" i] .swatch-visual { background-color: #FF007F !important; }
 [data-color-name*="Gold" i] .swatch-visual { background-color: #D4AF37 !important; }
 [data-color-name*="Tan" i] .swatch-visual { background-color: #D2B48C !important; }
 [data-color-name*="Peach" i] .swatch-visual { background-color: #FFDAB9 !important; }
 [data-color-name*="Mint" i] .swatch-visual { background-color: #98FFED !important; }
-[data-color-name*="Clear" i] .swatch-visual { background: linear-gradient(45deg, #eee 25%, #fff 25%, #fff 50%, #eee 50%, #eee 75%, #fff 75%, #fff 100%) !important; background-size: 10px 10px !important; }
+[data-color-name*="Clear" i] .swatch-visual { background: linear-gradient(45deg, var(--aura-color-border-light) 25%, var(--aura-white) 25%, var(--aura-white) 50%, var(--aura-color-border-light) 50%, var(--aura-color-border-light) 75%, var(--aura-white) 75%, var(--aura-white) 100%) !important; background-size: 10px 10px !important; }
 
 /* Aura Specifications Accordion */
 .aura-specs-accordion {
@@ -2430,7 +2430,7 @@ video::-webkit-media-controls-time-remaining-display {
 
 .aura-specs-accordion .accordion__title {
   font-size: 1.4rem !important;
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   margin: 0 !important;
@@ -2448,18 +2448,18 @@ video::-webkit-media-controls-time-remaining-display {
   justify-content: space-between;
   align-items: center;
   font-size: 1.3rem;
-  border-bottom: 1px dashed rgba(0,0,0,0.05);
+  border-bottom: 1px dashed var(--aura-overlay-dark-subtle);
   padding-bottom: 0.8rem;
 }
 
 .product__spec-label {
-  font-weight: 600;
-  color: #666;
+  font-weight: var(--aura-font-weight-semibold);
+  color: var(--aura-color-text-subtle);
 }
 
 .product__spec-value {
-  color: #000;
-  font-weight: 500;
+  color: var(--aura-black);
+  font-weight: var(--aura-font-weight-medium);
 }
 
 /* Swatch Visual Element */
@@ -2469,7 +2469,7 @@ video::-webkit-media-controls-time-remaining-display {
   height: 16px;
   border-radius: 50%;
   margin-right: 12px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--aura-overlay-dark);
   transition: transform 0.25s ease;
   flex-shrink: 0;
 }
@@ -2485,7 +2485,7 @@ video::-webkit-media-controls-time-remaining-display {
   height: auto !important;
   overflow: hidden !important;
   position: relative !important;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius-lg) !important;
   isolation: isolate !important;
   z-index: 1 !important;
 }
@@ -2497,7 +2497,7 @@ video::-webkit-media-controls-time-remaining-display {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
-  border-radius: 20px !important;
+  border-radius: var(--aura-radius-lg) !important;
 }
 
 /* Product Specifications Theme Colors */
@@ -2508,7 +2508,7 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .product__spec-value {
-  color: #1a1a1a !important; /* Theme Default text */
+  color: var(--aura-color-text-dark) !important; /* Theme Default text */
 }
 .product__info-wrapper .price {
   justify-content: flex-start !important;
@@ -2526,18 +2526,18 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .product__info-wrapper .badge {
-  border-radius: 4px !important;
+  border-radius: var(--aura-radius-xs) !important;
   font-family: var(--font-body-family);
-  font-weight: 700;
+  font-weight: var(--aura-font-weight-bold);
   letter-spacing: 0.05em;
   padding: 0.4rem 0.8rem !important;
 }
 
 /* Trust Badges Alignment */
 .aura-trust-badges {
-  background: #fff;
-  border: 1px solid rgba(168, 139, 106, 0.1);
-  border-radius: 12px;
+  background: var(--aura-white);
+  border: 1px solid var(--aura-brand-gold-light);
+  border-radius: var(--aura-radius);
   padding: 2rem;
   margin: 2rem 0;
   display: grid !important;
@@ -2556,14 +2556,14 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .aura-trust-badges .badge-icon {
-  color: #8d7356;
+  color: var(--aura-brand-gold);
 }
 
 .aura-trust-badges .badge-title {
   display: block;
-  font-weight: 700;
+  font-weight: var(--aura-font-weight-bold);
   font-size: 1.2rem;
-  color: #2c2c2c;
+  color: var(--aura-color-text-dark);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -2571,7 +2571,7 @@ video::-webkit-media-controls-time-remaining-display {
 .aura-trust-badges .badge-subtitle {
   display: block;
   font-size: 1rem;
-  color: #666;
+  color: var(--aura-color-text-subtle);
   margin-top: 0.2rem;
 }
 
@@ -2617,7 +2617,7 @@ video::-webkit-media-controls-time-remaining-display {
   pointer-events: none;
   display: flex;
   align-items: center;
-  color: #fff;
+  color: var(--aura-white);
 }
 
 @media screen and (max-width: 749px) {
@@ -2643,7 +2643,7 @@ video::-webkit-media-controls-time-remaining-display {
 .summary__title .svg-wrapper {
   display: flex;
   align-items: center;
-  color: #8d7356;
+  color: var(--aura-brand-gold);
 }
 
 .product__accordion .icon-caret {
@@ -2678,7 +2678,7 @@ video::-webkit-media-controls-time-remaining-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff !important;
+  color: var(--aura-white) !important;
 }
 
 /* Side-by-side Buttons for Desktop (Equal Width & Height) */
@@ -2729,11 +2729,11 @@ video::-webkit-media-controls-time-remaining-display {
 .aura-secondary-cta-button,
 .shopify-payment-button__button {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  border-radius: 50px !important; /* Premium pill shape */
-  font-weight: 600 !important;
+  border-radius: var(--aura-radius-pill) !important; /* Premium pill shape */
+  font-weight: var(--aura-font-weight-semibold) !important;
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 4px 15px var(--aura-overlay-dark) !important;
   height: 56px !important; /* Unified height */
   min-height: 56px !important; /* Force exact parity */
   display: flex !important;
@@ -2746,7 +2746,7 @@ video::-webkit-media-controls-time-remaining-display {
 .aura-secondary-cta-button:hover,
 .shopify-payment-button__button:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+  box-shadow: 0 8px 25px var(--aura-overlay-dark) !important;
   filter: brightness(1.05);
 }
 
@@ -2754,7 +2754,7 @@ video::-webkit-media-controls-time-remaining-display {
 .aura-secondary-cta-button:active,
 .shopify-payment-button__button:active {
   transform: translateY(0) scale(0.98) !important;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+  box-shadow: 0 2px 5px var(--aura-overlay-dark-subtle) !important;
 }
 
 /* Secondary CTA Styling */
@@ -2769,8 +2769,8 @@ video::-webkit-media-controls-time-remaining-display {
   justify-content: center;
   width: 100%;
   background-color: transparent !important;
-  border: 1.5px solid #8d7356 !important;
-  color: #8d7356 !important;
+  border: 1.5px solid var(--aura-brand-gold) !important;
+  color: var(--aura-brand-gold) !important;
   padding: 1.2rem 3rem !important;
 }
 
@@ -2789,7 +2789,7 @@ video::-webkit-media-controls-time-remaining-display {
   pointer-events: none;
   display: flex !important;
   align-items: center;
-  color: #fff;
+  color: var(--aura-white);
 }
 
 @media screen and (max-width: 1023px) {
@@ -2800,7 +2800,7 @@ video::-webkit-media-controls-time-remaining-display {
 
 /* Bold Specifications & Accordions */
 .aura-specs-accordion .accordion__title {
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
 }
 
 .aura-specs-accordion .icon-accordion {
@@ -2808,7 +2808,7 @@ video::-webkit-media-controls-time-remaining-display {
 }
 
 .product__spec-label {
-  font-weight: 700 !important;
+  font-weight: var(--aura-font-weight-bold) !important;
 }
 
 /* Mobile Price Badge Wrapping (Up to 1024px) */
@@ -2865,8 +2865,8 @@ video::-webkit-media-controls-time-remaining-display {
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: rgba(0,0,0,0.4);
-  font-weight: 600;
+  color: var(--aura-overlay-dark-heavy);
+  font-weight: var(--aura-font-weight-semibold);
 }
 
 /* Mobile Thumbnail Size Reduction (< 768px) */
@@ -2884,11 +2884,11 @@ video::-webkit-media-controls-time-remaining-display {
 .thumbnail {
   background: transparent !important;
   padding: 0 !important;
-  border: 1px solid rgba(0,0,0,0.04) !important;
+  border: 1px solid var(--aura-overlay-dark-xs) !important;
 }
 
 .thumbnail img {
-  border-radius: 12px !important;
+  border-radius: var(--aura-radius) !important;
   display: block;
 }
 
