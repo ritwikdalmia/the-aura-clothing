@@ -87,17 +87,8 @@
     </div>
     
     <div class="na-card-info">
-      <div class="na-info-header">
-        <h3 class="na-card-title">{{ card_product.title }}</h3>
-        <div class="na-mobile-actions">
-           <button class="na-wishlist-mobile" aria-label="Add to wishlist" data-aura-wishlist="{{ card_product.handle }}">
-             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-           </button>
-           <button class="na-compare-mobile" aria-label="Add to compare" data-aura-compare="{{ card_product.handle }}" data-aura-specs="{{ specs | escape }}">
-             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
-           </button>
-        </div>
-      </div>
+      <h3 class="na-card-title">{{ card_product.title }}</h3>
+      
       <div class="na-card-price-row">
         {%- if card_product.compare_at_price > card_product.price and card_product.available -%}
           <span class="na-card-compare-price">{{ card_product.compare_at_price | money }}</span>
@@ -105,6 +96,15 @@
         {%- else -%}
           <span class="na-card-price">{% if card_product.price_varies %}From {% endif %}{{ card_product.price | money }}</span>
         {%- endif -%}
+      </div>
+
+      <div class="na-mobile-actions">
+         <button class="na-wishlist-mobile" aria-label="Add to wishlist" data-aura-wishlist="{{ card_product.handle }}">
+           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+         </button>
+         <button class="na-compare-mobile" aria-label="Add to compare" data-aura-compare="{{ card_product.handle }}" data-aura-specs="{{ specs | escape }}">
+           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+         </button>
       </div>
     </div>
   </a>
