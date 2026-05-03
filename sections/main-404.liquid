@@ -1,26 +1,267 @@
 {{ 'aura-customer-premium.css' | asset_url | stylesheet_tag }}
 
-<div class="aura-404-hero">
-  <div class="page-width aura-404-content">
-    <h1 class="aura-404-title">404</h1>
-    <p class="aura-404-sub">{{ 'templates.404.subtext' | t }}</p>
-    <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
-      {{ 'general.continue_shopping' | t }}
-    </a>
+<style>
+  /* ===== AURA 404 PAGE ===== */
+  .aura-404-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--aura-color-bg-warm, #fdfaf7);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative background number */
+  .aura-404-page::before {
+    content: '404';
+    position: absolute;
+    font-size: 40vw;
+    font-weight: var(--aura-font-weight-bold, 700);
+    color: rgba(168, 139, 106, 0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .aura-404-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+  }
+
+  .aura-404-badge {
+    display: inline-block;
+    background: var(--aura-brand-gold, #a88b6a);
+    color: var(--aura-white, #fff);
+    font-size: var(--aura-font-size-xs, 1.1rem);
+    font-weight: var(--aura-font-weight-semibold, 600);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.6rem;
+    border-radius: var(--aura-radius-pill, 50px);
+    margin-bottom: 2.4rem;
+  }
+
+  .aura-404-number {
+    font-size: clamp(7rem, 18vw, 14rem);
+    font-weight: var(--aura-font-weight-bold, 700);
+    line-height: 1;
+    color: var(--aura-brand-dark, #1a1a1a);
+    letter-spacing: -0.04em;
+    margin: 0 0 0.5rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Gold underline on the 0 */
+  .aura-404-number .aura-404-zero {
+    color: var(--aura-brand-gold, #a88b6a);
+  }
+
+  .aura-404-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--aura-brand-gold, #a88b6a);
+    margin: 2rem auto;
+    border-radius: 2px;
+  }
+
+  .aura-404-headline {
+    font-family: var(--font-heading-family);
+    font-size: var(--aura-font-size-lg, 2.4rem);
+    font-weight: var(--aura-font-weight-medium, 500);
+    color: var(--aura-brand-dark, #1a1a1a);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 1.2rem;
+  }
+
+  .aura-404-sub {
+    font-size: var(--aura-font-size-base, 1.5rem);
+    color: var(--aura-color-text-subtle, #666);
+    line-height: 1.7;
+    margin: 0 0 3.2rem;
+  }
+
+  .aura-404-actions {
+    display: flex;
+    gap: 1.4rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .aura-404-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.2rem 3rem;
+    background: var(--aura-brand-gold, #a88b6a);
+    color: var(--aura-white, #fff);
+    font-size: var(--aura-font-size-sm, 1.3rem);
+    font-weight: var(--aura-font-weight-semibold, 600);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--aura-radius-pill, 50px);
+    transition: var(--aura-transition, 0.35s ease);
+    border: 2px solid var(--aura-brand-gold, #a88b6a);
+  }
+
+  .aura-404-btn-primary:hover {
+    background: transparent;
+    color: var(--aura-brand-gold, #a88b6a);
+  }
+
+  .aura-404-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.2rem 3rem;
+    background: transparent;
+    color: var(--aura-brand-dark, #1a1a1a);
+    font-size: var(--aura-font-size-sm, 1.3rem);
+    font-weight: var(--aura-font-weight-semibold, 600);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--aura-radius-pill, 50px);
+    transition: var(--aura-transition, 0.35s ease);
+    border: 2px solid var(--aura-color-border-light, #eee);
+  }
+
+  .aura-404-btn-secondary:hover {
+    border-color: var(--aura-brand-gold, #a88b6a);
+    color: var(--aura-brand-gold, #a88b6a);
+  }
+
+  /* ===== SUGGESTIONS SECTION ===== */
+  .aura-404-suggestions {
+    background: var(--aura-white, #fff);
+    padding: 6rem 2rem 8rem;
+  }
+
+  .aura-404-suggestions-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .aura-404-suggestions-title h2 {
+    font-family: var(--font-heading-family);
+    font-size: var(--aura-font-size-lg, 2.4rem);
+    font-weight: var(--aura-font-weight-medium, 500);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--aura-brand-dark, #1a1a1a);
+    margin: 0 0 1.6rem;
+  }
+
+  .aura-404-suggestions-title .aura-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--aura-brand-gold, #a88b6a);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  .aura-404-products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .aura-404-products-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .aura-404-view-all {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .aura-404-view-all a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--aura-brand-gold, #a88b6a);
+    font-size: var(--aura-font-size-sm, 1.3rem);
+    font-weight: var(--aura-font-weight-semibold, 600);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--aura-brand-gold, #a88b6a);
+    transition: var(--aura-transition, 0.35s ease);
+  }
+
+  .aura-404-view-all a:hover {
+    opacity: 0.75;
+    gap: 1rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    .aura-404-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    .aura-404-btn-primary,
+    .aura-404-btn-secondary {
+      width: 100%;
+      max-width: 320px;
+      justify-content: center;
+    }
+  }
+</style>
+
+<!-- ===== HERO 404 ===== -->
+<div class="aura-404-page">
+  <div class="aura-404-inner">
+    <span class="aura-404-badge">Page Not Found</span>
+
+    <h1 class="aura-404-number">
+      4<span class="aura-404-zero">0</span>4
+    </h1>
+
+    <div class="aura-404-divider"></div>
+
+    <p class="aura-404-headline">Lost in the wardrobe?</p>
+
+    <p class="aura-404-sub">
+      The page you're looking for may have been moved, renamed, or doesn't exist. Let's get you back to discovering something beautiful.
+    </p>
+
+    <div class="aura-404-actions">
+      <a href="{{ routes.root_url }}" class="aura-404-btn-primary">
+        ← Back to Home
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="aura-404-btn-secondary">
+        Shop All
+      </a>
+    </div>
   </div>
 </div>
 
-<div class="page-width" style="margin-top: 6rem; margin-bottom: 8rem;">
-  <div class="center" style="margin-bottom: 4rem;">
-    <h2 style="font-family: var(--font-heading-family); text-transform: uppercase; letter-spacing: 0.2em; font-size: 2.4rem;">
-      You might also like
-    </h2>
-    <div style="width: 60px; height: 1px; background: var(--aura-gold); margin: 1.5rem auto;"></div>
+<!-- ===== SUGGESTED PRODUCTS ===== -->
+<div class="aura-404-suggestions">
+  <div class="aura-404-suggestions-title">
+    <h2>You Might Love These</h2>
+    <div class="aura-divider"></div>
   </div>
 
-  <div class="grid grid--2-col grid--4-col-desktop">
+  <div class="aura-404-products-grid">
     {%- for product in collections.all.products limit: 4 -%}
-      <div class="grid__item">
+      <div>
         {% render 'card-product',
           card_product: product,
           media_aspect_ratio: 'portrait',
@@ -33,9 +274,9 @@
     {%- endfor -%}
   </div>
 
-  <div class="center" style="margin-top: 4rem;">
-    <a href="{{ routes.all_products_collection_url }}" class="link" style="color: var(--aura-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">
-      View All Collections
+  <div class="aura-404-view-all">
+    <a href="{{ routes.all_products_collection_url }}">
+      View All Collections →
     </a>
   </div>
 </div>
