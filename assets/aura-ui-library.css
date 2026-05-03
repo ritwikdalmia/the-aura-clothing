@@ -130,13 +130,29 @@
 }
 
 .aura-loader {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #fff;
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(168, 139, 106, 0.15);
+  border-top-color: var(--aura-brand-gold);
   border-radius: 50%;
-  animation: aura-spin 0.8s linear infinite;
+  animation: aura-spin 0.8s cubic-bezier(0.42, 0, 0.58, 1) infinite;
   display: inline-block;
+}
+
+.aura-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem;
+  gap: 2rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--aura-brand-gold);
+  font-weight: 300;
+  text-align: center;
 }
 
 @keyframes aura-spin {

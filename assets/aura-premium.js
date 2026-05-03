@@ -125,13 +125,27 @@ window.AuraFeatures = window.AuraFeatures || {
 
   // --- QUICK ADD ---
 
-  async openQuickAdd(productUrl) {
+  async openQuickAdd(productUrl, triggerEl = null) {
     const modal = document.getElementById('naQuickAddModal');
     if (!modal) return;
+
+    // Show loading state on trigger if provided
+    let originalTriggerHtml = '';
+    if (triggerEl) {
+      originalTriggerHtml = triggerEl.innerHTML;
+      triggerEl.innerHTML = '<span class="aura-loader" style="width:14px; height:14px; border-width:2px;"></span>';
+      triggerEl.classList.add('is-loading');
+      triggerEl.disabled = true;
+    }
     
     const content = modal.querySelector('.na-modal-content-inner');
     modal.style.display = 'flex';
-    content.innerHTML = '<div class="aura-loader-container"><span class="aura-loader"></span> Loading Boutique Experience...</div>';
+    content.innerHTML = `
+      <div class="aura-loader-container">
+        <span class="aura-loader"></span>
+        <div style="margin-top:1.5rem;">Unveiling Boutique Experience...</div>
+      </div>
+    `;
     
     try {
       const separator = productUrl.includes('?') ? '&' : '?';
@@ -149,6 +163,12 @@ window.AuraFeatures = window.AuraFeatures || {
         </div>
       `;
       this.notify(e.message);
+    } finally {
+      if (triggerEl) {
+        triggerEl.innerHTML = originalTriggerHtml;
+        triggerEl.classList.remove('is-loading');
+        triggerEl.disabled = false;
+      }
     }
   },
 

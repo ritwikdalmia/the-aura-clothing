@@ -1105,7 +1105,7 @@
                     </div>
                   </div>
                   {%- if product.available -%}
-                    <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')" aria-label="Quick Add">
+                    <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)" aria-label="Quick Add">
                       <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
                     </button>
                   {%- endif -%}
@@ -1124,7 +1124,7 @@
                       <p class="reel-product-price">{{ cart.currency.symbol }}{{ product_price }}</p>
                     </div>
                   </div>
-                  <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product_link | default: '#' }}')" aria-label="Quick Add">
+                  <button class="reel-quick-add-icon" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product_link | default: '#' }}', this)" aria-label="Quick Add">
                     <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
                   </button>
                 </a>

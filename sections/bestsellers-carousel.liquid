@@ -604,7 +604,7 @@
                   {{ 'product-1' | placeholder_svg_tag: 'bs-card-img-primary' }}
                 {%- endif -%}
                 {%- if product.available -%}
-                  <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}')">Quick Add</div>
+                  <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)">Quick Add</div>
                 {%- endif -%}
               </div>
               <div class="bs-card-info">
