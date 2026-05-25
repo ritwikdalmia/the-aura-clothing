@@ -136,10 +136,10 @@
 }
 
 /* Price items group (Old Price container) - Only show if actually on sale */
-.price__sale > span:not(.price-item) {
+.price__sale > span:not(.price-item):not(.visually-hidden) {
   display: none !important; /* Hide by default */
 }
-.price--on-sale .price__sale > span:not(.price-item) {
+.price--on-sale .price__sale > span:not(.price-item):not(.visually-hidden) {
   display: flex !important; /* Show only on sale */
   align-items: center !important;
   gap: 8px !important;
