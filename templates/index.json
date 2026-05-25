@@ -1,4 +1,12 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "story_circles": {
@@ -109,10 +117,11 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-10_at_16.51.40.jpg",
             "image_overlay_opacity": 20,
-            "heading": "SUMMER BLOOMS ARE NEAR",
+            "heading": "",
             "heading_size": "h0",
-            "subheading": "Light fabrics. Fresh prints. New arrivals",
+            "subheading": "Light & fresh fabrics. New arrivals",
             "button_label": "Explore Collection →",
             "link": "shopify://collections/all",
             "button_style_secondary": false,
@@ -126,6 +135,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-10_at_16.51.35.jpg",
             "image_overlay_opacity": 20,
             "heading": "THE PREMIUM COLLECTION",
             "heading_size": "h0",
