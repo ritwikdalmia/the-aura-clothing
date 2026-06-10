@@ -405,7 +405,9 @@ cart-drawer-items.is-empty {
 }
 
 .cart__ctas {
-    flex-direction: column !important
+    flex-direction: column !important;
+    position: relative !important;
+    z-index: 9999 !important;
 }
 
 .na-trust-item {

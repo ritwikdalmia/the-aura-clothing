@@ -1046,7 +1046,6 @@
                   muted
                   loop
                   playsinline
-                  {% if section.settings.enable_autoplay %}autoplay{% endif %}
                   preload="metadata"
                   poster="{%- if cover_image != blank -%}{{ cover_image | image_url: width: 480 }}{%- endif -%}"
                   controlslist="nodownload nopictureinpicture noremoteplayback"
@@ -1221,7 +1220,7 @@
               muted
               loop
               playsinline
-              preload="auto"
+              preload="none"
               controlslist="nodownload nopictureinpicture noremoteplayback"
             >
               {%- for source in video.sources -%}

@@ -298,8 +298,8 @@
         {%- endfor -%}
 
         {%- if section.blocks.size == 0 -%}
-          {%- assign dummy_qs = "How long will it take for my order to reach me?,How do I cancel my order?,What is your Exchange Policy?,What is your Return Policy?,How can I use my store credit?" | split: "," -%}
-          {%- assign dummy_ans = "Standard shipping usually takes 3-5 business days. Express shipping options are available at checkout.,Orders can be cancelled or modified within 24 hours of placement. Please reach out to our customer care team immediately.,We do not offer returns; we only offer exchanges. Exchanges are accepted within 14 days of delivery and are subject to a ₹99 charge. Items must be unworn, unwashed, and in their original condition with tags attached.,We do not accept returns. All eligible items can only be exchanged for another size or style (a ₹99 exchange charge applies).,Store credit is issued as a digital gift card. Simply enter your unique code in the 'Gift card or discount code' field during checkout." | split: "," -%}
+          {%- assign dummy_qs = "How long will it take for my order to reach me?,How do I cancel my order?,What is your Exchange Policy?,How can I use my store credit?" | split: "," -%}
+          {%- assign dummy_ans = "Standard shipping usually takes 3-5 business days. Express shipping options are available at checkout.,Orders can be cancelled or modified within 24 hours of placement. Please reach out to our customer care team immediately.,We do not offer returns; we only offer exchanges. Exchanges are accepted within 14 days of delivery and are subject to a ₹99 charge. Items must be unworn, unwashed, and in their original condition with tags attached.,Store credit is issued as a digital gift card. Simply enter your unique code in the 'Gift card or discount code' field during checkout." | split: "," -%}
           {%- for q in dummy_qs -%}
             <div class="faq-item">
               <button class="faq-button" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">

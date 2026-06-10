@@ -380,6 +380,7 @@
             {% if cart == empty %}
               disabled
             {% endif %}
+            onclick="document.getElementById('CartDrawer-Form').submit();"
           >
             {{ 'sections.cart.checkout' | t }}
           </button>
