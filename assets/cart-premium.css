@@ -281,7 +281,9 @@ cart-drawer-items.is-empty {
     margin-top: auto !important;
     padding: 1.2rem 2.5rem !important;
     background: var(--aura-white) !important;
-    border-top: 1px solid var(--aura-overlay-dark-subtle) !important
+    border-top: 1px solid var(--aura-overlay-dark-subtle) !important;
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 #Details-CartDrawer {
@@ -376,7 +378,9 @@ cart-drawer-items.is-empty {
     transition: all .3s ease !important;
     margin-top: .4rem !important;
     border: 0 !important;
-    box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), .3) !important
+    box-shadow: 0 4px 15px rgba(var(--aura-brand-gold-rgb), .3) !important;
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 .cart__checkout-button:hover {

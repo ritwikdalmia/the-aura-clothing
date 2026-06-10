@@ -48,24 +48,6 @@
             "icon": "sparkles"
           }
         },
-        "story_5": {
-          "type": "story",
-          "settings": {
-            "image": "shopify://shop_images/IMG_6400.png",
-            "title": "Maxi",
-            "link": "shopify://collections/maxi",
-            "icon": "star"
-          }
-        },
-        "story_6": {
-          "type": "story",
-          "settings": {
-            "image": "shopify://shop_images/IMG_6389.png",
-            "title": "Party Wear",
-            "link": "shopify://collections/party-wear",
-            "icon": "sparkles"
-          }
-        },
         "story_LC7TLC": {
           "type": "story",
           "settings": {
@@ -99,8 +81,6 @@
         "story_2",
         "story_3",
         "story_4",
-        "story_5",
-        "story_6",
         "story_LC7TLC",
         "story_kpWkfE",
         "story_X89r7e"

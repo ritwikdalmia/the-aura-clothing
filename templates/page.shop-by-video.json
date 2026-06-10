@@ -19,13 +19,83 @@
     },
     "reels-grid": {
       "type": "shop-by-reels",
+      "blocks": {
+        "reel_QW9UxM": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/AQOK_XI6w-E2YOHZaQaBosRKfKVeYUZ2xGdRgpGRTyU2Xiy9iTAJZBVtpE6rbdiZpgl6jeSBAxfkSr7qYCNfrnJyA_Pdpyqx30T2GBs.mp4",
+            "cover_image": "shopify://shop_images/blackcorset3.jpg",
+            "product": "aurora-embellished-corset",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        },
+        "reel_6EnF7E": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/chrimsonsheerdress.mp4",
+            "cover_image": "shopify://shop_images/chrimsonsheerdress1.jpg",
+            "product": "the-crimson-sheer-dress",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        },
+        "reel_hUjM6X": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/crimson muse.mp4",
+            "cover_image": "shopify://shop_images/chrimsonmuse4.jpg",
+            "product": "the-crimson-muse",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        },
+        "reel_LWDfTK": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/IMG_6407.MOV",
+            "cover_image": "shopify://shop_images/IMG_6400.png",
+            "product": "brown-cotton-mini-dress",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        },
+        "reel_bfmXBN": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/3rd reel redit.mp4",
+            "cover_image": "shopify://shop_images/IMG_5304.jpg",
+            "product": "fuchsia-pink-satin",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        },
+        "reel_nPKamW": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/1streelfinal.mp4",
+            "cover_image": "shopify://shop_images/IMG_6386.png",
+            "product": "chic-red-cotton-mini-dress",
+            "product_name": "",
+            "view_count": "5K"
+          }
+        }
+      },
+      "block_order": [
+        "reel_QW9UxM",
+        "reel_6EnF7E",
+        "reel_hUjM6X",
+        "reel_LWDfTK",
+        "reel_bfmXBN",
+        "reel_nPKamW"
+      ],
       "settings": {
         "title": "Shop by Video",
         "subtitle": "Discover our new arrivals via video",
         "color_scheme": "",
         "layout": "grid",
         "enable_autoplay": true,
-        "max_reels_home": 9,
+        "max_reels_home": 15,
         "show_view_all": true,
         "view_all_link": "",
         "padding_top": 48,

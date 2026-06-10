@@ -475,12 +475,14 @@
     font-size: var(--aura-font-size-sm);
     font-weight: 700;
     margin: 0;
+    white-space: nowrap !important;
   }
 
   .reel-price-row {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: nowrap !important;
   }
 
   .reel-product-compare-price {
@@ -488,6 +490,7 @@
     color: #000; /* Match product page strikethrough color */
     font-size: 1.1rem;
     opacity: 0.6;
+    white-space: nowrap !important;
   }
 
   /* No dark gradient overhead needed now */
@@ -940,16 +943,16 @@
   assign dummy_prices = "3200,2400,1300,2499,2200,2499" | split: ","
   assign dummy_views = "7K,4K,4K,7K,8K,7K" | split: ","
 
-  # Unified Data Logic (Blocks take priority, fallback to Metaobjects)
+  # Unified Data Logic (Metaobjects take priority, fallback to Blocks)
   assign meta_reels = shop.metaobjects.shoppable_reel.values
   assign block_reels = section.blocks | where: "type", "reel"
   
-  if block_reels.size > 0
-    assign reels_data = block_reels
-    assign data_source = 'blocks'
-  else
+  if meta_reels.size > 0
     assign reels_data = meta_reels
     assign data_source = 'metaobjects'
+  else
+    assign reels_data = block_reels
+    assign data_source = 'blocks'
   endif
 
   assign limit = 1000
