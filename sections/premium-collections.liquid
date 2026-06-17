@@ -327,7 +327,10 @@
       {%- comment -%} 1. Render Collections from the collection_list setting {%- endcomment -%}
       {%- if section.settings.collection_list != blank -%}
         {%- for col in section.settings.collection_list -%}
-          {%- if col.all_products_count == 0 and request.design_mode == false -%}
+          {%- if col.products_count == 0 and request.design_mode == false -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- if col.handle == 'new-arrivals' or col.handle == 'best-sellers' or col.handle == 'sales' -%}
             {%- continue -%}
           {%- endif -%}
           {%- liquid
@@ -345,30 +348,33 @@
             index: forloop.index 
           -%}
         {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} 2. Render Collection Blocks {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.collection != blank and block.settings.collection.products_count == 0 and request.design_mode == false -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- if block.settings.collection != blank and block.settings.collection.handle == 'new-arrivals' or block.settings.collection.handle == 'best-sellers' or block.settings.collection.handle == 'sales' -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- liquid
+            assign col = block.settings.collection
+            assign col_url = col.url | default: block.settings.link | default: '#'
+            assign col_title = block.settings.title | default: col.title | default: 'Collection'
+            assign col_label = block.settings.label
+            assign block_image = block.settings.image
+          -%}
+          {%- render 'premium-collection-card-item', 
+            col: col, 
+            col_url: col_url, 
+            col_title: col_title, 
+            col_label: col_label, 
+            block_image: block_image,
+            index: forloop.index,
+            block: block
+          -%}
+        {%- endfor -%}
       {%- endif -%}
-
-      {%- comment -%} 2. Render Collection Blocks {%- endcomment -%}
-      {%- for block in section.blocks -%}
-        {%- if block.settings.collection != blank and block.settings.collection.all_products_count == 0 and request.design_mode == false -%}
-          {%- continue -%}
-        {%- endif -%}
-        {%- liquid
-          assign col = block.settings.collection
-          assign col_url = col.url | default: block.settings.link | default: '#'
-          assign col_title = block.settings.title | default: col.title | default: 'Collection'
-          assign col_label = block.settings.label
-          assign block_image = block.settings.image
-        -%}
-        {%- render 'premium-collection-card-item', 
-          col: col, 
-          col_url: col_url, 
-          col_title: col_title, 
-          col_label: col_label, 
-          block_image: block_image,
-          index: forloop.index,
-          block: block
-        -%}
-      {%- endfor -%}
     </div>
 
   </div>

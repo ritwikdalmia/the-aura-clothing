@@ -33,7 +33,7 @@
         "story_3": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/IMG_5183.jpg",
+            "image": "shopify://shop_images/corset3.jpg",
             "title": "Co-ord sets",
             "link": "shopify://collections/co-ord-sets",
             "icon": "heart"
@@ -204,10 +204,9 @@
         "col_3": {
           "type": "collection_card",
           "settings": {
-            "title": "Party Wear",
+            "title": "Dresses",
             "label": "Exclusive",
-            "collection": "party-wear",
-            "image": "shopify://shop_images/IMG_5182.jpg",
+            "collection": "dresses",
             "link": ""
           }
         }
@@ -270,6 +269,7 @@
         "review_1": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/AuraMusePinkMiniDress1.jpg",
             "name": "Kanwal",
             "star_rating": 5,
             "show_verified": true,
@@ -279,26 +279,17 @@
         "review_2": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/IMG_6389.png",
             "name": "Pawani",
             "star_rating": 5,
             "show_verified": false,
             "review_text": "I love this dresss 😩🥺🥺❤️❤️\n❤️ Thankyou so so much 🥰"
           }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "name": "Arti Belekar",
-            "star_rating": 5,
-            "show_verified": false,
-            "review_text": "✨"
-          }
         }
       },
       "block_order": [
         "review_1",
-        "review_2",
-        "review_3"
+        "review_2"
       ],
       "settings": {
         "subtitle": "Testimonials",
@@ -311,6 +302,34 @@
     },
     "faq": {
       "type": "faq-premium",
+      "blocks": {
+        "faq_yjzPHY": {
+          "type": "faq",
+          "settings": {
+            "question": "How long will it take for my order to reach me?",
+            "answer": "<p>Standard shipping usually takes 3-5 business days. Express shipping options are available at checkout.</p>"
+          }
+        },
+        "faq_RfCBNY": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I cancel my order?",
+            "answer": "<p>Orders can be cancelled or modified within 24 hours of placement. Please reach out to our customer care team immediately.</p>"
+          }
+        },
+        "faq_xNWHyN": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your Exchange Policy?",
+            "answer": "<p>We do not offer returns; we only offer exchanges. Exchanges are accepted within 14 days of delivery and are subject to a ₹99 charge. Items must be unworn</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_yjzPHY",
+        "faq_RfCBNY",
+        "faq_xNWHyN"
+      ],
       "settings": {
         "subtitle": "Support Center",
         "title": "FAQs",

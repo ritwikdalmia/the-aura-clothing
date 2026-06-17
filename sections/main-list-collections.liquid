@@ -11,7 +11,7 @@
   {%- liquid
     case section.settings.sort
       when 'products_high', 'products_low'
-        assign collections = collections | sort: 'all_products_count'
+        assign collections = collections | sort: 'products_count'
       when 'date', 'date_reversed'
         assign collections = collections | sort: 'published_at'
     endcase
@@ -29,7 +29,10 @@
       style="row-gap: 4rem; column-gap: 3rem;"
     >
       {%- for collection in collections -%}
-        {%- if collection.all_products_count == 0 and request.design_mode == false -%}
+        {%- if collection.products_count == 0 and request.design_mode == false -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- if collection.handle == 'new-arrivals' or collection.handle == 'best-sellers' or collection.handle == 'sales' -%}
           {%- continue -%}
         {%- endif -%}
         <li

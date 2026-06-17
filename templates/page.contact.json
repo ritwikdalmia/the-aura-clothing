@@ -12,10 +12,19 @@
     "hero": {
       "type": "contact-hero",
       "settings": {
+        "image_position": "center",
         "title": "Get in Touch",
+        "title_size": 4.5,
+        "title_size_mobile": 3,
         "subtitle": "Reach out to us for any inquiries, partnerships, or just to say hello.",
+        "bg_color": "#1a1a1a",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
         "overlay_opacity": 50,
-        "min_height": 45
+        "min_height": 45,
+        "min_height_mobile": 30,
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "premium_form": {
@@ -25,24 +34,27 @@
           "type": "contact_info",
           "settings": {
             "icon": "email",
+            "custom_svg": "",
             "label": "Email Us",
-            "value": "support@theaura.clothing"
+            "value": "yamini122k19@gmail.com"
           }
         },
         "phone": {
           "type": "contact_info",
           "settings": {
             "icon": "phone",
+            "custom_svg": "",
             "label": "Call Us",
-            "value": "+91 9116815456"
+            "value": "+91 7011846179"
           }
         },
         "location": {
           "type": "contact_info",
           "settings": {
             "icon": "location",
+            "custom_svg": "",
             "label": "Our Boutique",
-            "value": "Jaipur, Rajasthan, India"
+            "value": "New Delhi , India"
           }
         }
       },
@@ -53,8 +65,10 @@
       ],
       "settings": {
         "heading": "Contact Us",
-        "text": "<p>Our team is here to help you with any questions regarding our collections, orders, or styling advice. Feel free to contact us through any of the channels below or fill out the form, and we'll get back to you within 24 hours.<\/p>",
-        "show_socials": true
+        "text": "<p>Our team is here to help you with any questions regarding our collections, orders, or styling advice. Feel free to contact us through any of the channels below or fill out the form, and we'll get back to you within 24 hours.</p>",
+        "show_socials": true,
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
