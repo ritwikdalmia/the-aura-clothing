@@ -180,49 +180,12 @@
     },
     "premium_collections": {
       "type": "premium-collections",
-      "blocks": {
-        "col_1": {
-          "type": "collection_card",
-          "settings": {
-            "title": "Summer Dresses",
-            "label": "New Season",
-            "collection": "dresses",
-            "image": "shopify://shop_images/IMG_6385.png",
-            "link": ""
-          }
-        },
-        "col_2": {
-          "type": "collection_card",
-          "settings": {
-            "title": "Co-ord Sets",
-            "label": "Trending",
-            "collection": "co-ord-sets",
-            "image": "shopify://shop_images/Fuchsiapinksatin.jpg",
-            "link": ""
-          }
-        },
-        "col_3": {
-          "type": "collection_card",
-          "settings": {
-            "title": "Dresses",
-            "label": "Exclusive",
-            "collection": "dresses",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "col_1",
-        "col_2",
-        "col_3"
-      ],
+
       "settings": {
         "title": "Our Premium Collection",
         "subtitle": "Curated For You",
         "color_scheme": "",
-        "collection_list": [
-          "dresses"
-        ],
+        "collection_list": [],
         "overlay_opacity": 40,
         "padding_top": 60,
         "padding_bottom": 60
