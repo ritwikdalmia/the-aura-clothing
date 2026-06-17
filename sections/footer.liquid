@@ -217,45 +217,66 @@
     padding: 3rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     gap: 2rem;
+    color: {{ section.settings.text_color | default: '#ffffff' }};
   }
 
   @media screen and (min-width: 750px) {
     .footer-bottom {
       flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
   .footer-copyright {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    color: {{ section.settings.text_color | default: '#ffffff' }};
-    opacity: 0.6;
+    opacity: 0.7;
     font-size: var(--aura-font-size-xs);
+    flex: 1;
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .footer-copyright {
+      text-align: left;
+    }
   }
 
-  .footer-copyright a,
-  .footer-bottom-link {
+  .footer-policies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    font-size: var(--aura-font-size-xs);
+    opacity: 0.7;
+    flex: 1;
+  }
+
+  .footer-policies a {
     color: inherit;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, color 0.3s ease;
     white-space: nowrap;
   }
 
-  .footer-copyright a:hover,
-  .footer-bottom-link:hover {
+  .footer-policies a:hover {
     opacity: 1;
-    color: var(--aura-brand-gold);
-    text-decoration: none;
+    color: #ffffff;
   }
 
   .footer-payments {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     list-style: none;
     padding: 0;
     margin: 0;
+    flex: 1;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .footer-payments {
+      justify-content: flex-end;
+    }
   }
 
   .footer-payments svg {
@@ -348,21 +369,24 @@
 
     <div class="footer-bottom">
       <div class="footer-copyright">
-        <span>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</span>
-        {%- for link in section.settings.policy_menu.links -%}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {%- endfor -%}
+        &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
       </div>
+      
+      {%- if section.settings.policy_menu != blank and section.settings.policy_menu.links.size > 0 -%}
+        <div class="footer-policies">
+          {%- for link in section.settings.policy_menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
 
       {%- if section.settings.show_payment_icons -%}
         <div class="footer-payments">
-          <ul class="footer-payments list list-payment" role="list">
-            {%- for type in shop.enabled_payment_types -%}
-              <li class="list-payment__item">
-                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-              </li>
-            {%- endfor -%}
-          </ul>
+          {%- for type in shop.enabled_payment_types -%}
+            <li class="list-payment__item">
+              {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </li>
+          {%- endfor -%}
         </div>
       {%- endif -%}
     </div>
