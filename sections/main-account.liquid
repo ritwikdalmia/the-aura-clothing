@@ -45,18 +45,20 @@
         </li>
       </ul>
 
-      <div class="premium-form-card" style="margin-top: 3rem; padding: 2rem; text-align: left;">
-        <h3 style="font-size: 1.4rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--aura-gold);">Profile Details</h3>
-        <p style="margin-bottom: 0.5rem; font-weight: 600;">{{ customer.name }}</p>
-        <p style="margin-bottom: 1.5rem;">{{ customer.email }}</p>
-        {{ customer.default_address | format_address }}
+      <div class="premium-form-card" style="margin-top: 3rem; padding: 2.5rem; text-align: left; max-width: 100%;">
+        <h3 style="font-size: 1.4rem; margin-top: 0; margin-bottom: 1.5rem; text-transform: uppercase; color: var(--aura-brand-gold); letter-spacing: 0.1em; font-weight: var(--aura-font-weight-semibold);">Profile Details</h3>
+        <p style="margin-bottom: 0.5rem; font-weight: var(--aura-font-weight-semibold); color: var(--aura-brand-dark);">{{ customer.name }}</p>
+        <p style="margin-bottom: 1.5rem; color: var(--aura-color-text-subtle);">{{ customer.email }}</p>
+        <div style="font-size: 1.3rem; color: var(--aura-color-text-subtle); line-height: 1.6;">
+          {{ customer.default_address | format_address }}
+        </div>
       </div>
     </aside>
 
     <!-- Main Content -->
     <main class="account-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
-        <h2 style="font-size: 2.2rem; text-transform: uppercase; letter-spacing: 0.1em;">Order History</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;">
+        <h2 style="font-size: 2.2rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0; color: var(--aura-brand-dark);">Order History</h2>
         {%- if customer.orders.size > 0 -%}
           <span class="status-badge status-badge--info">Total {{ customer.orders_count }} orders</span>
         {%- endif -%}
@@ -66,32 +68,50 @@
         {%- if customer.orders.size > 0 -%}
           <div class="order-list">
             {%- for order in customer.orders -%}
-              <div class="order-card">
-                <div class="order-card__info">
-                  <h3>Order {{ order.name }}</h3>
-                  <p>{{ order.created_at | time_tag: format: 'date' }}</p>
-                  <p style="margin-top: 1rem; font-weight: 600; color: var(--aura-gold);">{{ order.total_net_amount | money_with_currency }}</p>
-                </div>
-                
-                <div style="text-align: right;">
-                  <div style="margin-bottom: 1.5rem;">
-                    <span class="status-badge {% if order.financial_status == 'paid' %}status-badge--success{% else %}status-badge--warning{% endif %}">
-                      {{ order.financial_status_label }}
-                    </span>
-                    <span class="status-badge status-badge--info" style="margin-left: 0.5rem;">
-                      {{ order.fulfillment_status_label }}
-                    </span>
+              <div class="order-card" style="display: flex; gap: 2rem; align-items: center; justify-content: space-between; width: 100%;">
+                <div style="display: flex; gap: 2rem; align-items: center; flex-grow: 1;">
+                  <div class="order-card-image" style="width: 100px; height: 100px; border-radius: var(--aura-radius); overflow: hidden; background: var(--aura-brand-bg-warm); flex-shrink: 0; border: 1px solid rgba(168,139,106,0.12);">
+                    {%- if order.line_items.first.image -%}
+                      <img src="{{ order.line_items.first.image | image_url: width: 200 }}" alt="{{ order.line_items.first.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {%- endif -%}
                   </div>
-                  <a href="{{ order.customer_url }}" class="button button--secondary" style="font-size: 1.2rem; padding: 0.8rem 2rem;">
-                    View Order Details
+                  <div class="order-card-details">
+                    <h3 style="font-size: 1.8rem; margin: 0 0 0.5rem; text-transform: capitalize; font-weight: var(--aura-font-weight-semibold); color: var(--aura-brand-dark);">
+                      {%- if order.fulfillment_status == 'fulfilled' -%}
+                        Delivered
+                      {%- elsif order.fulfillment_status == 'unfulfilled' -%}
+                        Confirmed
+                      {%- else -%}
+                        {{ order.fulfillment_status_label | default: 'Confirmed' }}
+                      {%- endif -%}
+                    </h3>
+                    <p style="margin: 0; font-size: 1.3rem; color: var(--aura-color-text-subtle);">
+                      Order {{ order.name }} &bull; {{ order.total_net_amount | money_with_currency }} &bull; {{ order.created_at | time_tag: format: 'date' }}
+                    </p>
+                  </div>
+                </div>
+                <div class="order-card-actions" style="display: flex; gap: 1rem; align-items: center; flex-shrink: 0;">
+                  <a href="{{ order.customer_url }}" class="button button--secondary">
+                    View details
                   </a>
+                  {%- if order.line_items.first.variant_id -%}
+                    <form method="post" action="/cart/add" style="display: inline; margin: 0;">
+                      <input type="hidden" name="id" value="{{ order.line_items.first.variant_id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="button button--primary">
+                        Buy again
+                      </button>
+                    </form>
+                  {%- endif -%}
                 </div>
               </div>
             {%- endfor -%}
           </div>
         {%- else -%}
           <div class="premium-form-card" style="padding: 6rem 2rem;">
-             <p style="color: #888;">{{ 'customer.orders.none' | t }}</p>
+             <p style="color: var(--aura-color-text-subtle);">{{ 'customer.orders.none' | t }}</p>
              <a href="{{ routes.all_products_collection_url }}" class="button" style="margin-top: 2rem;">
                Start Shopping
              </a>

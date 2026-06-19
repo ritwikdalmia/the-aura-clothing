@@ -180,12 +180,15 @@
     },
     "premium_collections": {
       "type": "premium-collections",
-
       "settings": {
         "title": "Our Premium Collection",
         "subtitle": "Curated For You",
         "color_scheme": "",
-        "collection_list": [],
+        "collection_list": [
+          "co-ord-sets",
+          "dresses",
+          "tops"
+        ],
         "overlay_opacity": 40,
         "padding_top": 60,
         "padding_bottom": 60
