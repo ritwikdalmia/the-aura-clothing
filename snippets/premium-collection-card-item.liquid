@@ -52,7 +52,7 @@
 
   {%- comment -%} Product count badge {%- endcomment -%}
   {%- if col != blank and col.all_products_count > 0 -%}
-    <div class="pc-card-count">{{ col.all_products_count }} items</div>
+    <div class="pc-card-count">{{ 'sections.header.cart_count' | t: count: col.all_products_count | default: 'items' }}</div>
   {%- endif -%}
 
   {%- comment -%} Content {%- endcomment -%}
@@ -62,7 +62,7 @@
     {%- endif -%}
     <h3 class="pc-card-title">{{ col_title | escape }}</h3>
     <span class="pc-card-btn">
-      Explore
+      {{ section.settings.explore_button_text | default: 'Explore' | escape }}
       <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
     </span>
   </div>

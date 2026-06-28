@@ -1,4 +1,4 @@
-﻿{%- style -%}
+{%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -591,12 +591,12 @@
                   -%}
                   {%- if product.compare_at_price > product.price -%}
                     {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
-                    <span class="bs-badge bs-badge--sale">-{{ savings }}% SALE</span>
+                    <span class="bs-badge bs-badge--sale">-{{ savings }}% {{ 'products.product.on_sale' | t | default: 'SALE' }}</span>
                   {%- elsif is_new or product.tags contains 'new' or product.tags contains 'New' -%}
-                    <span class="bs-badge bs-badge--new">New</span>
+                    <span class="bs-badge bs-badge--new">{{ 'products.product.new' | t | default: 'New' }}</span>
                   {%- endif -%}
                   {%- if product.available == false -%}
-                    <span class="bs-badge bs-badge--sold-out">Sold Out</span>
+                    <span class="bs-badge bs-badge--sold-out">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
                   {%- endif -%}
                 </div>
                 <button class="bs-wishlist" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
@@ -614,7 +614,7 @@
                   {{ 'product-1' | placeholder_svg_tag: 'bs-card-img-primary' }}
                 {%- endif -%}
                 {%- if product.available -%}
-                  <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)">Quick Add</div>
+                  <div class="bs-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)">{{ 'products.product.choose_options' | t | default: 'Quick Add' }}</div>
                 {%- endif -%}
               </div>
               <div class="bs-card-info">
@@ -698,18 +698,30 @@
 {%- endif -%}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  function initBestsellers(event) {
+    // If event is passed, check if it's this section or verify designMode
+    if (event && event.target && !event.target.querySelector('.bs-carousel-wrapper')) return;
+    
     document.querySelectorAll('.bs-carousel-wrapper').forEach(function (wrapper) {
+      // Prevent double initialization
+      if (wrapper.dataset.initialized) return;
+      wrapper.dataset.initialized = 'true';
+
       var track = wrapper.querySelector('[data-bs-track]');
       var prevBtn = wrapper.querySelector('[data-bs-prev]');
       var nextBtn = wrapper.querySelector('[data-bs-next]');
       if (!track) return;
 
-      var cardWidth = 320;
       var autoScrollInterval;
       var scrollSpeed = {{ section.settings.auto_scroll_speed | default: 4 }} * 1000;
 
+      function getCardWidth() {
+        var firstCard = track.firstElementChild;
+        return firstCard ? firstCard.getBoundingClientRect().width : 320;
+      }
+
       function scrollNext() {
+        var cardWidth = getCardWidth();
         var maxScroll = track.scrollWidth - track.clientWidth;
         if (track.scrollLeft >= maxScroll - 10) {
           track.scrollTo({ left: 0, behavior: 'smooth' });
@@ -720,6 +732,8 @@
 
       function startAutoScroll() {
         if (scrollSpeed > 0) {
+          // Clear any existing interval to prevent overlapping triggers
+          clearInterval(autoScrollInterval);
           autoScrollInterval = setInterval(scrollNext, scrollSpeed);
         }
       }
@@ -739,6 +753,7 @@
 
       if (prevBtn) {
         prevBtn.addEventListener('click', function () {
+          var cardWidth = getCardWidth();
           stopAutoScroll();
           track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
           setTimeout(startAutoScroll, 5000);
@@ -753,7 +768,14 @@
         });
       }
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initBestsellers();
   });
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', initBestsellers);
+  }
 </script>
 
 {% schema %}

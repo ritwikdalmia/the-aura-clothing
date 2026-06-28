@@ -1279,22 +1279,22 @@
                       <div class="reels-variant-price-box">{{ product.price | money | default: product_price }}</div>
                    </div>
                 </div>
-                {%- if product != blank -%}
-                <div class="reels-variant-options">
-                   <p class="reels-variant-opt-title">Size</p>
-                   <div class="reels-variant-list">
-                      {%- for variant in product.variants -%}
-                         <div class="reels-variant-item {% if forloop.first %}is-selected{% endif %}" data-variant-id="{{ variant.id }}">
-                           {{ variant.title }}
-                         </div>
-                      {%- endfor -%}
-                   </div>
-                </div>
-                <div class="reels-variant-footer">
-                   <button class="reels-var-btn reels-var-btn--cancel">Cancel</button>
-                   <button class="reels-var-btn reels-var-btn--add" data-variant-id="{{ product.variants.first.id }}">Add to Cart</button>
-                </div>
-                {%- endif -%}
+                 {%- if product != blank -%}
+                 <div class="reels-variant-options">
+                    <p class="reels-variant-opt-title">{{ product.options_with_values[0].name | default: 'Size' }}</p>
+                    <div class="reels-variant-list">
+                       {%- for variant in product.variants -%}
+                          <div class="reels-variant-item {% if forloop.first %}is-selected{% endif %}" data-variant-id="{{ variant.id }}">
+                            {{ variant.title }}
+                          </div>
+                       {%- endfor -%}
+                    </div>
+                 </div>
+                 <div class="reels-variant-footer">
+                    <button class="reels-var-btn reels-var-btn--cancel">{{ 'customer.addresses.cancel' | t | default: 'Cancel' }}</button>
+                    <button class="reels-var-btn reels-var-btn--add" data-variant-id="{{ product.variants.first.id }}">{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}</button>
+                 </div>
+                 {%- endif -%}
              </div>
           </div>
         </div>
@@ -1304,11 +1304,21 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  function initReels(event) {
+    if (event && event.target && !event.target.querySelector('#ReelsPlayerModal') && !event.target.querySelector('[data-reels-carousel]')) return;
+
     const carouselContainer = document.querySelector('[data-reels-carousel]');
-    const isAutoplay = carouselContainer ? carouselContainer.dataset.autoplay === 'true' : false;
+    if (!carouselContainer) return;
+
+    // Prevent double initialization
+    if (carouselContainer.dataset.initialized) return;
+    carouselContainer.dataset.initialized = 'true';
+
+    const isAutoplay = carouselContainer.dataset.autoplay === 'true';
     const playerModal = document.getElementById('ReelsPlayerModal');
     const playerSlider = document.querySelector('[data-reels-player-slider]');
+    if (!playerModal || !playerSlider) return;
+
     let isGlobalMuted = true;
 
     // 1. Carousel Video Behavior (Main Page)
@@ -1350,23 +1360,18 @@
       });
     }
 
-    // 2. Open Reels Player - DISABLED
-    /*
+    // 2. Open Reels Player
     document.querySelectorAll('[data-reel-card]').forEach((card, index) => {
       card.addEventListener('click', (e) => {
-        // Prevent opening if clicking Quick Add button (which uses a different modal)
-        if (e.target.classList.contains('reel-quick-add')) return;
-        
+        if (e.target.classList.contains('reel-quick-add') || e.target.closest('.reel-quick-add') || e.target.closest('.reel-product-bar')) return;
         openReelPlayer(index);
       });
     });
-    */
 
     function openReelPlayer(index) {
       playerModal.classList.add('is-active');
       document.body.style.overflow = 'hidden'; // Lock scroll
       
-      // Scroll to correct index
       const targetItem = playerSlider.querySelector(`.reels-player-item[data-index="${index}"]`);
       if (targetItem) {
         playerSlider.scrollTo({
@@ -1390,7 +1395,6 @@
         const video = item.querySelector('.reels-player-video');
         if (!video) return;
 
-        // Check if item is mostly visible
         if (Math.abs(itemRect.left - rect.left) < rect.width / 2) {
           video.muted = isGlobalMuted;
           video.play().catch(() => {});
@@ -1405,7 +1409,8 @@
     function toggleMuteIcon(item, muted) {
       const btn = item.querySelector('.reels-mute-toggle');
       if (btn) {
-        btn.querySelector('.wave').style.display = muted ? 'none' : 'block';
+        const wave = btn.querySelector('.wave');
+        if (wave) wave.style.display = muted ? 'none' : 'block';
       }
     }
 
@@ -1422,7 +1427,6 @@
         return;
       }
 
-      // 4b. Action Stack buttons
       const actionBtn = e.target.closest('.reels-action-btn');
       if (actionBtn) {
         if (actionBtn.classList.contains('reels-wishlist-btn')) {
@@ -1432,7 +1436,6 @@
             actionBtn.classList.toggle('is-active');
           }
         } else {
-          // Share logic placeholder
           if (navigator.share) {
              const url = window.location.href;
              navigator.share({ title: 'Check this out!', url: url }).catch(() => {});
@@ -1447,7 +1450,6 @@
       playerModal.classList.remove('is-active');
       document.body.style.overflow = '';
       
-      // Stop all player videos
       playerSlider.querySelectorAll('.reels-player-video').forEach(v => {
         v.pause();
         v.currentTime = 0;
@@ -1467,7 +1469,6 @@
       const variantOverlay = e.target.closest('.reels-variant-overlay');
       if (!variantOverlay) return;
 
-      // Select variant
       const varItem = e.target.closest('.reels-variant-item');
       if (varItem) {
         varItem.parentElement.querySelectorAll('.reels-variant-item').forEach(i => i.classList.remove('is-selected'));
@@ -1477,7 +1478,6 @@
         return;
       }
 
-      // Action buttons
       const actionBtn = e.target.closest('.reels-var-btn');
       if (!actionBtn) return;
 
@@ -1494,33 +1494,42 @@
       btn.innerText = 'Adding...';
       btn.disabled = true;
 
+      const drawer = document.querySelector("cart-drawer");
+      const sections = drawer ? drawer.getSectionsToRender().map(t => t.id) : [];
+
       try {
         const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+          body: JSON.stringify({ 
+            items: [{ id: variantId, quantity: 1 }],
+            sections: sections,
+            sections_url: window.location.pathname
+          })
         });
         
+        const cartData = await response.json();
         if (response.ok) {
           btn.innerText = 'Added!';
+          if (drawer && typeof drawer.renderContents === 'function') {
+            drawer.renderContents(cartData);
+          }
           setTimeout(() => {
             btn.innerText = originalText;
             btn.disabled = false;
             btn.closest('.reels-variant-overlay').classList.remove('is-active');
-            // Refresh cart drawer if exist
             document.dispatchEvent(new CustomEvent('cart:refresh'));
           }, 1000);
         } else {
-          throw new Error('Failed to add');
+          throw new Error(cartData.description || 'Failed to add');
         }
       } catch (e) {
-        alert('Could not add to cart. Please try again.');
+        alert(e.message || 'Could not add to cart. Please try again.');
         btn.innerText = originalText;
         btn.disabled = false;
       }
     }
 
-    // Utils
     function debounce(func, wait) {
       let timeout;
       return function() {
@@ -1530,7 +1539,7 @@
       };
     }
 
-    // 6. Carousel arrows (original logic)
+    // 6. Carousel arrows
     document.querySelectorAll('.reels-carousel-wrapper').forEach(function (wrapper) {
       var carousel = wrapper.querySelector('[data-reels-carousel]');
       var prevBtn = wrapper.querySelector('[data-carousel-prev]');
@@ -1548,7 +1557,14 @@
         });
       }
     });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initReels();
   });
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', initReels);
+  }
 </script>
 
 {% schema %}

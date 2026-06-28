@@ -3,7 +3,7 @@
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
-  data-update-url="true"
+  data-update-url="false"
   data-url="{{ product.url }}"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
@@ -308,10 +308,10 @@
                        <h3 class="countdown-title">{{ block.settings.title }}</h3>
                      </div>
                      <div class="countdown-display" data-end-date="{{ offer_end }}">
-                        <div class="countdown-unit"><span class="unit-value" data-days>00</span><span class="unit-label">DAYS</span></div>
-                        <div class="countdown-unit"><span class="unit-value" data-hours>00</span><span class="unit-label">HOURS</span></div>
-                        <div class="countdown-unit"><span class="unit-value" data-minutes>00</span><span class="unit-label">MIN</span></div>
-                        <div class="countdown-unit"><span class="unit-value" data-seconds>00</span><span class="unit-label">SEC</span></div>
+                        <div class="countdown-unit"><span class="unit-value" data-days>00</span><span class="unit-label">{{ block.settings.label_days | default: 'DAYS' }}</span></div>
+                        <div class="countdown-unit"><span class="unit-value" data-hours>00</span><span class="unit-label">{{ block.settings.label_hours | default: 'HOURS' }}</span></div>
+                        <div class="countdown-unit"><span class="unit-value" data-minutes>00</span><span class="unit-label">{{ block.settings.label_minutes | default: 'MIN' }}</span></div>
+                        <div class="countdown-unit"><span class="unit-value" data-seconds>00</span><span class="unit-label">{{ block.settings.label_seconds | default: 'SEC' }}</span></div>
                      </div>
                   </div>
                 {%- endif -%}
@@ -2049,6 +2049,30 @@
           "id": "subtext",
           "label": "Subtext",
           "default": "Exclusive styles at 30% off, only for three days!"
+        },
+        {
+          "type": "text",
+          "id": "label_days",
+          "label": "Days Label",
+          "default": "DAYS"
+        },
+        {
+          "type": "text",
+          "id": "label_hours",
+          "label": "Hours Label",
+          "default": "HOURS"
+        },
+        {
+          "type": "text",
+          "id": "label_minutes",
+          "label": "Minutes Label",
+          "default": "MIN"
+        },
+        {
+          "type": "text",
+          "id": "label_seconds",
+          "label": "Seconds Label",
+          "default": "SEC"
         }
       ]
     },

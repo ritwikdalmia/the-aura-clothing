@@ -1,198 +1,324 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
-{{ 'aura-customer-premium.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+<style>
+  .order-page {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: var(--font-body-family);
+    color: #1a1a1a;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px;
+  }
+
+  .order-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .order-status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+  }
+
+  .order-status-badge.unfulfilled {
+    background: #fff7ed;
+    color: #ea580c;
+    border-color: #fed7aa;
+  }
+
+  .order-status-badge.cancelled {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+  }
+
+  .order-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .order-grid {
+      grid-template-columns: 1fr;
     }
   }
-{%- endstyle -%}
 
-<div class="page-width section-{{ section.id }}-padding">
-  <div class="account-header">
+  /* Line Items */
+  .order-items-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .order-items-card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fafafa;
+  }
+
+  .line-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+  }
+
+  .line-item:last-child {
+    border-bottom: none;
+  }
+
+  .line-item img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+  }
+
+  .line-item-placeholder {
+    width: 72px;
+    height: 72px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 11px;
+  }
+
+  .line-item-details {
+    flex: 1;
+  }
+
+  .line-item-details .product-title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .line-item-details .variant-title {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .line-item-details .quantity {
+    font-size: 13px;
+    color: #888;
+  }
+
+  .line-item-price {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  /* Summary Card */
+  .order-summary-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .order-summary-card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+
+  .summary-row.total {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1a1a1a;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+
+  /* Address Cards */
+  .address-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .address-card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+
+  .address-card address {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+
+  .back-link:hover {
+    color: #000;
+  }
+</style>
+
+<div class="order-page">
+
+  <a href="{{ routes.account_url }}" class="back-link">
+    ← Back to Account
+  </a>
+
+  <div class="order-header">
     <h1>Order {{ order.name }}</h1>
-    <p>Placed on {{ order.created_at | time_tag: format: 'date_at_time' }}</p>
+    <span class="order-status-badge {{ order.fulfillment_status }}">
+      {{ order.fulfillment_status_label }}
+    </span>
   </div>
 
-  <div class="customer account-container">
-    <!-- Sidebar Navigation -->
-    <aside class="account-nav">
-      <ul class="account-nav-list">
-        <li class="account-nav-item">
-          <a href="{{ routes.account_url }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            Dashboard
-          </a>
-        </li>
-        <li class="account-nav-item">
-          <a href="{{ routes.account_addresses_url }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            Addresses
-          </a>
-        </li>
-        <li class="account-nav-item">
-          <a href="{{ routes.account_logout_url }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-            Logout
-          </a>
-        </li>
-      </ul>
+  <p style="color:#888; font-size:14px; margin-top:-20px; margin-bottom:28px;">
+    Placed on {{ order.created_at | date: "%B %d, %Y" }}
+  </p>
 
-      <div class="premium-form-card" style="margin-top: 3rem; padding: 2.5rem; text-align: left; max-width: 100%;">
-        <h3 style="font-size: 1.4rem; margin-top: 0; margin-bottom: 1.5rem; text-transform: uppercase; color: var(--aura-brand-gold); letter-spacing: 0.1em; font-weight: var(--aura-font-weight-semibold);">Order Summary</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 1.2rem; font-size: 1.3rem;">
-          <span style="color: var(--aura-color-text-subtle);">Status</span>
-          <span class="status-badge {% if order.financial_status == 'paid' %}status-badge--success{% else %}status-badge--warning{% endif %}">
-            {{ order.financial_status_label }}
-          </span>
+  <div class="order-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+
+      <!-- Line Items -->
+      <div class="order-items-card">
+        <h2>Items Ordered</h2>
+        {% for line_item in order.line_items %}
+          <div class="line-item">
+            {% if line_item.image %}
+              <img src="{{ line_item.image | img_url: '150x150' }}" alt="{{ line_item.title }}">
+            {% else %}
+              <div class="line-item-placeholder">No image</div>
+            {% endif %}
+            <div class="line-item-details">
+              <div class="product-title">{{ line_item.title }}</div>
+              {% unless line_item.variant_title == 'Default Title' %}
+                <div class="variant-title">{{ line_item.variant_title }}</div>
+              {% endunless %}
+              <div class="quantity">Qty: {{ line_item.quantity }}</div>
+            </div>
+            <div class="line-item-price">
+              {{ line_item.final_line_price | money }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Shipping Address -->
+      {% if order.shipping_address %}
+        <div class="address-card">
+          <h2>Shipping Address</h2>
+          <address>
+            {{ order.shipping_address.name }}<br>
+            {{ order.shipping_address.address1 }}<br>
+            {% if order.shipping_address.address2 != blank %}
+              {{ order.shipping_address.address2 }}<br>
+            {% endif %}
+            {{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}<br>
+            {{ order.shipping_address.country }}
+          </address>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 1.2rem; font-size: 1.3rem;">
-          <span style="color: var(--aura-color-text-subtle);">Fulfillment</span>
-          <span class="status-badge status-badge--info">{{ order.fulfillment_status_label }}</span>
+      {% endif %}
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+
+      <!-- Order Summary -->
+      <div class="order-summary-card">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ order.subtotal_price | money }}</span>
         </div>
-        <hr style="margin: 2rem 0; border: none; border-top: 1px solid rgba(168,139,106,0.12);">
-        <div style="display: flex; justify-content: space-between; font-weight: var(--aura-font-weight-bold); font-size: 1.6rem; color: var(--aura-brand-gold);">
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>{{ order.shipping_price | money }}</span>
+        </div>
+        {% if order.tax_price > 0 %}
+          <div class="summary-row">
+            <span>Taxes</span>
+            <span>{{ order.tax_price | money }}</span>
+          </div>
+        {% endif %}
+        <div class="summary-row total">
           <span>Total</span>
-          <span>{{ order.total_net_amount | money_with_currency }}</span>
+          <span>{{ order.total_price | money }}</span>
         </div>
       </div>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="account-content">
-      {%- if order.cancelled -%}
-        <div class="premium-form-card" style="background: #fff5f5; border-color: #feb2b2; margin-bottom: 3rem; text-align: left; max-width: 100%;">
-          {%- assign cancelled_at = order.cancelled_at | time_tag: format: 'date_at_time' -%}
-          <h2 style="color: #c53030; font-size: 1.8rem; margin-bottom: 0.5rem; margin-top: 0;">Order Cancelled</h2>
-          <p style="color: #9b2c2c; font-size: 1.4rem;">{{ 'customer.order.cancelled_html' | t: date: cancelled_at }}</p>
-          <p style="color: #9b2c2c; font-size: 1.4rem;">Reason: {{ order.cancel_reason_label }}</p>
+      <!-- Billing Address -->
+      {% if order.billing_address %}
+        <div class="address-card">
+          <h2>Billing Address</h2>
+          <address>
+            {{ order.billing_address.name }}<br>
+            {{ order.billing_address.address1 }}<br>
+            {% if order.billing_address.address2 != blank %}
+              {{ order.billing_address.address2 }}<br>
+            {% endif %}
+            {{ order.billing_address.city }}, {{ order.billing_address.province }} {{ order.billing_address.zip }}<br>
+            {{ order.billing_address.country }}
+          </address>
         </div>
-      {%- endif -%}
+      {% endif %}
 
-      <div class="premium-form-card" style="text-align: left; padding: 4rem; max-width: 100%;">
-        <h2 style="font-size: 2rem; margin-top: 0; margin-bottom: 2.5rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--aura-brand-dark);">Items Ordered</h2>
-        
-        <table role="table" class="order-details" style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="border-bottom: 1px solid rgba(168,139,106,0.12);">
-              <th style="padding: 1.5rem 0; text-align: left; font-size: 1.2rem; text-transform: uppercase; color: var(--aura-color-text-subtle); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Product</th>
-              <th style="padding: 1.5rem 0; text-align: right; font-size: 1.2rem; text-transform: uppercase; color: var(--aura-color-text-subtle); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Price</th>
-              <th style="padding: 1.5rem 0; text-align: right; font-size: 1.2rem; text-transform: uppercase; color: var(--aura-color-text-subtle); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Qty</th>
-              <th style="padding: 1.5rem 0; text-align: right; font-size: 1.2rem; text-transform: uppercase; color: var(--aura-color-text-subtle); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {%- for line_item in order.line_items -%}
-              <tr style="border-bottom: 1px solid rgba(168,139,106,0.06);">
-                <td style="padding: 2rem 0;">
-                  <div style="display: flex; gap: 1.5rem; align-items: center;">
-                    <div style="width: 60px; height: 80px; background: var(--aura-brand-bg-warm); border-radius: var(--aura-radius-xs); overflow: hidden; border: 1px solid rgba(168,139,106,0.12);">
-                      {% if line_item.image %}
-                        <img src="{{ line_item.image | image_url: width: 120 }}" alt="{{ line_item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
-                      {% else %}
-                        {{ 'product-1' | placeholder_svg_tag }}
-                      {% endif %}
-                    </div>
-                    <div>
-                      <a href="{{ line_item.url }}" style="font-weight: var(--aura-font-weight-semibold); color: var(--aura-brand-dark); text-decoration: none; font-size: 1.4rem;">{{ line_item.title | escape }}</a>
-                      {%- unless line_item.product.has_only_default_variant -%}
-                        <p style="font-size: 1.2rem; color: var(--aura-color-text-subtle); margin-top: 0.4rem; margin-bottom: 0;">{{ line_item.variant.title }}</p>
-                      {%- endunless -%}
-                      {%- if line_item.fulfillment -%}
-                        <div style="margin-top: 1rem; font-size: 1.1rem; display: flex; align-items: center; gap: 1rem;">
-                          <span class="status-badge status-badge--success" style="padding: 0.3rem 1rem;">Fulfilled</span>
-                          {%- if line_item.fulfillment.tracking_url -%}
-                            <a href="{{ line_item.fulfillment.tracking_url }}" style="color: var(--aura-brand-gold); text-decoration: none; font-weight: var(--aura-font-weight-semibold);">Track Item</a>
-                          {%- endif -%}
-                        </div>
-                      {%- endif -%}
-                    </div>
-                  </div>
-                </td>
-                <td style="padding: 2rem 0; text-align: right; font-size: 1.4rem; color: var(--aura-color-text-medium);">{{ line_item.original_price | money }}</td>
-                <td style="padding: 2rem 0; text-align: right; font-size: 1.4rem; color: var(--aura-color-text-medium);">{{ line_item.quantity }}</td>
-                <td style="padding: 2rem 0; text-align: right; font-weight: var(--aura-font-weight-semibold); font-size: 1.4rem; color: var(--aura-brand-dark);">{{ line_item.final_line_price | money }}</td>
-              </tr>
-            {%- endfor -%}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="3" style="padding: 2rem 0 0.8rem; text-align: right; color: var(--aura-color-text-subtle); font-size: 1.4rem;">Subtotal</td>
-              <td style="padding: 2rem 0 0.8rem; text-align: right; font-size: 1.4rem; color: var(--aura-brand-dark);">{{ order.line_items_subtotal_price | money }}</td>
-            </tr>
-            {%- for shipping_method in order.shipping_methods -%}
-              <tr>
-                <td colspan="3" style="padding: 0.8rem 0; text-align: right; color: var(--aura-color-text-subtle); font-size: 1.4rem;">Shipping ({{ shipping_method.title }})</td>
-                <td style="padding: 0.8rem 0; text-align: right; font-size: 1.4rem; color: var(--aura-brand-dark);">{{ shipping_method.price | money }}</td>
-              </tr>
-            {%- endfor -%}
-            {%- for tax_line in order.tax_lines -%}
-              <tr>
-                <td colspan="3" style="padding: 0.8rem 0; text-align: right; color: var(--aura-color-text-subtle); font-size: 1.4rem;">Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
-                <td style="padding: 0.8rem 0; text-align: right; font-size: 1.4rem; color: var(--aura-brand-dark);">{{ tax_line.price | money }}</td>
-              </tr>
-            {%- endfor -%}
-            <tr>
-              <td colspan="3" style="padding: 2rem 0 0; text-align: right; font-weight: var(--aura-font-weight-bold); font-size: 1.8rem; color: var(--aura-brand-dark); border-top: 1px solid rgba(168,139,106,0.12);">Total</td>
-              <td style="padding: 2rem 0 0; text-align: right; font-weight: var(--aura-font-weight-bold); font-size: 1.8rem; color: var(--aura-brand-gold); border-top: 1px solid rgba(168,139,106,0.12);">{{ order.total_net_amount | money_with_currency }}</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 3rem; margin-top: 3rem;">
-        <div class="premium-form-card" style="text-align: left; padding: 3rem; max-width: 100%; margin: 0;">
-          <h3 style="font-size: 1.6rem; margin-top: 0; margin-bottom: 1.5rem; text-transform: uppercase; color: var(--aura-brand-gold); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Billing Address</h3>
-          <div style="font-size: 1.4rem; color: var(--aura-color-text-subtle); line-height: 1.6;">
-            {{ order.billing_address | format_address }}
-          </div>
-        </div>
-        <div class="premium-form-card" style="text-align: left; padding: 3rem; max-width: 100%; margin: 0;">
-          <h3 style="font-size: 1.6rem; margin-top: 0; margin-bottom: 1.5rem; text-transform: uppercase; color: var(--aura-brand-gold); font-weight: var(--aura-font-weight-semibold); letter-spacing: 0.05em;">Shipping Address</h3>
-          <div style="font-size: 1.4rem; color: var(--aura-color-text-subtle); line-height: 1.6;">
-            {{ order.shipping_address | format_address }}
-          </div>
-        </div>
-      </div>
-    </main>
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "t:sections.main-order.name",
-  "settings": [
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    }
-  ]
+  "name": "Order",
+  "settings": []
 }
 {% endschema %}

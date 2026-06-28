@@ -1,4 +1,4 @@
-﻿{%- style -%}
+{%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -514,13 +514,13 @@
                 -%}
                 {%- if product.compare_at_price > product.price -%}
                   {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
-                  <span class="na-badge na-badge--sale">Sale -{{ savings }}%</span>
+                  <span class="na-badge na-badge--sale">{{ 'products.product.on_sale' | t | default: 'Sale' }} -{{ savings }}%</span>
                 {%- endif -%}
                 {%- if is_new or product.tags contains 'New' or product.tags contains 'new' -%}
-                  <span class="na-badge na-badge--new">New</span>
+                  <span class="na-badge na-badge--new">{{ 'products.product.new' | t | default: 'New' }}</span>
                 {%- endif -%}
                 {%- if product.available == false -%}
-                  <span class="na-badge na-badge--sold-out">Sold Out</span>
+                  <span class="na-badge na-badge--sold-out">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
                 {%- endif -%}
               </div>
               <button class="na-wishlist" aria-label="Add to wishlist" data-aura-wishlist="{{ product.handle }}">
@@ -573,7 +573,7 @@
                 {{ 'product-1' | placeholder_svg_tag: 'na-card-img-primary' }}
               {%- endif -%}
               {%- if product.available -%}
-                <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)">Quick Add</div>
+                <div class="na-quick-add" onclick="event.preventDefault(); event.stopPropagation(); openQuickAdd('{{ product.url }}', this)">{{ 'products.product.choose_options' | t | default: 'Quick Add' }}</div>
               {%- endif -%}
             </div>
             <div class="na-card-info">
