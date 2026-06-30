@@ -143,13 +143,6 @@
       }
     },
     "content_for_index": [],
-    "blocks": {
-      "10534424223343191814": {
-        "type": "shopify://apps/custlo/blocks/app-embed/f81081fd-cd04-43ee-897a-18ef0e5d9b04",
-        "disabled": false,
-        "settings": {}
-      }
-    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
