@@ -1427,7 +1427,7 @@
         "type": "range",
         "id": "badge_corner_radius",
         "min": 0,
-        "max": 40,
+        "max": 100,
         "step": 2,
         "unit": "px",
         "label": "t:settings_schema.global.settings.corner_radius.label",
@@ -1630,6 +1630,45 @@
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",
         "default": "scheme-1"
+      }
+    ]
+  },
+  {
+    "name": "WhatsApp Widget",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_whatsapp",
+        "label": "Enable WhatsApp Widget",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number",
+        "info": "Enter your full phone number with country code, no plus or spaces (e.g. 12345678900)",
+        "default": "12345678900"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "General Message",
+        "info": "Pre-filled message for the homepage and general pages. Use {url} to include the link.",
+        "default": "Hi, I have a question about your products! - {url}"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_product_message",
+        "label": "Product Page Message",
+        "info": "Pre-filled message for product pages. Use {product} for the product title and {url} for the link.",
+        "default": "Hi! I would like to know about this product: {product}. I am interested! Link: {url}"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_collection_message",
+        "label": "Collection Page Message",
+        "info": "Pre-filled message for collection pages. Use {collection} for the collection title and {url} for the link.",
+        "default": "Hi! I would like to know about this collection: {collection}. Link: {url}"
       }
     ]
   }
